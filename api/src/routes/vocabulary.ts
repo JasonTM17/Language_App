@@ -11,7 +11,7 @@ const reviewSchema = z.object({
 
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
   try {
-    const { lessonId } = req.query;
+    const { lessonId, due } = req.query;
     const where: any = {};
     if (lessonId) where.lessonId = lessonId;
 
@@ -21,6 +21,17 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
         flashcardProgress: { where: { userId: req.userId! } },
       },
     });
+
+    if (due === 'true') {
+      const now = new Date();
+      const dueCards = vocabulary.filter((v: any) => {
+        const progress = v.flashcardProgress[0];
+        if (!progress) return true;
+        return new Date(progress.nextReview) <= now;
+      });
+      return res.json({ vocabulary: dueCards, total: vocabulary.length, due: dueCards.length });
+    }
+
     res.json({ vocabulary });
   } catch {
     res.status(500).json({ error: 'Failed to fetch vocabulary' });
