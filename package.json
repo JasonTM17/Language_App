@@ -1,0 +1,14 @@
+{
+  "name": "linguaflow",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LinguaFlow - Modern Language Learning Platform",
+  "scripts": {
+    "dev:web": "cd web && npm run dev",
+    "dev:api": "cd api && npm run dev",
+    "build:web": "cd web && npm run build",
+    "build:api": "cd api && npm run build",
+    "lint": "cd web && npm run lint",
+    "test": "cd web && npm run test"
+  }
+}
