@@ -48,8 +48,7 @@ export default function AITutorPage() {
         role: 'assistant',
         content: getWelcomeMessage(selectedLang, selectedRole),
       }]);
-    } catch {
-      setSessionId('mock-session');
+    } catch (err) {
       setMessages([{
         role: 'assistant',
         content: getWelcomeMessage(selectedLang, selectedRole),
@@ -67,19 +66,24 @@ export default function AITutorPage() {
     setLoading(true);
 
     try {
-      const data = await api.chat.sendMessage(sessionId!, input.trim());
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: data.response.content,
-        corrections: data.response.corrections,
-        suggestion: data.response.suggestion,
-      }]);
+      if (sessionId) {
+        const data = await api.chat.sendMessage(sessionId, input.trim());
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: data.response.content,
+          corrections: data.response.corrections,
+          suggestion: data.response.suggestion,
+        }]);
+      } else {
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: getMockResponse(selectedLang, selectedRole),
+        }]);
+      }
     } catch {
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: getMockResponse(selectedLang, selectedRole),
-        corrections: [],
-        suggestion: 'Try writing a longer sentence for better practice!',
       }]);
     }
     setLoading(false);
