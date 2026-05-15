@@ -16,6 +16,8 @@ import chatRoutes from './routes/chat';
 import adminRoutes from './routes/admin';
 import achievementRoutes from './routes/achievements';
 import leaderboardRoutes from './routes/leaderboard';
+import onboardingRoutes from './routes/onboarding';
+import goalsRoutes from './routes/goals';
 
 dotenv.config();
 
@@ -59,6 +61,8 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/onboarding', onboardingRoutes);
+app.use('/api/goals', goalsRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
