@@ -35,6 +35,29 @@ router.get('/dashboard', authenticate, async (req: AuthRequest, res: Response) =
       include: { lesson: { include: { level: { include: { language: true } } } } },
     });
 
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+    sevenDaysAgo.setHours(0, 0, 0, 0);
+
+    const weeklyLessons = await prisma.lessonProgress.findMany({
+      where: { userId: req.userId!, completedAt: { gte: sevenDaysAgo } },
+      select: { completedAt: true },
+    });
+
+    const weeklyQuizzes = await prisma.quizAttempt.findMany({
+      where: { userId: req.userId!, createdAt: { gte: sevenDaysAgo } },
+      select: { createdAt: true },
+    });
+
+    const weeklyActivity = Array.from({ length: 7 }, (_, i) => {
+      const date = new Date(sevenDaysAgo);
+      date.setDate(date.getDate() + i);
+      const dayStr = date.toISOString().split('T')[0];
+      const lessons = weeklyLessons.filter((l: any) => l.completedAt?.toISOString().split('T')[0] === dayStr).length;
+      const quizzes = weeklyQuizzes.filter((q: any) => q.createdAt?.toISOString().split('T')[0] === dayStr).length;
+      return { date: dayStr, activities: lessons + quizzes };
+    });
+
     res.json({
       stats: {
         xp: user?.xp || 0,
@@ -45,6 +68,7 @@ router.get('/dashboard', authenticate, async (req: AuthRequest, res: Response) =
       },
       enrollments,
       recentProgress,
+      weeklyActivity,
     });
   } catch {
     res.status(500).json({ error: 'Failed to fetch dashboard' });
