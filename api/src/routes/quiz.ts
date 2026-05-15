@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { awardXP } from '../services/gamification';
 
 const router = Router();
 
@@ -33,10 +34,7 @@ router.post('/:id/attempt', authenticate, async (req: AuthRequest, res: Response
     });
 
     if (correct) {
-      await prisma.user.update({
-        where: { id: req.userId! },
-        data: { xp: { increment: 5 } },
-      });
+      await awardXP(req.userId!, 5);
     }
 
     res.json({ attempt, correct, explanation: quiz.explanation });

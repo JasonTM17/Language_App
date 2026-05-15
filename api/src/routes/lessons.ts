@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { awardXP } from '../services/gamification';
 
 const router = Router();
 
@@ -71,12 +72,9 @@ router.post('/:id/complete', authenticate, async (req: AuthRequest, res: Respons
       create: { userId: req.userId!, lessonId: lesson.id, completed: true, score, timeSpent, completedAt: new Date() },
     });
 
-    await prisma.user.update({
-      where: { id: req.userId! },
-      data: { xp: { increment: lesson.xpReward } },
-    });
+    const result = await awardXP(req.userId!, lesson.xpReward);
 
-    res.json({ progress });
+    res.json({ progress, ...result });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
