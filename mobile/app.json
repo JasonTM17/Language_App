@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "LinguaFlow",
+    "slug": "linguaflow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#6366F1"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.linguaflow.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#6366F1"
+      },
+      "package": "com.linguaflow.app"
+    },
+    "scheme": "linguaflow"
+  }
+}
