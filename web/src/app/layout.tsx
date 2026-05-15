@@ -11,6 +11,21 @@ export const metadata: Metadata = {
   title: 'LinguaFlow - Learn Languages Naturally',
   description: 'Modern language learning platform for Vietnamese students. Learn English, Japanese, Chinese, and Korean with AI-powered tutoring.',
   keywords: ['language learning', 'English', 'Japanese', 'Chinese', 'Korean', 'AI tutor', 'Vietnamese students'],
+  metadataBase: new URL('https://linguaflow.app'),
+  openGraph: {
+    title: 'LinguaFlow - Learn Languages Naturally',
+    description: 'Learn English, Japanese, Chinese, and Korean with AI-powered tutoring and smart flashcards.',
+    type: 'website',
+    locale: 'vi_VN',
+    siteName: 'LinguaFlow',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LinguaFlow - Learn Languages Naturally',
+    description: 'Learn English, Japanese, Chinese, and Korean with AI-powered tutoring.',
+  },
+  manifest: '/manifest.json',
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
