@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 const languages = [
@@ -16,6 +19,11 @@ const features = [
   { icon: '🏆', title: 'Gamification', desc: 'XP, streaks, levels, and achievements to keep you motivated' },
   { icon: '📱', title: 'Learn Anywhere', desc: 'Web and mobile apps synced so you never miss a lesson' },
 ];
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export default function LandingPage() {
   return (
@@ -46,18 +54,22 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800 mb-6">
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800 mb-6"
+          >
             <span className="text-xs font-medium text-primary-700 dark:text-primary-300">New: AI Tutor with role-play scenarios</span>
-          </div>
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+          </motion.div>
+          <motion.h1 {...fadeUp} transition={{ duration: 0.5, delay: 0.1 }} className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
             Learn Languages{' '}
             <span className="gradient-text">Naturally</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+          </motion.h1>
+          <motion.p {...fadeUp} transition={{ duration: 0.5, delay: 0.2 }} className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
             Master English, Japanese, Chinese, and Korean with AI-powered tutoring,
             smart flashcards, and personalized learning paths designed for Vietnamese students.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          </motion.p>
+          <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.3 }} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Link href="/auth/register">
               <Button size="xl" className="w-full sm:w-auto">
                 Start Learning Free
@@ -67,16 +79,22 @@ export default function LandingPage() {
             <Link href="#features">
               <Button variant="outline" size="xl" className="w-full sm:w-auto">See How It Works</Button>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Language Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {languages.map((lang) => (
-              <div key={lang.code} className="group p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+            {languages.map((lang, i) => (
+              <motion.div
+                key={lang.code}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
+                className="group p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              >
                 <div className="text-4xl mb-2">{lang.flag}</div>
                 <h3 className="font-semibold text-sm">{lang.name}</h3>
                 <p className="text-xs text-gray-500">{lang.learners} learners</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

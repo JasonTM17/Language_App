@@ -1,4 +1,5 @@
 import { Tabs } from 'expo-router';
+import { Text } from 'react-native';
 
 export default function TabLayout() {
   return (
@@ -17,13 +18,14 @@ export default function TabLayout() {
         headerShown: false,
       }}
     >
-      <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: () => null }} />
-      <Tabs.Screen name="flashcards" options={{ title: 'Cards', tabBarIcon: () => null }} />
-      <Tabs.Screen name="quiz" options={{ title: 'Quiz', tabBarIcon: () => null }} />
-      <Tabs.Screen name="ai-tutor" options={{ title: 'AI Tutor', tabBarIcon: () => null }} />
-      <Tabs.Screen name="progress" options={{ title: 'Progress', tabBarIcon: () => null }} />
+      <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>🏠</Text> }} />
+      <Tabs.Screen name="flashcards" options={{ title: 'Cards', tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>🃏</Text> }} />
+      <Tabs.Screen name="quiz" options={{ title: 'Quiz', tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>❓</Text> }} />
+      <Tabs.Screen name="ai-tutor" options={{ title: 'AI Tutor', tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>🤖</Text> }} />
+      <Tabs.Screen name="progress" options={{ title: 'Progress', tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>📊</Text> }} />
       <Tabs.Screen name="onboarding" options={{ href: null }} />
       <Tabs.Screen name="login" options={{ href: null }} />
+      <Tabs.Screen name="register" options={{ href: null }} />
       <Tabs.Screen name="lesson" options={{ href: null }} />
       <Tabs.Screen name="profile" options={{ href: null }} />
     </Tabs>

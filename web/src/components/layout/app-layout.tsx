@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import { useAuthStore, useAppStore } from '@/lib/store';
 
 const navItems = [
@@ -21,6 +22,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const { user, isAuthenticated, logout } = useAuthStore();
   const { sidebarOpen, toggleSidebar } = useAppStore();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -46,6 +48,17 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? (
+                <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" strokeWidth={2}/><path strokeLinecap="round" strokeWidth={2} d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              ) : (
+                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+              )}
+            </button>
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800">
               <span className="text-sm">🔥</span>
               <span className="text-sm font-medium text-orange-700 dark:text-orange-300">{user?.streak || 0} day streak</span>
