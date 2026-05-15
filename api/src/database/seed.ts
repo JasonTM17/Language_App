@@ -109,6 +109,17 @@ async function main() {
     ],
   });
 
+  // Japanese quizzes
+  await prisma.quiz.createMany({
+    data: [
+      { question: '"こんにちは" nghĩa là gì?', type: 'multiple_choice', options: JSON.stringify(['Tạm biệt', 'Xin chào', 'Cảm ơn', 'Xin lỗi']), answer: 'Xin chào', explanation: 'こんにちは (konnichiwa) là lời chào phổ biến nhất trong tiếng Nhật', lessonId: jaLesson1.id },
+      { question: 'Cách đọc của "ありがとう" là gì?', type: 'multiple_choice', options: JSON.stringify(['sumimasen', 'arigatou', 'sayounara', 'ohayou']), answer: 'arigatou', explanation: 'ありがとう đọc là "arigatou", nghĩa là cảm ơn', lessonId: jaLesson1.id },
+      { question: 'Điền vào chỗ trống: "_____ございます" (Chào buổi sáng)', type: 'fill_blank', options: JSON.stringify([]), answer: 'おはよう', explanation: 'おはようございます (ohayou gozaimasu) là cách chào buổi sáng lịch sự', lessonId: jaLesson1.id },
+      { question: 'Ghép nghĩa: "さようなら" = ?', type: 'matching', options: JSON.stringify(['Xin chào', 'Tạm biệt', 'Cảm ơn', 'Xin lỗi']), answer: 'Tạm biệt', explanation: 'さようなら (sayounara) nghĩa là tạm biệt', lessonId: jaLesson1.id },
+      { question: 'Câu nào dùng trước khi ăn?', type: 'multiple_choice', options: JSON.stringify(['いただきます', 'さようなら', 'すみません', 'おやすみなさい']), answer: 'いただきます', explanation: 'いただきます (itadakimasu) nói trước khi ăn, thể hiện sự biết ơn', lessonId: jaLesson1.id },
+    ],
+  });
+
   // Chinese lessons
   const zhLesson1 = await prisma.lesson.create({
     data: { title: '问候 (Greetings)', description: 'Basic Chinese greetings', order: 1, levelId: zhBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
@@ -135,6 +146,17 @@ async function main() {
     ],
   });
 
+  // Chinese quizzes
+  await prisma.quiz.createMany({
+    data: [
+      { question: '"你好" nghĩa là gì?', type: 'multiple_choice', options: JSON.stringify(['Tạm biệt', 'Xin chào', 'Cảm ơn', 'Xin lỗi']), answer: 'Xin chào', explanation: '你好 (nǐ hǎo) là lời chào cơ bản nhất trong tiếng Trung', lessonId: zhLesson1.id },
+      { question: 'Pinyin của "谢谢" là gì?', type: 'multiple_choice', options: JSON.stringify(['nǐ hǎo', 'xiè xie', 'zài jiàn', 'duì bu qǐ']), answer: 'xiè xie', explanation: '谢谢 đọc là "xiè xie", nghĩa là cảm ơn', lessonId: zhLesson1.id },
+      { question: 'Điền vào: "_____, 我迟到了" (Xin lỗi, tôi đến muộn)', type: 'fill_blank', options: JSON.stringify([]), answer: '对不起', explanation: '对不起 (duì bu qǐ) nghĩa là xin lỗi', lessonId: zhLesson1.id },
+      { question: 'Ghép nghĩa: "再见" = ?', type: 'matching', options: JSON.stringify(['Xin chào', 'Tạm biệt', 'Cảm ơn', 'Chúc ngủ ngon']), answer: 'Tạm biệt', explanation: '再见 (zài jiàn) nghĩa là tạm biệt, tái kiến', lessonId: zhLesson1.id },
+      { question: '"不客气" dùng khi nào?', type: 'multiple_choice', options: JSON.stringify(['Khi chào hỏi', 'Khi đáp lại lời cảm ơn', 'Khi xin lỗi', 'Khi tạm biệt']), answer: 'Khi đáp lại lời cảm ơn', explanation: '不客气 (bú kè qi) nghĩa là "không có gì", dùng đáp lại khi ai đó cảm ơn', lessonId: zhLesson1.id },
+    ],
+  });
+
   // Korean lessons
   const koLesson1 = await prisma.lesson.create({
     data: { title: '인사 (Greetings)', description: 'Basic Korean greetings', order: 1, levelId: koBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
@@ -158,6 +180,17 @@ async function main() {
       { word: '만나서 반갑습니다', reading: 'mannaseo bangapseumnida', meaning: 'Rất vui được gặp bạn', example: '만나서 반갑습니다!', exampleMeaning: 'Rất vui được gặp bạn!', lessonId: koLesson1.id },
       { word: '잘 자요', reading: 'jal jayo', meaning: 'Chúc ngủ ngon', example: '잘 자요, 좋은 꿈 꿔요.', exampleMeaning: 'Chúc ngủ ngon, mơ đẹp nhé.', lessonId: koLesson1.id },
       { word: '네 / 아니요', reading: 'ne / aniyo', meaning: 'Vâng / Không', example: '네, 맞아요. 아니요, 괜찮아요.', exampleMeaning: 'Vâng, đúng rồi. Không, không sao.', lessonId: koLesson1.id },
+    ],
+  });
+
+  // Korean quizzes
+  await prisma.quiz.createMany({
+    data: [
+      { question: '"안녕하세요" nghĩa là gì?', type: 'multiple_choice', options: JSON.stringify(['Tạm biệt', 'Xin chào', 'Cảm ơn', 'Xin lỗi']), answer: 'Xin chào', explanation: '안녕하세요 (annyeonghaseyo) là lời chào phổ biến nhất trong tiếng Hàn', lessonId: koLesson1.id },
+      { question: 'Cách đọc của "감사합니다" là gì?', type: 'multiple_choice', options: JSON.stringify(['annyeonghaseyo', 'gamsahamnida', 'joesonghamnida', 'annyeonghi gaseyo']), answer: 'gamsahamnida', explanation: '감사합니다 đọc là "gamsahamnida", nghĩa là cảm ơn (trang trọng)', lessonId: koLesson1.id },
+      { question: 'Điền vào: "_____, 늦었습니다" (Xin lỗi, tôi đến muộn)', type: 'fill_blank', options: JSON.stringify([]), answer: '죄송합니다', explanation: '죄송합니다 (joesonghamnida) là cách xin lỗi trang trọng', lessonId: koLesson1.id },
+      { question: 'Ghép nghĩa: "잘 자요" = ?', type: 'matching', options: JSON.stringify(['Xin chào', 'Tạm biệt', 'Chúc ngủ ngon', 'Cảm ơn']), answer: 'Chúc ngủ ngon', explanation: '잘 자요 (jal jayo) nghĩa là chúc ngủ ngon', lessonId: koLesson1.id },
+      { question: '"네" và "아니요" nghĩa là gì?', type: 'multiple_choice', options: JSON.stringify(['Xin chào / Tạm biệt', 'Vâng / Không', 'Cảm ơn / Xin lỗi', 'Đúng / Sai']), answer: 'Vâng / Không', explanation: '네 (ne) = vâng/đúng, 아니요 (aniyo) = không', lessonId: koLesson1.id },
     ],
   });
 
