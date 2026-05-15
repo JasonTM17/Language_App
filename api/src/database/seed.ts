@@ -119,10 +119,10 @@ async function main() {
   const jaLesson1 = await prisma.lesson.create({
     data: { title: 'あいさつ (Greetings)', description: 'Basic Japanese greetings for daily life', order: 1, levelId: jaBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
   });
-  await prisma.lesson.create({
+  const jaLesson2 = await prisma.lesson.create({
     data: { title: 'じこしょうかい (Self Introduction)', description: 'How to introduce yourself in Japanese', order: 2, levelId: jaBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
   });
-  await prisma.lesson.create({
+  const jaLesson3 = await prisma.lesson.create({
     data: { title: 'すうじ (Numbers)', description: 'Learn numbers 1-100 in Japanese', order: 3, levelId: jaBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
   });
 
@@ -156,10 +156,10 @@ async function main() {
   const zhLesson1 = await prisma.lesson.create({
     data: { title: '问候 (Greetings)', description: 'Basic Chinese greetings', order: 1, levelId: zhBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
   });
-  await prisma.lesson.create({
+  const zhLesson2 = await prisma.lesson.create({
     data: { title: '自我介绍 (Self Introduction)', description: 'Introduce yourself in Chinese', order: 2, levelId: zhBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
   });
-  await prisma.lesson.create({
+  const zhLesson3 = await prisma.lesson.create({
     data: { title: '数字 (Numbers)', description: 'Learn numbers in Chinese', order: 3, levelId: zhBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
   });
 
@@ -193,10 +193,10 @@ async function main() {
   const koLesson1 = await prisma.lesson.create({
     data: { title: '인사 (Greetings)', description: 'Basic Korean greetings', order: 1, levelId: koBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
   });
-  await prisma.lesson.create({
+  const koLesson2 = await prisma.lesson.create({
     data: { title: '자기소개 (Self Introduction)', description: 'Introduce yourself in Korean', order: 2, levelId: koBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 15 },
   });
-  await prisma.lesson.create({
+  const koLesson3 = await prisma.lesson.create({
     data: { title: '숫자 (Numbers)', description: 'Learn numbers in Korean', order: 3, levelId: koBeginner!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
   });
 
@@ -223,6 +223,124 @@ async function main() {
       { question: 'Điền vào: "_____, 늦었습니다" (Xin lỗi, tôi đến muộn)', type: 'fill_blank', options: JSON.stringify([]), answer: '죄송합니다', explanation: '죄송합니다 (joesonghamnida) là cách xin lỗi trang trọng', lessonId: koLesson1.id },
       { question: 'Ghép nghĩa: "잘 자요" = ?', type: 'matching', options: JSON.stringify(['Xin chào', 'Tạm biệt', 'Chúc ngủ ngon', 'Cảm ơn']), answer: 'Chúc ngủ ngon', explanation: '잘 자요 (jal jayo) nghĩa là chúc ngủ ngon', lessonId: koLesson1.id },
       { question: '"네" và "아니요" nghĩa là gì?', type: 'multiple_choice', options: JSON.stringify(['Xin chào / Tạm biệt', 'Vâng / Không', 'Cảm ơn / Xin lỗi', 'Đúng / Sai']), answer: 'Vâng / Không', explanation: '네 (ne) = vâng/đúng, 아니요 (aniyo) = không', lessonId: koLesson1.id },
+    ],
+  });
+
+  // English lesson 2 quizzes - Daily Conversation
+  await prisma.quiz.createMany({
+    data: [
+      { question: 'How do you ask for the price?', type: 'multiple_choice', options: JSON.stringify(['How much is this?', 'Where is this?', 'What is this?', 'Who is this?']), answer: 'How much is this?', explanation: '"How much is this?" dùng để hỏi giá', lessonId: enLesson2.id },
+      { question: 'Fill in: "_____ me, can you help me?"', type: 'fill_blank', options: JSON.stringify([]), answer: 'Excuse', explanation: '"Excuse me" dùng để xin phép hoặc gây chú ý lịch sự', lessonId: enLesson2.id },
+      { question: '"I don\'t understand" nghĩa là gì?', type: 'multiple_choice', options: JSON.stringify(['Tôi không biết', 'Tôi không hiểu', 'Tôi không thích', 'Tôi không muốn']), answer: 'Tôi không hiểu', explanation: '"I don\'t understand" = Tôi không hiểu', lessonId: enLesson2.id },
+      { question: 'Arrange: "time / What / is / it / ?"', type: 'arrange', options: JSON.stringify(['time', 'What', 'is', 'it', '?']), answer: 'What time is it ?', explanation: 'Câu hỏi giờ: "What time is it?"', lessonId: enLesson2.id },
+      { question: 'Which phrase means "Hẹn gặp lại"?', type: 'multiple_choice', options: JSON.stringify(['Good morning', 'See you later', 'Thank you', 'I need help']), answer: 'See you later', explanation: '"See you later" = Hẹn gặp lại', lessonId: enLesson2.id },
+    ],
+  });
+
+  // English lesson 3 quizzes - Present Tense Grammar
+  await prisma.quiz.createMany({
+    data: [
+      { question: 'Choose correct: "She _____ to school every day."', type: 'multiple_choice', options: JSON.stringify(['go', 'goes', 'going', 'gone']), answer: 'goes', explanation: 'Ngôi 3 số ít (she/he/it) thêm -s/-es: goes', lessonId: enLesson3.id },
+      { question: 'Fill in: "I _____ a student." (to be)', type: 'fill_blank', options: JSON.stringify([]), answer: 'am', explanation: 'I + am, You + are, He/She + is', lessonId: enLesson3.id },
+      { question: '"Do you like coffee?" là loại câu gì?', type: 'multiple_choice', options: JSON.stringify(['Câu khẳng định', 'Câu phủ định', 'Câu hỏi Yes/No', 'Câu mệnh lệnh']), answer: 'Câu hỏi Yes/No', explanation: 'Do/Does + S + V? là cấu trúc câu hỏi Yes/No ở thì hiện tại', lessonId: enLesson3.id },
+      { question: 'Which is WRONG?', type: 'multiple_choice', options: JSON.stringify(['He has a car', 'She have a book', 'They have dogs', 'I have a pen']), answer: 'She have a book', explanation: 'She/He/It + has (không phải have). Đúng: "She has a book"', lessonId: enLesson3.id },
+      { question: 'Arrange: "not / does / She / like / fish"', type: 'arrange', options: JSON.stringify(['not', 'does', 'She', 'like', 'fish']), answer: 'She does not like fish', explanation: 'Phủ định: S + does not + V (nguyên thể)', lessonId: enLesson3.id },
+    ],
+  });
+
+  // Japanese lesson 2 vocabulary - Self Introduction
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '私', reading: 'watashi', meaning: 'Tôi', example: '私は学生です。', exampleMeaning: 'Tôi là sinh viên.', lessonId: jaLesson2.id },
+      { word: '名前', reading: 'namae', meaning: 'Tên', example: '名前は何ですか？', exampleMeaning: 'Tên bạn là gì?', lessonId: jaLesson2.id },
+      { word: '学生', reading: 'gakusei', meaning: 'Sinh viên', example: '私は大学生です。', exampleMeaning: 'Tôi là sinh viên đại học.', lessonId: jaLesson2.id },
+      { word: '先生', reading: 'sensei', meaning: 'Giáo viên', example: '田中先生は優しいです。', exampleMeaning: 'Thầy Tanaka rất tốt bụng.', lessonId: jaLesson2.id },
+      { word: '日本語', reading: 'nihongo', meaning: 'Tiếng Nhật', example: '日本語を勉強しています。', exampleMeaning: 'Tôi đang học tiếng Nhật.', lessonId: jaLesson2.id },
+      { word: '〜です', reading: 'desu', meaning: 'là (trợ từ kết thúc câu)', example: '私はベトナム人です。', exampleMeaning: 'Tôi là người Việt Nam.', lessonId: jaLesson2.id },
+      { word: '〜から来ました', reading: 'kara kimashita', meaning: 'đến từ...', example: 'ハノイから来ました。', exampleMeaning: 'Tôi đến từ Hà Nội.', lessonId: jaLesson2.id },
+      { word: '趣味', reading: 'shumi', meaning: 'Sở thích', example: '趣味は読書です。', exampleMeaning: 'Sở thích của tôi là đọc sách.', lessonId: jaLesson2.id },
+      { word: '仕事', reading: 'shigoto', meaning: 'Công việc', example: '仕事は何ですか？', exampleMeaning: 'Công việc của bạn là gì?', lessonId: jaLesson2.id },
+      { word: '〜歳', reading: 'sai', meaning: '...tuổi', example: '二十歳です。', exampleMeaning: 'Tôi 20 tuổi.', lessonId: jaLesson2.id },
+    ],
+  });
+
+  // Japanese lesson 3 vocabulary - Numbers
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '一', reading: 'ichi', meaning: 'Một (1)', example: '一つください。', exampleMeaning: 'Cho tôi một cái.', lessonId: jaLesson3.id },
+      { word: '二', reading: 'ni', meaning: 'Hai (2)', example: '二人です。', exampleMeaning: 'Hai người.', lessonId: jaLesson3.id },
+      { word: '三', reading: 'san', meaning: 'Ba (3)', example: '三時に会いましょう。', exampleMeaning: 'Gặp nhau lúc 3 giờ nhé.', lessonId: jaLesson3.id },
+      { word: '四', reading: 'shi/yon', meaning: 'Bốn (4)', example: '四月は桜の季節です。', exampleMeaning: 'Tháng 4 là mùa hoa anh đào.', lessonId: jaLesson3.id },
+      { word: '五', reading: 'go', meaning: 'Năm (5)', example: '五分待ってください。', exampleMeaning: 'Xin đợi 5 phút.', lessonId: jaLesson3.id },
+      { word: '六', reading: 'roku', meaning: 'Sáu (6)', example: '六時に起きます。', exampleMeaning: 'Tôi dậy lúc 6 giờ.', lessonId: jaLesson3.id },
+      { word: '七', reading: 'shichi/nana', meaning: 'Bảy (7)', example: '七日間の旅行です。', exampleMeaning: 'Chuyến đi 7 ngày.', lessonId: jaLesson3.id },
+      { word: '八', reading: 'hachi', meaning: 'Tám (8)', example: '八百円です。', exampleMeaning: 'Giá 800 yên.', lessonId: jaLesson3.id },
+      { word: '九', reading: 'ku/kyuu', meaning: 'Chín (9)', example: '九月に日本へ行きます。', exampleMeaning: 'Tháng 9 tôi đi Nhật.', lessonId: jaLesson3.id },
+      { word: '十', reading: 'juu', meaning: 'Mười (10)', example: '十個あります。', exampleMeaning: 'Có 10 cái.', lessonId: jaLesson3.id },
+    ],
+  });
+
+  // Chinese lesson 2 vocabulary - Self Introduction
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '我叫...', reading: 'wǒ jiào', meaning: 'Tôi tên là...', example: '我叫小明。', exampleMeaning: 'Tôi tên là Tiểu Minh.', lessonId: zhLesson2.id },
+      { word: '我是...', reading: 'wǒ shì', meaning: 'Tôi là...', example: '我是学生。', exampleMeaning: 'Tôi là sinh viên.', lessonId: zhLesson2.id },
+      { word: '学生', reading: 'xué shēng', meaning: 'Sinh viên', example: '我是大学生。', exampleMeaning: 'Tôi là sinh viên đại học.', lessonId: zhLesson2.id },
+      { word: '老师', reading: 'lǎo shī', meaning: 'Giáo viên', example: '她是我的老师。', exampleMeaning: 'Cô ấy là giáo viên của tôi.', lessonId: zhLesson2.id },
+      { word: '中文', reading: 'zhōng wén', meaning: 'Tiếng Trung', example: '我在学中文。', exampleMeaning: 'Tôi đang học tiếng Trung.', lessonId: zhLesson2.id },
+      { word: '越南人', reading: 'yuè nán rén', meaning: 'Người Việt Nam', example: '我是越南人。', exampleMeaning: 'Tôi là người Việt Nam.', lessonId: zhLesson2.id },
+      { word: '多大', reading: 'duō dà', meaning: 'Bao nhiêu tuổi', example: '你多大了？', exampleMeaning: 'Bạn bao nhiêu tuổi?', lessonId: zhLesson2.id },
+      { word: '岁', reading: 'suì', meaning: '...tuổi', example: '我二十岁。', exampleMeaning: 'Tôi 20 tuổi.', lessonId: zhLesson2.id },
+      { word: '喜欢', reading: 'xǐ huān', meaning: 'Thích', example: '我喜欢学习。', exampleMeaning: 'Tôi thích học.', lessonId: zhLesson2.id },
+      { word: '工作', reading: 'gōng zuò', meaning: 'Công việc', example: '你做什么工作？', exampleMeaning: 'Bạn làm công việc gì?', lessonId: zhLesson2.id },
+    ],
+  });
+
+  // Chinese lesson 3 vocabulary - Numbers
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '一', reading: 'yī', meaning: 'Một (1)', example: '一个人。', exampleMeaning: 'Một người.', lessonId: zhLesson3.id },
+      { word: '二', reading: 'èr', meaning: 'Hai (2)', example: '二月很冷。', exampleMeaning: 'Tháng 2 rất lạnh.', lessonId: zhLesson3.id },
+      { word: '三', reading: 'sān', meaning: 'Ba (3)', example: '三点见。', exampleMeaning: 'Gặp lúc 3 giờ.', lessonId: zhLesson3.id },
+      { word: '四', reading: 'sì', meaning: 'Bốn (4)', example: '四个苹果。', exampleMeaning: 'Bốn quả táo.', lessonId: zhLesson3.id },
+      { word: '五', reading: 'wǔ', meaning: 'Năm (5)', example: '五分钟。', exampleMeaning: 'Năm phút.', lessonId: zhLesson3.id },
+      { word: '六', reading: 'liù', meaning: 'Sáu (6)', example: '六点起床。', exampleMeaning: 'Dậy lúc 6 giờ.', lessonId: zhLesson3.id },
+      { word: '七', reading: 'qī', meaning: 'Bảy (7)', example: '一周七天。', exampleMeaning: 'Một tuần 7 ngày.', lessonId: zhLesson3.id },
+      { word: '八', reading: 'bā', meaning: 'Tám (8)', example: '八百块。', exampleMeaning: '800 tệ.', lessonId: zhLesson3.id },
+      { word: '九', reading: 'jiǔ', meaning: 'Chín (9)', example: '九月开学。', exampleMeaning: 'Tháng 9 khai giảng.', lessonId: zhLesson3.id },
+      { word: '十', reading: 'shí', meaning: 'Mười (10)', example: '十块钱。', exampleMeaning: '10 tệ.', lessonId: zhLesson3.id },
+    ],
+  });
+
+  // Korean lesson 2 vocabulary - Self Introduction
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '저는', reading: 'jeoneun', meaning: 'Tôi (chủ ngữ)', example: '저는 학생입니다.', exampleMeaning: 'Tôi là sinh viên.', lessonId: koLesson2.id },
+      { word: '이름', reading: 'ireum', meaning: 'Tên', example: '이름이 뭐예요?', exampleMeaning: 'Tên bạn là gì?', lessonId: koLesson2.id },
+      { word: '학생', reading: 'haksaeng', meaning: 'Sinh viên', example: '저는 대학생입니다.', exampleMeaning: 'Tôi là sinh viên đại học.', lessonId: koLesson2.id },
+      { word: '선생님', reading: 'seonsaengnim', meaning: 'Giáo viên', example: '김 선생님은 친절합니다.', exampleMeaning: 'Thầy Kim rất tốt bụng.', lessonId: koLesson2.id },
+      { word: '한국어', reading: 'hangugeo', meaning: 'Tiếng Hàn', example: '한국어를 공부합니다.', exampleMeaning: 'Tôi học tiếng Hàn.', lessonId: koLesson2.id },
+      { word: '베트남 사람', reading: 'beteunam saram', meaning: 'Người Việt Nam', example: '저는 베트남 사람입니다.', exampleMeaning: 'Tôi là người Việt Nam.', lessonId: koLesson2.id },
+      { word: '~입니다', reading: 'imnida', meaning: 'là (kính ngữ)', example: '저는 민수입니다.', exampleMeaning: 'Tôi là Minsu.', lessonId: koLesson2.id },
+      { word: '나이', reading: 'nai', meaning: 'Tuổi', example: '나이가 어떻게 되세요?', exampleMeaning: 'Bạn bao nhiêu tuổi?', lessonId: koLesson2.id },
+      { word: '취미', reading: 'chwimi', meaning: 'Sở thích', example: '취미가 뭐예요?', exampleMeaning: 'Sở thích của bạn là gì?', lessonId: koLesson2.id },
+      { word: '직업', reading: 'jigeop', meaning: 'Nghề nghiệp', example: '직업이 뭐예요?', exampleMeaning: 'Nghề nghiệp của bạn là gì?', lessonId: koLesson2.id },
+    ],
+  });
+
+  // Korean lesson 3 vocabulary - Numbers
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '하나', reading: 'hana', meaning: 'Một (1)', example: '하나 주세요.', exampleMeaning: 'Cho tôi một cái.', lessonId: koLesson3.id },
+      { word: '둘', reading: 'dul', meaning: 'Hai (2)', example: '둘이서 갑시다.', exampleMeaning: 'Hai người đi nhé.', lessonId: koLesson3.id },
+      { word: '셋', reading: 'set', meaning: 'Ba (3)', example: '세 시에 만나요.', exampleMeaning: 'Gặp nhau lúc 3 giờ.', lessonId: koLesson3.id },
+      { word: '넷', reading: 'net', meaning: 'Bốn (4)', example: '네 명이에요.', exampleMeaning: 'Bốn người.', lessonId: koLesson3.id },
+      { word: '다섯', reading: 'daseot', meaning: 'Năm (5)', example: '다섯 분 기다려 주세요.', exampleMeaning: 'Xin đợi 5 phút.', lessonId: koLesson3.id },
+      { word: '여섯', reading: 'yeoseot', meaning: 'Sáu (6)', example: '여섯 시에 일어나요.', exampleMeaning: 'Tôi dậy lúc 6 giờ.', lessonId: koLesson3.id },
+      { word: '일곱', reading: 'ilgop', meaning: 'Bảy (7)', example: '일주일은 일곱 일이에요.', exampleMeaning: 'Một tuần là 7 ngày.', lessonId: koLesson3.id },
+      { word: '여덟', reading: 'yeodeol', meaning: 'Tám (8)', example: '여덟 시에 출발해요.', exampleMeaning: 'Xuất phát lúc 8 giờ.', lessonId: koLesson3.id },
+      { word: '아홉', reading: 'ahop', meaning: 'Chín (9)', example: '구월에 한국에 가요.', exampleMeaning: 'Tháng 9 tôi đi Hàn Quốc.', lessonId: koLesson3.id },
+      { word: '열', reading: 'yeol', meaning: 'Mười (10)', example: '열 개 있어요.', exampleMeaning: 'Có 10 cái.', lessonId: koLesson3.id },
     ],
   });
 
