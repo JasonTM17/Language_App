@@ -151,4 +151,12 @@ export const api = {
     updateLesson: (id: string, data: any) => request<any>(`/admin/lessons/${id}`, { method: 'PUT', body: data }),
     deleteLesson: (id: string) => request<any>(`/admin/lessons/${id}`, { method: 'DELETE' }),
   },
+  achievements: {
+    list: () => request<{ achievements: any[] }>('/achievements'),
+    me: () => request<{ achievements: any[]; total: number }>('/achievements/me'),
+    check: () => request<{ newlyUnlocked: any[]; count: number }>('/achievements/check', { method: 'POST' }),
+  },
+  leaderboard: {
+    get: (period?: string) => request<{ leaderboard: any[]; userRank: any; period: string }>(`/leaderboard?period=${period || 'alltime'}`),
+  },
 };
