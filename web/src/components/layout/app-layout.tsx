@@ -10,6 +10,7 @@ const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: '🏠' },
   { href: '/languages', label: 'Languages', icon: '🌍' },
   { href: '/lessons', label: 'Lessons', icon: '📖' },
+  { href: '/vocabulary', label: 'Vocabulary', icon: '📝' },
   { href: '/flashcards', label: 'Flashcards', icon: '🃏' },
   { href: '/quiz', label: 'Quiz', icon: '❓' },
   { href: '/ai-tutor', label: 'AI Tutor', icon: '🤖' },
