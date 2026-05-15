@@ -14,6 +14,8 @@ import quizRoutes from './routes/quiz';
 import progressRoutes from './routes/progress';
 import chatRoutes from './routes/chat';
 import adminRoutes from './routes/admin';
+import achievementRoutes from './routes/achievements';
+import leaderboardRoutes from './routes/leaderboard';
 
 dotenv.config();
 
@@ -55,6 +57,8 @@ app.use('/api/quiz', quizRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/achievements', achievementRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
