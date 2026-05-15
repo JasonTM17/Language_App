@@ -3,6 +3,7 @@ import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { awardXP } from '../services/gamification';
+import { checkAndAwardAchievements } from '../services/achievements';
 
 const router = Router();
 
@@ -73,8 +74,9 @@ router.post('/:id/complete', authenticate, async (req: AuthRequest, res: Respons
     });
 
     const result = await awardXP(req.userId!, lesson.xpReward);
+    const newAchievements = await checkAndAwardAchievements(req.userId!);
 
-    res.json({ progress, ...result });
+    res.json({ progress, ...result, newAchievements });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
