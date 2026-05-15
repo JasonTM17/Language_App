@@ -5,9 +5,13 @@ import { LANGUAGES } from './constants';
 import { englishFoodLessons } from './english/beginner-food';
 import { englishTravelLessons } from './english/beginner-travel';
 import { englishFamilyLessons } from './english/beginner-family';
+import { englishWorkLessons } from './english/intermediate-work';
 import { japaneseFoodLessons } from './japanese/beginner-food';
+import { japaneseTravelLessons } from './japanese/beginner-travel';
 import { koreanFoodLessons } from './korean/beginner-food';
+import { koreanDailyLessons } from './korean/beginner-daily';
 import { chineseFoodLessons } from './chinese/beginner-food';
+import { chineseShoppingLessons } from './chinese/beginner-shopping';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -93,28 +97,39 @@ async function main() {
     quizCount += enBeginnerLessons[i].quizzes.length;
   }
 
-  // Japanese beginner lessons
-  for (let i = 0; i < japaneseFoodLessons.length; i++) {
-    await createLessonWithContent(levels['ja']['beginner'], i + 1, japaneseFoodLessons[i]);
+  // English intermediate lessons
+  for (let i = 0; i < englishWorkLessons.length; i++) {
+    await createLessonWithContent(levels['en']['intermediate'], i + 1, englishWorkLessons[i]);
     lessonCount++;
-    vocabCount += japaneseFoodLessons[i].vocabulary.length;
-    quizCount += japaneseFoodLessons[i].quizzes.length;
+    vocabCount += englishWorkLessons[i].vocabulary.length;
+    quizCount += englishWorkLessons[i].quizzes.length;
+  }
+
+  // Japanese beginner lessons
+  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons];
+  for (let i = 0; i < jaBeginnerLessons.length; i++) {
+    await createLessonWithContent(levels['ja']['beginner'], i + 1, jaBeginnerLessons[i]);
+    lessonCount++;
+    vocabCount += jaBeginnerLessons[i].vocabulary.length;
+    quizCount += jaBeginnerLessons[i].quizzes.length;
   }
 
   // Chinese beginner lessons
-  for (let i = 0; i < chineseFoodLessons.length; i++) {
-    await createLessonWithContent(levels['zh']['beginner'], i + 1, chineseFoodLessons[i]);
+  const zhBeginnerLessons = [...chineseFoodLessons, ...chineseShoppingLessons];
+  for (let i = 0; i < zhBeginnerLessons.length; i++) {
+    await createLessonWithContent(levels['zh']['beginner'], i + 1, zhBeginnerLessons[i]);
     lessonCount++;
-    vocabCount += chineseFoodLessons[i].vocabulary.length;
-    quizCount += chineseFoodLessons[i].quizzes.length;
+    vocabCount += zhBeginnerLessons[i].vocabulary.length;
+    quizCount += zhBeginnerLessons[i].quizzes.length;
   }
 
   // Korean beginner lessons
-  for (let i = 0; i < koreanFoodLessons.length; i++) {
-    await createLessonWithContent(levels['ko']['beginner'], i + 1, koreanFoodLessons[i]);
+  const koBeginnerLessons = [...koreanFoodLessons, ...koreanDailyLessons];
+  for (let i = 0; i < koBeginnerLessons.length; i++) {
+    await createLessonWithContent(levels['ko']['beginner'], i + 1, koBeginnerLessons[i]);
     lessonCount++;
-    vocabCount += koreanFoodLessons[i].vocabulary.length;
-    quizCount += koreanFoodLessons[i].quizzes.length;
+    vocabCount += koBeginnerLessons[i].vocabulary.length;
+    quizCount += koBeginnerLessons[i].quizzes.length;
   }
 
   console.log(`✅ Lessons created (${lessonCount})`);
