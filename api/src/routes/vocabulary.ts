@@ -1,8 +1,13 @@
 import { Router, Request, Response } from 'express';
+import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
 
 const router = Router();
+
+const reviewSchema = z.object({
+  known: z.boolean(),
+});
 
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
   try {
@@ -24,7 +29,7 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
 
 router.post('/:id/review', authenticate, async (req: AuthRequest, res: Response) => {
   try {
-    const { known } = req.body;
+    const { known } = reviewSchema.parse(req.body);
     const vocab = await prisma.vocabulary.findUnique({ where: { id: req.params.id } });
     if (!vocab) return res.status(404).json({ error: 'Vocabulary not found' });
 
@@ -53,7 +58,10 @@ router.post('/:id/review', authenticate, async (req: AuthRequest, res: Response)
     });
 
     res.json({ progress });
-  } catch {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
+    }
     res.status(500).json({ error: 'Failed to update review' });
   }
 });

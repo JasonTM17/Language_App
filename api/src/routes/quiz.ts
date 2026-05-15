@@ -1,8 +1,14 @@
 import { Router, Request, Response } from 'express';
+import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
 
 const router = Router();
+
+const attemptSchema = z.object({
+  answer: z.string().min(1),
+  timeSpent: z.number().int().min(0).optional(),
+});
 
 router.get('/lesson/:lessonId', authenticate, async (req: AuthRequest, res: Response) => {
   try {
@@ -17,7 +23,7 @@ router.get('/lesson/:lessonId', authenticate, async (req: AuthRequest, res: Resp
 
 router.post('/:id/attempt', authenticate, async (req: AuthRequest, res: Response) => {
   try {
-    const { answer, timeSpent } = req.body;
+    const { answer, timeSpent } = attemptSchema.parse(req.body);
     const quiz = await prisma.quiz.findUnique({ where: { id: req.params.id } });
     if (!quiz) return res.status(404).json({ error: 'Quiz not found' });
 
@@ -34,7 +40,10 @@ router.post('/:id/attempt', authenticate, async (req: AuthRequest, res: Response
     }
 
     res.json({ attempt, correct, explanation: quiz.explanation });
-  } catch {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
+    }
     res.status(500).json({ error: 'Failed to submit answer' });
   }
 });

@@ -1,8 +1,14 @@
 import { Router, Request, Response } from 'express';
+import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
 
 const router = Router();
+
+const completeSchema = z.object({
+  score: z.number().min(0).max(100).optional(),
+  timeSpent: z.number().int().min(0).optional(),
+});
 
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
   try {
@@ -55,7 +61,7 @@ router.get('/:id', authenticate, async (req: AuthRequest, res: Response) => {
 
 router.post('/:id/complete', authenticate, async (req: AuthRequest, res: Response) => {
   try {
-    const { score, timeSpent } = req.body;
+    const { score, timeSpent } = completeSchema.parse(req.body);
     const lesson = await prisma.lesson.findUnique({ where: { id: req.params.id } });
     if (!lesson) return res.status(404).json({ error: 'Lesson not found' });
 
@@ -71,7 +77,10 @@ router.post('/:id/complete', authenticate, async (req: AuthRequest, res: Respons
     });
 
     res.json({ progress });
-  } catch {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
+    }
     res.status(500).json({ error: 'Failed to complete lesson' });
   }
 });

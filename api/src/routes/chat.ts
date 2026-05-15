@@ -1,13 +1,23 @@
 import { Router, Response } from 'express';
+import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { getAIResponse, AIMessage } from '../services/ai';
 
 const router = Router();
 
+const startSchema = z.object({
+  language: z.enum(['en', 'ja', 'zh', 'ko']).optional(),
+  role: z.enum(['teacher', 'friend', 'interviewer', 'restaurant', 'customer']).optional(),
+});
+
+const messageSchema = z.object({
+  message: z.string().min(1).max(2000),
+});
+
 router.post('/start', authenticate, async (req: AuthRequest, res: Response) => {
   try {
-    const { language, role } = req.body;
+    const { language, role } = startSchema.parse(req.body);
     const session = await prisma.chatSession.create({
       data: {
         userId: req.userId!,
@@ -17,14 +27,17 @@ router.post('/start', authenticate, async (req: AuthRequest, res: Response) => {
       },
     });
     res.json({ session: { id: session.id, language: session.language, role: session.role, messages: [] } });
-  } catch {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
+    }
     res.status(500).json({ error: 'Failed to start chat session' });
   }
 });
 
 router.post('/:sessionId/message', authenticate, async (req: AuthRequest, res: Response) => {
   try {
-    const { message } = req.body;
+    const { message } = messageSchema.parse(req.body);
     const session = await prisma.chatSession.findUnique({ where: { id: req.params.sessionId } });
     if (!session || session.userId !== req.userId!) {
       return res.status(404).json({ error: 'Session not found' });
@@ -46,7 +59,10 @@ router.post('/:sessionId/message', authenticate, async (req: AuthRequest, res: R
     });
 
     res.json({ response: aiResponse, messages });
-  } catch {
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.errors });
+    }
     res.status(500).json({ error: 'Failed to send message' });
   }
 });
