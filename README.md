@@ -1,4 +1,4 @@
-# LinguaFlow 🌍
+# LinguaFlow
 
 Modern language learning platform for Vietnamese students. Learn English, Japanese, Chinese, and Korean with AI-powered tutoring, smart flashcards, and personalized learning paths.
 
@@ -16,10 +16,16 @@ Modern language learning platform for Vietnamese students. Learn English, Japane
 - **Express.js** - REST API server
 - **Prisma** - ORM with SQLite
 - **JWT** - Authentication
-- **Zod** - Validation
+- **Zod** - Request validation
 - **bcryptjs** - Password hashing
+- **Vitest** - Unit testing
 
-### Mobile (mobile/) - Coming soon
+### AI Service
+- **n8n** - Workflow-based AI (webhook integration)
+- **OpenAI** - GPT-4o-mini compatible API
+- **Mock** - Built-in fallback (no config needed)
+
+### Mobile (mobile/)
 - **React Native / Expo**
 
 ## Getting Started
@@ -94,21 +100,23 @@ cd web && npm run dev
 ├── api/                  # Backend Express API
 │   ├── prisma/           # Database schema & migrations
 │   ├── src/
+│   │   ├── __tests__/    # API tests (Vitest + Supertest)
 │   │   ├── database/     # Prisma client & seed
 │   │   ├── middleware/   # Auth middleware
 │   │   ├── routes/       # API routes
-│   │   └── index.ts      # Server entry
+│   │   └── services/     # AI service layer
+│   ├── n8n/              # Workflow templates & setup guide
+│   ├── API.md            # Endpoint documentation
 │   └── .env.example
 ├── web/                  # Frontend Next.js app
 │   ├── src/
 │   │   ├── app/          # Pages (App Router)
 │   │   ├── components/   # UI components
 │   │   ├── lib/          # Utils & store
-│   │   ├── services/     # API client
-│   │   └── types/        # TypeScript types
+│   │   └── services/     # Typed API client
 │   └── .env.example
 ├── shared/               # Shared types
-└── mobile/               # React Native app (planned)
+└── mobile/               # React Native app
 ```
 
 ## API Endpoints
@@ -160,13 +168,38 @@ npx tsx src/database/seed.ts  # Seed sample data
 | JWT_SECRET | JWT signing secret | dev-secret |
 | PORT | API port | 3001 |
 | FRONTEND_URL | CORS origin | http://localhost:3000 |
-| AI_API_KEY | AI service key (optional) | - |
+| N8N_WEBHOOK_URL | n8n AI webhook (optional) | - |
+| OPENAI_API_KEY | OpenAI API key (optional) | - |
+| OPENAI_BASE_URL | OpenAI-compatible base URL | https://api.openai.com/v1 |
+| AI_MODEL | AI model name | gpt-4o-mini |
 
 ### Web (.env.local)
 | Variable | Description | Default |
 |----------|-------------|---------|
 | NEXT_PUBLIC_API_URL | Backend API URL | http://localhost:3001/api |
 | NEXT_PUBLIC_APP_NAME | App display name | LinguaFlow |
+
+## Testing
+
+```bash
+cd api
+npm test              # Run all 33 tests
+npm test -- --watch   # Watch mode
+```
+
+Tests cover auth, languages, lessons, quiz, chat, and progress routes.
+
+## AI Chatbot
+
+The AI tutor auto-detects which provider to use based on environment variables:
+
+1. **n8n** — Set `N8N_WEBHOOK_URL` (see [api/n8n/SETUP.md](api/n8n/SETUP.md))
+2. **OpenAI** — Set `OPENAI_API_KEY` (supports any OpenAI-compatible API)
+3. **Mock** — Default fallback, no configuration needed
+
+## API Documentation
+
+See [api/API.md](api/API.md) for the complete endpoint reference.
 
 ## License
 
