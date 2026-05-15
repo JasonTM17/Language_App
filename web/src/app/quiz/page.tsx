@@ -22,23 +22,29 @@ export default function QuizPage() {
   const [finished, setFinished] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const fallbackQuestions: QuizQuestion[] = [
+    { id: '1', question: 'What does "Hello" mean in Vietnamese?', type: 'multiple_choice', options: ['Tạm biệt', 'Xin chào', 'Cảm ơn', 'Xin lỗi'], answer: 'Xin chào', explanation: '"Hello" is a common greeting meaning "Xin chào"' },
+    { id: '2', question: 'Which is the correct greeting for morning?', type: 'multiple_choice', options: ['Good night', 'Good morning', 'Good evening', 'Goodbye'], answer: 'Good morning', explanation: '"Good morning" is used to greet in the morning' },
+    { id: '3', question: 'What does こんにちは mean?', type: 'multiple_choice', options: ['Goodbye', 'Thank you', 'Hello (afternoon)', 'Sorry'], answer: 'Hello (afternoon)', explanation: 'こんにちは (konnichiwa) means hello/good afternoon' },
+    { id: '4', question: 'Match: "谢谢" = ?', type: 'multiple_choice', options: ['Xin chào', 'Cảm ơn', 'Tạm biệt', 'Xin lỗi'], answer: 'Cảm ơn', explanation: '谢谢 (xiè xie) means "Thank you" / "Cảm ơn"' },
+    { id: '5', question: 'What does 감사합니다 mean?', type: 'multiple_choice', options: ['Hello', 'Sorry', 'Thank you', 'Goodbye'], answer: 'Thank you', explanation: '감사합니다 (gamsahamnida) means "Thank you"' },
+  ];
+
   useEffect(() => {
-    api.quiz.getByLesson('all')
-      .then((data) => {
+    api.quiz.practice()
+      .then((data: any) => {
         const parsed = data.quizzes.map((q: any) => ({
           ...q,
           options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
         }));
-        setQuestions(parsed);
+        if (parsed.length > 0) {
+          setQuestions(parsed);
+        } else {
+          setQuestions(fallbackQuestions);
+        }
       })
       .catch(() => {
-        setQuestions([
-          { id: '1', question: 'What does "Hello" mean in Vietnamese?', type: 'multiple_choice', options: ['Tạm biệt', 'Xin chào', 'Cảm ơn', 'Xin lỗi'], answer: 'Xin chào', explanation: '"Hello" is a common greeting meaning "Xin chào"' },
-          { id: '2', question: 'Fill in: "_____, how are you?"', type: 'fill_blank', options: [], answer: 'Hello', explanation: 'We use "Hello" to greet someone' },
-          { id: '3', question: 'Which is the correct greeting for morning?', type: 'multiple_choice', options: ['Good night', 'Good morning', 'Good evening', 'Goodbye'], answer: 'Good morning', explanation: '"Good morning" is used to greet in the morning' },
-          { id: '4', question: 'What does こんにちは mean?', type: 'multiple_choice', options: ['Goodbye', 'Thank you', 'Hello (afternoon)', 'Sorry'], answer: 'Hello (afternoon)', explanation: 'こんにちは (konnichiwa) means hello/good afternoon' },
-          { id: '5', question: 'Match: "谢谢" = ?', type: 'multiple_choice', options: ['Xin chào', 'Cảm ơn', 'Tạm biệt', 'Xin lỗi'], answer: 'Cảm ơn', explanation: '谢谢 (xiè xie) means "Thank you" / "Cảm ơn"' },
-        ]);
+        setQuestions(fallbackQuestions);
       })
       .finally(() => setLoading(false));
   }, []);

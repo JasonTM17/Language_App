@@ -29,8 +29,9 @@ export default function ProgressPage() {
 
   const stats = data?.stats || { xp: user?.xp || 0, level: user?.level || 1, streak: user?.streak || 0, completedLessons: 0, quizAccuracy: 0 };
 
-  const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const activityData = [3, 5, 2, 7, 4, 1, 6];
+  const weekDays = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+  const activityData = data?.weeklyActivity?.map((d: any) => d.activities) || [0, 0, 0, 0, 0, 0, 0];
+  const maxActivity = Math.max(...activityData, 1);
 
   return (
     <div className="space-y-8">
@@ -72,7 +73,7 @@ export default function ProgressPage() {
               <div className="w-full flex flex-col justify-end h-28">
                 <div
                   className="w-full rounded-lg bg-gradient-to-t from-primary-500 to-primary-300 dark:from-primary-600 dark:to-primary-400 transition-all"
-                  style={{ height: `${(activityData[i] / 7) * 100}%` }}
+                  style={{ height: `${(activityData[i] / maxActivity) * 100}%`, minHeight: activityData[i] > 0 ? '8px' : '0' }}
                 />
               </div>
               <span className="text-xs text-gray-500">{day}</span>

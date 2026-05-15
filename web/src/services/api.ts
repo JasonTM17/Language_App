@@ -122,6 +122,10 @@ export const api = {
   },
   quiz: {
     getByLesson: (lessonId: string) => request<{ quizzes: any[] }>(`/quiz/lesson/${lessonId}`),
+    practice: (params?: { language?: string; limit?: number }) => {
+      const query = params ? '?' + new URLSearchParams(params as any).toString() : '';
+      return request<{ quizzes: any[]; total: number }>(`/quiz/practice${query}`);
+    },
     attempt: (id: string, data: { answer: string; timeSpent?: number }) => request<{ attempt: any; correct: boolean; explanation: string }>(`/quiz/${id}/attempt`, { method: 'POST', body: data }),
   },
   progress: {
