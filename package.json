@@ -6,9 +6,16 @@
   "scripts": {
     "dev:web": "cd web && npm run dev",
     "dev:api": "cd api && npm run dev",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
     "build:web": "cd web && npm run build",
     "build:api": "cd api && npm run build",
+    "build": "npm run build:api && npm run build:web",
+    "db:seed": "cd api && npm run db:seed",
+    "db:reset": "cd api && npx prisma db push --force-reset && npm run db:seed",
     "lint": "cd web && npm run lint",
     "test": "cd web && npm run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
