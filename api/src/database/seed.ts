@@ -72,6 +72,38 @@ async function main() {
     ],
   });
 
+  // English lesson 2 vocabulary - Daily Conversation
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: 'How much is this?', meaning: 'Cái này bao nhiêu tiền?', example: 'How much is this shirt?', exampleMeaning: 'Cái áo này bao nhiêu tiền?', lessonId: enLesson2.id },
+      { word: 'Where is...?', meaning: '... ở đâu?', example: 'Where is the bathroom?', exampleMeaning: 'Nhà vệ sinh ở đâu?', lessonId: enLesson2.id },
+      { word: 'I would like...', meaning: 'Tôi muốn...', example: 'I would like a coffee, please.', exampleMeaning: 'Tôi muốn một ly cà phê, làm ơn.', lessonId: enLesson2.id },
+      { word: 'Can you help me?', meaning: 'Bạn có thể giúp tôi không?', example: 'Excuse me, can you help me?', exampleMeaning: 'Xin lỗi, bạn có thể giúp tôi không?', lessonId: enLesson2.id },
+      { word: 'I don\'t understand', meaning: 'Tôi không hiểu', example: 'Sorry, I don\'t understand. Can you repeat?', exampleMeaning: 'Xin lỗi, tôi không hiểu. Bạn có thể nhắc lại không?', lessonId: enLesson2.id },
+      { word: 'What time is it?', meaning: 'Mấy giờ rồi?', example: 'Excuse me, what time is it?', exampleMeaning: 'Xin lỗi, mấy giờ rồi?', lessonId: enLesson2.id },
+      { word: 'I need...', meaning: 'Tôi cần...', example: 'I need a taxi to the airport.', exampleMeaning: 'Tôi cần taxi đến sân bay.', lessonId: enLesson2.id },
+      { word: 'How do I get to...?', meaning: 'Làm sao để đến...?', example: 'How do I get to the train station?', exampleMeaning: 'Làm sao để đến ga tàu?', lessonId: enLesson2.id },
+      { word: 'Do you speak English?', meaning: 'Bạn nói tiếng Anh không?', example: 'Do you speak English? I need directions.', exampleMeaning: 'Bạn nói tiếng Anh không? Tôi cần chỉ đường.', lessonId: enLesson2.id },
+      { word: 'See you later', meaning: 'Hẹn gặp lại', example: 'Bye! See you later!', exampleMeaning: 'Tạm biệt! Hẹn gặp lại!', lessonId: enLesson2.id },
+    ],
+  });
+
+  // English lesson 3 vocabulary - Basic Grammar: Present Tense
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: 'I am / I\'m', meaning: 'Tôi là / Tôi đang', example: 'I am a student. I\'m studying English.', exampleMeaning: 'Tôi là sinh viên. Tôi đang học tiếng Anh.', lessonId: enLesson3.id },
+      { word: 'You are / You\'re', meaning: 'Bạn là / Bạn đang', example: 'You are very kind. You\'re doing great!', exampleMeaning: 'Bạn rất tốt bụng. Bạn đang làm tốt lắm!', lessonId: enLesson3.id },
+      { word: 'He/She is', meaning: 'Anh ấy/Cô ấy là', example: 'He is a teacher. She is my friend.', exampleMeaning: 'Anh ấy là giáo viên. Cô ấy là bạn tôi.', lessonId: enLesson3.id },
+      { word: 'We are / We\'re', meaning: 'Chúng tôi là/đang', example: 'We are learning together.', exampleMeaning: 'Chúng tôi đang học cùng nhau.', lessonId: enLesson3.id },
+      { word: 'They are / They\'re', meaning: 'Họ là/đang', example: 'They are from Vietnam.', exampleMeaning: 'Họ đến từ Việt Nam.', lessonId: enLesson3.id },
+      { word: 'do / does', meaning: 'trợ động từ (câu hỏi/phủ định)', example: 'Do you like coffee? She does not eat meat.', exampleMeaning: 'Bạn có thích cà phê không? Cô ấy không ăn thịt.', lessonId: enLesson3.id },
+      { word: 'have / has', meaning: 'có', example: 'I have a book. He has a car.', exampleMeaning: 'Tôi có một quyển sách. Anh ấy có một chiếc xe.', lessonId: enLesson3.id },
+      { word: 'go / goes', meaning: 'đi', example: 'I go to school. She goes to work.', exampleMeaning: 'Tôi đi học. Cô ấy đi làm.', lessonId: enLesson3.id },
+      { word: 'like / likes', meaning: 'thích', example: 'I like music. He likes sports.', exampleMeaning: 'Tôi thích nhạc. Anh ấy thích thể thao.', lessonId: enLesson3.id },
+      { word: 'want / wants', meaning: 'muốn', example: 'I want to learn. She wants to travel.', exampleMeaning: 'Tôi muốn học. Cô ấy muốn đi du lịch.', lessonId: enLesson3.id },
+    ],
+  });
+
   // English quizzes
   await prisma.quiz.createMany({
     data: [
