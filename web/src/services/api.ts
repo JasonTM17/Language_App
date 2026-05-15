@@ -117,7 +117,13 @@ export const api = {
     complete: (id: string, data: { score?: number; timeSpent?: number }) => request<{ progress: any }>(`/lessons/${id}/complete`, { method: 'POST', body: data }),
   },
   vocabulary: {
-    list: (lessonId?: string) => request<{ vocabulary: any[] }>(`/vocabulary${lessonId ? `?lessonId=${lessonId}` : ''}`),
+    list: (lessonId?: string, due?: boolean) => {
+      const params = new URLSearchParams();
+      if (lessonId) params.set('lessonId', lessonId);
+      if (due) params.set('due', 'true');
+      const query = params.toString() ? `?${params.toString()}` : '';
+      return request<{ vocabulary: any[]; total?: number; due?: number }>(`/vocabulary${query}`);
+    },
     review: (id: string, known: boolean) => request<{ progress: any }>(`/vocabulary/${id}/review`, { method: 'POST', body: { known } }),
   },
   quiz: {

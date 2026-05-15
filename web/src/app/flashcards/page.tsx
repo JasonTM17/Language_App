@@ -20,17 +20,28 @@ export default function FlashcardsPage() {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ known: 0, unknown: 0 });
 
+  const fallbackCards: VocabCard[] = [
+    { id: '1', word: 'Hello', meaning: 'Xin chào', example: 'Hello, how are you?', exampleMeaning: 'Xin chào, bạn khỏe không?' },
+    { id: '2', word: 'Thank you', meaning: 'Cảm ơn', example: 'Thank you for your help.', exampleMeaning: 'Cảm ơn bạn đã giúp đỡ.' },
+    { id: '3', word: 'Goodbye', meaning: 'Tạm biệt', example: 'Goodbye, see you tomorrow!', exampleMeaning: 'Tạm biệt, hẹn gặp lại ngày mai!' },
+    { id: '4', word: 'こんにちは', reading: 'konnichiwa', meaning: 'Xin chào (buổi chiều)', example: 'こんにちは、元気ですか？', exampleMeaning: 'Xin chào, bạn khỏe không?' },
+    { id: '5', word: '你好', reading: 'nǐ hǎo', meaning: 'Xin chào', example: '你好，你叫什么名字？', exampleMeaning: 'Xin chào, bạn tên gì?' },
+    { id: '6', word: '안녕하세요', reading: 'annyeonghaseyo', meaning: 'Xin chào', example: '안녕하세요, 잘 지내세요?', exampleMeaning: 'Xin chào, bạn khỏe không?' },
+  ];
+
   useEffect(() => {
-    api.vocabulary.list()
-      .then((data) => setCards(data.vocabulary))
+    api.vocabulary.list('', true)
+      .then((data: any) => {
+        if (data.vocabulary.length > 0) {
+          setCards(data.vocabulary);
+        } else {
+          api.vocabulary.list()
+            .then((allData: any) => setCards(allData.vocabulary.slice(0, 20)))
+            .catch(() => setCards(fallbackCards));
+        }
+      })
       .catch(() => {
-        setCards([
-          { id: '1', word: 'Hello', meaning: 'Xin chào', example: 'Hello, how are you?', exampleMeaning: 'Xin chào, bạn khỏe không?' },
-          { id: '2', word: 'Thank you', meaning: 'Cảm ơn', example: 'Thank you for your help.', exampleMeaning: 'Cảm ơn bạn đã giúp đỡ.' },
-          { id: '3', word: 'Goodbye', meaning: 'Tạm biệt', example: 'Goodbye, see you tomorrow!', exampleMeaning: 'Tạm biệt, hẹn gặp lại ngày mai!' },
-          { id: '4', word: 'こんにちは', reading: 'konnichiwa', meaning: 'Xin chào (buổi chiều)', example: 'こんにちは、元気ですか？', exampleMeaning: 'Xin chào, bạn khỏe không?' },
-          { id: '5', word: '你好', reading: 'nǐ hǎo', meaning: 'Xin chào', example: '你好，你叫什么名字？', exampleMeaning: 'Xin chào, bạn tên gì?' },
-        ]);
+        setCards(fallbackCards);
       })
       .finally(() => setLoading(false));
   }, []);
