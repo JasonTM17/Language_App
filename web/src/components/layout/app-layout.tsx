@@ -11,6 +11,7 @@ const navItems = [
   { href: '/languages', label: 'Languages', icon: '🌍' },
   { href: '/lessons', label: 'Lessons', icon: '📖' },
   { href: '/vocabulary', label: 'Vocabulary', icon: '📝' },
+  { href: '/grammar', label: 'Grammar', icon: '📐' },
   { href: '/flashcards', label: 'Flashcards', icon: '🃏' },
   { href: '/quiz', label: 'Quiz', icon: '❓' },
   { href: '/ai-tutor', label: 'AI Tutor', icon: '🤖' },
