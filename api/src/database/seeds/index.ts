@@ -5,6 +5,7 @@ import { LANGUAGES } from './constants';
 import { englishFoodLessons } from './english/beginner-food';
 import { englishTravelLessons } from './english/beginner-travel';
 import { englishFamilyLessons } from './english/beginner-family';
+import { englishHobbiesLessons } from './english/beginner-hobbies';
 import { englishWorkLessons } from './english/intermediate-work';
 import { japaneseFoodLessons } from './japanese/beginner-food';
 import { japaneseTravelLessons } from './japanese/beginner-travel';
@@ -89,7 +90,7 @@ async function main() {
   let quizCount = 0;
 
   // English beginner lessons
-  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons];
+  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons, ...englishHobbiesLessons];
   for (let i = 0; i < enBeginnerLessons.length; i++) {
     const lesson = await createLessonWithContent(levels['en']['beginner'], i + 1, enBeginnerLessons[i]);
     lessonCount++;
