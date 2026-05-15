@@ -80,4 +80,16 @@ router.get('/sessions', authenticate, async (req: AuthRequest, res: Response) =>
   }
 });
 
+router.get('/:sessionId', authenticate, async (req: AuthRequest, res: Response) => {
+  try {
+    const session = await prisma.chatSession.findUnique({ where: { id: req.params.sessionId } });
+    if (!session || session.userId !== req.userId!) {
+      return res.status(404).json({ error: 'Session not found' });
+    }
+    res.json({ session: { ...session, messages: JSON.parse(session.messages) } });
+  } catch {
+    res.status(500).json({ error: 'Failed to fetch session' });
+  }
+});
+
 export default router;
