@@ -57,8 +57,10 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
   res.status(500).json({ error: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message });
 });
 
-app.listen(PORT, () => {
-  console.log(`LinguaFlow API running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`LinguaFlow API running on port ${PORT}`);
+  });
+}
 
 export default app;
