@@ -68,7 +68,7 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
 
 router.get('/:id', authenticate, async (req: AuthRequest, res: Response) => {
   const exercise = LISTENING_EXERCISES.find(e => e.id === req.params.id);
-  if (!exercise) return res.status(404).json({ error: 'Bài nghe không tồn tại' });
+  if (!exercise) return res.status(404).json(errorResponse('Bài nghe không tồn tại', 'NOT_FOUND'));
 
   const { answer, ...safe } = exercise;
   res.json({ exercise: safe });
@@ -79,7 +79,7 @@ router.post('/submit', authenticate, async (req: AuthRequest, res: Response) => 
     const { exerciseId, answer, timeSpent } = submitSchema.parse(req.body);
 
     const exercise = LISTENING_EXERCISES.find(e => e.id === exerciseId);
-    if (!exercise) return res.status(404).json({ error: 'Bài nghe không tồn tại' });
+    if (!exercise) return res.status(404).json(errorResponse('Bài nghe không tồn tại', 'NOT_FOUND'));
 
     const isCorrect = answer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
     const xpEarned = isCorrect ? 10 : 2;
@@ -100,8 +100,8 @@ router.post('/submit', authenticate, async (req: AuthRequest, res: Response) => 
         : `Chưa đúng. Đáp án là: "${exercise.answer}"`,
     });
   } catch (error) {
-    if (error instanceof z.ZodError) return res.status(400).json({ error: error.errors });
-    res.status(500).json({ error: 'Lỗi khi xử lý bài nghe' });
+    if (error instanceof z.ZodError) return res.status(400).json(errorResponse('Dữ liệu không hợp lệ', 'VALIDATION_ERROR', error.errors));
+    res.status(500).json(errorResponse('Lỗi khi xử lý bài nghe', 'INTERNAL_ERROR'));
   }
 });
 
