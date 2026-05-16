@@ -109,6 +109,10 @@ import { englishEmotionsIntermediateLessons } from './english/intermediate-emoti
 import { japaneseEmotionsIntermediateLessons } from './japanese/intermediate-emotions';
 import { koreanEmotionsIntermediateLessons } from './korean/intermediate-emotions';
 import { chineseEmotionsIntermediateLessons } from './chinese/intermediate-emotions';
+import { englishMediaLessons } from './english/advanced-media';
+import { japaneseMediaLessons } from './japanese/advanced-media';
+import { koreanMediaLessons } from './korean/advanced-media';
+import { chineseMediaLessons } from './chinese/advanced-media';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -294,7 +298,7 @@ async function main() {
   }
 
   // English advanced lessons
-  const enAdvancedLessons = [...englishEnvironmentLessons, ...englishAcademicLessons];
+  const enAdvancedLessons = [...englishEnvironmentLessons, ...englishAcademicLessons, ...englishMediaLessons];
   for (let i = 0; i < enAdvancedLessons.length; i++) {
     await createLessonWithContent(levels['en']['advanced'], i + 1, enAdvancedLessons[i]);
     lessonCount++;
@@ -303,7 +307,7 @@ async function main() {
   }
 
   // Japanese advanced lessons
-  const jaAdvancedLessons = [...japaneseEnvironmentLessons, ...japaneseAcademicLessons];
+  const jaAdvancedLessons = [...japaneseEnvironmentLessons, ...japaneseAcademicLessons, ...japaneseMediaLessons];
   for (let i = 0; i < jaAdvancedLessons.length; i++) {
     await createLessonWithContent(levels['ja']['advanced'], i + 1, jaAdvancedLessons[i]);
     lessonCount++;
@@ -312,7 +316,7 @@ async function main() {
   }
 
   // Korean advanced lessons
-  const koAdvancedLessons = [...koreanEnvironmentLessons, ...koreanAcademicLessons];
+  const koAdvancedLessons = [...koreanEnvironmentLessons, ...koreanAcademicLessons, ...koreanMediaLessons];
   for (let i = 0; i < koAdvancedLessons.length; i++) {
     await createLessonWithContent(levels['ko']['advanced'], i + 1, koAdvancedLessons[i]);
     lessonCount++;
@@ -321,7 +325,7 @@ async function main() {
   }
 
   // Chinese advanced lessons
-  const zhAdvancedLessons = [...chineseEnvironmentLessons, ...chineseAcademicLessons];
+  const zhAdvancedLessons = [...chineseEnvironmentLessons, ...chineseAcademicLessons, ...chineseMediaLessons];
   for (let i = 0; i < zhAdvancedLessons.length; i++) {
     await createLessonWithContent(levels['zh']['advanced'], i + 1, zhAdvancedLessons[i]);
     lessonCount++;
