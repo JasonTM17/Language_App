@@ -65,13 +65,13 @@ export default function LessonsPage() {
               <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${
                 isCompleted
                   ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
-                  : 'bg-card border hover:border-primary-200 dark:hover:border-primary-800'
+                  : 'bg-card hover:border-primary/30'
               }`}>
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold ${
                     isCompleted
                       ? 'bg-green-100 dark:bg-green-900/30 text-green-600'
-                      : 'bg-primary-100 dark:bg-primary-900/30 text-primary'
+                      : 'bg-primary/10 text-primary'
                   }`}>
                     {isCompleted ? '✓' : index + 1}
                   </div>
