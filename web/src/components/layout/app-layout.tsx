@@ -11,7 +11,7 @@ import {
   Edit3, MessageCircle, Languages, Puzzle, Blocks, ClipboardList, Link2,
   Type, Library, BookOpenText, Landmark, Trophy, GitBranch, Shuffle,
   Wrench, Flame, Bookmark, Medal, Users, CalendarDays, Swords, Target,
-  Gem, Keyboard, Gamepad2, LayoutGrid, BarChart3, TrendingUp, Sparkles,
+  Gem, Keyboard, Gamepad2, LayoutGrid, BarChart3, TrendingUp, Sparkles, Quote,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -49,6 +49,7 @@ const navItems: NavItem[] = [
   { href: '/stories', label: 'Stories', icon: Library },
   { href: '/reading', label: 'Reading', icon: BookOpenText },
   { href: '/culture', label: 'Culture', icon: Landmark },
+  { href: '/idioms', label: 'Idioms', icon: Quote },
   { href: '/achievements', label: 'Achievements', icon: Trophy },
   { href: '/skill-tree', label: 'Skill Tree', icon: GitBranch },
   { href: '/word-scramble', label: 'Word Scramble', icon: Shuffle },
