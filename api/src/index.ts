@@ -27,6 +27,7 @@ import dailyGoalsRoutes from './routes/daily-goals';
 import flashcardReviewRoutes from './routes/flashcard-review';
 import studyPlanRoutes from './routes/study-plan';
 import bookmarksRoutes from './routes/bookmarks';
+import wordOfDayRoutes from './routes/word-of-day';
 
 dotenv.config();
 
@@ -80,6 +81,7 @@ app.use('/api/daily-goals', dailyGoalsRoutes);
 app.use('/api/flashcard-review', flashcardReviewRoutes);
 app.use('/api/study-plan', studyPlanRoutes);
 app.use('/api/bookmarks', bookmarksRoutes);
+app.use('/api/word-of-day', wordOfDayRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
