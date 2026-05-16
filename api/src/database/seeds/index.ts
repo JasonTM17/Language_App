@@ -81,6 +81,9 @@ import { chineseAnimalsLessons } from './chinese/elementary-animals';
 import { japaneseDailyLifeLessons } from './japanese/beginner-daily-life';
 import { koreanDailyLifeLessons } from './korean/beginner-daily-life';
 import { chineseDailyLifeLessons } from './chinese/beginner-daily-life';
+import { japaneseEnvironmentLessons } from './japanese/advanced-environment';
+import { koreanEnvironmentLessons } from './korean/advanced-environment';
+import { chineseEnvironmentLessons } from './chinese/advanced-environment';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -271,6 +274,30 @@ async function main() {
     lessonCount++;
     vocabCount += englishEnvironmentLessons[i].vocabulary.length;
     quizCount += englishEnvironmentLessons[i].quizzes.length;
+  }
+
+  // Japanese advanced lessons
+  for (let i = 0; i < japaneseEnvironmentLessons.length; i++) {
+    await createLessonWithContent(levels['ja']['advanced'], i + 1, japaneseEnvironmentLessons[i]);
+    lessonCount++;
+    vocabCount += japaneseEnvironmentLessons[i].vocabulary.length;
+    quizCount += japaneseEnvironmentLessons[i].quizzes.length;
+  }
+
+  // Korean advanced lessons
+  for (let i = 0; i < koreanEnvironmentLessons.length; i++) {
+    await createLessonWithContent(levels['ko']['advanced'], i + 1, koreanEnvironmentLessons[i]);
+    lessonCount++;
+    vocabCount += koreanEnvironmentLessons[i].vocabulary.length;
+    quizCount += koreanEnvironmentLessons[i].quizzes.length;
+  }
+
+  // Chinese advanced lessons
+  for (let i = 0; i < chineseEnvironmentLessons.length; i++) {
+    await createLessonWithContent(levels['zh']['advanced'], i + 1, chineseEnvironmentLessons[i]);
+    lessonCount++;
+    vocabCount += chineseEnvironmentLessons[i].vocabulary.length;
+    quizCount += chineseEnvironmentLessons[i].quizzes.length;
   }
 
   console.log(`✅ Lessons created (${lessonCount})`);
