@@ -5,54 +5,69 @@ import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useAuthStore, useAppStore } from '@/lib/store';
+import {
+  Home, Globe, BookOpen, FileText, Ruler, Lightbulb, Layers, RefreshCw,
+  Brain, HelpCircle, Zap, Bot, Mic, Headphones, PenTool, AudioLines,
+  Edit3, MessageCircle, Languages, Puzzle, Blocks, ClipboardList, Link2,
+  Type, Library, BookOpenText, Landmark, Trophy, GitBranch, Shuffle,
+  Wrench, Flame, Bookmark, Medal, Users, CalendarDays, Swords, Target,
+  Gem, Keyboard, Gamepad2, LayoutGrid, BarChart3, TrendingUp, Sparkles,
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: '🏠' },
-  { href: '/languages', label: 'Languages', icon: '🌍' },
-  { href: '/lessons', label: 'Lessons', icon: '📖' },
-  { href: '/vocabulary', label: 'Vocabulary', icon: '📝' },
-  { href: '/grammar', label: 'Grammar', icon: '📐' },
-  { href: '/grammar-tips', label: 'Grammar Tips', icon: '💡' },
-  { href: '/flashcards', label: 'Flashcards', icon: '🃏' },
-  { href: '/review', label: 'Review', icon: '🔄' },
-  { href: '/weak-words', label: 'Weak Words', icon: '🧠' },
-  { href: '/quiz', label: 'Quiz', icon: '❓' },
-  { href: '/timed-challenge', label: 'Speed Quiz', icon: '⚡' },
-  { href: '/ai-tutor', label: 'AI Tutor', icon: '🤖' },
-  { href: '/speaking', label: 'Speaking', icon: '🎤' },
-  { href: '/listening', label: 'Listening', icon: '🎧' },
-  { href: '/dictation', label: 'Dictation', icon: '✏️' },
-  { href: '/pronunciation', label: 'Pronunciation', icon: '🎙️' },
-  { href: '/writing', label: 'Writing', icon: '✍️' },
-  { href: '/conversation', label: 'Conversation', icon: '💬' },
-  { href: '/translation', label: 'Translation', icon: '🌐' },
-  { href: '/sentence', label: 'Sentences', icon: '🧩' },
-  { href: '/sentence-builder', label: 'Build', icon: '🧱' },
-  { href: '/fill-blank', label: 'Fill Blank', icon: '📋' },
-  { href: '/matching', label: 'Matching', icon: '🔗' },
-  { href: '/characters', label: 'Characters', icon: '字' },
-  { href: '/stories', label: 'Stories', icon: '📚' },
-  { href: '/reading', label: 'Reading', icon: '📖' },
-  { href: '/culture', label: 'Culture', icon: '🏛️' },
-  { href: '/achievements', label: 'Achievements', icon: '🏆' },
-  { href: '/skill-tree', label: 'Skill Tree', icon: '🌳' },
-  { href: '/word-scramble', label: 'Word Scramble', icon: '🔤' },
-  { href: '/grammar-correction', label: 'Grammar Fix', icon: '🔧' },
-  { href: '/streak-calendar', label: 'Streak', icon: '🔥' },
-  { href: '/bookmarks', label: 'Bookmarks', icon: '🔖' },
-  { href: '/leaderboard', label: 'Leaderboard', icon: '🥇' },
-  { href: '/friends', label: 'Friends', icon: '👥' },
-  { href: '/study-plan', label: 'Study Plan', icon: '📅' },
-  { href: '/quests', label: 'Quests', icon: '⚔️' },
-  { href: '/daily-goals', label: 'Daily Goals', icon: '🎯' },
-  { href: '/daily-challenge', label: 'Challenge', icon: '⚔️' },
-  { href: '/shop', label: 'Shop', icon: '💎' },
-  { href: '/typing-practice', label: 'Typing', icon: '⌨️' },
-  { href: '/games', label: 'Games', icon: '🎮' },
-  { href: '/memory-game', label: 'Memory', icon: '🧩' },
-  { href: '/progress', label: 'Progress', icon: '📊' },
-  { href: '/analytics', label: 'Analytics', icon: '📈' },
-  { href: '/word-of-day', label: 'Word of Day', icon: '✨' },
+interface NavItem {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+}
+
+const navItems: NavItem[] = [
+  { href: '/dashboard', label: 'Dashboard', icon: Home },
+  { href: '/languages', label: 'Languages', icon: Globe },
+  { href: '/lessons', label: 'Lessons', icon: BookOpen },
+  { href: '/vocabulary', label: 'Vocabulary', icon: FileText },
+  { href: '/grammar', label: 'Grammar', icon: Ruler },
+  { href: '/grammar-tips', label: 'Grammar Tips', icon: Lightbulb },
+  { href: '/flashcards', label: 'Flashcards', icon: Layers },
+  { href: '/review', label: 'Review', icon: RefreshCw },
+  { href: '/weak-words', label: 'Weak Words', icon: Brain },
+  { href: '/quiz', label: 'Quiz', icon: HelpCircle },
+  { href: '/timed-challenge', label: 'Speed Quiz', icon: Zap },
+  { href: '/ai-tutor', label: 'AI Tutor', icon: Bot },
+  { href: '/speaking', label: 'Speaking', icon: Mic },
+  { href: '/listening', label: 'Listening', icon: Headphones },
+  { href: '/dictation', label: 'Dictation', icon: PenTool },
+  { href: '/pronunciation', label: 'Pronunciation', icon: AudioLines },
+  { href: '/writing', label: 'Writing', icon: Edit3 },
+  { href: '/conversation', label: 'Conversation', icon: MessageCircle },
+  { href: '/translation', label: 'Translation', icon: Languages },
+  { href: '/sentence', label: 'Sentences', icon: Puzzle },
+  { href: '/sentence-builder', label: 'Build', icon: Blocks },
+  { href: '/fill-blank', label: 'Fill Blank', icon: ClipboardList },
+  { href: '/matching', label: 'Matching', icon: Link2 },
+  { href: '/characters', label: 'Characters', icon: Type },
+  { href: '/stories', label: 'Stories', icon: Library },
+  { href: '/reading', label: 'Reading', icon: BookOpenText },
+  { href: '/culture', label: 'Culture', icon: Landmark },
+  { href: '/achievements', label: 'Achievements', icon: Trophy },
+  { href: '/skill-tree', label: 'Skill Tree', icon: GitBranch },
+  { href: '/word-scramble', label: 'Word Scramble', icon: Shuffle },
+  { href: '/grammar-correction', label: 'Grammar Fix', icon: Wrench },
+  { href: '/streak-calendar', label: 'Streak', icon: Flame },
+  { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
+  { href: '/leaderboard', label: 'Leaderboard', icon: Medal },
+  { href: '/friends', label: 'Friends', icon: Users },
+  { href: '/study-plan', label: 'Study Plan', icon: CalendarDays },
+  { href: '/quests', label: 'Quests', icon: Swords },
+  { href: '/daily-goals', label: 'Daily Goals', icon: Target },
+  { href: '/daily-challenge', label: 'Challenge', icon: Zap },
+  { href: '/shop', label: 'Shop', icon: Gem },
+  { href: '/typing-practice', label: 'Typing', icon: Keyboard },
+  { href: '/games', label: 'Games', icon: Gamepad2 },
+  { href: '/memory-game', label: 'Memory', icon: LayoutGrid },
+  { href: '/progress', label: 'Progress', icon: BarChart3 },
+  { href: '/analytics', label: 'Analytics', icon: TrendingUp },
+  { href: '/word-of-day', label: 'Word of Day', icon: Sparkles },
 ];
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
@@ -148,7 +163,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
               >
-                <span className="text-lg">{item.icon}</span>
+                <item.icon className="w-5 h-5 shrink-0" />
                 {item.label}
               </Link>
             );
