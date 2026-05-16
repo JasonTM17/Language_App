@@ -159,4 +159,9 @@ export const api = {
   leaderboard: {
     get: (period?: string) => request<{ leaderboard: any[]; userRank: any; period: string }>(`/leaderboard?period=${period || 'alltime'}`),
   },
+  goals: {
+    today: () => request<{ goal: any }>('/goals/today'),
+    update: (data: { targetMinutes?: number; lessonsTarget?: number; cardsTarget?: number }) => request<{ goal: any }>('/goals/update', { method: 'POST', body: data }),
+    history: () => request<{ goals: any[]; completedDays: number; totalDays: number }>('/goals/history'),
+  },
 };
