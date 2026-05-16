@@ -113,6 +113,8 @@ import { englishMediaLessons } from './english/advanced-media';
 import { japaneseMediaLessons } from './japanese/advanced-media';
 import { koreanMediaLessons } from './korean/advanced-media';
 import { chineseMediaLessons } from './chinese/advanced-media';
+import { englishHobbiesElementaryLessons } from './english/elementary-hobbies';
+import { englishSchoolLessons } from './english/elementary-school';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -235,7 +237,7 @@ async function main() {
   }
 
   // English elementary lessons
-  const enElementaryLessons = [...englishTransportLessons, ...englishTechnologyLessons, ...englishEmotionsLessons, ...englishColorsLessons, ...englishAnimalsLessons, ...englishTimeLessons];
+  const enElementaryLessons = [...englishTransportLessons, ...englishTechnologyLessons, ...englishEmotionsLessons, ...englishColorsLessons, ...englishAnimalsLessons, ...englishTimeLessons, ...englishHobbiesElementaryLessons, ...englishSchoolLessons];
   for (let i = 0; i < enElementaryLessons.length; i++) {
     await createLessonWithContent(levels['en']['elementary'], i + 1, enElementaryLessons[i]);
     lessonCount++;
