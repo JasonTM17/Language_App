@@ -42,6 +42,20 @@ const scenarios: Record<string, ConversationScenario[]> = {
         ['Thank you so much for your help!', 'Got it, thanks!', 'I appreciate it. Have a nice day!'],
       ],
     },
+    {
+      id: '6', title: 'At the Doctor', titleVi: 'Ở phòng khám', language: 'en',
+      context: 'You are visiting a doctor because you feel sick.',
+      messages: [
+        { role: 'bot', text: 'Good morning. What seems to be the problem today?', translation: 'Chào buổi sáng. Hôm nay bạn có vấn đề gì?' },
+      ],
+      userOptions: [
+        ['I have a headache and a sore throat.', 'I have been coughing for three days.', 'My stomach hurts since yesterday.'],
+        ['It started about three days ago.', 'Since last night.', 'About a week ago.'],
+        ['No, I have not taken any medicine.', 'I took some paracetamol.', 'I tried some herbal tea.'],
+        ['Yes, I am allergic to penicillin.', 'No, I do not have any allergies.', 'I am not sure.'],
+        ['Thank you, doctor. I will follow your advice.', 'Should I come back if it does not improve?', 'How many times a day should I take the medicine?'],
+      ],
+    },
   ],
   ja: [
     {
@@ -55,6 +69,19 @@ const scenarios: Record<string, ConversationScenario[]> = {
         ['これをください。', 'これとこれをお願いします。', '温めてもらえますか？'],
         ['袋はいりません。', '袋をお願いします。', 'お箸をください。'],
         ['ありがとうございます！', 'おつりはいりません。', 'レシートはいりません。'],
+      ],
+    },
+    {
+      id: '7', title: '電車で (On the Train)', titleVi: 'Trên tàu điện', language: 'ja',
+      context: 'You need help navigating the train system in Japan.',
+      messages: [
+        { role: 'bot', text: 'すみません、何かお困りですか？', translation: 'Xin lỗi, bạn cần giúp gì không?' },
+      ],
+      userOptions: [
+        ['渋谷駅に行きたいんですが。', '新宿まで何分かかりますか？', 'この電車は東京駅に止まりますか？'],
+        ['乗り換えは必要ですか？', '何番線ですか？', '次の電車は何時ですか？'],
+        ['切符はどこで買えますか？', 'ICカードは使えますか？', '片道いくらですか？'],
+        ['ありがとうございます！助かりました。', 'わかりました。ありがとう！', 'とても親切ですね。感謝します。'],
       ],
     },
   ],
@@ -73,6 +100,20 @@ const scenarios: Record<string, ConversationScenario[]> = {
         ['谢谢！', '多少钱？', '可以用手机支付吗？'],
       ],
     },
+    {
+      id: '8', title: '在超市 (At the Supermarket)', titleVi: 'Ở siêu thị', language: 'zh',
+      context: 'You are shopping at a supermarket and need help finding items.',
+      messages: [
+        { role: 'bot', text: '您好！需要帮忙吗？', translation: 'Xin chào! Cần giúp gì không?' },
+      ],
+      userOptions: [
+        ['请问牛奶在哪里？', '我找不到水果区。', '洗发水在哪个区域？'],
+        ['有没有打折的？', '这个多少钱？', '有更大包装的吗？'],
+        ['我要一个塑料袋。', '不用袋子，谢谢。', '可以给我两个袋子吗？'],
+        ['可以刷卡吗？', '我用微信支付。', '可以用现金吗？'],
+        ['谢谢你的帮助！', '再见！', '祝你工作愉快！'],
+      ],
+    },
   ],
   ko: [
     {
@@ -87,6 +128,20 @@ const scenarios: Record<string, ConversationScenario[]> = {
         ['뜨거운 걸로 주세요.', '아이스로 주세요.', '미지근하게 해주세요.'],
         ['여기서 마실게요.', '포장해 주세요.', '테이크아웃이요.'],
         ['감사합니다!', '얼마예요?', '카드로 결제할게요.'],
+      ],
+    },
+    {
+      id: '9', title: '쇼핑할 때 (Shopping)', titleVi: 'Khi mua sắm', language: 'ko',
+      context: 'You are shopping for clothes at a Korean store.',
+      messages: [
+        { role: 'bot', text: '안녕하세요! 뭐 찾으시는 거 있으세요?', translation: 'Xin chào! Bạn đang tìm gì ạ?' },
+      ],
+      userOptions: [
+        ['티셔츠를 찾고 있어요.', '선물을 사고 싶어요.', '그냥 구경하고 있어요.'],
+        ['이거 다른 색상 있어요?', '이거 사이즈가 어떻게 돼요?', '이거 입어봐도 돼요?'],
+        ['좀 더 큰 사이즈 있어요?', '다른 디자인 보여주세요.', '이거 잘 어울려요?'],
+        ['이거 얼마예요?', '할인되나요?', '세일 중인 거 있어요?'],
+        ['이거로 할게요.', '좀 더 생각해볼게요.', '카드로 결제할게요.'],
       ],
     },
   ],
@@ -125,6 +180,33 @@ const botResponses: Record<string, string[][]> = {
     ['네. 매장에서 드시나요, 포장하시나요?', 'Vâng. Uống tại đây hay mang đi ạ?'],
     ['잠시만 기다려주세요.', 'Xin chờ một chút.'],
     ['4,500원입니다. 감사합니다!', '4.500 won ạ. Cảm ơn!'],
+  ],
+  '6': [
+    ['I see. How long have you been feeling this way?', 'Tôi hiểu. Bạn cảm thấy như vậy bao lâu rồi?'],
+    ['Have you taken any medicine for it?', 'Bạn đã uống thuốc gì chưa?'],
+    ['Do you have any allergies to medication?', 'Bạn có dị ứng thuốc gì không?'],
+    ['I will prescribe some medicine. Take it twice a day after meals.', 'Tôi sẽ kê đơn thuốc. Uống 2 lần/ngày sau bữa ăn.'],
+    ['If it does not improve in 3 days, please come back. Get well soon!', 'Nếu không đỡ trong 3 ngày, hãy quay lại. Chúc mau khỏe!'],
+  ],
+  '7': [
+    ['渋谷駅ですね。山手線に乗ってください。', 'Ga Shibuya nhé. Hãy đi tuyến Yamanote.'],
+    ['乗り換えなしで行けますよ。3駅目です。', 'Không cần chuyển tàu. Ga thứ 3.'],
+    ['ICカードが使えますよ。改札でタッチしてください。', 'Dùng được thẻ IC. Chạm ở cổng soát vé.'],
+    ['どういたしまして！良い旅を！', 'Không có gì! Chúc chuyến đi vui!'],
+  ],
+  '8': [
+    ['牛奶在冷藏区，往前走右转就到了。', 'Sữa ở khu lạnh, đi thẳng rẽ phải là đến.'],
+    ['这个今天打八折，很划算。', 'Cái này hôm nay giảm 20%, rất hời.'],
+    ['好的，给您袋子。', 'Được, đây là túi cho bạn.'],
+    ['都可以，刷卡和手机支付都行。', 'Đều được, thẻ và thanh toán điện thoại đều OK.'],
+    ['不客气！欢迎下次再来！', 'Không có gì! Hẹn gặp lại!'],
+  ],
+  '9': [
+    ['네, 이쪽에 있어요. 따라오세요.', 'Vâng, ở bên này. Mời đi theo.'],
+    ['이 색상은 흰색, 검정, 파란색이 있어요.', 'Màu này có trắng, đen, xanh dương.'],
+    ['네, 이 사이즈 한번 입어보세요. 탈의실은 저쪽이에요.', 'Vâng, thử size này. Phòng thay đồ ở kia.'],
+    ['원래 39,000원인데 지금 30% 할인 중이에요.', 'Giá gốc 39.000 won, đang giảm 30%.'],
+    ['네, 결제 도와드릴게요. 감사합니다!', 'Vâng, để tôi thanh toán. Cảm ơn!'],
   ],
 };
 
