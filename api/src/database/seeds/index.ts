@@ -41,6 +41,8 @@ import { chineseTravelLessons } from './chinese/beginner-travel';
 import { japaneseFamilyLessons } from './japanese/beginner-family';
 import { englishColorsLessons } from './english/elementary-colors';
 import { englishAnimalsLessons } from './english/elementary-animals';
+import { englishCultureLessons } from './english/intermediate-culture';
+import { englishEnvironmentLessons } from './english/advanced-environment';
 import { japaneseWeatherLessons } from './japanese/beginner-weather';
 import { japaneseEmotionsLessons } from './japanese/elementary-emotions';
 import { koreanWeatherLessons } from './korean/beginner-weather';
@@ -142,7 +144,7 @@ async function main() {
   }
 
   // English intermediate lessons
-  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons];
+  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons, ...englishCultureLessons];
   for (let i = 0; i < enIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['en']['intermediate'], i + 1, enIntermediateLessons[i]);
     lessonCount++;
@@ -236,6 +238,14 @@ async function main() {
     lessonCount++;
     vocabCount += zhIntermediateLessons[i].vocabulary.length;
     quizCount += zhIntermediateLessons[i].quizzes.length;
+  }
+
+  // English advanced lessons
+  for (let i = 0; i < englishEnvironmentLessons.length; i++) {
+    await createLessonWithContent(levels['en']['advanced'], i + 1, englishEnvironmentLessons[i]);
+    lessonCount++;
+    vocabCount += englishEnvironmentLessons[i].vocabulary.length;
+    quizCount += englishEnvironmentLessons[i].quizzes.length;
   }
 
   console.log(`✅ Lessons created (${lessonCount})`);
