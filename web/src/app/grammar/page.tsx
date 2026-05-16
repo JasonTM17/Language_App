@@ -117,6 +117,26 @@ const grammarData: Record<string, GrammarPoint[]> = {
         { sentence: '我学了两年中文。', translation: 'Tôi đã học 2 năm tiếng Trung.' },
       ],
     },
+    {
+      id: 'zh-3', title: '在 + V (Progressive)', titleVi: 'Đang làm gì (在 + V)',
+      pattern: 'S + 在 + V',
+      explanation: '在 (zài) đặt trước động từ để chỉ hành động đang diễn ra (tương tự "đang" trong tiếng Việt).',
+      examples: [
+        { sentence: '我在看书。', translation: 'Tôi đang đọc sách.' },
+        { sentence: '她在做饭。', translation: 'Cô ấy đang nấu ăn.' },
+        { sentence: '他们在开会。', translation: 'Họ đang họp.' },
+      ],
+    },
+    {
+      id: 'zh-4', title: '比 (Comparison)', titleVi: 'So sánh hơn (比)',
+      pattern: 'A + 比 + B + Adj',
+      explanation: '比 (bǐ) dùng để so sánh. A 比 B + tính từ = A hơn B.',
+      examples: [
+        { sentence: '他比我高。', translation: 'Anh ấy cao hơn tôi.' },
+        { sentence: '今天比昨天冷。', translation: 'Hôm nay lạnh hơn hôm qua.' },
+        { sentence: '中文比英文难。', translation: 'Tiếng Trung khó hơn tiếng Anh.' },
+      ],
+    },
   ],
   ko: [
     {
@@ -137,6 +157,26 @@ const grammarData: Record<string, GrammarPoint[]> = {
         { sentence: '한국어를 공부해요.', translation: 'Tôi học tiếng Hàn.' },
         { sentence: '매일 운동해요.', translation: 'Tôi tập thể dục mỗi ngày.' },
         { sentence: '커피를 마셔요.', translation: 'Tôi uống cà phê.' },
+      ],
+    },
+    {
+      id: 'ko-3', title: '-고 있다 (Progressive)', titleVi: 'Đang làm gì (-고 있다)',
+      pattern: 'V + 고 있다',
+      explanation: '-고 있다 gắn vào gốc động từ để diễn tả hành động đang diễn ra (tương tự "đang" trong tiếng Việt).',
+      examples: [
+        { sentence: '지금 공부하고 있어요.', translation: 'Tôi đang học bây giờ.' },
+        { sentence: '비가 오고 있어요.', translation: 'Trời đang mưa.' },
+        { sentence: '친구를 기다리고 있어요.', translation: 'Tôi đang đợi bạn.' },
+      ],
+    },
+    {
+      id: 'ko-4', title: '-보다 (Comparison)', titleVi: 'So sánh hơn (-보다)',
+      pattern: 'N + 보다 + Adj',
+      explanation: '보다 đặt sau danh từ được so sánh, nghĩa là "hơn". A가 B보다 + adj = A hơn B.',
+      examples: [
+        { sentence: '오늘이 어제보다 추워요.', translation: 'Hôm nay lạnh hơn hôm qua.' },
+        { sentence: '한국어가 영어보다 어려워요.', translation: 'Tiếng Hàn khó hơn tiếng Anh.' },
+        { sentence: '서울이 부산보다 커요.', translation: 'Seoul lớn hơn Busan.' },
       ],
     },
   ],
