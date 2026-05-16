@@ -6,10 +6,15 @@ import { englishFoodLessons } from './english/beginner-food';
 import { englishTravelLessons } from './english/beginner-travel';
 import { englishFamilyLessons } from './english/beginner-family';
 import { englishHobbiesLessons } from './english/beginner-hobbies';
+import { englishGreetingsLessons } from './english/beginner-greetings';
+import { englishNumbersLessons } from './english/beginner-numbers';
+import { englishHealthLessons } from './english/beginner-health';
+import { englishShoppingLessons } from './english/beginner-shopping';
 import { englishWorkLessons } from './english/intermediate-work';
 import { japaneseFoodLessons } from './japanese/beginner-food';
 import { japaneseTravelLessons } from './japanese/beginner-travel';
 import { japaneseDailyLessons } from './japanese/beginner-daily';
+import { japaneseGreetingsLessons } from './japanese/beginner-greetings';
 import { koreanFoodLessons } from './korean/beginner-food';
 import { koreanDailyLessons } from './korean/beginner-daily';
 import { koreanFamilyLessons } from './korean/beginner-family';
@@ -93,7 +98,7 @@ async function main() {
   let quizCount = 0;
 
   // English beginner lessons
-  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons, ...englishHobbiesLessons];
+  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons, ...englishHobbiesLessons, ...englishGreetingsLessons, ...englishNumbersLessons, ...englishHealthLessons, ...englishShoppingLessons];
   for (let i = 0; i < enBeginnerLessons.length; i++) {
     const lesson = await createLessonWithContent(levels['en']['beginner'], i + 1, enBeginnerLessons[i]);
     lessonCount++;
@@ -110,7 +115,7 @@ async function main() {
   }
 
   // Japanese beginner lessons
-  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons, ...japaneseDailyLessons];
+  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons, ...japaneseDailyLessons, ...japaneseGreetingsLessons];
   for (let i = 0; i < jaBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['ja']['beginner'], i + 1, jaBeginnerLessons[i]);
     lessonCount++;
