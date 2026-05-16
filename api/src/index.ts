@@ -46,6 +46,8 @@ import storiesRoutes from './routes/stories';
 import dailyChallengeRoutes from './routes/daily-challenge';
 import listeningRoutes from './routes/listening';
 import speakingRoutes from './routes/speaking';
+import { requestTimeout } from './middleware/timeout';
+import { cacheControl } from './middleware/cache';
 
 dotenv.config();
 
@@ -61,6 +63,8 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
+app.use(requestTimeout(30000));
+app.use(cacheControl(60));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
