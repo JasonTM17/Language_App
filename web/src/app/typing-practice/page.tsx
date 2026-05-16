@@ -19,6 +19,9 @@ const exercises: Record<string, TypingExercise[]> = {
     { id: 'en-3', text: 'Learning a new language opens doors to new cultures.', translation: 'Học ngôn ngữ mới mở ra cánh cửa đến văn hóa mới.', difficulty: 'medium' },
     { id: 'en-4', text: 'She sells seashells by the seashore.', translation: 'Cô ấy bán vỏ sò bên bờ biển.', difficulty: 'medium' },
     { id: 'en-5', text: 'Knowledge is power, but enthusiasm pulls the switch.', translation: 'Kiến thức là sức mạnh, nhưng nhiệt huyết mới là công tắc.', difficulty: 'hard' },
+    { id: 'en-6', text: 'Every journey begins with a single step.', translation: 'Mọi hành trình đều bắt đầu bằng một bước chân.', difficulty: 'easy' },
+    { id: 'en-7', text: 'The best time to plant a tree was twenty years ago.', translation: 'Thời điểm tốt nhất để trồng cây là hai mươi năm trước.', difficulty: 'medium' },
+    { id: 'en-8', text: 'Success is not final, failure is not fatal.', translation: 'Thành công không phải là cuối cùng, thất bại không phải là chết người.', difficulty: 'medium' },
   ],
   ja: [
     { id: 'ja-1', text: 'おはようございます。', translation: 'Chào buổi sáng.', difficulty: 'easy' },
@@ -26,6 +29,9 @@ const exercises: Record<string, TypingExercise[]> = {
     { id: 'ja-3', text: '毎日少しずつ練習することが大切です。', translation: 'Luyện tập một chút mỗi ngày là quan trọng.', difficulty: 'medium' },
     { id: 'ja-4', text: '新しい言葉を覚えるのは楽しいです。', translation: 'Học từ mới rất vui.', difficulty: 'medium' },
     { id: 'ja-5', text: '日本の文化に興味があります。', translation: 'Tôi quan tâm đến văn hóa Nhật Bản.', difficulty: 'easy' },
+    { id: 'ja-6', text: '来週の月曜日に会議があります。', translation: 'Thứ Hai tuần sau có cuộc họp.', difficulty: 'medium' },
+    { id: 'ja-7', text: '東京は世界で最も人口が多い都市です。', translation: 'Tokyo là thành phố đông dân nhất thế giới.', difficulty: 'hard' },
+    { id: 'ja-8', text: '日本料理は健康的で美味しいです。', translation: 'Ẩm thực Nhật Bản vừa tốt cho sức khỏe vừa ngon.', difficulty: 'medium' },
   ],
   zh: [
     { id: 'zh-1', text: '你好，很高兴认识你。', translation: 'Xin chào, rất vui được gặp bạn.', difficulty: 'easy' },
@@ -33,6 +39,9 @@ const exercises: Record<string, TypingExercise[]> = {
     { id: 'zh-3', text: '每天练习一点很重要。', translation: 'Luyện tập một chút mỗi ngày rất quan trọng.', difficulty: 'medium' },
     { id: 'zh-4', text: '学习新词汇很有趣。', translation: 'Học từ vựng mới rất thú vị.', difficulty: 'easy' },
     { id: 'zh-5', text: '中国文化博大精深。', translation: 'Văn hóa Trung Quốc rộng lớn và sâu sắc.', difficulty: 'medium' },
+    { id: 'zh-6', text: '我喜欢在周末去公园散步。', translation: 'Tôi thích đi dạo ở công viên vào cuối tuần.', difficulty: 'medium' },
+    { id: 'zh-7', text: '学好一门外语需要时间和耐心。', translation: 'Học giỏi một ngoại ngữ cần thời gian và kiên nhẫn.', difficulty: 'hard' },
+    { id: 'zh-8', text: '今天天气很好，适合出去玩。', translation: 'Hôm nay thời tiết đẹp, thích hợp đi chơi.', difficulty: 'easy' },
   ],
   ko: [
     { id: 'ko-1', text: '안녕하세요, 만나서 반갑습니다.', translation: 'Xin chào, rất vui được gặp bạn.', difficulty: 'easy' },
@@ -40,6 +49,9 @@ const exercises: Record<string, TypingExercise[]> = {
     { id: 'ko-3', text: '매일 조금씩 연습하는 것이 중요해요.', translation: 'Luyện tập một chút mỗi ngày là quan trọng.', difficulty: 'medium' },
     { id: 'ko-4', text: '새로운 단어를 배우는 것은 재미있어요.', translation: 'Học từ mới rất vui.', difficulty: 'easy' },
     { id: 'ko-5', text: '한국 문화에 관심이 있어요.', translation: 'Tôi quan tâm đến văn hóa Hàn Quốc.', difficulty: 'easy' },
+    { id: 'ko-6', text: '주말에 친구들과 영화를 보러 갈 거예요.', translation: 'Cuối tuần tôi sẽ đi xem phim với bạn bè.', difficulty: 'medium' },
+    { id: 'ko-7', text: '서울은 현대적이면서도 전통적인 도시입니다.', translation: 'Seoul là thành phố vừa hiện đại vừa truyền thống.', difficulty: 'hard' },
+    { id: 'ko-8', text: '한국 음식은 맵지만 정말 맛있어요.', translation: 'Đồ ăn Hàn Quốc cay nhưng rất ngon.', difficulty: 'medium' },
   ],
 };
 
