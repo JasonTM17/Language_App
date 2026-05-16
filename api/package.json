@@ -2,7 +2,7 @@
   "name": "linguaflow-api",
   "version": "1.0.0",
   "description": "LinguaFlow REST API - Language learning platform backend with AI tutoring",
-  "author": "JasonTM17",
+  "author": "Nguyễn Sơn <sonnguyenhoang17@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -1,260 +1,273 @@
-# LinguaFlow
+<div align="center">
 
-A comprehensive language learning platform designed for Vietnamese students learning English, Japanese, Chinese, and Korean. Features AI-powered tutoring, spaced repetition flashcards, interactive stories, gamification, and personalized learning paths.
+# 🎓 LinguaFlow
 
-## Tech Stack
+**Nền tảng học ngôn ngữ thông minh cho người Việt**
 
-### Frontend (web/)
-- **Next.js 14** — React framework with App Router
-- **TypeScript** — Full type safety across the codebase
-- **Tailwind CSS** — Utility-first styling with dark mode
-- **Zustand** — Lightweight state management
-- **Framer Motion** — Smooth animations and transitions
-- **Radix UI** — Accessible component primitives
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://docker.com)
+[![Tests](https://img.shields.io/badge/Tests-129%20passing-brightgreen)](api/)
 
-### Backend (api/)
-- **Express.js** — REST API with 38+ route modules
-- **Prisma** — Type-safe ORM with SQLite
-- **JWT** — Stateless authentication
-- **Zod** — Runtime request validation
-- **bcryptjs** — Secure password hashing
-- **Vitest** — Unit and integration testing
+[Demo](https://linguaflow.app) · [Tài liệu API](docs/api.md) · [Báo lỗi](https://github.com/JasonTM17/Language_App/issues)
 
-### AI Service
-- **n8n** — Workflow-based AI orchestration (webhook integration)
-- **OpenAI-compatible** — GPT-4o-mini or any compatible API
-- **Built-in fallback** — Mock responses when no AI provider configured
+</div>
 
-### Mobile (mobile/)
-- **React Native / Expo** — Cross-platform mobile app
+---
 
-## Getting Started
+## Giới thiệu
 
-### Prerequisites
-- Node.js 18+
-- npm 9+
+LinguaFlow là nền tảng học ngôn ngữ toàn diện được thiết kế riêng cho người Việt Nam. Hỗ trợ 4 ngôn ngữ: **Tiếng Anh**, **Tiếng Nhật**, **Tiếng Trung**, và **Tiếng Hàn** với hệ thống AI Tutor, gamification, và spaced repetition.
 
-### Setup
+### Tính năng nổi bật
+
+| Tính năng | Mô tả |
+|-----------|--------|
+| **AI Tutor** | Trợ lý AI hỗ trợ học tập cá nhân hóa |
+| **Spaced Repetition** | Thuật toán SM-2 tối ưu hóa ghi nhớ dài hạn |
+| **Gamification** | XP, streak, leaderboard, achievements |
+| **4 kỹ năng** | Nghe, Nói, Đọc, Viết với bài tập tương tác |
+| **Skill Tree** | Lộ trình học từ Beginner đến Advanced |
+| **PWA** | Cài đặt như app native, hoạt động offline |
+| **Dark Mode** | Giao diện tối bảo vệ mắt |
+| **Responsive** | Tối ưu cho mobile, tablet, desktop |
+
+---
+
+## Kiến trúc
+
+```
+linguaflow/
+├── api/                    # Backend REST API
+│   ├── src/
+│   │   ├── routes/         # 38 API endpoints
+│   │   ├── middleware/     # Auth, rate-limit, validation
+│   │   ├── database/      # Prisma ORM + SQLite
+│   │   └── types/         # TypeScript definitions
+│   ├── prisma/             # Schema & migrations
+│   └── tests/              # 129 unit & integration tests
+├── web/                    # Frontend Next.js App
+│   ├── src/
+│   │   ├── app/            # 50+ pages (App Router)
+│   │   ├── components/     # Reusable UI components
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── lib/            # Utilities & helpers
+│   │   └── types/          # Shared type definitions
+│   └── public/             # Static assets & PWA
+├── docker-compose.yml      # Container orchestration
+└── docs/                   # Documentation
+```
+
+### Tech Stack
+
+**Frontend:**
+- Next.js 14 (App Router, Server Components)
+- React 18 + TypeScript 5.4
+- Tailwind CSS 3.4 + Radix UI
+- Framer Motion (animations)
+- Zustand (state management)
+- TanStack Query (data fetching)
+- Lucide React (icons)
+
+**Backend:**
+- Express.js + TypeScript
+- Prisma ORM + SQLite
+- JWT Authentication
+- Zod (validation)
+- Helmet + CORS + Rate Limiting
+
+**Infrastructure:**
+- Docker (multi-stage builds)
+- PWA (Service Worker, offline support)
+- GitHub Actions CI/CD
+
+---
+
+## Cài đặt
+
+### Yêu cầu
+
+- Node.js >= 20.0
+- npm >= 10.0
+- Docker (optional, cho deployment)
+
+### Development
 
 ```bash
-# Clone and install
+# Clone repository
 git clone https://github.com/JasonTM17/Language_App.git
 cd Language_App
-cd api && npm install
-cd ../web && npm install
 
-# Configure environment
-cp api/.env.example api/.env
-cp web/.env.example web/.env.local
+# Cài đặt dependencies
+cd api && npm install && cd ../web && npm install && cd ..
 
-# Setup database
+# Khởi tạo database
 cd api
+cp .env.example .env
 npx prisma migrate dev
-npx tsx src/database/seed.ts
+npm run db:seed
 
-# Start development
-cd api && npm run dev    # Backend on port 3001
-cd web && npm run dev    # Frontend on port 3000
+# Chạy development servers
+# Terminal 1 - API (port 3001)
+cd api && npm run dev
+
+# Terminal 2 - Web (port 3000)
+cd web && npm run dev
 ```
 
-Open http://localhost:3000
+### Docker
 
-### Demo Accounts
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@linguaflow.app | admin123 |
-| User | user@linguaflow.app | user123 |
+```bash
+# Build và chạy toàn bộ stack
+docker compose up -d
 
-## Features
-
-### Core Learning
-- 🌍 **4 Languages** — English, Japanese, Chinese, Korean with Vietnamese translations
-- 📚 **Structured Lessons** — Progressive curriculum with vocabulary, grammar, and examples
-- 🃏 **Smart Flashcards** — SM-2 spaced repetition algorithm (quality 0-5 scale)
-- ❓ **Interactive Quizzes** — Multiple choice, fill-in-the-blank, matching, translation
-- 🧠 **Weak Words** — Targeted review of difficult vocabulary
-- 📖 **Grammar Tips** — Contextual grammar explanations per language
-
-### Speaking & Listening
-- 🎤 **Speaking Practice** — Repeat, respond, describe, read aloud, role play exercises
-- 🎧 **Listening Exercises** — Dictation, comprehension, fill-audio, word recognition
-- 🎙️ **Pronunciation** — Phoneme-level analysis with Vietnamese-specific error patterns
-- ✏️ **Dictation** — Audio-to-text transcription practice
-
-### Reading & Writing
-- 📚 **Interactive Stories** — Narrative reading with inline comprehension questions
-- ✍️ **Writing Practice** — Sentence construction and essay exercises
-- 🧩 **Sentence Builder** — Drag-and-drop sentence construction
-- 🌐 **Translation** — Bidirectional translation exercises
-- 字 **Characters** — Kanji/Hanzi/Hangul character practice
-
-### AI & Conversation
-- 🤖 **AI Tutor** — Role-based conversation (teacher, friend, interviewer, doctor, travel guide)
-- 💬 **Conversation Practice** — Contextual dialogue with corrections and vocabulary highlights
-- 🔧 **Grammar Correction** — Real-time grammar feedback
-
-### Gamification
-- ⚔️ **Daily Challenge** — Timed competitive quiz with combo scoring
-- 🎯 **Daily Goals** — Daily/weekly/challenge quests with XP and gem rewards
-- 🔥 **Streak System** — Calendar tracking with streak freeze protection
-- 💎 **Shop** — Gem economy with power-ups, cosmetics, and streak items
-- ❤️ **Hearts** — Limited attempts system with refill mechanics
-- 🏆 **Achievements** — Milestone badges and level progression
-- 🥇 **Leaderboard** — Competitive ranking among learners
-- 🌳 **Skill Tree** — Visual progression path per language with unlock dependencies
-
-### Social
-- 👥 **Friends** — Add friends, view activity, compare progress
-- 📊 **Leaderboard** — Weekly/monthly/all-time rankings
-- 🔔 **Notifications** — Streak reminders, achievements, friend activity
-
-### Personalization
-- 📅 **Study Plan** — Personalized daily learning schedule
-- 📈 **Analytics** — Detailed learning statistics and trends
-- ⚙️ **Settings** — Theme, language, notification preferences
-- 🎓 **Onboarding** — Placement test with level determination
-
-## Project Structure
-
-```
-Language_App/
-├── api/                      # Backend Express API
-│   ├── prisma/               # Database schema & migrations
-│   │   └── schema.prisma     # Data models (User, Lesson, Vocabulary, etc.)
-│   ├── src/
-│   │   ├── __tests__/        # API tests (Vitest + Supertest)
-│   │   ├── database/         # Prisma client & seed data
-│   │   ├── middleware/       # Auth, rate limiting
-│   │   ├── routes/           # 38+ API route modules
-│   │   │   ├── auth.ts       # Registration, login, JWT
-│   │   │   ├── lessons.ts    # Lesson CRUD & completion
-│   │   │   ├── vocabulary.ts # SM-2 spaced repetition
-│   │   │   ├── quiz.ts       # Quiz generation & scoring
-│   │   │   ├── chat.ts       # AI conversation
-│   │   │   ├── speaking.ts   # Speaking exercises
-│   │   │   ├── listening.ts  # Listening exercises
-│   │   │   ├── stories.ts    # Interactive stories
-│   │   │   ├── friends.ts    # Social features
-│   │   │   ├── shop.ts       # Gem economy
-│   │   │   └── ...           # 28+ more route files
-│   │   └── services/         # AI service layer
-│   ├── n8n/                  # Workflow templates & setup guide
-│   ├── API.md               # Endpoint documentation
-│   └── .env.example
-├── web/                      # Frontend Next.js app
-│   ├── src/
-│   │   ├── app/              # 50+ pages (App Router)
-│   │   ├── components/       # Reusable UI components
-│   │   │   ├── layout/       # App shell, navigation
-│   │   │   └── ui/           # Button, states, calendar, etc.
-│   │   ├── config/           # Endpoints, site config
-│   │   ├── hooks/            # useDebounce, useLocalStorage
-│   │   ├── lib/              # Store, i18n, utils
-│   │   ├── locales/          # Vietnamese translations (vi.json)
-│   │   ├── services/         # Typed API client
-│   │   └── types/            # Shared TypeScript types
-│   └── .env.example
-├── shared/                   # Shared type definitions
-└── mobile/                   # React Native / Expo app
+# Hoặc build riêng từng service
+docker compose build api
+docker compose build web
 ```
 
-## API Overview
+### Environment Variables
 
-38+ REST endpoints organized by domain:
+```env
+# api/.env
+DATABASE_URL="file:./dev.db"
+JWT_SECRET="your-secret-key-change-in-production"
+PORT=3001
+NODE_ENV=development
+```
 
-| Domain | Endpoints | Description |
-|--------|-----------|-------------|
-| Auth | 4 | Register, login, refresh, profile |
-| Languages | 3 | List, details, enrollment |
-| Lessons | 4 | CRUD, completion, progress |
-| Vocabulary | 3 | List, SM-2 review, stats |
-| Quiz | 3 | Generate, submit, history |
-| Chat | 3 | Start, message, history |
-| Speaking | 3 | List, detail, submit with scoring |
-| Listening | 3 | List, detail, submit |
-| Stories | 3 | List, read, submit answers |
-| Pronunciation | 3 | Exercises, submit, feedback |
-| Friends | 5 | List, add, accept, reject, unfriend |
-| Shop | 3 | List items, purchase, inventory |
-| Skill Tree | 3 | Tree, progress, recommendations |
-| Daily Challenge | 3 | Today's challenge, submit, history |
-| Progress | 4 | Dashboard, streaks, XP, levels |
-| Achievements | 2 | List, unlock |
-| Leaderboard | 2 | Rankings, friends |
-| Admin | 4 | Stats, users, content management |
+---
 
-Full documentation: [api/API.md](api/API.md)
+## API Reference
 
-## Environment Variables
+Base URL: `http://localhost:3001/api`
 
-### API (.env)
-| Variable | Description | Default |
-|----------|-------------|---------|
-| DATABASE_URL | SQLite file path | file:./dev.db |
-| JWT_SECRET | JWT signing secret | dev-secret |
-| PORT | API port | 3001 |
-| FRONTEND_URL | CORS origin | http://localhost:3000 |
-| N8N_WEBHOOK_URL | n8n AI webhook (optional) | - |
-| OPENAI_API_KEY | OpenAI API key (optional) | - |
-| OPENAI_BASE_URL | OpenAI-compatible base URL | https://api.openai.com/v1 |
-| AI_MODEL | AI model name | gpt-4o-mini |
+### Authentication
 
-### Web (.env.local)
-| Variable | Description | Default |
-|----------|-------------|---------|
-| NEXT_PUBLIC_API_URL | Backend API URL | http://localhost:3001/api |
-| NEXT_PUBLIC_APP_NAME | App display name | LinguaFlow |
+| Method | Endpoint | Mô tả |
+|--------|----------|--------|
+| POST | `/auth/register` | Đăng ký tài khoản |
+| POST | `/auth/login` | Đăng nhập |
+| POST | `/auth/refresh` | Refresh token |
+| POST | `/auth/forgot-password` | Quên mật khẩu |
 
-## AI Chatbot
+### Vocabulary
 
-The AI tutor supports multiple providers with automatic fallback:
+| Method | Endpoint | Mô tả |
+|--------|----------|--------|
+| GET | `/vocabulary` | Danh sách từ vựng |
+| POST | `/vocabulary` | Thêm từ mới |
+| GET | `/vocabulary/review` | Từ cần ôn tập (SRS) |
+| POST | `/vocabulary/:id/review` | Ghi nhận kết quả ôn tập |
 
-1. **n8n** — Set `N8N_WEBHOOK_URL` (see [api/n8n/SETUP.md](api/n8n/SETUP.md))
-2. **OpenAI-compatible** — Set `OPENAI_API_KEY` (works with any OpenAI-compatible API)
-3. **Mock** — Built-in fallback with contextual responses per role
+### Progress & Gamification
 
-Conversation roles: Teacher, Friend, Interviewer, Doctor, Travel Guide — each with Vietnamese-learner-specific system prompts.
+| Method | Endpoint | Mô tả |
+|--------|----------|--------|
+| GET | `/progress` | Tiến độ học tập |
+| GET | `/progress/streak` | Streak hiện tại |
+| GET | `/leaderboard` | Bảng xếp hạng |
+| GET | `/achievements` | Thành tích |
+| POST | `/daily-challenge` | Thử thách hàng ngày |
+
+### Quiz & Exercises
+
+| Method | Endpoint | Mô tả |
+|--------|----------|--------|
+| GET | `/quiz/:language` | Lấy câu hỏi quiz |
+| POST | `/quiz/submit` | Nộp bài quiz |
+| GET | `/exercises/:type` | Bài tập theo loại |
+
+[Xem đầy đủ API docs →](docs/api.md)
+
+---
 
 ## Testing
 
 ```bash
-cd api
-npm test              # Run all tests
-npm test -- --watch   # Watch mode
-```
+# Chạy toàn bộ test suite
+cd api && npm test
 
-## Scripts
-
-```bash
-# Development
-cd api && npm run dev          # Start API server (port 3001)
-cd web && npm run dev          # Start web app (port 3000)
-
-# Build
-cd api && npm run build        # Compile TypeScript
-cd web && npm run build        # Production build
-
-# Database
-cd api
-npx prisma migrate dev         # Run migrations
-npx prisma studio              # Visual DB browser
-npx prisma generate            # Regenerate client after schema changes
-npx tsx src/database/seed.ts   # Seed sample data
+# Chạy với coverage
+cd api && npx vitest run --coverage
 
 # Type checking
-cd api && npx tsc --noEmit     # Check API types
-cd web && npx tsc --noEmit     # Check web types
+cd api && npx tsc --noEmit
+cd web && npx tsc --noEmit
 ```
 
-## Design Principles
+**Test coverage:** 16 test files, 129 tests passing
 
-- **Vietnamese-first UX** — All UI labels, error messages, and learning content include Vietnamese translations
-- **Gamification** — XP, gems, hearts, streaks, and leaderboards drive engagement
-- **Spaced Repetition** — SM-2 algorithm ensures optimal review intervals
-- **Progressive Difficulty** — Placement tests and skill trees adapt to learner level
-- **Offline-ready Architecture** — API responses designed for client-side caching
-- **Accessibility** — Semantic HTML, keyboard navigation, screen reader support
+---
 
-## License
+## Deployment
 
-MIT
+### Docker Hub
+
+```bash
+# Build images
+docker build -t jasontm17/linguaflow-api:latest ./api
+docker build -t jasontm17/linguaflow-web:latest ./web
+
+# Push to Docker Hub
+docker push jasontm17/linguaflow-api:latest
+docker push jasontm17/linguaflow-web:latest
+```
+
+### Render
+
+Dự án được cấu hình sẵn cho Render deployment:
+- **API**: Web Service (Docker)
+- **Web**: Static Site hoặc Web Service (Docker)
+
+### Cấu hình Production
+
+```env
+NODE_ENV=production
+JWT_SECRET=<strong-random-secret>
+DATABASE_URL=file:./data/linguaflow.db
+```
+
+---
+
+## Đóng góp
+
+1. Fork repository
+2. Tạo feature branch (`git checkout -b feature/ten-tinh-nang`)
+3. Commit changes (`git commit -m 'feat: mô tả'`)
+4. Push to branch (`git push origin feature/ten-tinh-nang`)
+5. Tạo Pull Request
+
+### Commit Convention
+
+```
+feat: tính năng mới
+fix: sửa lỗi
+docs: cập nhật tài liệu
+style: format code
+refactor: tái cấu trúc
+test: thêm/sửa test
+chore: công việc maintenance
+```
+
+---
+
+## Giấy phép
+
+Dự án được phân phối dưới giấy phép [MIT](LICENSE).
+
+---
+
+## Tác giả
+
+**Nguyễn Sơn** — [@JasonTM17](https://github.com/JasonTM17)
+
+---
+
+<div align="center">
+
+Made with ❤️ in Vietnam
+
+</div>

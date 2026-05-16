@@ -2,7 +2,7 @@
   "name": "linguaflow-web",
   "version": "1.0.0",
   "description": "LinguaFlow Web App - Modern language learning platform with Next.js",
-  "author": "JasonTM17",
+  "author": "Nguyễn Sơn <sonnguyenhoang17@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",

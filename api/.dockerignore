@@ -1,6 +1,8 @@
 node_modules
 dist
-.env
 *.db
 *.db-journal
+.env
+.env.local
+*.tsbuildinfo
 .git

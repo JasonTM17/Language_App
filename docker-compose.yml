@@ -1,30 +1,41 @@
 services:
   api:
     build:
-      context: .
-      dockerfile: api/Dockerfile
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: linguaflow-api
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URL=file:/app/data/dev.db
-      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - NODE_ENV=production
+      - DATABASE_URL=file:./data/linguaflow.db
+      - JWT_SECRET=${JWT_SECRET}
       - PORT=3001
-      - FRONTEND_URL=http://localhost:3000
-      - N8N_WEBHOOK_URL=${N8N_WEBHOOK_URL:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     volumes:
       - api-data:/app/data
+    restart: unless-stopped
+    networks:
+      - linguaflow
 
   web:
     build:
-      context: .
-      dockerfile: web/Dockerfile
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: linguaflow-web
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://api:3001/api
+      - NEXT_PUBLIC_API_URL=http://api:3001
     depends_on:
-      - api
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - linguaflow
 
 volumes:
   api-data:
+
+networks:
+  linguaflow:
+    driver: bridge
