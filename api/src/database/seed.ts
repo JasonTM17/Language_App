@@ -344,6 +344,162 @@ async function main() {
     ],
   });
 
+  // Additional English lessons - Food & Travel
+  const enIntermediate = await prisma.level.findFirst({ where: { languageId: english.id, slug: 'elementary' } });
+  const enLesson4 = await prisma.lesson.create({
+    data: { title: 'Food & Dining', description: 'Vocabulary for restaurants and food', order: 4, levelId: enIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+  const enLesson5 = await prisma.lesson.create({
+    data: { title: 'Travel & Transportation', description: 'Essential travel vocabulary', order: 5, levelId: enIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: 'restaurant', meaning: 'nhà hàng', example: 'Let\'s go to a restaurant tonight.', exampleMeaning: 'Tối nay đi nhà hàng nhé.', lessonId: enLesson4.id },
+      { word: 'menu', meaning: 'thực đơn', example: 'Can I see the menu, please?', exampleMeaning: 'Cho tôi xem thực đơn được không?', lessonId: enLesson4.id },
+      { word: 'delicious', meaning: 'ngon', example: 'This food is delicious!', exampleMeaning: 'Món ăn này ngon quá!', lessonId: enLesson4.id },
+      { word: 'breakfast', meaning: 'bữa sáng', example: 'I have breakfast at 7 AM.', exampleMeaning: 'Tôi ăn sáng lúc 7 giờ.', lessonId: enLesson4.id },
+      { word: 'lunch', meaning: 'bữa trưa', example: 'What do you want for lunch?', exampleMeaning: 'Bạn muốn ăn gì cho bữa trưa?', lessonId: enLesson4.id },
+      { word: 'dinner', meaning: 'bữa tối', example: 'Dinner is ready!', exampleMeaning: 'Bữa tối sẵn sàng rồi!', lessonId: enLesson4.id },
+      { word: 'spicy', meaning: 'cay', example: 'Vietnamese food is often spicy.', exampleMeaning: 'Đồ ăn Việt Nam thường cay.', lessonId: enLesson4.id },
+      { word: 'sweet', meaning: 'ngọt', example: 'This cake is too sweet.', exampleMeaning: 'Cái bánh này ngọt quá.', lessonId: enLesson4.id },
+      { word: 'bill', meaning: 'hóa đơn', example: 'Can I have the bill, please?', exampleMeaning: 'Cho tôi hóa đơn được không?', lessonId: enLesson4.id },
+      { word: 'tip', meaning: 'tiền boa', example: 'Should we leave a tip?', exampleMeaning: 'Mình có nên để tiền boa không?', lessonId: enLesson4.id },
+    ],
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: 'airport', meaning: 'sân bay', example: 'The airport is far from the city.', exampleMeaning: 'Sân bay xa thành phố.', lessonId: enLesson5.id },
+      { word: 'passport', meaning: 'hộ chiếu', example: 'Don\'t forget your passport!', exampleMeaning: 'Đừng quên hộ chiếu!', lessonId: enLesson5.id },
+      { word: 'ticket', meaning: 'vé', example: 'I booked a round-trip ticket.', exampleMeaning: 'Tôi đã đặt vé khứ hồi.', lessonId: enLesson5.id },
+      { word: 'hotel', meaning: 'khách sạn', example: 'The hotel has a swimming pool.', exampleMeaning: 'Khách sạn có hồ bơi.', lessonId: enLesson5.id },
+      { word: 'luggage', meaning: 'hành lý', example: 'My luggage is very heavy.', exampleMeaning: 'Hành lý của tôi rất nặng.', lessonId: enLesson5.id },
+      { word: 'departure', meaning: 'khởi hành', example: 'The departure time is 8 AM.', exampleMeaning: 'Giờ khởi hành là 8 giờ sáng.', lessonId: enLesson5.id },
+      { word: 'arrival', meaning: 'đến nơi', example: 'Arrival time is 3 PM.', exampleMeaning: 'Giờ đến là 3 giờ chiều.', lessonId: enLesson5.id },
+      { word: 'subway', meaning: 'tàu điện ngầm', example: 'Take the subway to the museum.', exampleMeaning: 'Đi tàu điện ngầm đến bảo tàng.', lessonId: enLesson5.id },
+      { word: 'map', meaning: 'bản đồ', example: 'Do you have a map of the city?', exampleMeaning: 'Bạn có bản đồ thành phố không?', lessonId: enLesson5.id },
+      { word: 'reservation', meaning: 'đặt chỗ', example: 'I have a reservation for two.', exampleMeaning: 'Tôi có đặt chỗ cho hai người.', lessonId: enLesson5.id },
+    ],
+  });
+
+  // Additional Japanese lessons - Food & Travel
+  const jaIntermediate = await prisma.level.findFirst({ where: { languageId: japanese.id, slug: 'elementary' } });
+  const jaLesson4 = await prisma.lesson.create({
+    data: { title: '食べ物 (Food)', description: 'Japanese food vocabulary', order: 4, levelId: jaIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+  const jaLesson5 = await prisma.lesson.create({
+    data: { title: '旅行 (Travel)', description: 'Travel vocabulary in Japanese', order: 5, levelId: jaIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: 'ご飯', reading: 'gohan', meaning: 'Cơm / Bữa ăn', example: 'ご飯を食べましょう。', exampleMeaning: 'Ăn cơm thôi.', lessonId: jaLesson4.id },
+      { word: 'おいしい', reading: 'oishii', meaning: 'Ngon', example: 'この料理はおいしいです。', exampleMeaning: 'Món này ngon.', lessonId: jaLesson4.id },
+      { word: '水', reading: 'mizu', meaning: 'Nước', example: '水をください。', exampleMeaning: 'Cho tôi nước.', lessonId: jaLesson4.id },
+      { word: '肉', reading: 'niku', meaning: 'Thịt', example: '肉が好きです。', exampleMeaning: 'Tôi thích thịt.', lessonId: jaLesson4.id },
+      { word: '魚', reading: 'sakana', meaning: 'Cá', example: '日本の魚は新鮮です。', exampleMeaning: 'Cá Nhật rất tươi.', lessonId: jaLesson4.id },
+      { word: '野菜', reading: 'yasai', meaning: 'Rau', example: '野菜を食べてください。', exampleMeaning: 'Hãy ăn rau nhé.', lessonId: jaLesson4.id },
+      { word: 'お茶', reading: 'ocha', meaning: 'Trà', example: 'お茶はいかがですか？', exampleMeaning: 'Bạn dùng trà nhé?', lessonId: jaLesson4.id },
+      { word: '辛い', reading: 'karai', meaning: 'Cay', example: 'この料理は辛いです。', exampleMeaning: 'Món này cay.', lessonId: jaLesson4.id },
+      { word: '甘い', reading: 'amai', meaning: 'Ngọt', example: 'このケーキは甘いです。', exampleMeaning: 'Cái bánh này ngọt.', lessonId: jaLesson4.id },
+      { word: 'お会計', reading: 'okaikei', meaning: 'Tính tiền', example: 'お会計お願いします。', exampleMeaning: 'Tính tiền giúp tôi.', lessonId: jaLesson4.id },
+    ],
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '空港', reading: 'kuukou', meaning: 'Sân bay', example: '空港まで一時間です。', exampleMeaning: 'Đến sân bay mất 1 tiếng.', lessonId: jaLesson5.id },
+      { word: '電車', reading: 'densha', meaning: 'Tàu điện', example: '電車で行きます。', exampleMeaning: 'Tôi đi bằng tàu điện.', lessonId: jaLesson5.id },
+      { word: '切符', reading: 'kippu', meaning: 'Vé', example: '切符を買いました。', exampleMeaning: 'Tôi đã mua vé.', lessonId: jaLesson5.id },
+      { word: 'ホテル', reading: 'hoteru', meaning: 'Khách sạn', example: 'ホテルを予約しました。', exampleMeaning: 'Tôi đã đặt khách sạn.', lessonId: jaLesson5.id },
+      { word: '荷物', reading: 'nimotsu', meaning: 'Hành lý', example: '荷物が重いです。', exampleMeaning: 'Hành lý nặng quá.', lessonId: jaLesson5.id },
+      { word: '出発', reading: 'shuppatsu', meaning: 'Khởi hành', example: '出発は何時ですか？', exampleMeaning: 'Mấy giờ khởi hành?', lessonId: jaLesson5.id },
+      { word: '到着', reading: 'touchaku', meaning: 'Đến nơi', example: '到着は三時です。', exampleMeaning: 'Đến nơi lúc 3 giờ.', lessonId: jaLesson5.id },
+      { word: '地図', reading: 'chizu', meaning: 'Bản đồ', example: '地図を見せてください。', exampleMeaning: 'Cho tôi xem bản đồ.', lessonId: jaLesson5.id },
+      { word: '予約', reading: 'yoyaku', meaning: 'Đặt chỗ', example: '予約はありますか？', exampleMeaning: 'Bạn có đặt chỗ không?', lessonId: jaLesson5.id },
+      { word: 'パスポート', reading: 'pasupooto', meaning: 'Hộ chiếu', example: 'パスポートを見せてください。', exampleMeaning: 'Cho xem hộ chiếu.', lessonId: jaLesson5.id },
+    ],
+  });
+
+  // Additional Chinese lessons - Food & Travel
+  const zhIntermediate = await prisma.level.findFirst({ where: { languageId: chinese.id, slug: 'elementary' } });
+  const zhLesson4 = await prisma.lesson.create({
+    data: { title: '食物 (Food)', description: 'Chinese food vocabulary', order: 4, levelId: zhIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+  const zhLesson5 = await prisma.lesson.create({
+    data: { title: '旅行 (Travel)', description: 'Travel vocabulary in Chinese', order: 5, levelId: zhIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '米饭', reading: 'mǐ fàn', meaning: 'Cơm', example: '我要一碗米饭。', exampleMeaning: 'Tôi muốn một bát cơm.', lessonId: zhLesson4.id },
+      { word: '好吃', reading: 'hǎo chī', meaning: 'Ngon', example: '这个菜很好吃。', exampleMeaning: 'Món này rất ngon.', lessonId: zhLesson4.id },
+      { word: '水', reading: 'shuǐ', meaning: 'Nước', example: '请给我一杯水。', exampleMeaning: 'Cho tôi một ly nước.', lessonId: zhLesson4.id },
+      { word: '肉', reading: 'ròu', meaning: 'Thịt', example: '我喜欢吃肉。', exampleMeaning: 'Tôi thích ăn thịt.', lessonId: zhLesson4.id },
+      { word: '鱼', reading: 'yú', meaning: 'Cá', example: '这条鱼很新鲜。', exampleMeaning: 'Con cá này rất tươi.', lessonId: zhLesson4.id },
+      { word: '蔬菜', reading: 'shū cài', meaning: 'Rau', example: '多吃蔬菜对身体好。', exampleMeaning: 'Ăn nhiều rau tốt cho sức khỏe.', lessonId: zhLesson4.id },
+      { word: '茶', reading: 'chá', meaning: 'Trà', example: '你要喝茶吗？', exampleMeaning: 'Bạn muốn uống trà không?', lessonId: zhLesson4.id },
+      { word: '辣', reading: 'là', meaning: 'Cay', example: '四川菜很辣。', exampleMeaning: 'Đồ ăn Tứ Xuyên rất cay.', lessonId: zhLesson4.id },
+      { word: '甜', reading: 'tián', meaning: 'Ngọt', example: '这个蛋糕太甜了。', exampleMeaning: 'Cái bánh này ngọt quá.', lessonId: zhLesson4.id },
+      { word: '买单', reading: 'mǎi dān', meaning: 'Tính tiền', example: '服务员，买单！', exampleMeaning: 'Phục vụ ơi, tính tiền!', lessonId: zhLesson4.id },
+    ],
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '机场', reading: 'jī chǎng', meaning: 'Sân bay', example: '机场离市中心很远。', exampleMeaning: 'Sân bay xa trung tâm.', lessonId: zhLesson5.id },
+      { word: '护照', reading: 'hù zhào', meaning: 'Hộ chiếu', example: '请出示护照。', exampleMeaning: 'Xin xuất trình hộ chiếu.', lessonId: zhLesson5.id },
+      { word: '机票', reading: 'jī piào', meaning: 'Vé máy bay', example: '我买了往返机票。', exampleMeaning: 'Tôi mua vé khứ hồi.', lessonId: zhLesson5.id },
+      { word: '酒店', reading: 'jiǔ diàn', meaning: 'Khách sạn', example: '酒店有游泳池。', exampleMeaning: 'Khách sạn có hồ bơi.', lessonId: zhLesson5.id },
+      { word: '行李', reading: 'xíng li', meaning: 'Hành lý', example: '我的行李很重。', exampleMeaning: 'Hành lý của tôi rất nặng.', lessonId: zhLesson5.id },
+      { word: '出发', reading: 'chū fā', meaning: 'Khởi hành', example: '我们明天出发。', exampleMeaning: 'Ngày mai chúng tôi khởi hành.', lessonId: zhLesson5.id },
+      { word: '到达', reading: 'dào dá', meaning: 'Đến nơi', example: '飞机几点到达？', exampleMeaning: 'Máy bay mấy giờ đến?', lessonId: zhLesson5.id },
+      { word: '地铁', reading: 'dì tiě', meaning: 'Tàu điện ngầm', example: '坐地铁去博物馆。', exampleMeaning: 'Đi tàu điện ngầm đến bảo tàng.', lessonId: zhLesson5.id },
+      { word: '地图', reading: 'dì tú', meaning: 'Bản đồ', example: '你有城市地图吗？', exampleMeaning: 'Bạn có bản đồ thành phố không?', lessonId: zhLesson5.id },
+      { word: '预订', reading: 'yù dìng', meaning: 'Đặt trước', example: '我预订了两个人的位子。', exampleMeaning: 'Tôi đặt chỗ cho hai người.', lessonId: zhLesson5.id },
+    ],
+  });
+
+  // Additional Korean lessons - Food & Travel
+  const koIntermediate = await prisma.level.findFirst({ where: { languageId: korean.id, slug: 'elementary' } });
+  const koLesson4 = await prisma.lesson.create({
+    data: { title: '음식 (Food)', description: 'Korean food vocabulary', order: 4, levelId: koIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+  const koLesson5 = await prisma.lesson.create({
+    data: { title: '여행 (Travel)', description: 'Travel vocabulary in Korean', order: 5, levelId: koIntermediate!.id, type: 'vocabulary', content: '{}', xpReward: 20 },
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '밥', reading: 'bap', meaning: 'Cơm', example: '밥 먹었어요?', exampleMeaning: 'Bạn ăn cơm chưa?', lessonId: koLesson4.id },
+      { word: '맛있다', reading: 'masitda', meaning: 'Ngon', example: '이 음식 정말 맛있어요!', exampleMeaning: 'Món này ngon thật!', lessonId: koLesson4.id },
+      { word: '물', reading: 'mul', meaning: 'Nước', example: '물 한 잔 주세요.', exampleMeaning: 'Cho tôi một ly nước.', lessonId: koLesson4.id },
+      { word: '고기', reading: 'gogi', meaning: 'Thịt', example: '한국 고기가 맛있어요.', exampleMeaning: 'Thịt Hàn Quốc ngon.', lessonId: koLesson4.id },
+      { word: '생선', reading: 'saengseon', meaning: 'Cá', example: '생선이 신선해요.', exampleMeaning: 'Cá rất tươi.', lessonId: koLesson4.id },
+      { word: '야채', reading: 'yachae', meaning: 'Rau', example: '야채를 많이 먹어요.', exampleMeaning: 'Tôi ăn nhiều rau.', lessonId: koLesson4.id },
+      { word: '차', reading: 'cha', meaning: 'Trà', example: '녹차 마실래요?', exampleMeaning: 'Bạn uống trà xanh không?', lessonId: koLesson4.id },
+      { word: '맵다', reading: 'maepda', meaning: 'Cay', example: '이거 너무 매워요!', exampleMeaning: 'Cái này cay quá!', lessonId: koLesson4.id },
+      { word: '달다', reading: 'dalda', meaning: 'Ngọt', example: '이 케이크가 달아요.', exampleMeaning: 'Cái bánh này ngọt.', lessonId: koLesson4.id },
+      { word: '계산', reading: 'gyesan', meaning: 'Tính tiền', example: '계산해 주세요.', exampleMeaning: 'Tính tiền giúp tôi.', lessonId: koLesson4.id },
+    ],
+  });
+
+  await prisma.vocabulary.createMany({
+    data: [
+      { word: '공항', reading: 'gonghang', meaning: 'Sân bay', example: '공항까지 한 시간 걸려요.', exampleMeaning: 'Đến sân bay mất 1 tiếng.', lessonId: koLesson5.id },
+      { word: '여권', reading: 'yeogwon', meaning: 'Hộ chiếu', example: '여권을 잊지 마세요!', exampleMeaning: 'Đừng quên hộ chiếu!', lessonId: koLesson5.id },
+      { word: '비행기표', reading: 'bihaenggipyo', meaning: 'Vé máy bay', example: '왕복 비행기표를 샀어요.', exampleMeaning: 'Tôi mua vé khứ hồi.', lessonId: koLesson5.id },
+      { word: '호텔', reading: 'hotel', meaning: 'Khách sạn', example: '호텔을 예약했어요.', exampleMeaning: 'Tôi đã đặt khách sạn.', lessonId: koLesson5.id },
+      { word: '짐', reading: 'jim', meaning: 'Hành lý', example: '짐이 무거워요.', exampleMeaning: 'Hành lý nặng quá.', lessonId: koLesson5.id },
+      { word: '출발', reading: 'chulbal', meaning: 'Khởi hành', example: '출발 시간이 언제예요?', exampleMeaning: 'Giờ khởi hành là khi nào?', lessonId: koLesson5.id },
+      { word: '도착', reading: 'dochak', meaning: 'Đến nơi', example: '도착 시간은 3시예요.', exampleMeaning: 'Giờ đến là 3 giờ.', lessonId: koLesson5.id },
+      { word: '지하철', reading: 'jihacheol', meaning: 'Tàu điện ngầm', example: '지하철로 가세요.', exampleMeaning: 'Hãy đi bằng tàu điện ngầm.', lessonId: koLesson5.id },
+      { word: '지도', reading: 'jido', meaning: 'Bản đồ', example: '지도 좀 보여주세요.', exampleMeaning: 'Cho tôi xem bản đồ.', lessonId: koLesson5.id },
+      { word: '예약', reading: 'yeyak', meaning: 'Đặt chỗ', example: '예약했어요.', exampleMeaning: 'Tôi đã đặt chỗ.', lessonId: koLesson5.id },
+    ],
+  });
+
   console.log('Seed completed successfully!');
 }
 
