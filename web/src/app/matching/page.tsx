@@ -38,6 +38,28 @@ const matchSets: Record<string, MatchSet[]> = {
         { word: 'grandfather', meaning: 'ông' },
       ],
     },
+    {
+      language: 'en', topic: 'Colors',
+      pairs: [
+        { word: 'red', meaning: 'đỏ' },
+        { word: 'blue', meaning: 'xanh dương' },
+        { word: 'green', meaning: 'xanh lá' },
+        { word: 'yellow', meaning: 'vàng' },
+        { word: 'white', meaning: 'trắng' },
+        { word: 'black', meaning: 'đen' },
+      ],
+    },
+    {
+      language: 'en', topic: 'Body Parts',
+      pairs: [
+        { word: 'head', meaning: 'đầu' },
+        { word: 'hand', meaning: 'tay' },
+        { word: 'eye', meaning: 'mắt' },
+        { word: 'ear', meaning: 'tai' },
+        { word: 'nose', meaning: 'mũi' },
+        { word: 'mouth', meaning: 'miệng' },
+      ],
+    },
   ],
   ja: [
     {
@@ -49,6 +71,17 @@ const matchSets: Record<string, MatchSet[]> = {
         { word: 'ありがとう', meaning: 'cảm ơn' },
         { word: 'すみません', meaning: 'xin lỗi' },
         { word: 'おやすみ', meaning: 'chúc ngủ ngon' },
+      ],
+    },
+    {
+      language: 'ja', topic: 'Animals',
+      pairs: [
+        { word: 'ねこ', meaning: 'mèo' },
+        { word: 'いぬ', meaning: 'chó' },
+        { word: 'さかな', meaning: 'cá' },
+        { word: 'とり', meaning: 'chim' },
+        { word: 'うさぎ', meaning: 'thỏ' },
+        { word: 'うま', meaning: 'ngựa' },
       ],
     },
   ],
@@ -64,6 +97,17 @@ const matchSets: Record<string, MatchSet[]> = {
         { word: '百', meaning: 'trăm' },
       ],
     },
+    {
+      language: 'zh', topic: 'Weather',
+      pairs: [
+        { word: '晴天', meaning: 'trời nắng' },
+        { word: '下雨', meaning: 'mưa' },
+        { word: '刮风', meaning: 'gió' },
+        { word: '下雪', meaning: 'tuyết' },
+        { word: '多云', meaning: 'nhiều mây' },
+        { word: '热', meaning: 'nóng' },
+      ],
+    },
   ],
   ko: [
     {
@@ -75,6 +119,17 @@ const matchSets: Record<string, MatchSet[]> = {
         { word: '네', meaning: 'vâng/dạ' },
         { word: '아니요', meaning: 'không' },
         { word: '잘 가요', meaning: 'tạm biệt' },
+      ],
+    },
+    {
+      language: 'ko', topic: 'Food',
+      pairs: [
+        { word: '밥', meaning: 'cơm' },
+        { word: '김치', meaning: 'kim chi' },
+        { word: '물', meaning: 'nước' },
+        { word: '고기', meaning: 'thịt' },
+        { word: '과일', meaning: 'trái cây' },
+        { word: '빵', meaning: 'bánh mì' },
       ],
     },
   ],
