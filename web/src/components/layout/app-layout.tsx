@@ -30,6 +30,7 @@ const navItems = [
   { href: '/matching', label: 'Matching', icon: '🔗' },
   { href: '/characters', label: 'Characters', icon: '字' },
   { href: '/stories', label: 'Stories', icon: '📚' },
+  { href: '/reading', label: 'Reading', icon: '📖' },
   { href: '/achievements', label: 'Achievements', icon: '🏆' },
   { href: '/bookmarks', label: 'Bookmarks', icon: '🔖' },
   { href: '/leaderboard', label: 'Leaderboard', icon: '🥇' },
