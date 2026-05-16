@@ -96,8 +96,8 @@ export default function QuizPage() {
     return (
       <div className="max-w-md mx-auto text-center py-16">
         <div className="text-6xl mb-4">{percentage >= 80 ? '🏆' : percentage >= 50 ? '👍' : '💪'}</div>
-        <h2 className="text-2xl font-bold mb-2">Quiz Complete!</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">You scored {score} out of {questions.length}</p>
+        <h2 className="text-2xl font-bold mb-2">Hoàn thành bài kiểm tra!</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">Bạn đạt {score}/{questions.length} câu đúng</p>
         <div className="w-32 h-32 mx-auto mb-6 relative">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" className="text-gray-200 dark:text-gray-700" strokeWidth="3" />
@@ -107,7 +107,7 @@ export default function QuizPage() {
             <span className="text-2xl font-bold">{percentage}%</span>
           </div>
         </div>
-        <Button onClick={resetQuiz}>Try Again</Button>
+        <Button onClick={resetQuiz}>Làm lại</Button>
       </div>
     );
   }
@@ -117,7 +117,7 @@ export default function QuizPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold font-display">Quiz</h1>
+        <h1 className="text-2xl font-bold font-display">Kiểm tra</h1>
         <span className="text-sm text-gray-500 font-medium">{currentIndex + 1} / {questions.length}</span>
       </div>
 
@@ -134,7 +134,7 @@ export default function QuizPage() {
             <input
               type="text"
               className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 outline-none"
-              placeholder="Type your answer..."
+              placeholder="Nhập câu trả lời..."
               onKeyDown={(e) => { if (e.key === 'Enter') handleAnswer((e.target as HTMLInputElement).value); }}
               disabled={showResult}
             />
@@ -142,7 +142,7 @@ export default function QuizPage() {
               <Button className="mt-3" onClick={() => {
                 const input = document.querySelector('input') as HTMLInputElement;
                 if (input?.value) handleAnswer(input.value);
-              }}>Submit</Button>
+              }}>Trả lời</Button>
             )}
           </div>
         ) : (
@@ -173,7 +173,7 @@ export default function QuizPage() {
         {showResult && (
           <div className={`mt-6 p-4 rounded-xl ${selectedAnswer === currentQuestion.answer ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
             <p className="font-medium text-sm mb-1">
-              {selectedAnswer === currentQuestion.answer ? '✓ Correct!' : `✗ Incorrect. Answer: ${currentQuestion.answer}`}
+              {selectedAnswer === currentQuestion.answer ? '✓ Chính xác!' : `✗ Sai rồi. Đáp án: ${currentQuestion.answer}`}
             </p>
             {currentQuestion.explanation && <p className="text-sm text-gray-600 dark:text-gray-400">{currentQuestion.explanation}</p>}
           </div>
@@ -183,7 +183,7 @@ export default function QuizPage() {
       {showResult && (
         <div className="flex justify-end">
           <Button onClick={nextQuestion}>
-            {currentIndex < questions.length - 1 ? 'Next Question →' : 'See Results'}
+            {currentIndex < questions.length - 1 ? 'Câu tiếp theo →' : 'Xem kết quả'}
           </Button>
         </div>
       )}
