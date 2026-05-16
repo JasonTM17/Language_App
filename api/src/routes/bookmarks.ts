@@ -1,29 +1,37 @@
 import { Router, Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../database/client';
 import { authenticate } from '../middleware/auth';
+import { paginateQuery, errorResponse } from '../types/responses';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.get('/', authenticate, async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
+    const { skip, take } = paginateQuery(page, limit);
 
-    const bookmarks = await prisma.flashcardProgress.findMany({
-      where: { userId, bookmarked: true },
-      include: {
-        vocabulary: {
-          include: {
-            lesson: {
-              include: { level: { include: { language: true } } },
+    const [bookmarks, total] = await Promise.all([
+      prisma.flashcardProgress.findMany({
+        where: { userId, bookmarked: true },
+        include: {
+          vocabulary: {
+            include: {
+              lesson: {
+                include: { level: { include: { language: true } } },
+              },
             },
           },
         },
-      },
-      orderBy: { updatedAt: 'desc' },
-    });
+        orderBy: { updatedAt: 'desc' },
+        skip,
+        take,
+      }),
+      prisma.flashcardProgress.count({ where: { userId, bookmarked: true } }),
+    ]);
 
-    const result = bookmarks.map((b) => ({
+    const data = bookmarks.map((b) => ({
       id: b.id,
       word: b.vocabulary.word,
       meaning: b.vocabulary.meaning,
@@ -36,10 +44,11 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
       reviewCount: b.reviewCount,
     }));
 
-    res.json(result);
+    const totalPages = Math.ceil(total / limit);
+    res.json({ data, pagination: { page, limit, total, totalPages } });
   } catch (error) {
     console.error('Bookmarks error:', error);
-    res.status(500).json({ error: 'Failed to fetch bookmarks' });
+    res.status(500).json(errorResponse('Không thể tải danh sách đánh dấu', 'INTERNAL_ERROR'));
   }
 });
 
@@ -75,7 +84,7 @@ router.post('/:vocabularyId', authenticate, async (req: Request, res: Response) 
     }
   } catch (error) {
     console.error('Toggle bookmark error:', error);
-    res.status(500).json({ error: 'Failed to toggle bookmark' });
+    res.status(500).json(errorResponse('Không thể cập nhật đánh dấu', 'INTERNAL_ERROR'));
   }
 });
 
@@ -92,7 +101,7 @@ router.delete('/:vocabularyId', authenticate, async (req: Request, res: Response
     res.json({ bookmarked: false });
   } catch (error) {
     console.error('Remove bookmark error:', error);
-    res.status(500).json({ error: 'Failed to remove bookmark' });
+    res.status(500).json(errorResponse('Không thể xóa đánh dấu', 'INTERNAL_ERROR'));
   }
 });
 

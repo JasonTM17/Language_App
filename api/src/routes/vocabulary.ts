@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { PaginatedResponse, paginateQuery, paginate, errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -13,29 +14,45 @@ const reviewSchema = z.object({
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
   try {
     const { lessonId, due } = req.query;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
     const where: any = {};
     if (lessonId) where.lessonId = lessonId;
 
-    const vocabulary = await prisma.vocabulary.findMany({
-      where,
-      include: {
-        flashcardProgress: { where: { userId: req.userId! } },
-      },
-    });
-
     if (due === 'true') {
+      const vocabulary = await prisma.vocabulary.findMany({
+        where,
+        include: {
+          flashcardProgress: { where: { userId: req.userId! } },
+        },
+      });
       const now = new Date();
       const dueCards = vocabulary.filter((v: any) => {
         const progress = v.flashcardProgress[0];
         if (!progress) return true;
         return new Date(progress.nextReview) <= now;
       });
-      return res.json({ vocabulary: dueCards, total: vocabulary.length, due: dueCards.length });
+      const paginated = paginate(dueCards, page, limit);
+      return res.json({ ...paginated, total: vocabulary.length, due: dueCards.length });
     }
 
-    res.json({ vocabulary });
+    const { skip, take } = paginateQuery(page, limit);
+    const [vocabulary, total] = await Promise.all([
+      prisma.vocabulary.findMany({
+        where,
+        include: {
+          flashcardProgress: { where: { userId: req.userId! } },
+        },
+        skip,
+        take,
+      }),
+      prisma.vocabulary.count({ where }),
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+    res.json({ data: vocabulary, pagination: { page, limit, total, totalPages } });
   } catch {
-    res.status(500).json({ error: 'Failed to fetch vocabulary' });
+    res.status(500).json(errorResponse('Không thể tải danh sách từ vựng', 'INTERNAL_ERROR'));
   }
 });
 
@@ -43,7 +60,7 @@ router.post('/:id/review', authenticate, async (req: AuthRequest, res: Response)
   try {
     const { known, quality } = reviewSchema.parse(req.body);
     const vocab = await prisma.vocabulary.findUnique({ where: { id: req.params.id } });
-    if (!vocab) return res.status(404).json({ error: 'Vocabulary not found' });
+    if (!vocab) return res.status(404).json(errorResponse('Không tìm thấy từ vựng', 'NOT_FOUND'));
 
     const existing = await prisma.flashcardProgress.findUnique({
       where: { userId_vocabularyId: { userId: req.userId!, vocabularyId: vocab.id } },
@@ -81,9 +98,9 @@ router.post('/:id/review', authenticate, async (req: AuthRequest, res: Response)
     res.json({ progress, nextReview, interval, easeFactor, quality: q });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: error.errors });
+      return res.status(400).json(errorResponse('Dữ liệu không hợp lệ', 'VALIDATION_ERROR', error.errors));
     }
-    res.status(500).json({ error: 'Failed to update review' });
+    res.status(500).json(errorResponse('Không thể cập nhật lượt ôn tập', 'INTERNAL_ERROR'));
   }
 });
 
