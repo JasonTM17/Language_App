@@ -39,6 +39,7 @@ const navItems = [
   { href: '/streak-calendar', label: 'Streak', icon: '🔥' },
   { href: '/bookmarks', label: 'Bookmarks', icon: '🔖' },
   { href: '/leaderboard', label: 'Leaderboard', icon: '🥇' },
+  { href: '/friends', label: 'Friends', icon: '👥' },
   { href: '/study-plan', label: 'Study Plan', icon: '📅' },
   { href: '/quests', label: 'Quests', icon: '⚔️' },
   { href: '/daily-goals', label: 'Daily Goals', icon: '🎯' },
