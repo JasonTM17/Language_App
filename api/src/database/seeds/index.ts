@@ -90,6 +90,8 @@ import { chineseSelfIntroLessons } from './chinese/beginner-self-intro';
 import { japaneseBusinessLessons } from './japanese/intermediate-business';
 import { koreanBusinessLessons } from './korean/intermediate-business';
 import { chineseBusinessLessons } from './chinese/intermediate-business';
+import { englishDailyLifeLessons } from './english/beginner-daily-life';
+import { englishSelfIntroLessons } from './english/beginner-self-intro';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -167,7 +169,7 @@ async function main() {
   let quizCount = 0;
 
   // English beginner lessons
-  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons, ...englishHobbiesLessons, ...englishGreetingsLessons, ...englishNumbersLessons, ...englishHealthLessons, ...englishShoppingLessons, ...englishClothingLessons, ...englishWeatherLessons];
+  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons, ...englishHobbiesLessons, ...englishGreetingsLessons, ...englishNumbersLessons, ...englishHealthLessons, ...englishShoppingLessons, ...englishClothingLessons, ...englishWeatherLessons, ...englishDailyLifeLessons, ...englishSelfIntroLessons];
   for (let i = 0; i < enBeginnerLessons.length; i++) {
     const lesson = await createLessonWithContent(levels['en']['beginner'], i + 1, enBeginnerLessons[i]);
     lessonCount++;
