@@ -9,10 +9,13 @@ import { englishHobbiesLessons } from './english/beginner-hobbies';
 import { englishWorkLessons } from './english/intermediate-work';
 import { japaneseFoodLessons } from './japanese/beginner-food';
 import { japaneseTravelLessons } from './japanese/beginner-travel';
+import { japaneseDailyLessons } from './japanese/beginner-daily';
 import { koreanFoodLessons } from './korean/beginner-food';
 import { koreanDailyLessons } from './korean/beginner-daily';
+import { koreanFamilyLessons } from './korean/beginner-family';
 import { chineseFoodLessons } from './chinese/beginner-food';
 import { chineseShoppingLessons } from './chinese/beginner-shopping';
+import { chineseDailyLessons } from './chinese/beginner-daily';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -107,7 +110,7 @@ async function main() {
   }
 
   // Japanese beginner lessons
-  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons];
+  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons, ...japaneseDailyLessons];
   for (let i = 0; i < jaBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['ja']['beginner'], i + 1, jaBeginnerLessons[i]);
     lessonCount++;
@@ -116,7 +119,7 @@ async function main() {
   }
 
   // Chinese beginner lessons
-  const zhBeginnerLessons = [...chineseFoodLessons, ...chineseShoppingLessons];
+  const zhBeginnerLessons = [...chineseFoodLessons, ...chineseShoppingLessons, ...chineseDailyLessons];
   for (let i = 0; i < zhBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['zh']['beginner'], i + 1, zhBeginnerLessons[i]);
     lessonCount++;
@@ -125,7 +128,7 @@ async function main() {
   }
 
   // Korean beginner lessons
-  const koBeginnerLessons = [...koreanFoodLessons, ...koreanDailyLessons];
+  const koBeginnerLessons = [...koreanFoodLessons, ...koreanDailyLessons, ...koreanFamilyLessons];
   for (let i = 0; i < koBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['ko']['beginner'], i + 1, koBeginnerLessons[i]);
     lessonCount++;
