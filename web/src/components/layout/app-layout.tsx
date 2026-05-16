@@ -27,6 +27,7 @@ const navItems = [
   { href: '/sentence', label: 'Sentences', icon: '🧩' },
   { href: '/fill-blank', label: 'Fill Blank', icon: '📋' },
   { href: '/matching', label: 'Matching', icon: '🔗' },
+  { href: '/characters', label: 'Characters', icon: '字' },
   { href: '/stories', label: 'Stories', icon: '📚' },
   { href: '/achievements', label: 'Achievements', icon: '🏆' },
   { href: '/bookmarks', label: 'Bookmarks', icon: '🔖' },
