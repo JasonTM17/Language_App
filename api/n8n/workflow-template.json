@@ -16,58 +16,72 @@
     },
     {
       "parameters": {
+        "jsCode": "const body = $input.first().json.body;\nconst messages = body.messages || [];\nconst systemPrompt = body.systemPrompt || '';\nconst language = body.language || 'en';\nconst role = body.role || 'teacher';\n\nconst formattedMessages = [\n  { role: 'system', content: systemPrompt },\n  ...messages.slice(-10).map(m => ({ role: m.role, content: m.content }))\n];\n\nreturn [{ json: { formattedMessages, language, role } }];"
+      },
+      "id": "format-node",
+      "name": "Format Messages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
         "model": "gpt-4o-mini",
         "options": {
           "temperature": 0.7,
-          "maxTokens": 500
+          "maxTokens": 600,
+          "frequencyPenalty": 0.3
         },
         "messages": {
-          "values": [
-            {
-              "role": "system",
-              "content": "={{ $json.body.systemPrompt }}"
-            },
-            {
-              "role": "user",
-              "content": "={{ $json.body.messages[$json.body.messages.length - 1].content }}"
-            }
-          ]
+          "values": "={{ $json.formattedMessages }}"
         }
       },
       "id": "openai-node",
       "name": "OpenAI Chat",
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.2,
-      "position": [500, 300]
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const content = $input.first().json.message?.content || $input.first().json.text || '';\n\nlet corrections = [];\nlet vocabulary = [];\nlet grammarNote = '';\n\nconst tipMatches = content.match(/📝[^\\n]+/g);\nif (tipMatches) corrections = tipMatches.map(t => t.replace(/📝\\s*/, ''));\n\nconst vocabMatches = content.match(/\\*\\*([^*]+)\\*\\*\\s*[=:–-]\\s*([^\\n]+)/g);\nif (vocabMatches) vocabulary = vocabMatches.slice(0, 3).map(v => v.replace(/\\*\\*/g, ''));\n\nconst grammarMatch = content.match(/(?:Grammar|Ngữ pháp|文法|语法|문법)[:\\s]*([^\\n]+)/i);\nif (grammarMatch) grammarNote = grammarMatch[1];\n\nreturn [{ json: { output: content, corrections, vocabulary, grammarNote } }];"
+      },
+      "id": "parse-node",
+      "name": "Parse Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 300]
     },
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ JSON.stringify({ output: $json.message.content }) }}"
+        "responseBody": "={{ JSON.stringify($json) }}"
       },
       "id": "response-node",
       "name": "Respond to Webhook",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [750, 300]
+      "position": [1250, 300]
     }
   ],
   "connections": {
     "Webhook": {
-      "main": [
-        [{ "node": "OpenAI Chat", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Format Messages", "type": "main", "index": 0 }]]
+    },
+    "Format Messages": {
+      "main": [[{ "node": "OpenAI Chat", "type": "main", "index": 0 }]]
     },
     "OpenAI Chat": {
-      "main": [
-        [{ "node": "Respond to Webhook", "type": "main", "index": 0 }]
-      ]
+      "main": [[{ "node": "Parse Response", "type": "main", "index": 0 }]]
+    },
+    "Parse Response": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
     }
   },
   "settings": {
     "executionOrder": "v1"
   },
   "meta": {
-    "templateId": "linguaflow-ai-chatbot"
+    "templateId": "linguaflow-ai-chatbot-v2"
   }
 }
