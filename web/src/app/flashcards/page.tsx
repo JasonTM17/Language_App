@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { AudioPlayer } from '@/components/ui/audio-player';
+import { XpPopup } from '@/components/ui/xp-popup';
 import { api } from '@/services/api';
+import type { SupportedLanguage } from '@/services/audio';
 
 interface VocabCard {
   id: string;
@@ -19,6 +22,8 @@ export default function FlashcardsPage() {
   const [flipped, setFlipped] = useState(false);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ known: 0, unknown: 0 });
+  const [showXp, setShowXp] = useState(false);
+  const [xpAmount, setXpAmount] = useState(0);
 
   const fallbackCards: VocabCard[] = [
     { id: '1', word: 'Hello', meaning: 'Xin chào', example: 'Hello, how are you?', exampleMeaning: 'Xin chào, bạn khỏe không?' },
@@ -53,6 +58,11 @@ export default function FlashcardsPage() {
       known: prev.known + (known ? 1 : 0),
       unknown: prev.unknown + (known ? 0 : 1),
     }));
+
+    if (known) {
+      setXpAmount(5);
+      setShowXp(true);
+    }
 
     if (currentCard) {
       api.vocabulary.review(currentCard.id, known).catch(() => {});
@@ -126,17 +136,19 @@ export default function FlashcardsPage() {
 
   return (
     <div className="space-y-8">
+      {showXp && <XpPopup amount={xpAmount} onComplete={() => setShowXp(false)} />}
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Flashcards</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Nhấn vào thẻ để lật</p>
+          <p className="text-muted-foreground text-sm mt-1">Nhấn vào thẻ để lật</p>
         </div>
-        <span className="text-sm text-gray-500">{currentIndex + 1} / {cards.length}</span>
+        <span className="text-sm text-muted-foreground">{currentIndex + 1} / {cards.length}</span>
       </div>
 
       {/* Progress bar */}
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full transition-all duration-300" style={{ width: `${((currentIndex) / cards.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all duration-300" style={{ width: `${((currentIndex) / cards.length) * 100}%` }} />
       </div>
 
       {/* Card */}
@@ -147,18 +159,21 @@ export default function FlashcardsPage() {
         >
           <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${flipped ? '[transform:rotateY(180deg)]' : ''}`}>
             {/* Front */}
-            <div className="absolute inset-0 backface-hidden rounded-3xl bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 shadow-xl flex flex-col items-center justify-center p-8">
+            <div className="absolute inset-0 backface-hidden rounded-3xl bg-card border-2 shadow-xl flex flex-col items-center justify-center p-8">
               <p className="text-4xl font-bold mb-3">{currentCard.word}</p>
-              {currentCard.reading && <p className="text-lg text-gray-500">{currentCard.reading}</p>}
-              <p className="text-sm text-gray-400 mt-4">Nhấn để xem nghĩa</p>
+              {currentCard.reading && <p className="text-lg text-muted-foreground">{currentCard.reading}</p>}
+              <div className="mt-4" onClick={(e) => e.stopPropagation()}>
+                <AudioPlayer text={currentCard.word} language={detectLanguage(currentCard) as SupportedLanguage} size="md" showSlowButton={false} />
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">Nhấn để xem nghĩa</p>
             </div>
             {/* Back */}
-            <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)] rounded-3xl bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 border-2 border-primary-200 dark:border-primary-800 shadow-xl flex flex-col items-center justify-center p-8">
-              <p className="text-2xl font-bold text-primary-700 dark:text-primary-300 mb-3">{currentCard.meaning}</p>
+            <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)] rounded-3xl bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/20 shadow-xl flex flex-col items-center justify-center p-8">
+              <p className="text-2xl font-bold text-primary mb-3">{currentCard.meaning}</p>
               {currentCard.example && (
                 <div className="mt-4 text-center">
-                  <p className="text-sm text-gray-700 dark:text-gray-300 italic">{currentCard.example}</p>
-                  {currentCard.exampleMeaning && <p className="text-xs text-gray-500 mt-1">{currentCard.exampleMeaning}</p>}
+                  <p className="text-sm text-foreground/80 italic">{currentCard.example}</p>
+                  {currentCard.exampleMeaning && <p className="text-xs text-muted-foreground mt-1">{currentCard.exampleMeaning}</p>}
                 </div>
               )}
             </div>
@@ -171,15 +186,23 @@ export default function FlashcardsPage() {
         <Button variant="outline" size="lg" onClick={() => handleReview(false)} className="border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20">
           ✗ Chưa thuộc
         </Button>
-        <Button variant="success" size="lg" onClick={() => handleReview(true)}>
+        <Button size="lg" onClick={() => handleReview(true)} className="bg-green-600 hover:bg-green-700 text-white">
           ✓ Đã thuộc
         </Button>
       </div>
 
       {/* Keyboard hints */}
-      <p className="text-center text-xs text-gray-400">
+      <p className="text-center text-xs text-muted-foreground">
         Phím tắt: Space để lật • ← chưa thuộc • → đã thuộc
       </p>
     </div>
   );
+}
+
+function detectLanguage(card: VocabCard): string {
+  const word = card.word;
+  if (/[぀-ゟ゠-ヿ]/.test(word)) return 'ja';
+  if (/[一-鿿]/.test(word) && !/[぀-ゟ]/.test(word)) return 'zh';
+  if (/[가-힯]/.test(word)) return 'ko';
+  return 'en';
 }
