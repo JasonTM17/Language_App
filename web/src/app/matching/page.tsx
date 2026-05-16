@@ -150,7 +150,7 @@ export default function MatchingPage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🔗</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài ghép từ</h3>
-        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
     );
   }
@@ -161,19 +161,19 @@ export default function MatchingPage() {
       <div className="max-w-2xl mx-auto text-center py-16">
         <div className="text-5xl mb-4">🎉</div>
         <h2 className="text-2xl font-bold mb-2">Hoàn thành!</h2>
-        <p className="text-gray-600 mb-4">Chủ đề: {currentSet.topic}</p>
+        <p className="text-muted-foreground mb-4">Chủ đề: {currentSet.topic}</p>
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
-            <p className="text-3xl font-bold text-primary-600">{currentSet.pairs.length}</p>
-            <p className="text-sm text-gray-500">Cặp từ</p>
+            <p className="text-3xl font-bold text-primary">{currentSet.pairs.length}</p>
+            <p className="text-sm text-muted-foreground">Cặp từ</p>
           </div>
           <div className="text-center">
             <p className="text-3xl font-bold text-green-600">{accuracy}%</p>
-            <p className="text-sm text-gray-500">Chính xác</p>
+            <p className="text-sm text-muted-foreground">Chính xác</p>
           </div>
           <div className="text-center">
             <p className="text-3xl font-bold text-blue-600">{attempts}</p>
-            <p className="text-sm text-gray-500">Lần thử</p>
+            <p className="text-sm text-muted-foreground">Lần thử</p>
           </div>
         </div>
         <div className="flex gap-3 justify-center">
@@ -190,7 +190,7 @@ export default function MatchingPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Ghép từ</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Ghép từ với nghĩa tương ứng</p>
+        <p className="text-muted-foreground mt-1">Ghép từ với nghĩa tương ứng</p>
       </div>
 
       {/* Language selector */}
@@ -201,8 +201,8 @@ export default function MatchingPage() {
             onClick={() => { setSelectedLang(lang.code); setSetIndex(0); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -213,10 +213,10 @@ export default function MatchingPage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Chủ đề: {currentSet.topic}</span>
+        <span className="text-muted-foreground">Chủ đề: {currentSet.topic}</span>
         <span className="font-medium">{matched.size} / {currentSet.pairs.length} cặp</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
         <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${(matched.size / currentSet.pairs.length) * 100}%` }} />
       </div>
 
@@ -224,7 +224,7 @@ export default function MatchingPage() {
       <div className="grid grid-cols-2 gap-4">
         {/* Words column */}
         <div className="space-y-2">
-          <p className="text-xs font-medium text-gray-500 uppercase mb-2">Từ vựng</p>
+          <p className="text-xs font-medium text-muted-foreground uppercase mb-2">Từ vựng</p>
           {currentSet.pairs.map((pair) => {
             const isMatched = matched.has(pair.word);
             const isSelected = selectedWord === pair.word;
@@ -241,8 +241,8 @@ export default function MatchingPage() {
                     : isWrong
                     ? 'border-red-400 bg-red-50 dark:bg-red-900/20 animate-shake'
                     : isSelected
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 shadow-md'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-primary-300'
+                    ? 'border-primary bg-primary/5 shadow-md'
+                    : 'border-border hover:border-primary-300'
                 }`}
               >
                 {isMatched ? '✓ ' : ''}{pair.word}
@@ -253,7 +253,7 @@ export default function MatchingPage() {
 
         {/* Meanings column */}
         <div className="space-y-2">
-          <p className="text-xs font-medium text-gray-500 uppercase mb-2">Nghĩa</p>
+          <p className="text-xs font-medium text-muted-foreground uppercase mb-2">Nghĩa</p>
           {shuffledMeanings.map((meaning) => {
             const isMatched = currentSet.pairs.some(p => p.meaning === meaning && matched.has(p.word));
             const isSelected = selectedMeaning === meaning;
@@ -271,7 +271,7 @@ export default function MatchingPage() {
                     ? 'border-red-400 bg-red-50 dark:bg-red-900/20 animate-shake'
                     : isSelected
                     ? 'border-accent-500 bg-accent-50 dark:bg-accent-900/20 shadow-md'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-accent-300'
+                    : 'border-border hover:border-accent-300'
                 }`}
               >
                 {isMatched ? '✓ ' : ''}{meaning}
@@ -281,7 +281,7 @@ export default function MatchingPage() {
         </div>
       </div>
 
-      <p className="text-center text-xs text-gray-400">
+      <p className="text-center text-xs text-muted-foreground">
         Chọn một từ bên trái, sau đó chọn nghĩa tương ứng bên phải
       </p>
     </div>

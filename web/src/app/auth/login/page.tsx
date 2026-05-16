@@ -40,10 +40,10 @@ export default function LoginPage() {
             <span className="font-display font-bold text-2xl">LinguaFlow</span>
           </Link>
           <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
-          <p className="text-gray-600 dark:text-gray-400">Continue your learning journey</p>
+          <p className="text-muted-foreground">Continue your learning journey</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+        <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-xl border border">
           {error && (
             <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
               {error}
@@ -57,7 +57,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-border bg-muted/50 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
                 placeholder="your@email.com"
                 required
               />
@@ -68,7 +68,7 @@ export default function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-border bg-muted/50 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
                 placeholder="••••••••"
                 required
               />
@@ -80,15 +80,15 @@ export default function LoginPage() {
           </Button>
 
           <div className="mt-4 text-center">
-            <Link href="/auth/forgot-password" className="text-sm text-primary-600 hover:text-primary-700">
+            <Link href="/auth/forgot-password" className="text-sm text-primary hover:text-primary-700">
               Forgot password?
             </Link>
           </div>
         </form>
 
-        <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-center mt-6 text-sm text-muted-foreground">
           Don&apos;t have an account?{' '}
-          <Link href="/auth/register" className="text-primary-600 font-medium hover:text-primary-700">
+          <Link href="/auth/register" className="text-primary font-medium hover:text-primary-700">
             Sign up free
           </Link>
         </p>

@@ -22,22 +22,22 @@ export default function SettingsPage() {
     <div className="space-y-8 max-w-2xl">
       <div>
         <h1 className="text-2xl font-bold font-display">Cài đặt</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Tùy chỉnh trải nghiệm học tập của bạn</p>
+        <p className="text-muted-foreground mt-1">Tùy chỉnh trải nghiệm học tập của bạn</p>
       </div>
 
       {/* Appearance */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <h2 className="font-semibold text-lg mb-4">Giao diện</h2>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-sm">Chế độ tối</p>
-              <p className="text-xs text-gray-500">Chuyển đổi giữa giao diện sáng và tối</p>
+              <p className="text-xs text-muted-foreground">Chuyển đổi giữa giao diện sáng và tối</p>
             </div>
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               className={`relative w-12 h-6 rounded-full transition-colors ${
-                theme === 'dark' ? 'bg-primary-500' : 'bg-gray-300'
+                theme === 'dark' ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
@@ -49,13 +49,13 @@ export default function SettingsPage() {
       </div>
 
       {/* Study Settings */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <h2 className="font-semibold text-lg mb-4">Học tập</h2>
         <div className="space-y-6">
           <div>
             <div className="flex justify-between items-center mb-2">
               <p className="font-medium text-sm">Mục tiêu hàng ngày</p>
-              <span className="text-sm text-primary-600 font-bold">{dailyGoal} phút</span>
+              <span className="text-sm text-primary font-bold">{dailyGoal} phút</span>
             </div>
             <input
               type="range"
@@ -66,7 +66,7 @@ export default function SettingsPage() {
               onChange={(e) => setDailyGoal(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary-500"
             />
-            <div className="flex justify-between text-xs text-gray-400 mt-1">
+            <div className="flex justify-between text-xs text-muted-foreground mt-1">
               <span>5 phút</span>
               <span>60 phút</span>
             </div>
@@ -75,12 +75,12 @@ export default function SettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-sm">Hiệu ứng âm thanh</p>
-              <p className="text-xs text-gray-500">Phát âm thanh khi trả lời đúng/sai</p>
+              <p className="text-xs text-muted-foreground">Phát âm thanh khi trả lời đúng/sai</p>
             </div>
             <button
               onClick={() => setSoundEffects(!soundEffects)}
               className={`relative w-12 h-6 rounded-full transition-colors ${
-                soundEffects ? 'bg-primary-500' : 'bg-gray-300'
+                soundEffects ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
@@ -92,18 +92,18 @@ export default function SettingsPage() {
       </div>
 
       {/* Notifications */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <h2 className="font-semibold text-lg mb-4">Thông báo</h2>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-sm">Nhắc nhở học tập</p>
-              <p className="text-xs text-gray-500">Nhận thông báo nhắc nhở mỗi ngày</p>
+              <p className="text-xs text-muted-foreground">Nhận thông báo nhắc nhở mỗi ngày</p>
             </div>
             <button
               onClick={() => setNotifications(!notifications)}
               className={`relative w-12 h-6 rounded-full transition-colors ${
-                notifications ? 'bg-primary-500' : 'bg-gray-300'
+                notifications ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
@@ -119,7 +119,7 @@ export default function SettingsPage() {
                 type="time"
                 value={reminderTime}
                 onChange={(e) => setReminderTime(e.target.value)}
-                className="px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm"
+                className="px-4 py-2 rounded-xl border border-border bg-card text-sm"
               />
             </div>
           )}
@@ -127,19 +127,19 @@ export default function SettingsPage() {
       </div>
 
       {/* Account */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <h2 className="font-semibold text-lg mb-4">Tài khoản</h2>
         <div className="space-y-3">
           <div className="flex justify-between items-center py-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Email</span>
+            <span className="text-sm text-muted-foreground">Email</span>
             <span className="text-sm font-medium">{user?.email || 'N/A'}</span>
           </div>
           <div className="flex justify-between items-center py-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Tên</span>
+            <span className="text-sm text-muted-foreground">Tên</span>
             <span className="text-sm font-medium">{user?.name || 'N/A'}</span>
           </div>
           <div className="flex justify-between items-center py-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Cấp độ</span>
+            <span className="text-sm text-muted-foreground">Cấp độ</span>
             <span className="text-sm font-medium">Level {user?.level || 1}</span>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function SettingsPage() {
       {/* Save button */}
       <button
         onClick={handleSave}
-        className="w-full py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors"
+        className="w-full py-3 rounded-xl bg-primary hover:bg-primary-600 text-white font-medium transition-colors"
       >
         {saved ? '✓ Đã lưu!' : 'Lưu cài đặt'}
       </button>

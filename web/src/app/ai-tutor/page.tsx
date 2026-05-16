@@ -94,10 +94,10 @@ export default function AITutorPage() {
       <div className="max-w-2xl mx-auto space-y-8">
         <div>
           <h1 className="text-2xl font-bold font-display">AI Tutor</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Luyện hội thoại với trợ lý AI</p>
+          <p className="text-muted-foreground mt-1">Luyện hội thoại với trợ lý AI</p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div className="p-6 rounded-2xl bg-card border border">
           <h2 className="font-semibold mb-4">Chọn ngôn ngữ</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {languageOptions.map((lang) => (
@@ -106,8 +106,8 @@ export default function AITutorPage() {
                 onClick={() => setSelectedLang(lang.code)}
                 className={`p-4 rounded-xl border-2 text-center transition-all ${
                   selectedLang === lang.code
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                    ? 'border-primary bg-primary/5'
+                    : 'border-border hover:border-primary-200'
                 }`}
               >
                 <div className="text-2xl mb-1">{lang.flag}</div>
@@ -124,13 +124,13 @@ export default function AITutorPage() {
                 onClick={() => setSelectedRole(role.id)}
                 className={`p-4 rounded-xl border-2 text-center transition-all ${
                   selectedRole === role.id
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                    ? 'border-primary bg-primary/5'
+                    : 'border-border hover:border-primary-200'
                 }`}
               >
                 <div className="text-2xl mb-1">{role.icon}</div>
                 <p className="text-sm font-medium">{role.label}</p>
-                <p className="text-xs text-gray-500">{role.desc}</p>
+                <p className="text-xs text-muted-foreground">{role.desc}</p>
               </button>
             ))}
           </div>
@@ -148,7 +148,7 @@ export default function AITutorPage() {
       <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-xl font-bold font-display">AI Tutor</h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             {languageOptions.find(l => l.code === selectedLang)?.flag} {languageOptions.find(l => l.code === selectedLang)?.name} • {roles.find(r => r.id === selectedRole)?.label}
           </p>
         </div>
@@ -157,12 +157,12 @@ export default function AITutorPage() {
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-4 p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="flex-1 overflow-y-auto space-y-4 p-4 rounded-2xl bg-card border border">
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] p-4 rounded-2xl ${
               msg.role === 'user'
-                ? 'bg-primary-500 text-white rounded-br-md'
+                ? 'bg-primary text-white rounded-br-md'
                 : 'bg-gray-100 dark:bg-gray-700 rounded-bl-md'
             }`}>
               <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
@@ -199,7 +199,7 @@ export default function AITutorPage() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
           placeholder="Nhập tin nhắn..."
-          className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500 outline-none"
+          className="flex-1 px-4 py-3 rounded-xl border border-border bg-card focus:ring-2 focus:ring-primary-500 outline-none"
           disabled={loading}
         />
         <Button onClick={sendMessage} disabled={!input.trim() || loading}>

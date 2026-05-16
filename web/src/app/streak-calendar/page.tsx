@@ -56,27 +56,27 @@ export default function StreakCalendarPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Lịch học tập</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Theo dõi streak và hoạt động hàng ngày</p>
+        <p className="text-muted-foreground mt-1">Theo dõi streak và hoạt động hàng ngày</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         <div className="p-4 rounded-2xl bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 text-center">
           <p className="text-2xl font-bold text-orange-600">{streakDays}</p>
-          <p className="text-xs text-gray-500">Ngày đã học</p>
+          <p className="text-xs text-muted-foreground">Ngày đã học</p>
         </div>
         <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-center">
           <p className="text-2xl font-bold text-red-600">{longestStreak}</p>
-          <p className="text-xs text-gray-500">Streak dài nhất</p>
+          <p className="text-xs text-muted-foreground">Streak dài nhất</p>
         </div>
-        <div className="p-4 rounded-2xl bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 text-center">
-          <p className="text-2xl font-bold text-primary-600">{totalXp}</p>
-          <p className="text-xs text-gray-500">XP tháng này</p>
+        <div className="p-4 rounded-2xl bg-primary/5 border border-primary/20 text-center">
+          <p className="text-2xl font-bold text-primary">{totalXp}</p>
+          <p className="text-xs text-muted-foreground">XP tháng này</p>
         </div>
       </div>
 
       {/* Calendar */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         {/* Month navigation */}
         <div className="flex items-center justify-between mb-4">
           <button onClick={prevMonth} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">←</button>
@@ -87,7 +87,7 @@ export default function StreakCalendarPage() {
         {/* Day headers */}
         <div className="grid grid-cols-7 gap-1 mb-2">
           {dayNames.map(day => (
-            <div key={day} className="text-center text-xs font-medium text-gray-500 py-1">{day}</div>
+            <div key={day} className="text-center text-xs font-medium text-muted-foreground py-1">{day}</div>
           ))}
         </div>
 
@@ -103,13 +103,13 @@ export default function StreakCalendarPage() {
                 key={day.date}
                 className={`aspect-square rounded-lg flex flex-col items-center justify-center text-sm transition-all ${
                   isToday
-                    ? 'ring-2 ring-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                    ? 'ring-2 ring-primary-500 bg-primary/5'
                     : day.completed
                     ? 'bg-green-100 dark:bg-green-900/30'
-                    : 'bg-gray-50 dark:bg-gray-900'
+                    : 'bg-muted/50'
                 }`}
               >
-                <span className={`text-xs font-medium ${day.completed ? 'text-green-700 dark:text-green-300' : 'text-gray-500'}`}>
+                <span className={`text-xs font-medium ${day.completed ? 'text-green-700 dark:text-green-300' : 'text-muted-foreground'}`}>
                   {day.date}
                 </span>
                 {day.completed && <span className="text-xs">🔥</span>}
@@ -120,13 +120,13 @@ export default function StreakCalendarPage() {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-4 justify-center text-xs text-gray-500">
+      <div className="flex items-center gap-4 justify-center text-xs text-muted-foreground">
         <div className="flex items-center gap-1">
           <div className="w-3 h-3 rounded bg-green-100 dark:bg-green-900/30 border border-green-300" />
           <span>Đã học</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded bg-gray-50 dark:bg-gray-900 border border-gray-200" />
+          <div className="w-3 h-3 rounded bg-muted/50 border border-gray-200" />
           <span>Chưa học</span>
         </div>
         <div className="flex items-center gap-1">

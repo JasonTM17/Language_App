@@ -99,7 +99,7 @@ export default function FlashcardsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-pulse w-80 h-48 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
+        <div className="animate-pulse w-80 h-48 bg-muted rounded-2xl" />
       </div>
     );
   }
@@ -109,7 +109,7 @@ export default function FlashcardsPage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🃏</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có flashcard</h3>
-        <p className="text-gray-500">Hoàn thành bài học để mở khóa flashcard từ vựng.</p>
+        <p className="text-muted-foreground">Hoàn thành bài học để mở khóa flashcard từ vựng.</p>
       </div>
     );
   }
@@ -122,11 +122,11 @@ export default function FlashcardsPage() {
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
             <p className="text-3xl font-bold text-green-600">{stats.known}</p>
-            <p className="text-sm text-gray-500">Đã thuộc</p>
+            <p className="text-sm text-muted-foreground">Đã thuộc</p>
           </div>
           <div className="text-center">
             <p className="text-3xl font-bold text-red-500">{stats.unknown}</p>
-            <p className="text-sm text-gray-500">Cần ôn lại</p>
+            <p className="text-sm text-muted-foreground">Cần ôn lại</p>
           </div>
         </div>
         <Button onClick={resetDeck}>Ôn tập lại</Button>

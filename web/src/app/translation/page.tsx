@@ -106,7 +106,7 @@ export default function TranslationPage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🌐</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài dịch</h3>
-        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
     );
   }
@@ -120,11 +120,11 @@ export default function TranslationPage() {
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
             <p className="text-3xl font-bold text-green-600">{score.correct}/{score.total}</p>
-            <p className="text-sm text-gray-500">Đúng</p>
+            <p className="text-sm text-muted-foreground">Đúng</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-primary-600">{pct}%</p>
-            <p className="text-sm text-gray-500">Chính xác</p>
+            <p className="text-3xl font-bold text-primary">{pct}%</p>
+            <p className="text-sm text-muted-foreground">Chính xác</p>
           </div>
         </div>
         <Button onClick={resetAll}>Làm lại</Button>
@@ -136,7 +136,7 @@ export default function TranslationPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Dịch câu</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Dịch câu sang ngôn ngữ đích</p>
+        <p className="text-muted-foreground mt-1">Dịch câu sang ngôn ngữ đích</p>
       </div>
 
       {/* Language selector */}
@@ -147,8 +147,8 @@ export default function TranslationPage() {
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -159,15 +159,15 @@ export default function TranslationPage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Câu {currentIndex + 1} / {currentExercises.length}</span>
+        <span className="text-muted-foreground">Câu {currentIndex + 1} / {currentExercises.length}</span>
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
       </div>
 
       {/* Source sentence */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium">
             {currentExercise.direction === 'to-foreign' ? 'Việt → Ngoại ngữ' : 'Ngoại ngữ → Việt'}
@@ -175,7 +175,7 @@ export default function TranslationPage() {
         </div>
         <p className="text-xl font-medium">{currentExercise.sourceText}</p>
         {showHint && (
-          <p className="text-sm text-gray-500 mt-3">
+          <p className="text-sm text-muted-foreground mt-3">
             Gợi ý: {currentExercise.hints.join(', ')}
           </p>
         )}
@@ -189,10 +189,10 @@ export default function TranslationPage() {
           placeholder={currentExercise.direction === 'to-foreign' ? 'Gõ bản dịch ngoại ngữ...' : 'Gõ bản dịch tiếng Việt...'}
           disabled={showResult}
           rows={3}
-          className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-lg focus:border-primary-500 focus:outline-none transition-all resize-none"
+          className="w-full p-4 rounded-xl border-2 border-border bg-card text-lg focus:border-primary focus:outline-none transition-all resize-none"
         />
         {!showResult && !showHint && (
-          <button onClick={() => setShowHint(true)} className="text-xs text-primary-500 hover:underline">
+          <button onClick={() => setShowHint(true)} className="text-xs text-primary hover:underline">
             Xem gợi ý
           </button>
         )}
@@ -214,7 +214,7 @@ export default function TranslationPage() {
               ? '✓ Chính xác!'
               : `Tương đồng: ${getSimilarity()}%`}
           </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             <span className="font-medium">Đáp án:</span> {currentExercise.targetText}
           </p>
         </div>

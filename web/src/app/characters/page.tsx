@@ -108,15 +108,15 @@ export default function CharactersPage() {
     return (
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
-          <button onClick={() => setQuizMode(false)} className="text-sm text-primary-600 hover:underline">← Quay lại</button>
-          <span className="text-sm text-gray-500">{quizIndex + 1}/{currentChars.length}</span>
+          <button onClick={() => setQuizMode(false)} className="text-sm text-primary hover:underline">← Quay lại</button>
+          <span className="text-sm text-muted-foreground">{quizIndex + 1}/{currentChars.length}</span>
         </div>
-        <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-          <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${((quizIndex + 1) / currentChars.length) * 100}%` }} />
+        <div className="h-2 bg-muted rounded-full overflow-hidden">
+          <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${((quizIndex + 1) / currentChars.length) * 100}%` }} />
         </div>
-        <div className="p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
+        <div className="p-8 rounded-2xl bg-card border border text-center">
           <p className="text-8xl font-bold mb-4">{char.character}</p>
-          <p className="text-sm text-gray-500">Nhập cách đọc hoặc nghĩa</p>
+          <p className="text-sm text-muted-foreground">Nhập cách đọc hoặc nghĩa</p>
         </div>
         <input
           type="text"
@@ -125,7 +125,7 @@ export default function CharactersPage() {
           onKeyDown={(e) => e.key === 'Enter' && !quizResult && quizAnswer && checkQuizAnswer()}
           placeholder="Nhập đáp án..."
           disabled={quizResult !== null}
-          className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-lg focus:border-primary-500 focus:outline-none"
+          className="w-full p-4 rounded-xl border-2 border-border bg-card text-lg focus:border-primary focus:outline-none"
           autoFocus
         />
         {quizResult !== null && (
@@ -133,7 +133,7 @@ export default function CharactersPage() {
             <p className={`font-medium ${quizResult ? 'text-green-700' : 'text-red-700'}`}>
               {quizResult ? '✓ Chính xác!' : '✗ Chưa đúng'}
             </p>
-            <p className="text-sm text-gray-600 mt-1">Đọc: {char.reading} | Nghĩa: {char.meaning}</p>
+            <p className="text-sm text-muted-foreground mt-1">Đọc: {char.reading} | Nghĩa: {char.meaning}</p>
           </div>
         )}
         <div className="flex justify-end">
@@ -153,7 +153,7 @@ export default function CharactersPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Học chữ</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Học bảng chữ cái và chữ Hán</p>
+        <p className="text-muted-foreground mt-1">Học bảng chữ cái và chữ Hán</p>
       </div>
 
       {/* Language selector */}
@@ -164,8 +164,8 @@ export default function CharactersPage() {
             onClick={() => { setSelectedLang(code as any); setSelectedChar(null); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{info.flag}</span>
@@ -175,7 +175,7 @@ export default function CharactersPage() {
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">{languageLabels[selectedLang].charType} • {currentChars.length} ký tự</p>
+        <p className="text-sm text-muted-foreground">{languageLabels[selectedLang].charType} • {currentChars.length} ký tự</p>
         <Button variant="outline" onClick={startQuiz}>Kiểm tra</Button>
       </div>
 
@@ -187,38 +187,38 @@ export default function CharactersPage() {
             onClick={() => setSelectedChar(selectedChar?.character === char.character ? null : char)}
             className={`aspect-square rounded-2xl border-2 flex flex-col items-center justify-center transition-all hover:shadow-md ${
               selectedChar?.character === char.character
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary-300'
+                ? 'border-primary bg-primary/5'
+                : 'border-border bg-card hover:border-primary-300'
             }`}
           >
             <span className="text-3xl font-bold">{char.character}</span>
-            <span className="text-xs text-gray-500 mt-1">{char.reading.split(' ')[0]}</span>
+            <span className="text-xs text-muted-foreground mt-1">{char.reading.split(' ')[0]}</span>
           </button>
         ))}
       </div>
 
       {/* Character detail */}
       {selectedChar && (
-        <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 space-y-4">
+        <div className="p-6 rounded-2xl bg-card border border space-y-4">
           <div className="flex items-start gap-6">
             <div className="text-7xl font-bold">{selectedChar.character}</div>
             <div className="flex-1">
               <p className="text-lg font-semibold">{selectedChar.reading}</p>
-              <p className="text-gray-600 dark:text-gray-400">{selectedChar.meaning}</p>
-              <div className="flex gap-4 mt-2 text-sm text-gray-500">
+              <p className="text-muted-foreground">{selectedChar.meaning}</p>
+              <div className="flex gap-4 mt-2 text-sm text-muted-foreground">
                 <span>Nét: {selectedChar.strokes}</span>
                 {selectedChar.radical && <span>Bộ: {selectedChar.radical}</span>}
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-100 dark:border-gray-700 pt-4">
-            <p className="text-xs font-medium text-gray-500 uppercase mb-2">Ví dụ từ vựng</p>
+          <div className="border-t border pt-4">
+            <p className="text-xs font-medium text-muted-foreground uppercase mb-2">Ví dụ từ vựng</p>
             <div className="space-y-2">
               {selectedChar.examples.map((ex, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-900">
+                <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
                   <span className="text-lg font-bold">{ex.word}</span>
-                  <span className="text-sm text-gray-500">({ex.reading})</span>
-                  <span className="text-sm text-gray-600 ml-auto">{ex.meaning}</span>
+                  <span className="text-sm text-muted-foreground">({ex.reading})</span>
+                  <span className="text-sm text-muted-foreground ml-auto">{ex.meaning}</span>
                 </div>
               ))}
             </div>

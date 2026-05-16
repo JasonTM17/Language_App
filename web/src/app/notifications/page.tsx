@@ -53,7 +53,7 @@ export default function NotificationsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Thông báo</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground mt-1">
             {unreadCount > 0 ? `${unreadCount} thông báo chưa đọc` : 'Không có thông báo mới'}
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function NotificationsPage() {
         <button
           onClick={() => setFilter('all')}
           className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-            filter === 'all' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700' : 'text-gray-500 hover:bg-gray-100'
+            filter === 'all' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700' : 'text-muted-foreground hover:bg-gray-100'
           }`}
         >
           Tất cả
@@ -77,7 +77,7 @@ export default function NotificationsPage() {
         <button
           onClick={() => setFilter('unread')}
           className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-1 ${
-            filter === 'unread' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700' : 'text-gray-500 hover:bg-gray-100'
+            filter === 'unread' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700' : 'text-muted-foreground hover:bg-gray-100'
           }`}
         >
           Chưa đọc
@@ -104,7 +104,7 @@ export default function NotificationsPage() {
               onClick={() => markRead(notif.id)}
               className={`w-full text-left p-4 rounded-xl border transition-all ${
                 notif.read
-                  ? 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700'
+                  ? 'bg-card border'
                   : `${typeColors[notif.type]} dark:border-gray-700`
               }`}
             >
@@ -112,13 +112,13 @@ export default function NotificationsPage() {
                 <div className="text-2xl">{notif.icon}</div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className={`text-sm font-medium ${!notif.read ? '' : 'text-gray-600 dark:text-gray-400'}`}>
+                    <p className={`text-sm font-medium ${!notif.read ? '' : 'text-muted-foreground'}`}>
                       {notif.title}
                     </p>
-                    {!notif.read && <span className="w-2 h-2 rounded-full bg-primary-500" />}
+                    {!notif.read && <span className="w-2 h-2 rounded-full bg-primary" />}
                   </div>
-                  <p className="text-xs text-gray-500 mt-0.5">{notif.message}</p>
-                  <p className="text-xs text-gray-400 mt-1">{notif.time}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{notif.message}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{notif.time}</p>
                 </div>
               </div>
             </button>

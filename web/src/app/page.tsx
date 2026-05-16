@@ -36,9 +36,9 @@ export default function LandingPage() {
             <span className="font-display font-bold text-xl">LinguaFlow</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm text-gray-600 hover:text-primary-600 transition-colors">Features</a>
-            <a href="#languages" className="text-sm text-gray-600 hover:text-primary-600 transition-colors">Languages</a>
-            <a href="#pricing" className="text-sm text-gray-600 hover:text-primary-600 transition-colors">Pricing</a>
+            <a href="#features" className="text-sm text-muted-foreground hover:text-primary transition-colors">Features</a>
+            <a href="#languages" className="text-sm text-muted-foreground hover:text-primary transition-colors">Languages</a>
+            <a href="#pricing" className="text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</a>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/auth/login">
@@ -57,7 +57,7 @@ export default function LandingPage() {
           <motion.div
             {...fadeUp}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary-100 dark:border-primary-800 mb-6"
           >
             <span className="text-xs font-medium text-primary-700 dark:text-primary-300">New: AI Tutor with role-play scenarios</span>
           </motion.div>
@@ -65,7 +65,7 @@ export default function LandingPage() {
             Learn Languages{' '}
             <span className="gradient-text">Naturally</span>
           </motion.h1>
-          <motion.p {...fadeUp} transition={{ duration: 0.5, delay: 0.2 }} className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+          <motion.p {...fadeUp} transition={{ duration: 0.5, delay: 0.2 }} className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
             Master English, Japanese, Chinese, and Korean with AI-powered tutoring,
             smart flashcards, and personalized learning paths designed for Vietnamese students.
           </motion.p>
@@ -89,11 +89,11 @@ export default function LandingPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                className="group p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                className="group p-4 rounded-2xl bg-card border border shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="text-4xl mb-2">{lang.flag}</div>
                 <h3 className="font-semibold text-sm">{lang.name}</h3>
-                <p className="text-xs text-gray-500">{lang.learners} learners</p>
+                <p className="text-xs text-muted-foreground">{lang.learners} learners</p>
               </motion.div>
             ))}
           </div>
@@ -105,14 +105,14 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">Everything You Need to Succeed</h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Comprehensive tools and methods backed by language learning science</p>
+            <p className="text-muted-foreground max-w-xl mx-auto">Comprehensive tools and methods backed by language learning science</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800 hover:border-primary-200 dark:hover:border-primary-800 transition-colors">
+              <div key={i} className="p-6 rounded-2xl bg-card/50 border dark:border-gray-800 hover:border-primary-200 dark:hover:border-primary-800 transition-colors">
                 <div className="text-3xl mb-4">{feature.icon}</div>
                 <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{feature.desc}</p>
+                <p className="text-sm text-muted-foreground">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -141,7 +141,7 @@ export default function LandingPage() {
             <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-xs">L</div>
             <span className="font-display font-semibold">LinguaFlow</span>
           </div>
-          <p className="text-sm text-gray-500">© 2024 LinguaFlow. Made with ❤️ for Vietnamese learners.</p>
+          <p className="text-sm text-muted-foreground">© 2024 LinguaFlow. Made with ❤️ for Vietnamese learners.</p>
         </div>
       </footer>
     </div>

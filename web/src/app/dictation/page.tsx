@@ -125,7 +125,7 @@ export default function DictationPage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🎧</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài nghe chép</h3>
-        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
     );
   }
@@ -139,11 +139,11 @@ export default function DictationPage() {
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
             <p className="text-3xl font-bold text-green-600">{score.correct}/{score.total}</p>
-            <p className="text-sm text-gray-500">Đúng</p>
+            <p className="text-sm text-muted-foreground">Đúng</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-primary-600">{pct}%</p>
-            <p className="text-sm text-gray-500">Chính xác</p>
+            <p className="text-3xl font-bold text-primary">{pct}%</p>
+            <p className="text-sm text-muted-foreground">Chính xác</p>
           </div>
         </div>
         <Button onClick={resetAll}>Làm lại</Button>
@@ -155,7 +155,7 @@ export default function DictationPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Nghe chép</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Nghe và gõ lại câu bạn nghe được</p>
+        <p className="text-muted-foreground mt-1">Nghe và gõ lại câu bạn nghe được</p>
       </div>
 
       {/* Language selector */}
@@ -166,8 +166,8 @@ export default function DictationPage() {
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -178,17 +178,17 @@ export default function DictationPage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Câu {currentIndex + 1} / {currentExercises.length}</span>
+        <span className="text-muted-foreground">Câu {currentIndex + 1} / {currentExercises.length}</span>
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
       </div>
 
       {/* Audio controls */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center space-y-4">
+      <div className="p-6 rounded-2xl bg-card border border text-center space-y-4">
         <div className="text-4xl mb-2">{isPlaying ? '🔊' : '🎧'}</div>
-        <p className="text-sm text-gray-500">Nhấn nút để nghe câu ({playCount} lần đã nghe)</p>
+        <p className="text-sm text-muted-foreground">Nhấn nút để nghe câu ({playCount} lần đã nghe)</p>
         <div className="flex gap-3 justify-center">
           <Button onClick={() => speak(false)} disabled={isPlaying} variant="outline">
             ▶ Nghe bình thường
@@ -197,7 +197,7 @@ export default function DictationPage() {
             🐢 Nghe chậm
           </Button>
         </div>
-        <p className="text-xs text-gray-400 mt-2">Gợi ý: {currentExercise.translation}</p>
+        <p className="text-xs text-muted-foreground mt-2">Gợi ý: {currentExercise.translation}</p>
       </div>
 
       {/* Input */}
@@ -210,7 +210,7 @@ export default function DictationPage() {
           onKeyDown={(e) => e.key === 'Enter' && !showResult && userInput.trim() && checkAnswer()}
           placeholder="Gõ lại câu bạn nghe được..."
           disabled={showResult}
-          className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-lg focus:border-primary-500 focus:outline-none transition-all"
+          className="w-full p-4 rounded-xl border-2 border-border bg-card text-lg focus:border-primary focus:outline-none transition-all"
           autoComplete="off"
         />
       </div>
@@ -227,11 +227,11 @@ export default function DictationPage() {
               {getAccuracy() === 100 ? '✓ Hoàn hảo!' : `Chính xác: ${getAccuracy()}%`}
             </p>
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             <span className="font-medium">Đáp án:</span> {currentExercise.sentence}
           </p>
           {getAccuracy() < 100 && (
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               <span className="font-medium">Bạn gõ:</span> {userInput}
             </p>
           )}

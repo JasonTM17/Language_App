@@ -62,10 +62,10 @@ export default function OnboardingPage() {
         {/* Step progress indicator */}
         <div className="mb-8 space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-primary-600 dark:text-primary-400">
+            <span className="font-medium text-primary dark:text-primary-400">
               Bước {step + 1}/3
             </span>
-            <span className="text-gray-400 dark:text-gray-500">
+            <span className="text-muted-foreground">
               {step === 0 ? 'Chọn ngôn ngữ' : step === 1 ? 'Mục tiêu hàng ngày' : 'Trình độ của bạn'}
             </span>
           </div>
@@ -74,7 +74,7 @@ export default function OnboardingPage() {
               <div
                 key={i}
                 className={`flex-1 h-2 rounded-full transition-all duration-300 ${
-                  i <= step ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'
+                  i <= step ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700'
                 }`}
               />
             ))}
@@ -86,7 +86,7 @@ export default function OnboardingPage() {
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold font-display">Chào mừng bạn! 👋</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">Bạn muốn học ngôn ngữ nào?</p>
+              <p className="text-muted-foreground mt-2">Bạn muốn học ngôn ngữ nào?</p>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {languages.map((lang) => (
@@ -95,13 +95,13 @@ export default function OnboardingPage() {
                   onClick={() => toggleLang(lang.code)}
                   className={`p-6 rounded-2xl border-2 text-center transition-all ${
                     selectedLangs.includes(lang.code)
-                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 scale-105'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                      ? 'border-primary bg-primary/5 scale-105'
+                      : 'border-border hover:border-primary-200'
                   }`}
                 >
                   <div className="text-4xl mb-2">{lang.flag}</div>
                   <p className="font-semibold">{lang.name}</p>
-                  <p className="text-xs text-gray-500 mt-1">{lang.desc}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{lang.desc}</p>
                 </button>
               ))}
             </div>
@@ -121,7 +121,7 @@ export default function OnboardingPage() {
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold font-display">Mục tiêu hàng ngày 🎯</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">Bạn muốn học bao lâu mỗi ngày?</p>
+              <p className="text-muted-foreground mt-2">Bạn muốn học bao lâu mỗi ngày?</p>
             </div>
             <div className="space-y-3">
               {goals.map((goal) => (
@@ -130,16 +130,16 @@ export default function OnboardingPage() {
                   onClick={() => setSelectedGoal(goal.minutes)}
                   className={`w-full p-4 rounded-xl border-2 text-left transition-all flex items-center justify-between ${
                     selectedGoal === goal.minutes
-                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                      ? 'border-primary bg-primary/5'
+                      : 'border-border hover:border-primary-200'
                   }`}
                 >
                   <div>
                     <p className="font-semibold">{goal.label}</p>
-                    <p className="text-sm text-gray-500">{goal.desc}</p>
+                    <p className="text-sm text-muted-foreground">{goal.desc}</p>
                   </div>
                   {selectedGoal === goal.minutes && (
-                    <div className="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-white text-sm">✓</div>
+                    <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white text-sm">✓</div>
                   )}
                 </button>
               ))}
@@ -156,7 +156,7 @@ export default function OnboardingPage() {
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold font-display">Trình độ của bạn 📚</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">Chọn trình độ phù hợp nhất</p>
+              <p className="text-muted-foreground mt-2">Chọn trình độ phù hợp nhất</p>
             </div>
             <div className="space-y-3">
               {levels.map((level) => (
@@ -165,12 +165,12 @@ export default function OnboardingPage() {
                   onClick={() => setSelectedLevel(level.value)}
                   className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                     selectedLevel === level.value
-                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                      ? 'border-primary bg-primary/5'
+                      : 'border-border hover:border-primary-200'
                   }`}
                 >
                   <p className="font-semibold">{level.label}</p>
-                  <p className="text-sm text-gray-500">{level.desc}</p>
+                  <p className="text-sm text-muted-foreground">{level.desc}</p>
                 </button>
               ))}
             </div>

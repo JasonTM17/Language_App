@@ -143,7 +143,7 @@ export default function TimedChallengePage() {
       <div className="max-w-2xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold font-display">Thử thách tốc độ</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Trả lời nhanh nhất có thể trong 60 giây!</p>
+          <p className="text-muted-foreground mt-1">Trả lời nhanh nhất có thể trong 60 giây!</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
@@ -153,8 +153,8 @@ export default function TimedChallengePage() {
               onClick={() => setSelectedLang(lang.code)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary-200'
               }`}
             >
               <span>{lang.flag}</span>
@@ -163,11 +163,11 @@ export default function TimedChallengePage() {
           ))}
         </div>
 
-        <div className="p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center space-y-4">
+        <div className="p-8 rounded-2xl bg-card border border text-center space-y-4">
           <div className="text-6xl">⚡</div>
           <h2 className="text-xl font-bold">Sẵn sàng?</h2>
-          <p className="text-gray-500">Bạn có {TOTAL_TIME} giây để trả lời nhiều câu nhất có thể.</p>
-          <p className="text-sm text-gray-400">Trả lời đúng +{BONUS_TIME}s | Combo streak tăng điểm</p>
+          <p className="text-muted-foreground">Bạn có {TOTAL_TIME} giây để trả lời nhiều câu nhất có thể.</p>
+          <p className="text-sm text-muted-foreground">Trả lời đúng +{BONUS_TIME}s | Combo streak tăng điểm</p>
           <Button onClick={startGame} className="mt-4 px-8 py-3 text-lg">
             Bắt đầu!
           </Button>
@@ -183,20 +183,20 @@ export default function TimedChallengePage() {
         <div className="text-5xl mb-2">🏆</div>
         <h2 className="text-2xl font-bold">Hết giờ!</h2>
         <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
-          <div className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-            <p className="text-3xl font-bold text-primary-600">{score}</p>
-            <p className="text-xs text-gray-500">Điểm</p>
+          <div className="p-4 rounded-xl bg-card border border">
+            <p className="text-3xl font-bold text-primary">{score}</p>
+            <p className="text-xs text-muted-foreground">Điểm</p>
           </div>
-          <div className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+          <div className="p-4 rounded-xl bg-card border border">
             <p className="text-3xl font-bold text-green-600">{currentIndex}</p>
-            <p className="text-xs text-gray-500">Câu trả lời</p>
+            <p className="text-xs text-muted-foreground">Câu trả lời</p>
           </div>
-          <div className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+          <div className="p-4 rounded-xl bg-card border border">
             <p className="text-3xl font-bold text-orange-600">{bestStreak}</p>
-            <p className="text-xs text-gray-500">Combo cao nhất</p>
+            <p className="text-xs text-muted-foreground">Combo cao nhất</p>
           </div>
         </div>
-        <p className="text-sm text-gray-500">+{xpEarned} XP kiếm được</p>
+        <p className="text-sm text-muted-foreground">+{xpEarned} XP kiếm được</p>
         <div className="flex gap-3 justify-center">
           <Button onClick={startGame}>Chơi lại</Button>
           <Button variant="outline" onClick={() => setGameState('idle')}>Đổi ngôn ngữ</Button>
@@ -224,28 +224,28 @@ export default function TimedChallengePage() {
           </span>
           <span className="text-sm font-medium">Điểm: {score}</span>
         </div>
-        <div className="h-3 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+        <div className="h-3 bg-muted rounded-full overflow-hidden">
           <div className={`h-full ${timeColor} rounded-full transition-all duration-1000`} style={{ width: `${timePercent}%` }} />
         </div>
       </div>
 
       {/* Question */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
-        <p className="text-xs text-gray-400 mb-2">Câu {currentIndex + 1}</p>
+      <div className="p-6 rounded-2xl bg-card border border text-center">
+        <p className="text-xs text-muted-foreground mb-2">Câu {currentIndex + 1}</p>
         <p className="text-xl font-bold">{currentQuestion.question}</p>
       </div>
 
       {/* Options */}
       <div className="grid grid-cols-2 gap-3">
         {currentQuestion.options.map((option) => {
-          let styles = 'border-gray-200 dark:border-gray-700 hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 active:scale-95';
+          let styles = 'border-border hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 active:scale-95';
           if (showFeedback) {
             if (option === currentQuestion.answer) {
               styles = 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 scale-105';
             } else if (option === selectedAnswer) {
               styles = 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300';
             } else {
-              styles = 'border-gray-200 dark:border-gray-700 opacity-50';
+              styles = 'border-border opacity-50';
             }
           }
 

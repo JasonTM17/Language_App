@@ -71,7 +71,7 @@ export default function GrammarCorrectionPage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">✏️</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài sửa lỗi</h3>
-        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
     );
   }
@@ -85,11 +85,11 @@ export default function GrammarCorrectionPage() {
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
             <p className="text-3xl font-bold text-green-600">{score.correct}/{score.total}</p>
-            <p className="text-sm text-gray-500">Đúng</p>
+            <p className="text-sm text-muted-foreground">Đúng</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-primary-600">{pct}%</p>
-            <p className="text-sm text-gray-500">Chính xác</p>
+            <p className="text-3xl font-bold text-primary">{pct}%</p>
+            <p className="text-sm text-muted-foreground">Chính xác</p>
           </div>
         </div>
         <Button onClick={resetAll}>Làm lại</Button>
@@ -101,7 +101,7 @@ export default function GrammarCorrectionPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Sửa lỗi ngữ pháp</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Tìm và sửa lỗi sai trong câu</p>
+        <p className="text-muted-foreground mt-1">Tìm và sửa lỗi sai trong câu</p>
       </div>
 
       {/* Language selector */}
@@ -112,8 +112,8 @@ export default function GrammarCorrectionPage() {
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -124,22 +124,22 @@ export default function GrammarCorrectionPage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Câu {currentIndex + 1} / {currentExercises.length}</span>
+        <span className="text-muted-foreground">Câu {currentIndex + 1} / {currentExercises.length}</span>
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
       </div>
 
       {/* Sentence with error */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <p className="text-xs text-red-500 font-medium mb-2">Câu có lỗi sai:</p>
         <p className="text-xl font-medium text-red-700 dark:text-red-300">{currentExercise.sentence}</p>
       </div>
 
       {/* Input */}
       <div className="space-y-2">
-        <p className="text-xs text-gray-500 font-medium">Viết lại câu đúng:</p>
+        <p className="text-xs text-muted-foreground font-medium">Viết lại câu đúng:</p>
         <input
           type="text"
           value={userAnswer}
@@ -147,7 +147,7 @@ export default function GrammarCorrectionPage() {
           onKeyDown={(e) => e.key === 'Enter' && !showResult && userAnswer.trim() && checkAnswer()}
           placeholder="Gõ câu đã sửa..."
           disabled={showResult}
-          className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-lg focus:border-primary-500 focus:outline-none transition-all"
+          className="w-full p-4 rounded-xl border-2 border-border bg-card text-lg focus:border-primary focus:outline-none transition-all"
           autoComplete="off"
         />
       </div>
@@ -166,7 +166,7 @@ export default function GrammarCorrectionPage() {
           </p>
           <p className="text-sm"><span className="font-medium">Đáp án:</span> {currentExercise.corrected}</p>
           <p className="text-sm text-red-600"><span className="font-medium">Lỗi:</span> {currentExercise.error}</p>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{currentExercise.explanation}</p>
+          <p className="text-xs text-muted-foreground mt-1">{currentExercise.explanation}</p>
         </div>
       )}
 

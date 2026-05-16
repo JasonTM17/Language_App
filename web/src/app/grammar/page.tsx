@@ -159,7 +159,7 @@ export default function GrammarPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Ngữ pháp</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Các điểm ngữ pháp quan trọng</p>
+        <p className="text-muted-foreground mt-1">Các điểm ngữ pháp quan trọng</p>
       </div>
 
       {/* Language tabs */}
@@ -170,8 +170,8 @@ export default function GrammarPage() {
             onClick={() => { setSelectedLang(lang.code); setExpandedId(null); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
               selectedLang === lang.code
-                ? 'bg-primary-500 text-white'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200'
+                ? 'bg-primary text-white'
+                : 'bg-muted text-muted-foreground hover:bg-gray-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -183,32 +183,32 @@ export default function GrammarPage() {
       {/* Grammar points */}
       <div className="space-y-4">
         {points.map((point) => (
-          <div key={point.id} className="rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <div key={point.id} className="rounded-2xl bg-card border border overflow-hidden">
             <button
               onClick={() => setExpandedId(expandedId === point.id ? null : point.id)}
               className="w-full p-5 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
             >
               <div>
                 <h3 className="font-semibold text-lg">{point.title}</h3>
-                <p className="text-sm text-primary-600 dark:text-primary-400">{point.titleVi}</p>
+                <p className="text-sm text-primary dark:text-primary-400">{point.titleVi}</p>
               </div>
-              <svg className={`w-5 h-5 text-gray-400 transition-transform ${expandedId === point.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={`w-5 h-5 text-muted-foreground transition-transform ${expandedId === point.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
 
             {expandedId === point.id && (
-              <div className="px-5 pb-5 space-y-4 border-t border-gray-100 dark:border-gray-700 pt-4">
-                <div className="p-3 rounded-xl bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800">
+              <div className="px-5 pb-5 space-y-4 border-t border pt-4">
+                <div className="p-3 rounded-xl bg-primary/5 border border-primary-100 dark:border-primary-800">
                   <p className="text-sm font-mono font-bold text-primary-700 dark:text-primary-300">{point.pattern}</p>
                 </div>
                 <p className="text-sm text-gray-700 dark:text-gray-300">{point.explanation}</p>
                 <div className="space-y-2">
-                  <p className="text-xs font-medium text-gray-500 uppercase">Ví dụ:</p>
+                  <p className="text-xs font-medium text-muted-foreground uppercase">Ví dụ:</p>
                   {point.examples.map((ex, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+                    <div key={i} className="p-3 rounded-lg bg-muted/50">
                       <p className="font-medium text-sm">{ex.sentence}</p>
-                      <p className="text-xs text-gray-500 mt-1">{ex.translation}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{ex.translation}</p>
                     </div>
                   ))}
                 </div>

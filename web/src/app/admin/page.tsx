@@ -36,9 +36,9 @@ export default function AdminPage() {
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+        <div className="h-8 w-48 bg-muted rounded-lg" />
         <div className="grid grid-cols-5 gap-4">
-          {[...Array(5)].map((_, i) => <div key={i} className="h-24 bg-gray-200 dark:bg-gray-800 rounded-2xl" />)}
+          {[...Array(5)].map((_, i) => <div key={i} className="h-24 bg-muted rounded-2xl" />)}
         </div>
       </div>
     );
@@ -55,13 +55,13 @@ export default function AdminPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Admin Dashboard</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your platform</p>
+          <p className="text-muted-foreground mt-1">Manage your platform</p>
         </div>
         <Button variant="outline" onClick={() => router.push('/dashboard')}>Back to App</Button>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl w-fit">
+      <div className="flex gap-1 p-1 bg-muted rounded-xl w-fit">
         {tabs.map((t) => (
           <button
             key={t.id}
@@ -69,7 +69,7 @@ export default function AdminPage() {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
               tab === t.id
                 ? 'bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white'
-                : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                : 'text-muted-foreground hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
             <span>{t.icon}</span>
@@ -90,25 +90,25 @@ export default function AdminPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <div className="p-6 rounded-2xl bg-card border border">
               <h3 className="font-semibold mb-4">Quick Actions</h3>
               <div className="space-y-2">
-                <button className="w-full text-left px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
+                <button className="w-full text-left px-4 py-3 rounded-xl bg-muted/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
                   📝 Create New Lesson
                 </button>
-                <button className="w-full text-left px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
+                <button className="w-full text-left px-4 py-3 rounded-xl bg-muted/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
                   📚 Add Vocabulary Batch
                 </button>
-                <button className="w-full text-left px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
+                <button className="w-full text-left px-4 py-3 rounded-xl bg-muted/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
                   ❓ Create Quiz
                 </button>
-                <button className="w-full text-left px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
+                <button className="w-full text-left px-4 py-3 rounded-xl bg-muted/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
                   📊 Export Analytics
                 </button>
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <div className="p-6 rounded-2xl bg-card border border">
               <h3 className="font-semibold mb-4">Platform Health</h3>
               <div className="space-y-4">
                 <HealthItem label="API Server" status="healthy" />
@@ -123,7 +123,7 @@ export default function AdminPage() {
 
       {/* Users Tab */}
       {tab === 'users' && (
-        <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div className="p-6 rounded-2xl bg-card border border">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-lg">All Users ({users.length})</h2>
             <Button size="sm" variant="outline">Export CSV</Button>
@@ -132,19 +132,19 @@ export default function AdminPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-700">
-                    <th className="text-left py-3 px-2 font-medium text-gray-500">Name</th>
-                    <th className="text-left py-3 px-2 font-medium text-gray-500">Email</th>
-                    <th className="text-left py-3 px-2 font-medium text-gray-500">Role</th>
-                    <th className="text-left py-3 px-2 font-medium text-gray-500">Level</th>
-                    <th className="text-left py-3 px-2 font-medium text-gray-500">XP</th>
-                    <th className="text-left py-3 px-2 font-medium text-gray-500">Streak</th>
-                    <th className="text-left py-3 px-2 font-medium text-gray-500">Joined</th>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">Name</th>
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">Email</th>
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">Role</th>
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">Level</th>
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">XP</th>
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">Streak</th>
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">Joined</th>
                   </tr>
                 </thead>
                 <tbody>
                   {users.map((u: any) => (
-                    <tr key={u.id} className="border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                    <tr key={u.id} className="border-b border/50 hover:bg-gray-50 dark:hover:bg-gray-700/30">
                       <td className="py-3 px-2">
                         <div className="flex items-center gap-2">
                           <div className="w-7 h-7 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-xs font-medium text-primary-700 dark:text-primary-300">
@@ -153,7 +153,7 @@ export default function AdminPage() {
                           <span className="font-medium">{u.name}</span>
                         </div>
                       </td>
-                      <td className="py-3 px-2 text-gray-500">{u.email}</td>
+                      <td className="py-3 px-2 text-muted-foreground">{u.email}</td>
                       <td className="py-3 px-2">
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${u.role === 'admin' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'}`}>
                           {u.role}
@@ -164,14 +164,14 @@ export default function AdminPage() {
                       <td className="py-3 px-2">
                         <span className="text-orange-600">🔥 {u.streak}</span>
                       </td>
-                      <td className="py-3 px-2 text-gray-500">{new Date(u.createdAt).toLocaleDateString()}</td>
+                      <td className="py-3 px-2 text-muted-foreground">{new Date(u.createdAt).toLocaleDateString()}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-8">No users found. Start the API server and seed the database.</p>
+            <p className="text-muted-foreground text-center py-8">No users found. Start the API server and seed the database.</p>
           )}
         </div>
       )}
@@ -185,13 +185,13 @@ export default function AdminPage() {
           </div>
           <div className="grid gap-3">
             {['English', 'Japanese', 'Chinese', 'Korean'].map((lang) => (
-              <div key={lang} className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+              <div key={lang} className="p-5 rounded-2xl bg-card border border">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{lang === 'English' ? '🇬🇧' : lang === 'Japanese' ? '🇯🇵' : lang === 'Chinese' ? '🇨🇳' : '🇰🇷'}</span>
                     <div>
                       <h3 className="font-semibold">{lang}</h3>
-                      <p className="text-xs text-gray-500">3 lessons, 10 vocabulary, 5 quizzes</p>
+                      <p className="text-xs text-muted-foreground">3 lessons, 10 vocabulary, 5 quizzes</p>
                     </div>
                   </div>
                   <div className="flex gap-2">
@@ -217,9 +217,9 @@ function StatCard({ value, label, color }: { value: number; label: string; color
     pink: 'text-pink-600',
   };
   return (
-    <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
+    <div className="p-4 rounded-2xl bg-card border border text-center">
       <p className={`text-2xl font-bold ${colors[color]}`}>{value}</p>
-      <p className="text-xs text-gray-500 mt-1">{label}</p>
+      <p className="text-xs text-muted-foreground mt-1">{label}</p>
     </div>
   );
 }
@@ -232,7 +232,7 @@ function HealthItem({ label, status }: { label: string; status: 'healthy' | 'con
   };
   return (
     <div className="flex items-center justify-between">
-      <span className="text-sm text-gray-600 dark:text-gray-400">{label}</span>
+      <span className="text-sm text-muted-foreground">{label}</span>
       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusStyles[status]}`}>{status}</span>
     </div>
   );

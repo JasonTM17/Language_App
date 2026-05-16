@@ -151,7 +151,7 @@ export default function MemoryGamePage() {
             <span key={i} className={`text-3xl ${i < stars ? 'text-yellow-400' : 'text-gray-300'}`}>★</span>
           ))}
         </div>
-        <div className="flex justify-center gap-6 mb-6 text-sm text-gray-500">
+        <div className="flex justify-center gap-6 mb-6 text-sm text-muted-foreground">
           <span>⏱️ {formatTime(timer)}</span>
           <span>🔄 {moves} lượt</span>
           <span>✅ {totalPairs} cặp</span>
@@ -165,7 +165,7 @@ export default function MemoryGamePage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Trò chơi ghi nhớ</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Lật thẻ và nối từ với nghĩa</p>
+        <p className="text-muted-foreground mt-1">Lật thẻ và nối từ với nghĩa</p>
       </div>
 
       {/* Language selector */}
@@ -176,8 +176,8 @@ export default function MemoryGamePage() {
             onClick={() => setSelectedLang(lang.code)}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -188,8 +188,8 @@ export default function MemoryGamePage() {
 
       {/* Stats */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">⏱️ {formatTime(timer)}</span>
-        <span className="text-gray-500">🔄 {moves} lượt</span>
+        <span className="text-muted-foreground">⏱️ {formatTime(timer)}</span>
+        <span className="text-muted-foreground">🔄 {moves} lượt</span>
         <span className="text-green-600 font-medium">✅ {matchedPairs}/{totalPairs}</span>
       </div>
 
@@ -204,8 +204,8 @@ export default function MemoryGamePage() {
               card.matched
                 ? 'border-green-300 bg-green-50 dark:bg-green-900/10'
                 : card.flipped
-                  ? 'border-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-primary-200 hover:scale-105'
+                  ? 'border-primary-400 bg-primary/5'
+                  : 'border-border bg-card hover:border-primary-200 hover:scale-105'
             }`}
           >
             {card.flipped || card.matched ? (

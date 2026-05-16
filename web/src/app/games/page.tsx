@@ -35,7 +35,7 @@ export default function GamesPage() {
     <div className="max-w-4xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Mini Games</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Học mà chơi, chơi mà học</p>
+        <p className="text-muted-foreground mt-1">Học mà chơi, chơi mà học</p>
       </div>
 
       {/* Daily challenge banner */}
@@ -61,7 +61,7 @@ export default function GamesPage() {
           <button
             key={game.id}
             onClick={() => router.push(game.href)}
-            className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-left hover:scale-[1.02] transition-all hover:shadow-lg"
+            className="p-5 rounded-2xl bg-card border border text-left hover:scale-[1.02] transition-all hover:shadow-lg"
           >
             <div className="flex items-start gap-4">
               <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${game.color} flex items-center justify-center text-2xl shadow-sm`}>
@@ -74,8 +74,8 @@ export default function GamesPage() {
                     {difficultyLabels[game.difficulty]}
                   </span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">{game.description}</p>
-                <p className="text-xs text-primary-600 font-medium mt-2">+{game.xpReward} XP</p>
+                <p className="text-xs text-muted-foreground mt-1">{game.description}</p>
+                <p className="text-xs text-primary font-medium mt-2">+{game.xpReward} XP</p>
               </div>
             </div>
           </button>
@@ -83,20 +83,20 @@ export default function GamesPage() {
       </div>
 
       {/* Stats */}
-      <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
+      <div className="p-4 rounded-xl bg-muted/50 border border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="text-center">
-              <p className="text-lg font-bold text-primary-600">47</p>
-              <p className="text-xs text-gray-500">Games chơi</p>
+              <p className="text-lg font-bold text-primary">47</p>
+              <p className="text-xs text-muted-foreground">Games chơi</p>
             </div>
             <div className="text-center">
               <p className="text-lg font-bold text-green-600">82%</p>
-              <p className="text-xs text-gray-500">Tỷ lệ thắng</p>
+              <p className="text-xs text-muted-foreground">Tỷ lệ thắng</p>
             </div>
             <div className="text-center">
               <p className="text-lg font-bold text-orange-600">15</p>
-              <p className="text-xs text-gray-500">Combo cao nhất</p>
+              <p className="text-xs text-muted-foreground">Combo cao nhất</p>
             </div>
           </div>
         </div>

@@ -36,9 +36,9 @@ export default function LanguagesPage() {
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+        <div className="h-8 w-48 bg-muted rounded-lg" />
         <div className="grid md:grid-cols-2 gap-6">
-          {[...Array(4)].map((_, i) => <div key={i} className="h-48 bg-gray-200 dark:bg-gray-800 rounded-2xl" />)}
+          {[...Array(4)].map((_, i) => <div key={i} className="h-48 bg-muted rounded-2xl" />)}
         </div>
       </div>
     );
@@ -48,24 +48,24 @@ export default function LanguagesPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Choose a Language</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Select a language to start or continue learning</p>
+        <p className="text-muted-foreground mt-1">Select a language to start or continue learning</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         {languages.map((lang) => (
-          <div key={lang.id} className="group p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-primary-200 dark:hover:border-primary-800 transition-all">
+          <div key={lang.id} className="group p-6 rounded-2xl bg-card border border shadow-sm hover:shadow-md hover:border-primary-200 dark:hover:border-primary-800 transition-all">
             <div className="flex items-start gap-4">
               <div className="text-5xl">{lang.flag}</div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold">{lang.name}</h3>
-                <p className="text-sm text-gray-500">{lang.nativeName}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{lang.description}</p>
+                <p className="text-sm text-muted-foreground">{lang.nativeName}</p>
+                <p className="text-sm text-muted-foreground mt-2">{lang.description}</p>
               </div>
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
               {lang.levels.map((level) => (
-                <span key={level.id} className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                <span key={level.id} className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-muted-foreground dark:text-gray-300">
                   {level.name}
                 </span>
               ))}

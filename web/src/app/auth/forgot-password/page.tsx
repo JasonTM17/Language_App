@@ -22,14 +22,14 @@ export default function ForgotPasswordPage() {
             <span className="font-display font-bold text-2xl">LinguaFlow</span>
           </Link>
           <h1 className="text-2xl font-bold mb-2">Reset Password</h1>
-          <p className="text-gray-600 dark:text-gray-400">Enter your email to receive a reset link</p>
+          <p className="text-muted-foreground">Enter your email to receive a reset link</p>
         </div>
 
         {sent ? (
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700 text-center">
+          <div className="bg-card rounded-2xl p-8 shadow-xl border border text-center">
             <div className="text-5xl mb-4">📧</div>
             <h2 className="text-lg font-semibold mb-2">Check your email</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-sm text-muted-foreground mb-6">
               If an account exists for {email}, we&apos;ve sent a password reset link.
             </p>
             <Link href="/auth/login">
@@ -37,14 +37,14 @@ export default function ForgotPasswordPage() {
             </Link>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+          <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-xl border border">
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-border bg-muted/50 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
                 placeholder="your@email.com"
                 required
               />
@@ -55,9 +55,9 @@ export default function ForgotPasswordPage() {
           </form>
         )}
 
-        <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-center mt-6 text-sm text-muted-foreground">
           Remember your password?{' '}
-          <Link href="/auth/login" className="text-primary-600 font-medium hover:text-primary-700">
+          <Link href="/auth/login" className="text-primary font-medium hover:text-primary-700">
             Log in
           </Link>
         </p>

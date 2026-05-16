@@ -50,10 +50,10 @@ export default function QuestsPage() {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto space-y-4">
-        <div className="animate-pulse h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded" />
-        <div className="animate-pulse h-24 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
-        <div className="animate-pulse h-24 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
-        <div className="animate-pulse h-24 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
+        <div className="animate-pulse h-8 w-48 bg-muted rounded" />
+        <div className="animate-pulse h-24 bg-muted rounded-2xl" />
+        <div className="animate-pulse h-24 bg-muted rounded-2xl" />
+        <div className="animate-pulse h-24 bg-muted rounded-2xl" />
       </div>
     );
   }
@@ -65,7 +65,7 @@ export default function QuestsPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Nhiệm vụ hàng ngày</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Hoàn thành nhiệm vụ để nhận XP bonus</p>
+        <p className="text-muted-foreground mt-1">Hoàn thành nhiệm vụ để nhận XP bonus</p>
       </div>
 
       {/* Progress header */}
@@ -102,7 +102,7 @@ export default function QuestsPage() {
             className={`p-4 rounded-xl border transition-all ${
               quest.completed
                 ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
-                : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700'
+                : 'bg-card border'
             }`}
           >
             <div className="flex items-center gap-4">
@@ -114,19 +114,19 @@ export default function QuestsPage() {
                 {quest.completed ? '✓' : quest.icon}
               </div>
               <div className="flex-1">
-                <p className={`font-medium text-sm ${quest.completed ? 'line-through text-gray-500' : ''}`}>
+                <p className={`font-medium text-sm ${quest.completed ? 'line-through text-muted-foreground' : ''}`}>
                   {quest.title}
                 </p>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all ${
-                        quest.completed ? 'bg-green-500' : 'bg-primary-500'
+                        quest.completed ? 'bg-green-500' : 'bg-primary'
                       }`}
                       style={{ width: `${(quest.current / quest.target) * 100}%` }}
                     />
                   </div>
-                  <span className="text-xs text-gray-500">{quest.current}/{quest.target}</span>
+                  <span className="text-xs text-muted-foreground">{quest.current}/{quest.target}</span>
                 </div>
               </div>
               <div className="text-right">
@@ -140,8 +140,8 @@ export default function QuestsPage() {
       </div>
 
       {/* Info */}
-      <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+      <div className="p-4 rounded-xl bg-muted/50 border border-border">
+        <p className="text-sm text-muted-foreground">
           Nhiệm vụ được làm mới mỗi ngày lúc 00:00. Hoàn thành tất cả để nhận thêm 30 XP bonus!
         </p>
       </div>

@@ -131,7 +131,7 @@ export default function SkillTreePage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Cây kỹ năng</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Hoàn thành từng kỹ năng để mở khóa kỹ năng tiếp theo</p>
+        <p className="text-muted-foreground mt-1">Hoàn thành từng kỹ năng để mở khóa kỹ năng tiếp theo</p>
       </div>
 
       {/* Language selector */}
@@ -142,8 +142,8 @@ export default function SkillTreePage() {
             onClick={() => setSelectedLang(lang.code)}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -179,14 +179,14 @@ export default function SkillTreePage() {
                     onClick={() => !skill.locked && router.push(`/lessons?lang=${selectedLang}`)}
                     className={`relative p-4 rounded-2xl border-2 transition-all text-center ${
                       skill.locked
-                        ? 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 opacity-60 cursor-not-allowed'
+                        ? 'border-border bg-muted/50 opacity-60 cursor-not-allowed'
                         : isCompleted
                           ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/10 hover:scale-105'
-                          : 'border-primary-200 dark:border-primary-800 bg-white dark:bg-gray-800 hover:scale-105 hover:border-primary-400'
+                          : 'border-primary/20 bg-card hover:scale-105 hover:border-primary-400'
                     }`}
                   >
                     {skill.locked && (
-                      <div className="absolute top-2 right-2 text-gray-400">
+                      <div className="absolute top-2 right-2 text-muted-foreground">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                         </svg>
@@ -201,7 +201,7 @@ export default function SkillTreePage() {
                         {/* Progress ring */}
                         <div className="mt-2 h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                           <div
-                            className={`h-full rounded-full transition-all ${isCompleted ? 'bg-yellow-400' : 'bg-primary-500'}`}
+                            className={`h-full rounded-full transition-all ${isCompleted ? 'bg-yellow-400' : 'bg-primary'}`}
                             style={{ width: `${progress}%` }}
                           />
                         </div>
@@ -217,9 +217,9 @@ export default function SkillTreePage() {
       ))}
 
       {/* Legend */}
-      <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
-        <p className="text-xs font-medium text-gray-500 mb-2">Chú thích:</p>
-        <div className="flex flex-wrap gap-4 text-xs text-gray-600 dark:text-gray-400">
+      <div className="p-4 rounded-xl bg-muted/50 border border">
+        <p className="text-xs font-medium text-muted-foreground mb-2">Chú thích:</p>
+        <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded border-2 border-primary-300 bg-white"></span> Đang học</span>
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded border-2 border-yellow-400 bg-yellow-50"></span> Hoàn thành</span>
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded border-2 border-gray-200 bg-gray-50 opacity-60"></span> Khóa</span>

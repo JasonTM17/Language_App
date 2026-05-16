@@ -120,7 +120,7 @@ export default function ReadingPage() {
       <div className="max-w-3xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold font-display">Đọc hiểu</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Đọc bài văn và trả lời câu hỏi</p>
+          <p className="text-muted-foreground mt-1">Đọc bài văn và trả lời câu hỏi</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
@@ -130,8 +130,8 @@ export default function ReadingPage() {
               onClick={() => setSelectedLang(lang.code)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary-200'
               }`}
             >
               <span>{lang.flag}</span>
@@ -145,18 +145,18 @@ export default function ReadingPage() {
             <button
               key={passage.id}
               onClick={() => { setSelectedPassage(passage); resetPassage(); }}
-              className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-left hover:border-primary-300 hover:shadow-md transition-all"
+              className="p-5 rounded-2xl bg-card border border text-left hover:border-primary-300 hover:shadow-md transition-all"
             >
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-semibold text-lg">{passage.title}</h3>
-                  <p className="text-sm text-gray-500 mt-0.5">{passage.titleVi}</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">{passage.titleVi}</p>
                 </div>
                 <span className="text-xs px-2 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium">
                   {passage.level}
                 </span>
               </div>
-              <p className="text-xs text-gray-400 mt-2">{passage.questions.length} câu hỏi</p>
+              <p className="text-xs text-muted-foreground mt-2">{passage.questions.length} câu hỏi</p>
             </button>
           ))}
         </div>
@@ -164,7 +164,7 @@ export default function ReadingPage() {
         {currentPassages.length === 0 && (
           <div className="text-center py-12">
             <div className="text-4xl mb-3">📖</div>
-            <p className="text-gray-500">Chưa có bài đọc cho ngôn ngữ này.</p>
+            <p className="text-muted-foreground">Chưa có bài đọc cho ngôn ngữ này.</p>
           </div>
         )}
       </div>
@@ -174,22 +174,22 @@ export default function ReadingPage() {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <button onClick={() => setSelectedPassage(null)} className="text-sm text-primary-600 hover:underline">← Quay lại</button>
+        <button onClick={() => setSelectedPassage(null)} className="text-sm text-primary hover:underline">← Quay lại</button>
         <span className="text-xs px-2 py-1 rounded-full bg-primary-100 text-primary-700 font-medium">{selectedPassage.level}</span>
       </div>
 
       {/* Passage */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <h2 className="font-bold text-lg mb-3">{selectedPassage.title}</h2>
         <p className="text-base leading-relaxed whitespace-pre-line">{selectedPassage.text}</p>
         {showTranslation && (
-          <p className="text-sm text-gray-500 mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 italic">
+          <p className="text-sm text-muted-foreground mt-4 pt-4 border-t border italic">
             {selectedPassage.translation}
           </p>
         )}
         <button
           onClick={() => setShowTranslation(!showTranslation)}
-          className="text-xs text-primary-500 hover:underline mt-3"
+          className="text-xs text-primary hover:underline mt-3"
         >
           {showTranslation ? 'Ẩn bản dịch' : 'Xem bản dịch'}
         </button>
@@ -199,21 +199,21 @@ export default function ReadingPage() {
       <div className="space-y-4">
         <h3 className="font-semibold">Câu hỏi:</h3>
         {selectedPassage.questions.map((q, qIndex) => (
-          <div key={qIndex} className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+          <div key={qIndex} className="p-4 rounded-xl bg-card border border">
             <p className="font-medium text-sm mb-3">{qIndex + 1}. {q.question}</p>
             <div className="grid grid-cols-2 gap-2">
               {q.options.map((option) => {
-                let styles = 'border-gray-200 dark:border-gray-700 hover:border-primary-300';
+                let styles = 'border-border hover:border-primary-300';
                 if (showResults) {
                   if (option === q.answer) {
                     styles = 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700';
                   } else if (option === answers[qIndex] && option !== q.answer) {
                     styles = 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700';
                   } else {
-                    styles = 'border-gray-200 dark:border-gray-700 opacity-50';
+                    styles = 'border-border opacity-50';
                   }
                 } else if (answers[qIndex] === option) {
-                  styles = 'border-primary-500 bg-primary-50 dark:bg-primary-900/20';
+                  styles = 'border-primary bg-primary/5';
                 }
 
                 return (
@@ -229,7 +229,7 @@ export default function ReadingPage() {
               })}
             </div>
             {showResults && answers[qIndex] !== q.answer && (
-              <p className="text-xs text-gray-500 mt-2 italic">{q.explanation}</p>
+              <p className="text-xs text-muted-foreground mt-2 italic">{q.explanation}</p>
             )}
           </div>
         ))}
@@ -245,11 +245,11 @@ export default function ReadingPage() {
           Kiểm tra ({Object.keys(answers).length}/{selectedPassage.questions.length} đã trả lời)
         </Button>
       ) : (
-        <div className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
+        <div className="p-4 rounded-xl bg-card border border text-center">
           <p className="text-lg font-bold">
             Kết quả: {getScore()}/{selectedPassage.questions.length}
           </p>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             {getScore() === selectedPassage.questions.length ? 'Hoàn hảo!' : 'Hãy đọc lại bài và thử lại!'}
           </p>
           <div className="flex gap-3 justify-center mt-3">

@@ -60,7 +60,7 @@ export default function WritingPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Luyện viết</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Rèn luyện kỹ năng viết với các chủ đề đa dạng</p>
+        <p className="text-muted-foreground mt-1">Rèn luyện kỹ năng viết với các chủ đề đa dạng</p>
       </div>
 
       {!selectedPrompt ? (
@@ -73,8 +73,8 @@ export default function WritingPage() {
                 onClick={() => setSelectedLang(lang.code)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                   selectedLang === lang.code
-                    ? 'bg-primary-500 text-white'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200'
+                    ? 'bg-primary text-white'
+                    : 'bg-muted text-muted-foreground hover:bg-gray-200'
                 }`}
               >
                 <span>{lang.flag}</span>
@@ -89,16 +89,16 @@ export default function WritingPage() {
               <button
                 key={prompt.id}
                 onClick={() => setSelectedPrompt(prompt)}
-                className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-left hover:shadow-md hover:border-primary-200 dark:hover:border-primary-700 transition-all"
+                className="p-5 rounded-2xl bg-card border border text-left hover:shadow-md hover:border-primary-200 dark:hover:border-primary-700 transition-all"
               >
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium">
                     {prompt.level}
                   </span>
-                  <span className="text-xs text-gray-500">{prompt.topic}</span>
+                  <span className="text-xs text-muted-foreground">{prompt.topic}</span>
                 </div>
                 <p className="text-sm font-medium">{prompt.promptVi}</p>
-                <p className="text-xs text-gray-500 mt-1 italic">{prompt.prompt}</p>
+                <p className="text-xs text-muted-foreground mt-1 italic">{prompt.prompt}</p>
               </button>
             ))}
           </div>
@@ -106,19 +106,19 @@ export default function WritingPage() {
       ) : (
         <div className="space-y-6">
           {/* Back button */}
-          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-gray-700 dark:hover:text-gray-300">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             Quay lại danh sách
           </button>
 
           {/* Prompt display */}
-          <div className="p-5 rounded-2xl bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800">
+          <div className="p-5 rounded-2xl bg-primary/5 border border-primary-100 dark:border-primary-800">
             <p className="font-medium">{selectedPrompt.promptVi}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 italic">{selectedPrompt.prompt}</p>
+            <p className="text-sm text-muted-foreground mt-1 italic">{selectedPrompt.prompt}</p>
             {selectedPrompt.hints.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {selectedPrompt.hints.map((hint, i) => (
-                  <span key={i} className="text-xs px-2 py-1 rounded-lg bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700">
+                  <span key={i} className="text-xs px-2 py-1 rounded-lg bg-card text-muted-foreground border border-border">
                     {hint}
                   </span>
                 ))}
@@ -133,15 +133,15 @@ export default function WritingPage() {
               onChange={(e) => setText(e.target.value)}
               disabled={submitted}
               placeholder="Viết bài của bạn ở đây..."
-              className="w-full h-48 p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500 outline-none resize-none disabled:opacity-60"
+              className="w-full h-48 p-4 rounded-xl border border-border bg-card focus:ring-2 focus:ring-primary-500 outline-none resize-none disabled:opacity-60"
             />
             <div className="flex justify-between items-center mt-2">
-              <span className="text-xs text-gray-500">{text.length} ký tự</span>
+              <span className="text-xs text-muted-foreground">{text.length} ký tự</span>
               {!submitted && (
                 <button
                   onClick={handleSubmit}
                   disabled={text.trim().length < 10}
-                  className="px-6 py-2 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 rounded-xl bg-primary hover:bg-primary-600 text-white font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Nộp bài
                 </button>
