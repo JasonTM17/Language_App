@@ -38,6 +38,12 @@ LinguaFlow là nền tảng học ngôn ngữ toàn diện được thiết kế
 
 ## Screenshots
 
+### Demo
+
+| Desktop | Mobile |
+|:---:|:---:|
+| ![Desktop Demo](docs/screenshots/demo-desktop.gif) | ![Mobile Demo](docs/screenshots/demo-mobile.gif) |
+
 ### Desktop
 
 | Landing Page | Dashboard | Skill Tree |
