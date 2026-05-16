@@ -35,6 +35,8 @@ import searchRoutes from './routes/search';
 import notificationsRoutes from './routes/notifications';
 import settingsRoutes from './routes/settings';
 import profileRoutes from './routes/profile';
+import reviewHistoryRoutes from './routes/review-history';
+import learningProgressRoutes from './routes/learning-progress';
 
 dotenv.config();
 
@@ -96,6 +98,8 @@ app.use('/api/search', searchRoutes);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/review-history', reviewHistoryRoutes);
+app.use('/api/learning-progress', learningProgressRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
