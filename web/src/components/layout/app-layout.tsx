@@ -23,6 +23,7 @@ const navItems = [
   { href: '/bookmarks', label: 'Bookmarks', icon: '🔖' },
   { href: '/leaderboard', label: 'Leaderboard', icon: '🥇' },
   { href: '/study-plan', label: 'Study Plan', icon: '📅' },
+  { href: '/quests', label: 'Quests', icon: '⚔️' },
   { href: '/progress', label: 'Progress', icon: '📊' },
 ];
 

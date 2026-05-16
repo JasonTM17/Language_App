@@ -21,6 +21,7 @@ import onboardingRoutes from './routes/onboarding';
 import goalsRoutes from './routes/goals';
 import healthRoutes from './routes/health';
 import studyRoutes from './routes/study';
+import questsRoutes from './routes/quests';
 
 dotenv.config();
 
@@ -68,6 +69,7 @@ app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/onboarding', onboardingRoutes);
 app.use('/api/goals', goalsRoutes);
 app.use('/api/study', studyRoutes);
+app.use('/api/quests', questsRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
