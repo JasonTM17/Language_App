@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { EmptyState } from '@/components/ui/states';
 
 interface Friend {
   id: string;
@@ -148,10 +149,11 @@ export default function FriendsPage() {
       {activeTab === 'requests' && (
         <div className="space-y-3">
           {friendRequests.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-4xl mb-3">📭</div>
-              <p className="text-gray-500">Không có lời mời nào</p>
-            </div>
+            <EmptyState
+              icon="📭"
+              title="Không có lời mời nào"
+              description="Khi ai đó gửi lời mời kết bạn, bạn sẽ thấy ở đây."
+            />
           ) : (
             friendRequests.map((req) => (
               <div key={req.id} className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 flex items-center gap-3">
