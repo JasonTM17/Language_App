@@ -89,6 +89,33 @@ const tips: Record<string, GrammarTip[]> = {
         { sentence: '起きて、顔を洗います。', translation: 'Dậy rồi rửa mặt.' },
       ],
     },
+    {
+      id: '13', title: 'Adjectives (い/な)', titleVi: 'Tính từ い và な', level: 'Beginner',
+      content: 'Tiếng Nhật có 2 loại tính từ:\n\nい-adjective: kết thúc bằng い\n- Phủ định: bỏ い → くない (高い → 高くない)\n- Quá khứ: bỏ い → かった (高い → 高かった)\n\nな-adjective: cần な trước danh từ\n- Phủ định: + じゃない (静か → 静かじゃない)\n- Quá khứ: + だった (静か → 静かだった)',
+      examples: [
+        { sentence: 'この本は面白いです。', translation: 'Cuốn sách này thú vị.' },
+        { sentence: '昨日は暑くなかった。', translation: 'Hôm qua không nóng.' },
+        { sentence: '静かな場所が好きです。', translation: 'Tôi thích nơi yên tĩnh.' },
+      ],
+    },
+    {
+      id: '14', title: 'Verb Groups', titleVi: 'Nhóm động từ', level: 'Elementary',
+      content: 'Động từ tiếng Nhật chia thành 3 nhóm:\n\nNhóm 1 (五段): đuôi う-row (書く, 話す, 飲む)\nNhóm 2 (一段): đuôi る với え/い trước (食べる, 見る)\nNhóm 3 (bất quy tắc): する, 来る\n\nThể lịch sự (ます):\n- Nhóm 1: đổi う→い + ます (書く→書きます)\n- Nhóm 2: bỏ る + ます (食べる→食べます)\n- Nhóm 3: する→します, 来る→来ます',
+      examples: [
+        { sentence: '毎朝コーヒーを飲みます。', translation: 'Mỗi sáng tôi uống cà phê.' },
+        { sentence: '映画を見ました。', translation: 'Tôi đã xem phim.' },
+        { sentence: '日本語を勉強します。', translation: 'Tôi học tiếng Nhật.' },
+      ],
+    },
+    {
+      id: '15', title: 'Counters (助数詞)', titleVi: 'Trợ số từ', level: 'Elementary',
+      content: 'Tiếng Nhật dùng trợ số từ khi đếm:\n\n- つ: đếm chung (1つ, 2つ...)\n- 人 (にん): người (1人=ひとり, 2人=ふたり, 3人=さんにん)\n- 枚 (まい): vật phẳng (giấy, áo)\n- 本 (ほん): vật dài (bút, chai)\n- 匹 (ひき): động vật nhỏ\n- 台 (だい): máy móc, xe',
+      examples: [
+        { sentence: 'りんごを三つください。', translation: 'Cho tôi 3 quả táo.' },
+        { sentence: '家族は四人です。', translation: 'Gia đình tôi có 4 người.' },
+        { sentence: '切手を二枚買いました。', translation: 'Tôi đã mua 2 con tem.' },
+      ],
+    },
   ],
   zh: [
     {
@@ -109,6 +136,24 @@ const tips: Record<string, GrammarTip[]> = {
         { sentence: '两杯咖啡', translation: 'Hai ly cà phê' },
       ],
     },
+    {
+      id: '16', title: 'Tenses with 了/过/在', titleVi: 'Thì với 了/过/在', level: 'Elementary',
+      content: 'Tiếng Trung không chia động từ theo thì, mà dùng trợ từ:\n\n- 了 (le): hành động đã hoàn thành\n- 过 (guò): kinh nghiệm (đã từng)\n- 在 (zài) + V: đang làm\n- 要/会/将 + V: sẽ làm\n\nVí dụ với 吃 (ăn):\n- 吃了 (đã ăn)\n- 吃过 (đã từng ăn)\n- 在吃 (đang ăn)',
+      examples: [
+        { sentence: '我吃了早饭。', translation: 'Tôi đã ăn sáng.' },
+        { sentence: '你去过日本吗？', translation: 'Bạn đã từng đi Nhật chưa?' },
+        { sentence: '她在看电视。', translation: 'Cô ấy đang xem TV.' },
+      ],
+    },
+    {
+      id: '17', title: 'Complement of Degree (得)', titleVi: 'Bổ ngữ mức độ (得)', level: 'Intermediate',
+      content: 'Dùng 得 (de) sau động từ để mô tả mức độ/cách thức:\n\nCấu trúc: V + 得 + Adj/Phrase\n\nPhủ định: V + 得 + 不 + Adj\n\nLưu ý: Khi có tân ngữ, phải lặp lại động từ:\n他说中文说得很好 (Anh ấy nói tiếng Trung rất giỏi)',
+      examples: [
+        { sentence: '他跑得很快。', translation: 'Anh ấy chạy rất nhanh.' },
+        { sentence: '你写得不错。', translation: 'Bạn viết khá tốt.' },
+        { sentence: '她唱歌唱得很好听。', translation: 'Cô ấy hát rất hay.' },
+      ],
+    },
   ],
   ko: [
     {
@@ -127,6 +172,24 @@ const tips: Record<string, GrammarTip[]> = {
         { sentence: '저는 학생입니다.', translation: 'Tôi là sinh viên. (nói về tôi)' },
         { sentence: '날씨가 좋아요.', translation: 'Thời tiết đẹp. (thời tiết = chủ ngữ mới)' },
         { sentence: '이것은 뭐예요?', translation: 'Cái này là gì? (cái này = chủ đề)' },
+      ],
+    },
+    {
+      id: '18', title: 'Object Particle 을/를', titleVi: 'Trợ từ tân ngữ 을/를', level: 'Beginner',
+      content: '을/를 đánh dấu tân ngữ (đối tượng của hành động):\n- 을 sau phụ âm\n- 를 sau nguyên âm\n\nCấu trúc: Chủ ngữ + 은/는 + Tân ngữ + 을/를 + Động từ\n\nVí dụ: 저는 커피를 마셔요 (Tôi uống cà phê)',
+      examples: [
+        { sentence: '저는 한국어를 공부해요.', translation: 'Tôi học tiếng Hàn.' },
+        { sentence: '빵을 먹었어요.', translation: 'Tôi đã ăn bánh mì.' },
+        { sentence: '영화를 봐요.', translation: 'Tôi xem phim.' },
+      ],
+    },
+    {
+      id: '19', title: 'Past Tense (-았/었/했)', titleVi: 'Thì quá khứ', level: 'Elementary',
+      content: 'Chia quá khứ trong tiếng Hàn:\n\n- Nguyên âm ㅏ/ㅗ + 았: 가다 → 갔어요\n- Nguyên âm khác + 었: 먹다 → 먹었어요\n- 하다 → 했: 공부하다 → 공부했어요\n\nFormal: -았/었/했 + 습니다\nPolite: -았/었/했 + 어요\nCasual: -았/었/했 + 어',
+      examples: [
+        { sentence: '어제 학교에 갔어요.', translation: 'Hôm qua tôi đã đi học.' },
+        { sentence: '점심을 먹었어요.', translation: 'Tôi đã ăn trưa.' },
+        { sentence: '숙제를 했어요.', translation: 'Tôi đã làm bài tập.' },
       ],
     },
   ],
