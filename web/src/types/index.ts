@@ -80,3 +80,95 @@ export interface Notification {
   read: boolean;
   createdAt: string;
 }
+
+export interface ShopItem {
+  id: string;
+  name: string;
+  nameVi: string;
+  description: string;
+  descriptionVi: string;
+  price: number;
+  category: 'powerup' | 'cosmetic' | 'boost';
+  icon: string;
+  affordable: boolean;
+}
+
+export interface Friend {
+  id: string;
+  name: string;
+  avatar?: string;
+  xp: number;
+  level: number;
+  streak: number;
+  since: string;
+}
+
+export interface FriendRequest {
+  id: string;
+  name: string;
+  avatar?: string;
+  xp: number;
+  level: number;
+  sentAt: string;
+}
+
+export interface SkillNode {
+  id: string;
+  name: string;
+  nameVi: string;
+  icon: string;
+  level: number;
+  maxLevel: number;
+  xpRequired: number;
+  position: { row: number; col: number };
+  dependencies: string[];
+  status: 'locked' | 'available' | 'in_progress' | 'completed' | 'mastered';
+  decayLevel?: number;
+}
+
+export interface Story {
+  id: string;
+  title: string;
+  titleVi: string;
+  description: string;
+  language: LanguageCode;
+  level: LevelSlug;
+  category: string;
+  xpReward: number;
+  estimatedMinutes: number;
+  segmentCount: number;
+  questionCount: number;
+}
+
+export interface StorySegment {
+  type: 'narration' | 'dialogue' | 'question';
+  speaker?: string;
+  text: string;
+  translation: string;
+  question?: {
+    prompt: string;
+    options: string[];
+    correct: number;
+    explanation: string;
+  };
+}
+
+export interface HeartsStatus {
+  hearts: number;
+  maxHearts: number;
+  gems: number;
+  nextRefillInMinutes: number | null;
+}
+
+export interface DailyQuest {
+  type: string;
+  target: number;
+  title: string;
+  titleEn: string;
+  xpReward: number;
+  icon: string;
+  current: number;
+  completed: boolean;
+}
+
+export type ChatRole = 'teacher' | 'friend' | 'interviewer' | 'restaurant' | 'customer' | 'doctor' | 'travel';
