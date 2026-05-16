@@ -82,8 +82,8 @@ export default function FlashcardsPage() {
     return (
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🃏</div>
-        <h3 className="text-lg font-semibold mb-2">No flashcards yet</h3>
-        <p className="text-gray-500">Start a lesson to unlock vocabulary flashcards.</p>
+        <h3 className="text-lg font-semibold mb-2">Chưa có flashcard</h3>
+        <p className="text-gray-500">Hoàn thành bài học để mở khóa flashcard từ vựng.</p>
       </div>
     );
   }
@@ -92,18 +92,18 @@ export default function FlashcardsPage() {
     return (
       <div className="max-w-md mx-auto text-center py-16">
         <div className="text-5xl mb-4">🎉</div>
-        <h2 className="text-2xl font-bold mb-4">Session Complete!</h2>
+        <h2 className="text-2xl font-bold mb-4">Hoàn thành phiên ôn tập!</h2>
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
             <p className="text-3xl font-bold text-green-600">{stats.known}</p>
-            <p className="text-sm text-gray-500">Known</p>
+            <p className="text-sm text-gray-500">Đã thuộc</p>
           </div>
           <div className="text-center">
             <p className="text-3xl font-bold text-red-500">{stats.unknown}</p>
-            <p className="text-sm text-gray-500">Review Again</p>
+            <p className="text-sm text-gray-500">Cần ôn lại</p>
           </div>
         </div>
-        <Button onClick={resetDeck}>Practice Again</Button>
+        <Button onClick={resetDeck}>Ôn tập lại</Button>
       </div>
     );
   }
@@ -113,7 +113,7 @@ export default function FlashcardsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Flashcards</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Tap the card to flip it</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Nhấn vào thẻ để lật</p>
         </div>
         <span className="text-sm text-gray-500">{currentIndex + 1} / {cards.length}</span>
       </div>
@@ -134,7 +134,7 @@ export default function FlashcardsPage() {
             <div className="absolute inset-0 backface-hidden rounded-3xl bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 shadow-xl flex flex-col items-center justify-center p-8">
               <p className="text-4xl font-bold mb-3">{currentCard.word}</p>
               {currentCard.reading && <p className="text-lg text-gray-500">{currentCard.reading}</p>}
-              <p className="text-sm text-gray-400 mt-4">Tap to reveal meaning</p>
+              <p className="text-sm text-gray-400 mt-4">Nhấn để xem nghĩa</p>
             </div>
             {/* Back */}
             <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)] rounded-3xl bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 border-2 border-primary-200 dark:border-primary-800 shadow-xl flex flex-col items-center justify-center p-8">
@@ -153,10 +153,10 @@ export default function FlashcardsPage() {
       {/* Actions */}
       <div className="flex justify-center gap-4">
         <Button variant="outline" size="lg" onClick={() => handleReview(false)} className="border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20">
-          ✗ Don&apos;t Know
+          ✗ Chưa thuộc
         </Button>
         <Button variant="success" size="lg" onClick={() => handleReview(true)}>
-          ✓ Know It
+          ✓ Đã thuộc
         </Button>
       </div>
     </div>
