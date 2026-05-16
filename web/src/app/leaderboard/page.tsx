@@ -57,29 +57,29 @@ export default function LeaderboardPage() {
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded-lg" />
-        {[...Array(10)].map((_, i) => <div key={i} className="h-16 bg-gray-200 dark:bg-gray-800 rounded-xl" />)}
+        <div className="h-8 w-48 bg-muted rounded-lg" />
+        {[...Array(10)].map((_, i) => <div key={i} className="h-16 bg-muted rounded-xl" />)}
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Bảng xếp hạng</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Thi đua cùng cộng đồng học viên</p>
+        <p className="text-muted-foreground text-sm mt-0.5">Thi đua cùng cộng đồng học viên</p>
       </div>
 
       {/* Period tabs */}
-      <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
+      <div className="flex gap-2 p-1 bg-muted rounded-xl">
         {periods.map((p) => (
           <button
             key={p.value}
             onClick={() => setPeriod(p.value)}
             className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
               period === p.value
-                ? 'bg-white dark:bg-gray-700 shadow-sm text-primary-600'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'bg-card shadow-sm text-primary'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             {p.label}
@@ -89,14 +89,14 @@ export default function LeaderboardPage() {
 
       {/* User's rank card */}
       {userRank && (
-        <div className="p-4 rounded-2xl bg-primary-50 dark:bg-primary-900/20 border-2 border-primary-200 dark:border-primary-800">
+        <div className="p-4 rounded-2xl bg-primary/5 border-2 border-primary/20">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold">
+            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">
               {userRank.rank}
             </div>
             <div className="flex-1">
               <p className="font-semibold">{userRank.name} (Bạn)</p>
-              <p className="text-sm text-gray-500">Level {userRank.level} • {userRank.xp} XP</p>
+              <p className="text-sm text-muted-foreground">Level {userRank.level} • {userRank.xp} XP</p>
             </div>
             <div className="text-right">
               <p className="text-sm font-medium text-orange-600">🔥 {userRank.streak}</p>
@@ -112,23 +112,23 @@ export default function LeaderboardPage() {
             key={entry.id}
             className={`flex items-center gap-4 p-4 rounded-xl transition-all ${
               entry.id === user?.id
-                ? 'bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800'
-                : 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700'
+                ? 'bg-primary/5 border border-primary/20'
+                : 'bg-card border'
             }`}
           >
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${getRankStyle(entry.rank)}`}>
               {entry.rank <= 3 ? getRankIcon(entry.rank) : entry.rank}
             </div>
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-accent-400 flex items-center justify-center text-white font-bold text-sm">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-primary-foreground font-bold text-sm">
               {entry.name.charAt(0)}
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-medium truncate">{entry.name}</p>
-              <p className="text-xs text-gray-500">Level {entry.level}</p>
+              <p className="text-xs text-muted-foreground">Level {entry.level}</p>
             </div>
             <div className="text-right">
-              <p className="font-semibold text-primary-600">{entry.xp.toLocaleString()} XP</p>
-              <p className="text-xs text-gray-500">🔥 {entry.streak} ngày</p>
+              <p className="font-semibold text-primary">{entry.xp.toLocaleString()} XP</p>
+              <p className="text-xs text-muted-foreground">🔥 {entry.streak} ngày</p>
             </div>
           </div>
         ))}
@@ -136,9 +136,9 @@ export default function LeaderboardPage() {
 
       {leaderboard.length === 0 && (
         <div className="text-center py-16">
-          <div className="text-5xl mb-4">🏆</div>
+          <div className="text-6xl mb-4">🏆</div>
           <h3 className="text-lg font-semibold mb-2">Chưa có dữ liệu</h3>
-          <p className="text-gray-500">Hãy bắt đầu học để lên bảng xếp hạng!</p>
+          <p className="text-muted-foreground">Hãy bắt đầu học để lên bảng xếp hạng!</p>
         </div>
       )}
     </div>
