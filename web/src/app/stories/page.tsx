@@ -87,6 +87,66 @@ const stories: Record<string, Story[]> = {
         { text: '"Thank you, Lisa! You\'re very kind," Tom says. He feels happy to have a new friend.', translation: '"Cảm ơn Lisa! Bạn rất tốt bụng," Tom nói. Anh ấy vui vì có bạn mới.' },
       ],
     },
+    {
+      id: '6', title: 'At the Restaurant', titleVi: 'Ở nhà hàng', level: 'Elementary', language: 'en',
+      segments: [
+        { text: 'Mike and his girlfriend Anna are having dinner at an Italian restaurant.', translation: 'Mike và bạn gái Anna đang ăn tối ở nhà hàng Ý.' },
+        { text: 'The waiter brings them the menu. "Would you like something to drink first?"', translation: 'Người phục vụ mang thực đơn. "Quý khách muốn uống gì trước?"' },
+        {
+          text: '"I\'ll have a glass of orange juice, please," Anna says. Mike orders a coffee.',
+          translation: '"Cho tôi một ly nước cam," Anna nói. Mike gọi cà phê.',
+          question: 'Anna gọi đồ uống gì?',
+          choices: [
+            { text: 'Coffee', correct: false, feedback: 'Sai. Mike gọi coffee, Anna gọi orange juice.' },
+            { text: 'Orange juice', correct: true, feedback: 'Đúng! Anna gọi "a glass of orange juice".' },
+            { text: 'Water', correct: false, feedback: 'Sai. Anna gọi orange juice.' },
+          ],
+        },
+        { text: 'For the main course, Anna chooses pasta with mushroom sauce.', translation: 'Món chính, Anna chọn mì Ý sốt nấm.' },
+        { text: 'Mike orders a large pizza with extra cheese.', translation: 'Mike gọi pizza lớn thêm phô mai.' },
+        {
+          text: '"This pasta is delicious!" Anna says. "Your pizza looks amazing too."',
+          translation: '"Mì Ý này ngon quá!" Anna nói. "Pizza của anh trông cũng tuyệt."',
+          question: 'Mike gọi món gì?',
+          choices: [
+            { text: 'Pasta with mushroom sauce', correct: false, feedback: 'Sai. Đó là món của Anna.' },
+            { text: 'Pizza with extra cheese', correct: true, feedback: 'Đúng! Mike gọi pizza lớn thêm phô mai.' },
+            { text: 'Steak with salad', correct: false, feedback: 'Sai. Mike gọi pizza.' },
+          ],
+        },
+        { text: 'After dinner, they share a chocolate cake for dessert. The bill is forty-five dollars.', translation: 'Sau bữa tối, họ chia nhau bánh chocolate tráng miệng. Hóa đơn là 45 đô la.' },
+      ],
+    },
+    {
+      id: '7', title: 'The Job Interview', titleVi: 'Buổi phỏng vấn', level: 'Intermediate', language: 'en',
+      segments: [
+        { text: 'Linh has a job interview at a technology company today.', translation: 'Linh có buổi phỏng vấn ở công ty công nghệ hôm nay.' },
+        { text: 'She wakes up early, puts on her best outfit, and reviews her resume one more time.', translation: 'Cô ấy dậy sớm, mặc bộ đồ đẹp nhất, và xem lại CV một lần nữa.' },
+        {
+          text: '"Tell me about yourself," the interviewer begins. Linh takes a deep breath and smiles.',
+          translation: '"Hãy giới thiệu về bản thân," người phỏng vấn bắt đầu. Linh hít thở sâu và mỉm cười.',
+          question: 'Linh phỏng vấn ở đâu?',
+          choices: [
+            { text: 'A hospital', correct: false, feedback: 'Sai. Cô ấy phỏng vấn ở technology company.' },
+            { text: 'A technology company', correct: true, feedback: 'Đúng! Công ty công nghệ.' },
+            { text: 'A school', correct: false, feedback: 'Sai. Cô ấy phỏng vấn ở technology company.' },
+          ],
+        },
+        { text: '"I graduated from university two years ago. I have experience in web development and I love solving problems."', translation: '"Tôi tốt nghiệp đại học hai năm trước. Tôi có kinh nghiệm phát triển web và thích giải quyết vấn đề."' },
+        { text: '"What is your greatest strength?" the interviewer asks.', translation: '"Điểm mạnh lớn nhất của bạn là gì?" người phỏng vấn hỏi.' },
+        {
+          text: '"I\'m a fast learner and I work well in a team," Linh answers confidently.',
+          translation: '"Tôi học nhanh và làm việc nhóm tốt," Linh trả lời tự tin.',
+          question: 'Linh có kinh nghiệm gì?',
+          choices: [
+            { text: 'Teaching', correct: false, feedback: 'Sai. Cô ấy có kinh nghiệm web development.' },
+            { text: 'Web development', correct: true, feedback: 'Đúng! "I have experience in web development."' },
+            { text: 'Marketing', correct: false, feedback: 'Sai. Cô ấy có kinh nghiệm web development.' },
+          ],
+        },
+        { text: 'The interview goes well. Two days later, Linh receives an email: "Congratulations! You got the job!"', translation: 'Buổi phỏng vấn diễn ra tốt đẹp. Hai ngày sau, Linh nhận email: "Chúc mừng! Bạn được nhận việc!"' },
+      ],
+    },
   ],
   ja: [
     {
@@ -114,6 +174,35 @@ const stories: Record<string, Story[]> = {
             { text: '一つ', correct: false, feedback: '違います。二つ選びました。' },
             { text: '二つ', correct: true, feedback: '正解！二つ選びました。' },
             { text: '三つ', correct: false, feedback: '違います。二つ選びました。' },
+          ],
+        },
+      ],
+    },
+    {
+      id: '8', title: '電車の中で', titleVi: 'Trên tàu điện', level: 'Elementary', language: 'ja',
+      segments: [
+        { text: '朝の電車はとても混んでいます。', translation: 'Tàu điện buổi sáng rất đông.' },
+        { text: '佐藤さんは毎日電車で会社に行きます。', translation: 'Anh Sato mỗi ngày đi tàu điện đến công ty.' },
+        {
+          text: '今日は隣の人が本を読んでいます。面白そうな本です。',
+          translation: 'Hôm nay người bên cạnh đang đọc sách. Có vẻ là cuốn sách thú vị.',
+          question: '佐藤さんはどうやって会社に行きますか？',
+          choices: [
+            { text: 'バスで', correct: false, feedback: '違います。電車で行きます。' },
+            { text: '電車で', correct: true, feedback: '正解！毎日電車で会社に行きます。' },
+            { text: '車で', correct: false, feedback: '違います。電車で行きます。' },
+          ],
+        },
+        { text: '「すみません、次の駅はどこですか？」と外国人が聞きます。', translation: '"Xin lỗi, trạm tiếp theo là đâu?" người nước ngoài hỏi.' },
+        { text: '佐藤さんは英語で「Next stop is Shibuya」と答えます。', translation: 'Anh Sato trả lời bằng tiếng Anh "Trạm tiếp theo là Shibuya".' },
+        {
+          text: '外国人は「Thank you!」と笑顔で言います。佐藤さんも嬉しくなりました。',
+          translation: 'Người nước ngoài nói "Cảm ơn!" với nụ cười. Anh Sato cũng vui lên.',
+          question: '次の駅はどこですか？',
+          choices: [
+            { text: '東京', correct: false, feedback: '違います。渋谷です。' },
+            { text: '渋谷', correct: true, feedback: '正解！Next stop is Shibuya.' },
+            { text: '新宿', correct: false, feedback: '違います。渋谷です。' },
           ],
         },
       ],
@@ -149,6 +238,35 @@ const stories: Record<string, Story[]> = {
         },
       ],
     },
+    {
+      id: '9', title: '坐地铁', titleVi: 'Đi tàu điện ngầm', level: 'Elementary', language: 'zh',
+      segments: [
+        { text: '今天是星期一，小红要坐地铁去上班。', translation: 'Hôm nay là thứ Hai, Tiểu Hồng phải đi tàu điện ngầm đi làm.' },
+        { text: '地铁站里人很多，大家都在排队。', translation: 'Trong ga tàu điện ngầm rất đông, mọi người đều xếp hàng.' },
+        {
+          text: '小红看了看手机，现在是早上八点半。',
+          translation: 'Tiểu Hồng nhìn điện thoại, bây giờ là 8 giờ 30 sáng.',
+          question: '今天是星期几？',
+          choices: [
+            { text: '星期五', correct: false, feedback: '不对。今天是星期一。' },
+            { text: '星期一', correct: true, feedback: '对！今天是星期一。' },
+            { text: '星期三', correct: false, feedback: '不对。今天是星期一。' },
+          ],
+        },
+        { text: '地铁来了，小红上了车。车里没有座位了。', translation: 'Tàu đến, Tiểu Hồng lên xe. Trong xe không còn chỗ ngồi.' },
+        { text: '一位老人也上了车。小红旁边的年轻人站起来让座。', translation: 'Một người già cũng lên xe. Người trẻ bên cạnh Tiểu Hồng đứng dậy nhường ghế.' },
+        {
+          text: '「谢谢你，年轻人！」老人笑着说。三站以后，小红到公司了。',
+          translation: '"Cảm ơn cháu!" người già cười nói. Ba trạm sau, Tiểu Hồng đến công ty.',
+          question: '谁给老人让座了？',
+          choices: [
+            { text: '小红', correct: false, feedback: '不对。是小红旁边的年轻人让座的。' },
+            { text: '旁边的年轻人', correct: true, feedback: '对！小红旁边的年轻人站起来让座。' },
+            { text: '没有人', correct: false, feedback: '不对。有年轻人让座了。' },
+          ],
+        },
+      ],
+    },
   ],
   ko: [
     {
@@ -176,6 +294,35 @@ const stories: Record<string, Story[]> = {
             { text: '아메리카노와 케이크', correct: true, feedback: '맞습니다! 아메리카노와 케이크를 주문했습니다.' },
             { text: '라떼와 쿠키', correct: false, feedback: '아닙니다. 아메리카노와 케이크입니다.' },
             { text: '녹차와 빵', correct: false, feedback: '아닙니다. 아메리카노와 케이크입니다.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: '10', title: '한국어 수업', titleVi: 'Lớp học tiếng Hàn', level: 'Elementary', language: 'ko',
+      segments: [
+        { text: '민수는 베트남에서 온 유학생입니다.', translation: 'Minsu là du học sinh đến từ Việt Nam.' },
+        { text: '오늘은 한국어 수업 첫 날입니다. 교실에 학생이 열 명 있습니다.', translation: 'Hôm nay là ngày đầu tiên lớp tiếng Hàn. Trong lớp có 10 học sinh.' },
+        {
+          text: '선생님이 말합니다. 「여러분, 자기소개를 해 주세요.」',
+          translation: 'Cô giáo nói: "Mọi người hãy tự giới thiệu."',
+          question: '민수는 어디에서 왔습니까?',
+          choices: [
+            { text: '일본', correct: false, feedback: '아닙니다. 베트남에서 왔습니다.' },
+            { text: '베트남', correct: true, feedback: '맞습니다! 민수는 베트남에서 온 유학생입니다.' },
+            { text: '중국', correct: false, feedback: '아닙니다. 베트남에서 왔습니다.' },
+          ],
+        },
+        { text: '민수가 일어납니다. 「안녕하세요, 저는 민수입니다. 베트남에서 왔습니다.」', translation: 'Minsu đứng dậy. "Xin chào, tôi là Minsu. Tôi đến từ Việt Nam."' },
+        { text: '「한국 음식을 좋아합니다. 특히 김치찌개를 좋아합니다.」', translation: '"Tôi thích đồ ăn Hàn Quốc. Đặc biệt thích canh kim chi."' },
+        {
+          text: '다른 학생들이 박수를 칩니다. 선생님이 「아주 잘했어요!」라고 말합니다.',
+          translation: 'Các bạn khác vỗ tay. Cô giáo nói "Giỏi lắm!"',
+          question: '민수는 어떤 한국 음식을 좋아합니까?',
+          choices: [
+            { text: '비빔밥', correct: false, feedback: '아닙니다. 김치찌개를 좋아합니다.' },
+            { text: '김치찌개', correct: true, feedback: '맞습니다! 특히 김치찌개를 좋아합니다.' },
+            { text: '불고기', correct: false, feedback: '아닙니다. 김치찌개를 좋아합니다.' },
           ],
         },
       ],

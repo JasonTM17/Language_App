@@ -23,6 +23,14 @@ const wordSets: Record<string, ScrambleWord[]> = {
     { word: 'BEAUTIFUL', meaning: 'đẹp', hint: 'Tính từ khen ngợi ngoại hình' },
     { word: 'TEACHER', meaning: 'giáo viên', hint: 'Người dạy học' },
     { word: 'HOSPITAL', meaning: 'bệnh viện', hint: 'Nơi chữa bệnh' },
+    { word: 'LIBRARY', meaning: 'thư viện', hint: 'Nơi mượn sách' },
+    { word: 'WEATHER', meaning: 'thời tiết', hint: 'Nắng, mưa, gió...' },
+    { word: 'KITCHEN', meaning: 'nhà bếp', hint: 'Nơi nấu ăn trong nhà' },
+    { word: 'AIRPORT', meaning: 'sân bay', hint: 'Nơi máy bay cất cánh' },
+    { word: 'BIRTHDAY', meaning: 'sinh nhật', hint: 'Ngày bạn được sinh ra' },
+    { word: 'COMPUTER', meaning: 'máy tính', hint: 'Thiết bị điện tử để làm việc' },
+    { word: 'LANGUAGE', meaning: 'ngôn ngữ', hint: 'Tiếng Anh, tiếng Việt...' },
+    { word: 'EXERCISE', meaning: 'tập thể dục', hint: 'Hoạt động rèn luyện sức khỏe' },
   ],
   ja: [
     { word: 'さくら', meaning: 'hoa anh đào', hint: 'Hoa biểu tượng Nhật Bản' },
@@ -33,6 +41,10 @@ const wordSets: Record<string, ScrambleWord[]> = {
     { word: 'ありがとう', meaning: 'cảm ơn', hint: 'Lời cảm ơn' },
     { word: 'たべもの', meaning: 'đồ ăn', hint: 'Thứ để ăn' },
     { word: 'でんしゃ', meaning: 'tàu điện', hint: 'Phương tiện giao thông' },
+    { word: 'びょういん', meaning: 'bệnh viện', hint: 'Nơi chữa bệnh' },
+    { word: 'としょかん', meaning: 'thư viện', hint: 'Nơi mượn sách' },
+    { word: 'しんぶん', meaning: 'báo', hint: 'Đọc tin tức hàng ngày' },
+    { word: 'くうこう', meaning: 'sân bay', hint: 'Nơi máy bay cất cánh' },
   ],
   zh: [
     { word: '你好', meaning: 'xin chào', hint: 'Lời chào cơ bản' },
@@ -43,6 +55,10 @@ const wordSets: Record<string, ScrambleWord[]> = {
     { word: '老师', meaning: 'giáo viên', hint: 'Người dạy học' },
     { word: '医院', meaning: 'bệnh viện', hint: 'Nơi chữa bệnh' },
     { word: '电影', meaning: 'phim', hint: 'Xem ở rạp' },
+    { word: '图书馆', meaning: 'thư viện', hint: 'Nơi mượn sách' },
+    { word: '超市', meaning: 'siêu thị', hint: 'Nơi mua sắm hàng ngày' },
+    { word: '天气', meaning: 'thời tiết', hint: 'Nắng, mưa, gió...' },
+    { word: '飞机', meaning: 'máy bay', hint: 'Phương tiện bay trên trời' },
   ],
   ko: [
     { word: '안녕', meaning: 'xin chào', hint: 'Lời chào cơ bản' },
@@ -53,6 +69,10 @@ const wordSets: Record<string, ScrambleWord[]> = {
     { word: '선생님', meaning: 'giáo viên', hint: 'Người dạy học' },
     { word: '병원', meaning: 'bệnh viện', hint: 'Nơi chữa bệnh' },
     { word: '음식', meaning: 'đồ ăn', hint: 'Thứ để ăn' },
+    { word: '도서관', meaning: 'thư viện', hint: 'Nơi mượn sách' },
+    { word: '공항', meaning: 'sân bay', hint: 'Nơi máy bay cất cánh' },
+    { word: '날씨', meaning: 'thời tiết', hint: 'Nắng, mưa, gió...' },
+    { word: '생일', meaning: 'sinh nhật', hint: 'Ngày bạn được sinh ra' },
   ],
 };
 
