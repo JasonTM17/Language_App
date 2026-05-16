@@ -154,6 +154,7 @@ model FlashcardProgress {
   userId       String
   vocabularyId String
   known        Boolean  @default(false)
+  bookmarked   Boolean  @default(false)
   reviewCount  Int      @default(0)
   nextReview   DateTime @default(now())
   easeFactor   Float    @default(2.5)
