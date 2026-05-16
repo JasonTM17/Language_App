@@ -230,4 +230,16 @@ export const api = {
     markRead: (id: string) => request<{ success: boolean }>(`/notifications/${id}/read`, { method: 'POST' }),
     markAllRead: () => request<{ success: boolean }>('/notifications/read-all', { method: 'POST' }),
   },
+  settings: {
+    get: () => request<{ settings: any }>('/settings'),
+    update: (data: any) => request<{ settings: any }>('/settings', { method: 'PUT', body: data }),
+    getPreferences: () => request<{ preferences: any }>('/settings/preferences'),
+    updatePreferences: (data: any) => request<{ preferences: any }>('/settings/preferences', { method: 'PUT', body: data }),
+  },
+  profile: {
+    get: () => request<{ profile: any }>('/profile'),
+    update: (data: { name?: string; avatar?: string }) => request<{ user: any }>('/profile', { method: 'PUT', body: data }),
+    changePassword: (data: { currentPassword: string; newPassword: string }) => request<{ message: string }>('/profile/password', { method: 'PUT', body: data }),
+    stats: () => request<{ stats: any }>('/profile/stats'),
+  },
 };
