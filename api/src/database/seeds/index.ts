@@ -18,6 +18,7 @@ import { japaneseGreetingsLessons } from './japanese/beginner-greetings';
 import { koreanFoodLessons } from './korean/beginner-food';
 import { koreanDailyLessons } from './korean/beginner-daily';
 import { koreanFamilyLessons } from './korean/beginner-family';
+import { koreanGreetingsLessons } from './korean/beginner-greetings';
 import { chineseFoodLessons } from './chinese/beginner-food';
 import { chineseShoppingLessons } from './chinese/beginner-shopping';
 import { chineseDailyLessons } from './chinese/beginner-daily';
@@ -133,7 +134,7 @@ async function main() {
   }
 
   // Korean beginner lessons
-  const koBeginnerLessons = [...koreanFoodLessons, ...koreanDailyLessons, ...koreanFamilyLessons];
+  const koBeginnerLessons = [...koreanFoodLessons, ...koreanDailyLessons, ...koreanFamilyLessons, ...koreanGreetingsLessons];
   for (let i = 0; i < koBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['ko']['beginner'], i + 1, koBeginnerLessons[i]);
     lessonCount++;
