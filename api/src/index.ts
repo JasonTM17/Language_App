@@ -24,6 +24,7 @@ import studyRoutes from './routes/study';
 import questsRoutes from './routes/quests';
 import heartsRoutes from './routes/hearts';
 import dailyGoalsRoutes from './routes/daily-goals';
+import flashcardReviewRoutes from './routes/flashcard-review';
 
 dotenv.config();
 
@@ -74,6 +75,7 @@ app.use('/api/study', studyRoutes);
 app.use('/api/quests', questsRoutes);
 app.use('/api/hearts', heartsRoutes);
 app.use('/api/daily-goals', dailyGoalsRoutes);
+app.use('/api/flashcard-review', flashcardReviewRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
