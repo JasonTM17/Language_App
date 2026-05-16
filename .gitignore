@@ -5,6 +5,7 @@ dist/
 .env.local
 *.db
 *.db-journal
+*.tsbuildinfo
 .DS_Store
 .omc/
 .claude/
