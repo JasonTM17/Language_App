@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { XpPopup } from '@/components/ui/xp-popup';
+import { Trophy, Star, Dumbbell } from 'lucide-react';
 import { Celebration } from '@/components/ui/celebration';
 
 interface TypingExercise {
@@ -199,8 +200,8 @@ export default function TypingPracticePage() {
       <div className="max-w-2xl mx-auto space-y-6 pb-8">
         {showCelebration && <Celebration type="confetti" duration={3000} />}
         <div className="text-center py-6">
-          <div className="text-5xl mb-3">
-            {avgAccuracy >= 95 ? '🏆' : avgAccuracy >= 80 ? '⭐' : '💪'}
+          <div className="flex justify-center mb-3">
+            {avgAccuracy >= 95 ? <Trophy className="w-12 h-12 text-yellow-500" /> : avgAccuracy >= 80 ? <Star className="w-12 h-12 text-yellow-400" /> : <Dumbbell className="w-12 h-12 text-blue-500" />}
           </div>
           <h1 className="text-2xl font-bold font-display">Hoàn thành!</h1>
           <p className="text-muted-foreground mt-1">Kết quả luyện gõ phím của bạn</p>
