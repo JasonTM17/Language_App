@@ -1,13 +1,14 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { Shuffle, Zap, Wrench, PenLine, Globe, Link2, TextCursorInput, MessageCircle, type LucideIcon } from 'lucide-react';
 
 interface MiniGame {
   id: string;
   title: string;
   titleVi: string;
   description: string;
-  icon: string;
+  icon: LucideIcon;
   href: string;
   difficulty: 'easy' | 'medium' | 'hard';
   xpReward: number;
@@ -15,14 +16,14 @@ interface MiniGame {
 }
 
 const miniGames: MiniGame[] = [
-  { id: 'word-scramble', title: 'Word Scramble', titleVi: 'Xáo chữ', description: 'Sắp xếp lại chữ cái thành từ đúng', icon: '🔤', href: '/word-scramble', difficulty: 'easy', xpReward: 10, color: 'from-blue-500 to-blue-600' },
-  { id: 'timed-challenge', title: 'Speed Quiz', titleVi: 'Quiz tốc độ', description: 'Trả lời nhanh nhất có thể trong 60 giây', icon: '⚡', href: '/timed-challenge', difficulty: 'medium', xpReward: 25, color: 'from-yellow-500 to-orange-500' },
-  { id: 'grammar-fix', title: 'Grammar Fix', titleVi: 'Sửa ngữ pháp', description: 'Tìm và sửa lỗi sai trong câu', icon: '🔧', href: '/grammar-correction', difficulty: 'medium', xpReward: 20, color: 'from-green-500 to-green-600' },
-  { id: 'dictation', title: 'Dictation', titleVi: 'Nghe chép', description: 'Nghe và gõ lại từ/câu chính xác', icon: '✏️', href: '/dictation', difficulty: 'hard', xpReward: 30, color: 'from-purple-500 to-purple-600' },
-  { id: 'translation', title: 'Translation', titleVi: 'Dịch thuật', description: 'Dịch câu giữa tiếng Việt và ngoại ngữ', icon: '🌐', href: '/translation', difficulty: 'medium', xpReward: 20, color: 'from-teal-500 to-teal-600' },
-  { id: 'matching', title: 'Matching', titleVi: 'Nối từ', description: 'Nối từ với nghĩa tương ứng', icon: '🔗', href: '/matching', difficulty: 'easy', xpReward: 10, color: 'from-pink-500 to-pink-600' },
-  { id: 'fill-blank', title: 'Fill in Blank', titleVi: 'Điền từ', description: 'Điền từ còn thiếu vào câu', icon: '📋', href: '/fill-blank', difficulty: 'medium', xpReward: 15, color: 'from-indigo-500 to-indigo-600' },
-  { id: 'conversation', title: 'Conversation', titleVi: 'Hội thoại', description: 'Luyện hội thoại theo tình huống', icon: '💬', href: '/conversation', difficulty: 'hard', xpReward: 35, color: 'from-red-500 to-red-600' },
+  { id: 'word-scramble', title: 'Word Scramble', titleVi: 'Xáo chữ', description: 'Sắp xếp lại chữ cái thành từ đúng', icon: Shuffle, href: '/word-scramble', difficulty: 'easy', xpReward: 10, color: 'from-blue-500 to-blue-600' },
+  { id: 'timed-challenge', title: 'Speed Quiz', titleVi: 'Quiz tốc độ', description: 'Trả lời nhanh nhất có thể trong 60 giây', icon: Zap, href: '/timed-challenge', difficulty: 'medium', xpReward: 25, color: 'from-yellow-500 to-orange-500' },
+  { id: 'grammar-fix', title: 'Grammar Fix', titleVi: 'Sửa ngữ pháp', description: 'Tìm và sửa lỗi sai trong câu', icon: Wrench, href: '/grammar-correction', difficulty: 'medium', xpReward: 20, color: 'from-green-500 to-green-600' },
+  { id: 'dictation', title: 'Dictation', titleVi: 'Nghe chép', description: 'Nghe và gõ lại từ/câu chính xác', icon: PenLine, href: '/dictation', difficulty: 'hard', xpReward: 30, color: 'from-purple-500 to-purple-600' },
+  { id: 'translation', title: 'Translation', titleVi: 'Dịch thuật', description: 'Dịch câu giữa tiếng Việt và ngoại ngữ', icon: Globe, href: '/translation', difficulty: 'medium', xpReward: 20, color: 'from-teal-500 to-teal-600' },
+  { id: 'matching', title: 'Matching', titleVi: 'Nối từ', description: 'Nối từ với nghĩa tương ứng', icon: Link2, href: '/matching', difficulty: 'easy', xpReward: 10, color: 'from-pink-500 to-pink-600' },
+  { id: 'fill-blank', title: 'Fill in Blank', titleVi: 'Điền từ', description: 'Điền từ còn thiếu vào câu', icon: TextCursorInput, href: '/fill-blank', difficulty: 'medium', xpReward: 15, color: 'from-indigo-500 to-indigo-600' },
+  { id: 'conversation', title: 'Conversation', titleVi: 'Hội thoại', description: 'Luyện hội thoại theo tình huống', icon: MessageCircle, href: '/conversation', difficulty: 'hard', xpReward: 35, color: 'from-red-500 to-red-600' },
 ];
 
 const difficultyLabels = { easy: 'Dễ', medium: 'Trung bình', hard: 'Khó' };
@@ -64,8 +65,8 @@ export default function GamesPage() {
             className="p-5 rounded-2xl bg-card border border text-left hover:scale-[1.02] transition-all hover:shadow-lg"
           >
             <div className="flex items-start gap-4">
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${game.color} flex items-center justify-center text-2xl shadow-sm`}>
-                {game.icon}
+              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${game.color} flex items-center justify-center shadow-sm`}>
+                <game.icon className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">

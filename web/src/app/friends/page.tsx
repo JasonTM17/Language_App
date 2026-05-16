@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/states';
+import { Search } from 'lucide-react';
 
 interface Friend {
   id: string;
@@ -183,7 +184,9 @@ export default function FriendsPage() {
           />
 
           <div className="text-center py-8">
-            <div className="text-4xl mb-3">🔍</div>
+            <div className="flex justify-center mb-3">
+              <Search className="w-10 h-10 text-muted-foreground" />
+            </div>
             <p className="text-muted-foreground text-sm">Tìm bạn bè bằng tên hoặc email</p>
             <p className="text-xs text-muted-foreground mt-1">Mời bạn bè cùng học để tăng động lực!</p>
           </div>

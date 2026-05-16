@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Shuffle, PartyPopper } from 'lucide-react';
 
 interface ScrambleWord {
   word: string;
@@ -165,7 +166,9 @@ export default function WordScramblePage() {
   if (!currentWord) {
     return (
       <div className="text-center py-16">
-        <div className="text-5xl mb-4">🔤</div>
+        <div className="flex justify-center mb-4">
+          <Shuffle className="w-12 h-12 text-primary" />
+        </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài xáo chữ</h3>
         <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
@@ -176,7 +179,9 @@ export default function WordScramblePage() {
     const pct = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-5xl mb-4">🎉</div>
+        <div className="flex justify-center mb-4">
+          <PartyPopper className="w-12 h-12 text-green-500" />
+        </div>
         <h2 className="text-2xl font-bold mb-4">Hoàn thành!</h2>
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">

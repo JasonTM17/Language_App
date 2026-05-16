@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { BookOpen } from 'lucide-react';
 
 interface ReadingPassage {
   id: string;
@@ -240,7 +241,9 @@ export default function ReadingPage() {
 
         {currentPassages.length === 0 && (
           <div className="text-center py-12">
-            <div className="text-4xl mb-3">📖</div>
+            <div className="flex justify-center mb-3">
+              <BookOpen className="w-10 h-10 text-muted-foreground" />
+            </div>
             <p className="text-muted-foreground">Chưa có bài đọc cho ngôn ngữ này.</p>
           </div>
         )}
