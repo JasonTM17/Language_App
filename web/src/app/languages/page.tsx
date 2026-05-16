@@ -45,15 +45,15 @@ export default function LanguagesPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       <div>
-        <h1 className="text-2xl font-bold font-display">Choose a Language</h1>
-        <p className="text-muted-foreground mt-1">Select a language to start or continue learning</p>
+        <h1 className="text-2xl font-bold font-display">Chọn ngôn ngữ</h1>
+        <p className="text-muted-foreground text-sm mt-0.5">Chọn ngôn ngữ bạn muốn học hoặc tiếp tục</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         {languages.map((lang) => (
-          <div key={lang.id} className="group p-6 rounded-2xl bg-card border border shadow-sm hover:shadow-md hover:border-primary-200 dark:hover:border-primary-800 transition-all">
+          <div key={lang.id} className="group p-6 rounded-2xl bg-card border shadow-sm hover:shadow-md hover:border-primary/30 transition-all">
             <div className="flex items-start gap-4">
               <div className="text-5xl">{lang.flag}</div>
               <div className="flex-1">
@@ -65,7 +65,7 @@ export default function LanguagesPage() {
 
             <div className="mt-4 flex flex-wrap gap-2">
               {lang.levels.map((level) => (
-                <span key={level.id} className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-muted-foreground dark:text-gray-300">
+                <span key={level.id} className="px-3 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground">
                   {level.name}
                 </span>
               ))}
@@ -73,7 +73,7 @@ export default function LanguagesPage() {
 
             <div className="mt-5 flex gap-3">
               <Link href={`/lessons?lang=${lang.code}`} className="flex-1">
-                <Button className="w-full" size="sm">Start Learning</Button>
+                <Button className="w-full" size="sm">Bắt đầu học</Button>
               </Link>
             </div>
           </div>
