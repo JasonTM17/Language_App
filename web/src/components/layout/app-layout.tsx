@@ -33,6 +33,7 @@ const navItems = [
   { href: '/characters', label: 'Characters', icon: '字' },
   { href: '/stories', label: 'Stories', icon: '📚' },
   { href: '/reading', label: 'Reading', icon: '📖' },
+  { href: '/culture', label: 'Culture', icon: '🏛️' },
   { href: '/achievements', label: 'Achievements', icon: '🏆' },
   { href: '/skill-tree', label: 'Skill Tree', icon: '🌳' },
   { href: '/word-scramble', label: 'Word Scramble', icon: '🔤' },
