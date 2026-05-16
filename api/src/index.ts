@@ -33,6 +33,8 @@ import grammarTipsRoutes from './routes/grammar-tips';
 import sentenceBuilderRoutes from './routes/sentence-builder';
 import searchRoutes from './routes/search';
 import notificationsRoutes from './routes/notifications';
+import settingsRoutes from './routes/settings';
+import profileRoutes from './routes/profile';
 
 dotenv.config();
 
@@ -92,6 +94,8 @@ app.use('/api/grammar-tips', grammarTipsRoutes);
 app.use('/api/sentence-builder', sentenceBuilderRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/notifications', notificationsRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/profile', profileRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
