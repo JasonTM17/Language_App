@@ -18,6 +18,7 @@ import achievementRoutes from './routes/achievements';
 import leaderboardRoutes from './routes/leaderboard';
 import onboardingRoutes from './routes/onboarding';
 import goalsRoutes from './routes/goals';
+import healthRoutes from './routes/health';
 
 dotenv.config();
 
@@ -63,6 +64,7 @@ app.use('/api/achievements', achievementRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/onboarding', onboardingRoutes);
 app.use('/api/goals', goalsRoutes);
+app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
