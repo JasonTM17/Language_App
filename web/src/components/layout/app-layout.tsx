@@ -42,6 +42,7 @@ const navItems = [
   { href: '/quests', label: 'Quests', icon: '⚔️' },
   { href: '/shop', label: 'Shop', icon: '💎' },
   { href: '/progress', label: 'Progress', icon: '📊' },
+  { href: '/analytics', label: 'Analytics', icon: '📈' },
 ];
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
