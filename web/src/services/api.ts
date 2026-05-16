@@ -171,4 +171,51 @@ export const api = {
     addBookmark: (vocabId: string) => request<{ success: boolean }>(`/study/bookmarks/${vocabId}`, { method: 'POST' }),
     removeBookmark: (vocabId: string) => request<{ success: boolean }>(`/study/bookmarks/${vocabId}`, { method: 'DELETE' }),
   },
+  studyPlan: {
+    get: () => request<any[]>('/study-plan'),
+  },
+  bookmarks: {
+    list: () => request<any[]>('/bookmarks'),
+    toggle: (vocabId: string) => request<{ bookmarked: boolean }>(`/bookmarks/${vocabId}`, { method: 'POST' }),
+    remove: (vocabId: string) => request<{ bookmarked: boolean }>(`/bookmarks/${vocabId}`, { method: 'DELETE' }),
+  },
+  wordOfDay: {
+    get: (lang?: string) => request<any>(`/word-of-day?lang=${lang || 'en'}`),
+    history: (lang?: string) => request<any[]>(`/word-of-day/history?lang=${lang || 'en'}`),
+  },
+  analytics: {
+    overview: () => request<any>('/analytics/overview'),
+    languages: () => request<any[]>('/analytics/languages'),
+    activity: (days?: number) => request<any[]>(`/analytics/activity?days=${days || 30}`),
+  },
+  grammarTips: {
+    list: (lang?: string, level?: string) => {
+      const params = new URLSearchParams();
+      if (lang) params.set('lang', lang);
+      if (level) params.set('level', level);
+      return request<any[]>(`/grammar-tips?${params.toString()}`);
+    },
+    get: (id: string) => request<any>(`/grammar-tips/${id}`),
+  },
+  sentenceBuilder: {
+    list: (lang?: string, difficulty?: string) => {
+      const params = new URLSearchParams();
+      if (lang) params.set('lang', lang);
+      if (difficulty) params.set('difficulty', difficulty);
+      return request<any[]>(`/sentence-builder?${params.toString()}`);
+    },
+    check: (data: { exerciseId: string; answer: string[]; lang?: string }) => request<{ correct: boolean; correctOrder: string[]; translation: string }>('/sentence-builder/check', { method: 'POST', body: data }),
+  },
+  flashcardReview: {
+    weak: () => request<any[]>('/flashcard-review/weak'),
+    due: () => request<any[]>('/flashcard-review/due'),
+    review: (vocabId: string, data: { quality: number }) => request<any>(`/flashcard-review/review`, { method: 'POST', body: { vocabularyId: vocabId, ...data } }),
+    stats: () => request<any>('/flashcard-review/stats'),
+  },
+  dailyGoals: {
+    get: () => request<any>('/daily-goals'),
+    setTarget: (data: any) => request<any>('/daily-goals/target', { method: 'PUT', body: data }),
+    progress: (data: any) => request<any>('/daily-goals/progress', { method: 'POST', body: data }),
+    history: () => request<any[]>('/daily-goals/history'),
+  },
 };
