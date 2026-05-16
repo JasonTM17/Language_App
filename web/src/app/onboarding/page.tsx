@@ -59,11 +59,26 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white dark:from-gray-900 dark:to-gray-950 flex items-center justify-center p-4">
       <div className="w-full max-w-lg">
-        {/* Progress */}
-        <div className="flex gap-2 mb-8">
-          {[0, 1, 2].map((i) => (
-            <div key={i} className={`flex-1 h-2 rounded-full ${i <= step ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'}`} />
-          ))}
+        {/* Step progress indicator */}
+        <div className="mb-8 space-y-2">
+          <div className="flex items-center justify-between text-sm">
+            <span className="font-medium text-primary-600 dark:text-primary-400">
+              Bước {step + 1}/3
+            </span>
+            <span className="text-gray-400 dark:text-gray-500">
+              {step === 0 ? 'Chọn ngôn ngữ' : step === 1 ? 'Mục tiêu hàng ngày' : 'Trình độ của bạn'}
+            </span>
+          </div>
+          <div className="flex gap-2">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className={`flex-1 h-2 rounded-full transition-all duration-300 ${
+                  i <= step ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Step 0: Language Selection */}

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { EmptyState } from '@/components/ui/states';
 
 interface Notification {
   id: string;
@@ -91,10 +92,11 @@ export default function NotificationsPage() {
       {/* Notification list */}
       <div className="space-y-2">
         {filtered.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-4xl mb-3">🔔</div>
-            <p className="text-gray-500">Không có thông báo nào</p>
-          </div>
+          <EmptyState
+            icon="🔔"
+            title="Không có thông báo nào"
+            description="Bạn đã đọc hết tất cả thông báo rồi!"
+          />
         ) : (
           filtered.map((notif) => (
             <button
