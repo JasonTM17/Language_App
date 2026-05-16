@@ -1,21 +1,54 @@
 {
-  "name": "LinguaFlow",
+  "name": "LinguaFlow - Học Ngôn Ngữ",
   "short_name": "LinguaFlow",
-  "description": "Learn languages naturally with AI-powered tutoring",
-  "start_url": "/",
+  "description": "Nền tảng học ngôn ngữ thông minh cho người Việt. Học tiếng Anh, Nhật, Trung, Hàn với AI.",
+  "start_url": "/dashboard",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#4F46E5",
+  "lang": "vi",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
   "icons": [
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Luyện từ vựng",
+      "short_name": "Từ vựng",
+      "url": "/vocabulary",
+      "description": "Ôn tập từ vựng với flashcard"
+    },
+    {
+      "name": "Thử thách hàng ngày",
+      "short_name": "Thử thách",
+      "url": "/daily-challenge",
+      "description": "Hoàn thành thử thách để nhận XP"
+    },
+    {
+      "name": "Luyện nghe",
+      "short_name": "Nghe",
+      "url": "/listening",
+      "description": "Luyện kỹ năng nghe"
+    },
+    {
+      "name": "Luyện nói",
+      "short_name": "Nói",
+      "url": "/speaking",
+      "description": "Luyện phát âm và giao tiếp"
     }
   ]
 }
