@@ -164,4 +164,11 @@ export const api = {
     update: (data: { targetMinutes?: number; lessonsTarget?: number; cardsTarget?: number }) => request<{ goal: any }>('/goals/update', { method: 'POST', body: data }),
     history: () => request<{ goals: any[]; completedDays: number; totalDays: number }>('/goals/history'),
   },
+  study: {
+    wordOfTheDay: () => request<{ words: any[]; date: string }>('/study/word-of-the-day'),
+    reviewForecast: () => request<{ forecast: Record<string, number>; dueToday: number; totalCards: number; masteredCards: number }>('/study/review-forecast'),
+    bookmarks: () => request<{ bookmarks: any[] }>('/study/bookmarks'),
+    addBookmark: (vocabId: string) => request<{ success: boolean }>(`/study/bookmarks/${vocabId}`, { method: 'POST' }),
+    removeBookmark: (vocabId: string) => request<{ success: boolean }>(`/study/bookmarks/${vocabId}`, { method: 'DELETE' }),
+  },
 };
