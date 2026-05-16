@@ -47,6 +47,7 @@ const navItems = [
   { href: '/games', label: 'Games', icon: '🎮' },
   { href: '/progress', label: 'Progress', icon: '📊' },
   { href: '/analytics', label: 'Analytics', icon: '📈' },
+  { href: '/word-of-day', label: 'Word of Day', icon: '✨' },
 ];
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
