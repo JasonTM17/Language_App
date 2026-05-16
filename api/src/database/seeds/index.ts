@@ -115,6 +115,10 @@ import { koreanMediaLessons } from './korean/advanced-media';
 import { chineseMediaLessons } from './chinese/advanced-media';
 import { englishHobbiesElementaryLessons } from './english/elementary-hobbies';
 import { englishSchoolLessons } from './english/elementary-school';
+import { englishFoodIntermediateLessons } from './english/intermediate-food';
+import { japaneseFoodIntermediateLessons } from './japanese/intermediate-food';
+import { koreanFoodIntermediateLessons } from './korean/intermediate-food';
+import { chineseFoodIntermediateLessons } from './chinese/intermediate-food';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -201,7 +205,7 @@ async function main() {
   }
 
   // English intermediate lessons
-  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons, ...englishCultureLessons, ...englishBusinessLessons, ...englishHealthIntermediateLessons, ...englishEmotionsIntermediateLessons];
+  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons, ...englishCultureLessons, ...englishBusinessLessons, ...englishHealthIntermediateLessons, ...englishEmotionsIntermediateLessons, ...englishFoodIntermediateLessons];
   for (let i = 0; i < enIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['en']['intermediate'], i + 1, enIntermediateLessons[i]);
     lessonCount++;
@@ -273,7 +277,7 @@ async function main() {
   }
 
   // Japanese intermediate lessons
-  const jaIntermediateLessons = [...japaneseWorkLessons, ...japaneseTravelIntermediateLessons, ...japaneseCultureLessons, ...japaneseBusinessLessons, ...japaneseHealthIntermediateLessons, ...japaneseEmotionsIntermediateLessons];
+  const jaIntermediateLessons = [...japaneseWorkLessons, ...japaneseTravelIntermediateLessons, ...japaneseCultureLessons, ...japaneseBusinessLessons, ...japaneseHealthIntermediateLessons, ...japaneseEmotionsIntermediateLessons, ...japaneseFoodIntermediateLessons];
   for (let i = 0; i < jaIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['ja']['intermediate'], i + 1, jaIntermediateLessons[i]);
     lessonCount++;
@@ -282,7 +286,7 @@ async function main() {
   }
 
   // Korean intermediate lessons
-  const koIntermediateLessons = [...koreanWorkLessons, ...koreanTravelIntermediateLessons, ...koreanCultureLessons, ...koreanBusinessLessons, ...koreanHealthIntermediateLessons, ...koreanEmotionsIntermediateLessons];
+  const koIntermediateLessons = [...koreanWorkLessons, ...koreanTravelIntermediateLessons, ...koreanCultureLessons, ...koreanBusinessLessons, ...koreanHealthIntermediateLessons, ...koreanEmotionsIntermediateLessons, ...koreanFoodIntermediateLessons];
   for (let i = 0; i < koIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['ko']['intermediate'], i + 1, koIntermediateLessons[i]);
     lessonCount++;
@@ -291,7 +295,7 @@ async function main() {
   }
 
   // Chinese intermediate lessons
-  const zhIntermediateLessons = [...chineseWorkLessons, ...chineseTravelIntermediateLessons, ...chineseCultureLessons, ...chineseBusinessLessons, ...chineseHealthIntermediateLessons, ...chineseEmotionsIntermediateLessons];
+  const zhIntermediateLessons = [...chineseWorkLessons, ...chineseTravelIntermediateLessons, ...chineseCultureLessons, ...chineseBusinessLessons, ...chineseHealthIntermediateLessons, ...chineseEmotionsIntermediateLessons, ...chineseFoodIntermediateLessons];
   for (let i = 0; i < zhIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['zh']['intermediate'], i + 1, zhIntermediateLessons[i]);
     lessonCount++;
