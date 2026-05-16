@@ -16,6 +16,7 @@ const navItems = [
   { href: '/quiz', label: 'Quiz', icon: '❓' },
   { href: '/ai-tutor', label: 'AI Tutor', icon: '🤖' },
   { href: '/pronunciation', label: 'Pronunciation', icon: '🎙️' },
+  { href: '/writing', label: 'Writing', icon: '✍️' },
   { href: '/achievements', label: 'Achievements', icon: '🏆' },
   { href: '/leaderboard', label: 'Leaderboard', icon: '🥇' },
   { href: '/study-plan', label: 'Study Plan', icon: '📅' },
