@@ -25,6 +25,10 @@ const wordSets: Record<string, WordPair[]> = {
     { word: 'dangerous', meaning: 'nguy hiểm' },
     { word: 'delicious', meaning: 'ngon' },
     { word: 'expensive', meaning: 'đắt' },
+    { word: 'comfortable', meaning: 'thoải mái' },
+    { word: 'interesting', meaning: 'thú vị' },
+    { word: 'necessary', meaning: 'cần thiết' },
+    { word: 'successful', meaning: 'thành công' },
   ],
   ja: [
     { word: '美しい', meaning: 'đẹp' },
@@ -33,6 +37,10 @@ const wordSets: Record<string, WordPair[]> = {
     { word: '危ない', meaning: 'nguy hiểm' },
     { word: '美味しい', meaning: 'ngon' },
     { word: '高い', meaning: 'đắt' },
+    { word: '楽しい', meaning: 'vui' },
+    { word: '優しい', meaning: 'hiền lành' },
+    { word: '嬉しい', meaning: 'vui mừng' },
+    { word: '寂しい', meaning: 'cô đơn' },
   ],
   zh: [
     { word: '美丽', meaning: 'đẹp' },
@@ -41,6 +49,10 @@ const wordSets: Record<string, WordPair[]> = {
     { word: '危险', meaning: 'nguy hiểm' },
     { word: '好吃', meaning: 'ngon' },
     { word: '贵', meaning: 'đắt' },
+    { word: '有趣', meaning: 'thú vị' },
+    { word: '舒服', meaning: 'thoải mái' },
+    { word: '开心', meaning: 'vui vẻ' },
+    { word: '聪明', meaning: 'thông minh' },
   ],
   ko: [
     { word: '아름답다', meaning: 'đẹp' },
@@ -49,6 +61,10 @@ const wordSets: Record<string, WordPair[]> = {
     { word: '위험하다', meaning: 'nguy hiểm' },
     { word: '맛있다', meaning: 'ngon' },
     { word: '비싸다', meaning: 'đắt' },
+    { word: '재미있다', meaning: 'thú vị' },
+    { word: '편하다', meaning: 'thoải mái' },
+    { word: '행복하다', meaning: 'hạnh phúc' },
+    { word: '똑똑하다', meaning: 'thông minh' },
   ],
 };
 
