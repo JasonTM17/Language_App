@@ -36,6 +36,26 @@ LinguaFlow là nền tảng học ngôn ngữ toàn diện được thiết kế
 
 ---
 
+## Screenshots
+
+### Desktop
+
+| Landing Page | Dashboard | Skill Tree |
+|:---:|:---:|:---:|
+| ![Landing](docs/screenshots/landing-desktop.png) | ![Dashboard](docs/screenshots/dashboard-desktop.png) | ![Skill Tree](docs/screenshots/skill-tree-desktop.png) |
+
+| Listening | Daily Challenge | AI Tutor |
+|:---:|:---:|:---:|
+| ![Listening](docs/screenshots/listening-desktop.png) | ![Daily Challenge](docs/screenshots/daily-challenge-desktop.png) | ![AI Tutor](docs/screenshots/ai-tutor-desktop.png) |
+
+### Mobile
+
+| Landing | Dashboard | Vocabulary |
+|:---:|:---:|:---:|
+| ![Landing](docs/screenshots/landing-mobile.png) | ![Dashboard](docs/screenshots/dashboard-mobile.png) | ![Vocabulary](docs/screenshots/vocabulary-mobile.png) |
+
+---
+
 ## Kiến trúc
 
 ```

@@ -9,7 +9,13 @@
     "url": "https://github.com/JasonTM17/Language_App.git",
     "directory": "web"
   },
-  "keywords": ["language-learning", "nextjs", "react", "tailwindcss", "ai-tutor"],
+  "keywords": [
+    "language-learning",
+    "nextjs",
+    "react",
+    "tailwindcss",
+    "ai-tutor"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -42,6 +48,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@testing-library/react": "^14.2.0",
     "@types/node": "25.8.0",
     "@types/react": "^18.3.0",
