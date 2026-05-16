@@ -36,6 +36,8 @@ model User {
   chatSessions  ChatSession[]
   achievements  UserAchievement[]
   dailyGoals    DailyGoal[]
+  friendshipsSent     Friendship[] @relation("FriendshipSent")
+  friendshipsReceived Friendship[] @relation("FriendshipReceived")
 }
 
 model Language {
@@ -242,4 +244,18 @@ model DailyGoal {
   user              User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, date])
+}
+
+model Friendship {
+  id          String   @id @default(cuid())
+  senderId    String
+  receiverId  String
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  sender      User     @relation("FriendshipSent", fields: [senderId], references: [id])
+  receiver    User     @relation("FriendshipReceived", fields: [receiverId], references: [id])
+
+  @@unique([senderId, receiverId])
 }
