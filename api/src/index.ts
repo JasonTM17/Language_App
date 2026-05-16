@@ -40,6 +40,7 @@ import learningProgressRoutes from './routes/learning-progress';
 import typingPracticeRoutes from './routes/typing-practice';
 import pronunciationRoutes from './routes/pronunciation';
 import shopRoutes from './routes/shop';
+import friendsRoutes from './routes/friends';
 
 dotenv.config();
 
@@ -106,6 +107,7 @@ app.use('/api/learning-progress', learningProgressRoutes);
 app.use('/api/typing-practice', typingPracticeRoutes);
 app.use('/api/pronunciation', pronunciationRoutes);
 app.use('/api/shop', shopRoutes);
+app.use('/api/friends', friendsRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
