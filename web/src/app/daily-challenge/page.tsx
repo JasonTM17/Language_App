@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { Celebration } from '@/components/ui/celebration';
+import { XpPopup } from '@/components/ui/xp-popup';
 
 interface ChallengeQuestion {
   id: string;
@@ -38,6 +40,8 @@ export default function DailyChallengePage() {
   const [maxCombo, setMaxCombo] = useState(0);
   const [answers, setAnswers] = useState<boolean[]>([]);
   const [streak, setStreak] = useState(3);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [showXp, setShowXp] = useState(false);
 
   useEffect(() => {
     if (state !== 'playing' || timeLeft <= 0) return;
@@ -93,6 +97,7 @@ export default function DailyChallengePage() {
         setShowFeedback(false);
       } else {
         setState('result');
+        setShowXp(true);
       }
     }, 1000);
   }, [showFeedback, currentQuestion, combo]);
@@ -102,11 +107,11 @@ export default function DailyChallengePage() {
 
   if (state === 'intro') {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6 pb-8">
         <div className="text-center py-8">
           <div className="text-6xl mb-4">⚔️</div>
           <h1 className="text-2xl font-bold font-display">Thử thách hàng ngày</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-muted-foreground mt-2">
             Trả lời 10 câu hỏi trong 60 giây. Combo liên tiếp để nhận thêm điểm!
           </p>
         </div>
@@ -114,21 +119,21 @@ export default function DailyChallengePage() {
         <div className="grid grid-cols-3 gap-4">
           <div className="p-4 rounded-2xl bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 text-center">
             <p className="text-2xl font-bold text-orange-600">🔥 {streak}</p>
-            <p className="text-xs text-gray-500 mt-1">Ngày liên tiếp</p>
+            <p className="text-xs text-muted-foreground mt-1">Ngày liên tiếp</p>
           </div>
           <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-center">
             <p className="text-2xl font-bold text-purple-600">60s</p>
-            <p className="text-xs text-gray-500 mt-1">Thời gian</p>
+            <p className="text-xs text-muted-foreground mt-1">Thời gian</p>
           </div>
           <div className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-center">
             <p className="text-2xl font-bold text-blue-600">10</p>
-            <p className="text-xs text-gray-500 mt-1">Câu hỏi</p>
+            <p className="text-xs text-muted-foreground mt-1">Câu hỏi</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div className="p-5 rounded-2xl bg-card border">
           <h3 className="font-semibold mb-3">Luật chơi:</h3>
-          <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+          <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="flex items-start gap-2"><span>✅</span> Trả lời đúng: +10 điểm</li>
             <li className="flex items-start gap-2"><span>🔥</span> Combo liên tiếp: +2 điểm mỗi combo (tối đa +10)</li>
             <li className="flex items-start gap-2"><span>⏰</span> Thời gian còn lại: +0.5 XP mỗi giây</li>
@@ -147,7 +152,9 @@ export default function DailyChallengePage() {
 
   if (state === 'result') {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6 pb-8">
+        {accuracy >= 80 && <Celebration type="confetti" duration={3000} />}
+        {showXp && <XpPopup amount={xpEarned} onComplete={() => setShowXp(false)} />}
         <div className="text-center py-6">
           <div className="text-5xl mb-3">
             {accuracy >= 80 ? '🏆' : accuracy >= 60 ? '⭐' : accuracy >= 40 ? '💪' : '📚'}
@@ -160,23 +167,23 @@ export default function DailyChallengePage() {
         <div className="grid grid-cols-2 gap-4">
           <div className="p-4 rounded-2xl bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-center">
             <p className="text-3xl font-bold text-yellow-600">{xpEarned}</p>
-            <p className="text-xs text-gray-500 mt-1">XP kiếm được</p>
+            <p className="text-xs text-muted-foreground mt-1">XP kiếm được</p>
           </div>
           <div className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-center">
             <p className="text-3xl font-bold text-green-600">{accuracy}%</p>
-            <p className="text-xs text-gray-500 mt-1">Chính xác</p>
+            <p className="text-xs text-muted-foreground mt-1">Chính xác</p>
           </div>
           <div className="p-4 rounded-2xl bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 text-center">
             <p className="text-3xl font-bold text-orange-600">{maxCombo}x</p>
-            <p className="text-xs text-gray-500 mt-1">Combo cao nhất</p>
+            <p className="text-xs text-muted-foreground mt-1">Combo cao nhất</p>
           </div>
           <div className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-center">
             <p className="text-3xl font-bold text-blue-600">{timeLeft}s</p>
-            <p className="text-xs text-gray-500 mt-1">Thời gian còn</p>
+            <p className="text-xs text-muted-foreground mt-1">Thời gian còn</p>
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div className="p-4 rounded-2xl bg-card border">
           <h3 className="font-semibold mb-3">Chi tiết câu trả lời:</h3>
           <div className="grid grid-cols-10 gap-1">
             {answers.map((correct, i) => (
@@ -205,11 +212,11 @@ export default function DailyChallengePage() {
   const question = challengeQuestions[currentQuestion];
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 pb-8">
       {/* Timer and progress */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className={`text-lg font-bold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-gray-700 dark:text-gray-300'}`}>
+          <span className={`text-lg font-bold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-foreground'}`}>
             ⏰ {timeLeft}s
           </span>
         </div>
@@ -219,44 +226,44 @@ export default function DailyChallengePage() {
               🔥 {combo}x combo
             </span>
           )}
-          <span className="text-sm font-medium text-gray-500">{currentQuestion + 1}/10</span>
+          <span className="text-sm font-medium text-muted-foreground">{currentQuestion + 1}/10</span>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
         <div
-          className="h-full bg-primary-500 rounded-full transition-all duration-300"
+          className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all duration-300"
           style={{ width: `${((currentQuestion + 1) / challengeQuestions.length) * 100}%` }}
         />
       </div>
 
       {/* Score */}
       <div className="text-center">
-        <span className="text-2xl font-bold text-primary-600">{score}</span>
-        <span className="text-sm text-gray-500 ml-1">điểm</span>
+        <span className="text-2xl font-bold text-primary">{score}</span>
+        <span className="text-sm text-muted-foreground ml-1">điểm</span>
       </div>
 
       {/* Question */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-        <span className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 font-medium">
+      <div className="p-6 rounded-2xl bg-card border">
+        <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground font-medium">
           {question.category}
         </span>
         <h2 className="text-lg font-semibold mt-3">{question.question}</h2>
-        <p className="text-sm text-gray-500 mt-1">{question.questionVi}</p>
+        <p className="text-sm text-muted-foreground mt-1">{question.questionVi}</p>
       </div>
 
       {/* Options */}
       <div className="grid grid-cols-1 gap-3">
         {question.options.map((option, i) => {
-          let styles = 'border-gray-200 dark:border-gray-700 hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/10';
+          let styles = 'border-border hover:border-primary/40 hover:bg-primary/5';
           if (showFeedback) {
             if (i === question.correctIndex) {
               styles = 'border-green-500 bg-green-50 dark:bg-green-900/20';
             } else if (i === selectedAnswer && i !== question.correctIndex) {
               styles = 'border-red-500 bg-red-50 dark:bg-red-900/20';
             } else {
-              styles = 'border-gray-200 dark:border-gray-700 opacity-50';
+              styles = 'border-border opacity-50';
             }
           }
 
@@ -267,7 +274,7 @@ export default function DailyChallengePage() {
               disabled={showFeedback}
               className={`p-4 rounded-xl border-2 text-left font-medium transition-all ${styles}`}
             >
-              <span className="text-gray-400 mr-2">{String.fromCharCode(65 + i)}.</span>
+              <span className="text-muted-foreground mr-2">{String.fromCharCode(65 + i)}.</span>
               {option}
             </button>
           );
