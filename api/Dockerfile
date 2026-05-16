@@ -16,14 +16,16 @@ RUN npm run build
 
 FROM base AS runner
 ENV NODE_ENV=production
-RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 appuser
+RUN mkdir -p /app/data && chown -R node:node /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=build /app/dist ./dist
 COPY prisma ./prisma/
 COPY package.json ./
-USER appuser
+COPY docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
+USER node
 EXPOSE 3001
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3001/api/health || exit 1
-CMD ["node", "dist/index.js"]
+CMD ["./docker-entrypoint.sh"]
