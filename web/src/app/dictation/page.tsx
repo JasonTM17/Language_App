@@ -35,6 +35,10 @@ const exercises: Record<string, DictationExercise[]> = {
     { id: '27', language: 'ja', sentence: 'お水をください', translation: 'Cho tôi nước', speed: 'slow' },
     { id: '28', language: 'ja', sentence: '私はベトナム人です', translation: 'Tôi là người Việt Nam', speed: 'slow' },
     { id: '29', language: 'ja', sentence: '電車は何時に来ますか', translation: 'Tàu điện mấy giờ đến?', speed: 'slow' },
+    { id: '37', language: 'ja', sentence: 'この料理はとてもおいしいです', translation: 'Món ăn này rất ngon', speed: 'slow' },
+    { id: '38', language: 'ja', sentence: '趣味は音楽を聞くことです', translation: 'Sở thích của tôi là nghe nhạc', speed: 'slow' },
+    { id: '39', language: 'ja', sentence: '週末に友達と映画を見ます', translation: 'Cuối tuần tôi xem phim với bạn', speed: 'slow' },
+    { id: '40', language: 'ja', sentence: '日本の桜はとてもきれいです', translation: 'Hoa anh đào Nhật Bản rất đẹp', speed: 'slow' },
   ],
   zh: [
     { id: '14', language: 'zh', sentence: '你好，请问洗手间在哪里', translation: 'Xin chào, xin hỏi nhà vệ sinh ở đâu?', speed: 'slow' },
@@ -45,6 +49,10 @@ const exercises: Record<string, DictationExercise[]> = {
     { id: '30', language: 'zh', sentence: '请给我一杯咖啡', translation: 'Cho tôi một ly cà phê', speed: 'slow' },
     { id: '31', language: 'zh', sentence: '我住在胡志明市', translation: 'Tôi sống ở TP Hồ Chí Minh', speed: 'slow' },
     { id: '32', language: 'zh', sentence: '明天见', translation: 'Hẹn gặp lại ngày mai', speed: 'slow' },
+    { id: '41', language: 'zh', sentence: '这个菜非常好吃', translation: 'Món này rất ngon', speed: 'slow' },
+    { id: '42', language: 'zh', sentence: '我的爱好是看电影', translation: 'Sở thích của tôi là xem phim', speed: 'slow' },
+    { id: '43', language: 'zh', sentence: '周末我和朋友去逛街', translation: 'Cuối tuần tôi đi dạo phố với bạn', speed: 'slow' },
+    { id: '44', language: 'zh', sentence: '中国的长城非常有名', translation: 'Vạn Lý Trường Thành rất nổi tiếng', speed: 'slow' },
   ],
   ko: [
     { id: '19', language: 'ko', sentence: '안녕하세요 만나서 반갑습니다', translation: 'Xin chào, rất vui được gặp bạn', speed: 'slow' },
@@ -55,6 +63,10 @@ const exercises: Record<string, DictationExercise[]> = {
     { id: '34', language: 'ko', sentence: '저는 베트남 사람이에요', translation: 'Tôi là người Việt Nam', speed: 'slow' },
     { id: '35', language: 'ko', sentence: '내일 만나요', translation: 'Hẹn gặp lại ngày mai', speed: 'slow' },
     { id: '36', language: 'ko', sentence: '지하철역이 어디에 있어요', translation: 'Ga tàu điện ngầm ở đâu?', speed: 'slow' },
+    { id: '45', language: 'ko', sentence: '이 음식 정말 맛있어요', translation: 'Món ăn này ngon thật', speed: 'slow' },
+    { id: '46', language: 'ko', sentence: '취미는 음악 듣기예요', translation: 'Sở thích của tôi là nghe nhạc', speed: 'slow' },
+    { id: '47', language: 'ko', sentence: '주말에 친구와 영화를 봐요', translation: 'Cuối tuần tôi xem phim với bạn', speed: 'slow' },
+    { id: '48', language: 'ko', sentence: '서울의 경복궁은 아름다워요', translation: 'Cung điện Gyeongbok ở Seoul rất đẹp', speed: 'slow' },
   ],
 };
 
