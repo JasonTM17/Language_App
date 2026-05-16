@@ -15,6 +15,7 @@ const navItems = [
   { href: '/flashcards', label: 'Flashcards', icon: '🃏' },
   { href: '/quiz', label: 'Quiz', icon: '❓' },
   { href: '/ai-tutor', label: 'AI Tutor', icon: '🤖' },
+  { href: '/speaking', label: 'Speaking', icon: '🎤' },
   { href: '/pronunciation', label: 'Pronunciation', icon: '🎙️' },
   { href: '/writing', label: 'Writing', icon: '✍️' },
   { href: '/achievements', label: 'Achievements', icon: '🏆' },
