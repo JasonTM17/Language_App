@@ -44,6 +44,7 @@ const navItems = [
   { href: '/quests', label: 'Quests', icon: '⚔️' },
   { href: '/daily-goals', label: 'Daily Goals', icon: '🎯' },
   { href: '/shop', label: 'Shop', icon: '💎' },
+  { href: '/games', label: 'Games', icon: '🎮' },
   { href: '/progress', label: 'Progress', icon: '📊' },
   { href: '/analytics', label: 'Analytics', icon: '📈' },
 ];
