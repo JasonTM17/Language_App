@@ -32,6 +32,12 @@ export const API_ENDPOINTS = {
   LEARNING_PROGRESS: '/learning-progress',
   TYPING_PRACTICE: '/typing-practice',
   PRONUNCIATION: '/pronunciation',
+  SHOP: '/shop',
+  FRIENDS: '/friends',
+  SKILL_TREE: '/skill-tree',
+  HEARTS: '/hearts',
+  QUESTS: '/quests',
+  ONBOARDING: '/onboarding',
 } as const;
 
 export type ApiEndpoint = typeof API_ENDPOINTS;
