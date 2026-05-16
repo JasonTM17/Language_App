@@ -71,9 +71,9 @@ export default function BookmarksPage() {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto space-y-4">
-        <div className="animate-pulse h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded" />
-        <div className="animate-pulse h-32 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
-        <div className="animate-pulse h-32 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
+        <div className="animate-pulse h-8 w-48 bg-muted rounded" />
+        <div className="animate-pulse h-32 bg-muted rounded-2xl" />
+        <div className="animate-pulse h-32 bg-muted rounded-2xl" />
       </div>
     );
   }
@@ -82,17 +82,17 @@ export default function BookmarksPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Từ vựng của tôi</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Từ vựng hàng ngày và từ đã lưu</p>
+        <p className="text-muted-foreground mt-1">Từ vựng hàng ngày và từ đã lưu</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
+      <div className="flex gap-2 p-1 bg-muted rounded-xl">
         <button
           onClick={() => setActiveTab('word-of-day')}
           className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
             activeTab === 'word-of-day'
               ? 'bg-white dark:bg-gray-700 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700'
+              : 'text-muted-foreground hover:text-gray-700'
           }`}
         >
           Từ vựng hôm nay
@@ -102,7 +102,7 @@ export default function BookmarksPage() {
           className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
             activeTab === 'bookmarks'
               ? 'bg-white dark:bg-gray-700 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700'
+              : 'text-muted-foreground hover:text-gray-700'
           }`}
         >
           Đã lưu ({bookmarks.length})
@@ -156,13 +156,13 @@ function WordCard({ word, showBookmark, showRemove, onBookmark, onRemove }: {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all">
+    <div className="p-4 rounded-xl bg-card border border hover:shadow-md transition-all">
       <div className="flex items-start justify-between">
         <div className="flex-1" onClick={() => setExpanded(!expanded)}>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-sm">{word.language.flag}</span>
             <span className="text-lg font-bold">{word.word}</span>
-            {word.reading && <span className="text-sm text-gray-500">({word.reading})</span>}
+            {word.reading && <span className="text-sm text-muted-foreground">({word.reading})</span>}
           </div>
           <p className="text-sm text-primary-700 dark:text-primary-300 font-medium">{word.meaning}</p>
         </div>
@@ -182,9 +182,9 @@ function WordCard({ word, showBookmark, showRemove, onBookmark, onRemove }: {
         )}
       </div>
       {expanded && word.example && (
-        <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+        <div className="mt-3 pt-3 border-t border">
           <p className="text-sm italic text-gray-700 dark:text-gray-300">{word.example}</p>
-          {word.exampleMeaning && <p className="text-xs text-gray-500 mt-1">{word.exampleMeaning}</p>}
+          {word.exampleMeaning && <p className="text-xs text-muted-foreground mt-1">{word.exampleMeaning}</p>}
         </div>
       )}
     </div>

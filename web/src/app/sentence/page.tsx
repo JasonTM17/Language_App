@@ -103,7 +103,7 @@ export default function SentencePage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🧩</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài tập</h3>
-        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
     );
   }
@@ -123,7 +123,7 @@ export default function SentencePage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Sắp xếp câu</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Sắp xếp các từ thành câu hoàn chỉnh</p>
+        <p className="text-muted-foreground mt-1">Sắp xếp các từ thành câu hoàn chỉnh</p>
       </div>
 
       {/* Language selector */}
@@ -134,8 +134,8 @@ export default function SentencePage() {
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -146,23 +146,23 @@ export default function SentencePage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Câu {currentIndex + 1} / {currentExercises.length}</span>
+        <span className="text-muted-foreground">Câu {currentIndex + 1} / {currentExercises.length}</span>
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
       </div>
 
       {/* Translation prompt */}
-      <div className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-        <p className="text-sm text-gray-500 mb-1">Dịch câu sau:</p>
+      <div className="p-4 rounded-xl bg-card border border">
+        <p className="text-sm text-muted-foreground mb-1">Dịch câu sau:</p>
         <p className="text-lg font-medium">{currentExercise.translation}</p>
       </div>
 
       {/* Selected words (answer area) */}
-      <div className="min-h-[60px] p-4 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 flex flex-wrap gap-2 items-center">
+      <div className="min-h-[60px] p-4 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-muted/50 flex flex-wrap gap-2 items-center">
         {selectedWords.length === 0 && (
-          <p className="text-sm text-gray-400">Nhấn vào các từ bên dưới để sắp xếp câu</p>
+          <p className="text-sm text-muted-foreground">Nhấn vào các từ bên dưới để sắp xếp câu</p>
         )}
         {selectedWords.map((word, i) => (
           <button
@@ -189,7 +189,7 @@ export default function SentencePage() {
             key={`available-${i}`}
             onClick={() => !showResult && selectWord(word, i)}
             disabled={showResult}
-            className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-sm font-medium hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
+            className="px-4 py-2 rounded-lg bg-card border-2 border-border text-sm font-medium hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
           >
             {word}
           </button>
@@ -207,7 +207,7 @@ export default function SentencePage() {
             {isCorrect ? '✓ Chính xác!' : '✗ Chưa đúng'}
           </p>
           {!isCorrect && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Đáp án: {currentExercise.targetSentence}
             </p>
           )}

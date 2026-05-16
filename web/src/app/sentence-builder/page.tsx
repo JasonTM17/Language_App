@@ -117,7 +117,7 @@ export default function SentenceBuilderPage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🧱</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài tập</h3>
-        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
     );
   }
@@ -128,8 +128,8 @@ export default function SentenceBuilderPage() {
       <div className="max-w-2xl mx-auto text-center py-16">
         <div className="text-5xl mb-4">🎉</div>
         <h2 className="text-2xl font-bold mb-4">Hoàn thành!</h2>
-        <p className="text-3xl font-bold text-primary-600 mb-2">{pct}%</p>
-        <p className="text-gray-500 mb-6">{score.correct}/{score.total} câu đúng</p>
+        <p className="text-3xl font-bold text-primary mb-2">{pct}%</p>
+        <p className="text-muted-foreground mb-6">{score.correct}/{score.total} câu đúng</p>
         <Button onClick={resetAll}>Làm lại</Button>
       </div>
     );
@@ -141,7 +141,7 @@ export default function SentenceBuilderPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Xây dựng câu</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Sắp xếp từ thành câu hoàn chỉnh</p>
+        <p className="text-muted-foreground mt-1">Sắp xếp từ thành câu hoàn chỉnh</p>
       </div>
 
       {/* Language selector */}
@@ -152,8 +152,8 @@ export default function SentenceBuilderPage() {
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -164,11 +164,11 @@ export default function SentenceBuilderPage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Câu {currentIndex + 1} / {currentExercises.length}</span>
+        <span className="text-muted-foreground">Câu {currentIndex + 1} / {currentExercises.length}</span>
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
       </div>
 
       {/* Translation hint */}
@@ -181,14 +181,14 @@ export default function SentenceBuilderPage() {
       {/* Selected words (answer area) */}
       <div className="min-h-[60px] p-4 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 flex flex-wrap gap-2">
         {selectedWords.length === 0 ? (
-          <p className="text-sm text-gray-400">Nhấn vào từ bên dưới để xây dựng câu...</p>
+          <p className="text-sm text-muted-foreground">Nhấn vào từ bên dưới để xây dựng câu...</p>
         ) : (
           selectedWords.map((word, idx) => (
             <button
               key={idx}
               onClick={() => !showResult && removeWord(idx)}
               disabled={showResult}
-              className="px-3 py-1.5 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium border border-primary-200 dark:border-primary-800 hover:bg-primary-200 transition-all"
+              className="px-3 py-1.5 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium border border-primary/20 hover:bg-primary-200 transition-all"
             >
               {word}
             </button>
@@ -203,7 +203,7 @@ export default function SentenceBuilderPage() {
             key={idx}
             onClick={() => !showResult && selectWord(word, idx)}
             disabled={showResult}
-            className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-sm font-medium hover:border-primary-300 hover:bg-primary-50 transition-all"
+            className="px-4 py-2 rounded-lg bg-card border-2 border-border text-sm font-medium hover:border-primary-300 hover:bg-primary-50 transition-all"
           >
             {word}
           </button>
@@ -221,7 +221,7 @@ export default function SentenceBuilderPage() {
             {isCorrect ? '✓ Chính xác!' : '✗ Chưa đúng'}
           </p>
           {!isCorrect && (
-            <p className="text-sm text-gray-600 mt-1">Đáp án: {currentExercise.correctOrder.join(' ')}</p>
+            <p className="text-sm text-muted-foreground mt-1">Đáp án: {currentExercise.correctOrder.join(' ')}</p>
           )}
         </div>
       )}

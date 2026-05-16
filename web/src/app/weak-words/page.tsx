@@ -78,7 +78,7 @@ export default function WeakWordsPage() {
         <div className="max-w-2xl mx-auto text-center py-16">
           <div className="text-5xl mb-4">🎉</div>
           <h2 className="text-2xl font-bold mb-2">Hoàn thành ôn tập!</h2>
-          <p className="text-gray-500 mb-4">Bạn đã ôn {reviewed.size} từ</p>
+          <p className="text-muted-foreground mb-4">Bạn đã ôn {reviewed.size} từ</p>
           <div className="flex gap-3 justify-center">
             <Button onClick={resetReview}>Ôn lại</Button>
             <Button variant="outline" onClick={() => setMode('list')}>Xem danh sách</Button>
@@ -95,25 +95,25 @@ export default function WeakWordsPage() {
         </div>
 
         <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-500">{currentCard + 1} / {sortedWords.length}</span>
+          <span className="text-muted-foreground">{currentCard + 1} / {sortedWords.length}</span>
           <span className="text-green-600 font-medium">{reviewed.size} đã nhớ</span>
         </div>
-        <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-          <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${((currentCard + 1) / sortedWords.length) * 100}%` }} />
+        <div className="h-2 bg-muted rounded-full overflow-hidden">
+          <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${((currentCard + 1) / sortedWords.length) * 100}%` }} />
         </div>
 
         <div
           onClick={() => setShowAnswer(true)}
-          className="p-8 rounded-2xl bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 text-center cursor-pointer hover:border-primary-200 transition-all min-h-[200px] flex flex-col justify-center"
+          className="p-8 rounded-2xl bg-card border-2 border text-center cursor-pointer hover:border-primary-200 transition-all min-h-[200px] flex flex-col justify-center"
         >
           <p className="text-3xl font-bold mb-2">{card.word}</p>
           {showAnswer ? (
             <div className="space-y-2 mt-4">
-              <p className="text-lg text-primary-600 font-medium">{card.meaning}</p>
-              <p className="text-sm text-gray-500 italic">{card.example}</p>
+              <p className="text-lg text-primary font-medium">{card.meaning}</p>
+              <p className="text-sm text-muted-foreground italic">{card.example}</p>
             </div>
           ) : (
-            <p className="text-sm text-gray-400 mt-2">Nhấn để xem nghĩa</p>
+            <p className="text-sm text-muted-foreground mt-2">Nhấn để xem nghĩa</p>
           )}
         </div>
 
@@ -129,7 +129,7 @@ export default function WeakWordsPage() {
         )}
 
         <div className="text-center">
-          <p className="text-xs text-gray-400">Độ chính xác: <span className="text-red-500 font-medium">{card.accuracy}%</span> | Đã ôn: {card.reviewCount} lần</p>
+          <p className="text-xs text-muted-foreground">Độ chính xác: <span className="text-red-500 font-medium">{card.accuracy}%</span> | Đã ôn: {card.reviewCount} lần</p>
         </div>
       </div>
     );
@@ -140,7 +140,7 @@ export default function WeakWordsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Từ cần ôn tập</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Những từ bạn hay quên nhất</p>
+          <p className="text-muted-foreground mt-1">Những từ bạn hay quên nhất</p>
         </div>
         <Button onClick={() => { setMode('flashcard'); resetReview(); }}>
           Ôn flashcard
@@ -155,8 +155,8 @@ export default function WeakWordsPage() {
             onClick={() => setSelectedLang(lang.code)}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -169,34 +169,34 @@ export default function WeakWordsPage() {
       <div className="grid grid-cols-3 gap-4">
         <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 text-center">
           <p className="text-xl font-bold text-red-600">{sortedWords.filter(w => w.accuracy < 35).length}</p>
-          <p className="text-xs text-gray-500">Rất yếu</p>
+          <p className="text-xs text-muted-foreground">Rất yếu</p>
         </div>
         <div className="p-3 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 text-center">
           <p className="text-xl font-bold text-orange-600">{sortedWords.filter(w => w.accuracy >= 35 && w.accuracy < 50).length}</p>
-          <p className="text-xs text-gray-500">Cần ôn</p>
+          <p className="text-xs text-muted-foreground">Cần ôn</p>
         </div>
         <div className="p-3 rounded-xl bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30 text-center">
           <p className="text-xl font-bold text-yellow-600">{sortedWords.length}</p>
-          <p className="text-xs text-gray-500">Tổng từ yếu</p>
+          <p className="text-xs text-muted-foreground">Tổng từ yếu</p>
         </div>
       </div>
 
       {/* Word list */}
       <div className="space-y-2">
         {sortedWords.map((word) => (
-          <div key={word.id} className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <div key={word.id} className="p-4 rounded-xl bg-card border border flex items-center justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <span className="font-medium">{word.word}</span>
-                <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-500">{word.language.toUpperCase()}</span>
+                <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-muted-foreground">{word.language.toUpperCase()}</span>
               </div>
-              <p className="text-sm text-gray-500">{word.meaning}</p>
+              <p className="text-sm text-muted-foreground">{word.meaning}</p>
             </div>
             <div className="text-right">
               <p className={`text-sm font-medium ${word.accuracy < 35 ? 'text-red-500' : word.accuracy < 50 ? 'text-orange-500' : 'text-yellow-600'}`}>
                 {word.accuracy}%
               </p>
-              <p className="text-xs text-gray-400">{word.lastReviewed}</p>
+              <p className="text-xs text-muted-foreground">{word.lastReviewed}</p>
             </div>
           </div>
         ))}

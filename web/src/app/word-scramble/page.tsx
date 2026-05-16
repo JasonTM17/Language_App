@@ -123,7 +123,7 @@ export default function WordScramblePage() {
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🔤</div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài xáo chữ</h3>
-        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
     );
   }
@@ -137,11 +137,11 @@ export default function WordScramblePage() {
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
             <p className="text-3xl font-bold text-green-600">{score.correct}/{score.total}</p>
-            <p className="text-sm text-gray-500">Đúng</p>
+            <p className="text-sm text-muted-foreground">Đúng</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-primary-600">{pct}%</p>
-            <p className="text-sm text-gray-500">Chính xác</p>
+            <p className="text-3xl font-bold text-primary">{pct}%</p>
+            <p className="text-sm text-muted-foreground">Chính xác</p>
           </div>
         </div>
         <Button onClick={resetAll}>Chơi lại</Button>
@@ -153,7 +153,7 @@ export default function WordScramblePage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Xáo chữ</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Sắp xếp lại các chữ cái thành từ đúng</p>
+        <p className="text-muted-foreground mt-1">Sắp xếp lại các chữ cái thành từ đúng</p>
       </div>
 
       {/* Language selector */}
@@ -164,8 +164,8 @@ export default function WordScramblePage() {
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -176,31 +176,31 @@ export default function WordScramblePage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Từ {currentIndex + 1} / {currentWords.length}</span>
+        <span className="text-muted-foreground">Từ {currentIndex + 1} / {currentWords.length}</span>
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentWords.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentWords.length) * 100}%` }} />
       </div>
 
       {/* Scrambled word */}
-      <div className="p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center space-y-3">
+      <div className="p-8 rounded-2xl bg-card border border text-center space-y-3">
         <div className="flex justify-center gap-2 flex-wrap">
           {scrambled.split('').map((char, i) => (
             <span
               key={i}
-              className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold text-lg border-2 border-primary-200 dark:border-primary-800"
+              className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold text-lg border-2 border-primary/20"
             >
               {char}
             </span>
           ))}
         </div>
-        <p className="text-sm text-gray-500 mt-3">Nghĩa: <span className="font-medium">{currentWord.meaning}</span></p>
+        <p className="text-sm text-muted-foreground mt-3">Nghĩa: <span className="font-medium">{currentWord.meaning}</span></p>
         {showHint && (
-          <p className="text-xs text-gray-400">Gợi ý: {currentWord.hint}</p>
+          <p className="text-xs text-muted-foreground">Gợi ý: {currentWord.hint}</p>
         )}
         {!showHint && !showResult && (
-          <button onClick={() => setShowHint(true)} className="text-xs text-primary-500 hover:underline">
+          <button onClick={() => setShowHint(true)} className="text-xs text-primary hover:underline">
             Xem gợi ý
           </button>
         )}
@@ -214,7 +214,7 @@ export default function WordScramblePage() {
         onKeyDown={(e) => e.key === 'Enter' && !showResult && userAnswer.trim() && checkAnswer()}
         placeholder="Gõ từ đúng..."
         disabled={showResult}
-        className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-lg text-center focus:border-primary-500 focus:outline-none transition-all"
+        className="w-full p-4 rounded-xl border-2 border-border bg-card text-lg text-center focus:border-primary focus:outline-none transition-all"
         autoComplete="off"
       />
 

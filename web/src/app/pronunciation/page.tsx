@@ -140,10 +140,10 @@ export default function PronunciationPage() {
     <div className="max-w-2xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Pronunciation Practice</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Improve your speaking skills with real-time feedback</p>
+        <p className="text-muted-foreground mt-1">Improve your speaking skills with real-time feedback</p>
       </div>
 
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <h2 className="font-semibold mb-4">Select Language</h2>
         <div className="grid grid-cols-4 gap-3 mb-6">
           {languages.map((lang) => (
@@ -151,7 +151,7 @@ export default function PronunciationPage() {
               key={lang.code}
               onClick={() => { setLanguage(lang.code); setFeedback(null); setTranscript(''); }}
               className={`p-3 rounded-xl border-2 text-center transition-all ${
-                language === lang.code ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20' : 'border-gray-200 dark:border-gray-700'
+                language === lang.code ? 'border-primary bg-primary/5' : 'border-border'
               }`}
             >
               <div className="text-xl">{lang.flag}</div>
@@ -168,8 +168,8 @@ export default function PronunciationPage() {
               onClick={() => setText(phrase)}
               className={`w-full text-left p-3 rounded-xl border transition-colors text-sm ${
                 text === phrase
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary-300 dark:hover:border-primary-700'
               }`}
             >
               {phrase}
@@ -182,7 +182,7 @@ export default function PronunciationPage() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Type a sentence to practice..."
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 outline-none resize-none h-24"
+          className="w-full px-4 py-3 rounded-xl border border-border bg-muted/50 focus:ring-2 focus:ring-primary-500 outline-none resize-none h-24"
         />
 
         <div className="flex gap-3 mt-4">

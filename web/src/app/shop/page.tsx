@@ -53,7 +53,7 @@ export default function ShopPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Cửa hàng</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Dùng gems để mua vật phẩm hữu ích</p>
+          <p className="text-muted-foreground mt-1">Dùng gems để mua vật phẩm hữu ích</p>
         </div>
         <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
           <span className="text-lg">💎</span>
@@ -74,8 +74,8 @@ export default function ShopPage() {
             onClick={() => setCategory(tab.key as any)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               category === tab.key
-                ? 'bg-primary-500 text-white'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'bg-primary text-white'
+                : 'bg-muted text-muted-foreground hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
             {tab.label}
@@ -92,20 +92,20 @@ export default function ShopPage() {
           return (
             <div
               key={item.id}
-              className={`p-4 rounded-2xl bg-white dark:bg-gray-800 border transition-all ${
+              className={`p-4 rounded-2xl bg-card border transition-all ${
                 alreadyBought
                   ? 'border-green-200 dark:border-green-800 opacity-70'
-                  : 'border-gray-100 dark:border-gray-700 hover:border-primary-200 hover:shadow-md'
+                  : 'border hover:border-primary-200 hover:shadow-md'
               }`}
             >
               <div className="flex items-start gap-3">
                 <div className="text-3xl">{item.icon}</div>
                 <div className="flex-1">
                   <h3 className="font-semibold">{item.name}</h3>
-                  <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
                 </div>
               </div>
-              <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border">
                 <div className="flex items-center gap-1">
                   <span className="text-sm">💎</span>
                   <span className="font-bold text-sm">{item.price}</span>
@@ -128,22 +128,22 @@ export default function ShopPage() {
       </div>
 
       {/* How to earn gems */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border border">
         <button
           onClick={() => setShowEarn(!showEarn)}
           className="w-full flex items-center justify-between"
         >
           <h2 className="font-semibold text-lg">Cách kiếm gems 💎</h2>
-          <span className={`text-gray-400 transition-transform ${showEarn ? 'rotate-180' : ''}`}>▼</span>
+          <span className={`text-muted-foreground transition-transform ${showEarn ? 'rotate-180' : ''}`}>▼</span>
         </button>
         {showEarn && (
           <div className="mt-4 space-y-3">
             {earnMethods.map((method, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-900">
+              <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
                 <span className="text-xl">{method.icon}</span>
                 <div className="flex-1">
                   <p className="text-sm font-medium">{method.title}</p>
-                  <p className="text-xs text-gray-500">{method.description}</p>
+                  <p className="text-xs text-muted-foreground">{method.description}</p>
                 </div>
                 <span className="text-sm font-bold text-purple-600 dark:text-purple-400">{method.gems}</span>
               </div>

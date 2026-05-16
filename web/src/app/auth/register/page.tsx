@@ -41,10 +41,10 @@ export default function RegisterPage() {
             <span className="font-display font-bold text-2xl">LinguaFlow</span>
           </Link>
           <h1 className="text-2xl font-bold mb-2">Create your account</h1>
-          <p className="text-gray-600 dark:text-gray-400">Start learning a new language today</p>
+          <p className="text-muted-foreground">Start learning a new language today</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+        <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-xl border border">
           {error && (
             <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
               {error}
@@ -58,7 +58,7 @@ export default function RegisterPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-border bg-muted/50 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
                 placeholder="Nguyen Van A"
                 required
               />
@@ -69,7 +69,7 @@ export default function RegisterPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-border bg-muted/50 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
                 placeholder="your@email.com"
                 required
               />
@@ -80,7 +80,7 @@ export default function RegisterPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-border bg-muted/50 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all"
                 placeholder="At least 6 characters"
                 minLength={6}
                 required
@@ -92,14 +92,14 @@ export default function RegisterPage() {
             Create Account
           </Button>
 
-          <p className="mt-4 text-xs text-center text-gray-500">
+          <p className="mt-4 text-xs text-center text-muted-foreground">
             By signing up, you agree to our Terms of Service and Privacy Policy.
           </p>
         </form>
 
-        <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-center mt-6 text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href="/auth/login" className="text-primary-600 font-medium hover:text-primary-700">
+          <Link href="/auth/login" className="text-primary font-medium hover:text-primary-700">
             Log in
           </Link>
         </p>

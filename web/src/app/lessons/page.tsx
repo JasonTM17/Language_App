@@ -42,8 +42,8 @@ export default function LessonsPage() {
   if (loading) {
     return (
       <div className="space-y-4 animate-pulse">
-        <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded-lg" />
-        {[...Array(5)].map((_, i) => <div key={i} className="h-24 bg-gray-200 dark:bg-gray-800 rounded-2xl" />)}
+        <div className="h-8 w-48 bg-muted rounded-lg" />
+        {[...Array(5)].map((_, i) => <div key={i} className="h-24 bg-muted rounded-2xl" />)}
       </div>
     );
   }
@@ -52,7 +52,7 @@ export default function LessonsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Bài học</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <p className="text-muted-foreground mt-1">
           {langCode ? `Bài học cho ${langCode.toUpperCase()}` : 'Tất cả bài học'}
         </p>
       </div>
@@ -65,13 +65,13 @@ export default function LessonsPage() {
               <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${
                 isCompleted
                   ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
-                  : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-800'
+                  : 'bg-card border hover:border-primary-200 dark:hover:border-primary-800'
               }`}>
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold ${
                     isCompleted
                       ? 'bg-green-100 dark:bg-green-900/30 text-green-600'
-                      : 'bg-primary-100 dark:bg-primary-900/30 text-primary-600'
+                      : 'bg-primary-100 dark:bg-primary-900/30 text-primary'
                   }`}>
                     {isCompleted ? '✓' : index + 1}
                   </div>
@@ -80,9 +80,9 @@ export default function LessonsPage() {
                       <span className="text-lg">{lesson.level?.language?.flag}</span>
                       <h3 className="font-semibold">{lesson.title}</h3>
                     </div>
-                    <p className="text-sm text-gray-500 mt-0.5">{lesson.description}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{lesson.description}</p>
                   </div>
-                  <div className="hidden sm:flex items-center gap-4 text-sm text-gray-500">
+                  <div className="hidden sm:flex items-center gap-4 text-sm text-muted-foreground">
                     <span className="flex items-center gap-1">⭐ {lesson.xpReward} XP</span>
                     <span className="flex items-center gap-1">⏱️ {lesson.duration}min</span>
                   </div>
@@ -97,9 +97,9 @@ export default function LessonsPage() {
         <div className="text-center py-16">
           <div className="text-5xl mb-4">📚</div>
           <h3 className="text-lg font-semibold mb-2">Chưa có bài học</h3>
-          <p className="text-gray-500">Hãy chọn ngôn ngữ trước để xem bài học.</p>
+          <p className="text-muted-foreground">Hãy chọn ngôn ngữ trước để xem bài học.</p>
           <Link href="/languages" className="inline-block mt-4">
-            <button className="px-6 py-2 rounded-xl bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors">Chọn ngôn ngữ</button>
+            <button className="px-6 py-2 rounded-xl bg-primary text-white font-medium hover:bg-primary-600 transition-colors">Chọn ngôn ngữ</button>
           </Link>
         </div>
       )}

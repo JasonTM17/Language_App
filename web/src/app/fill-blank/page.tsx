@@ -88,7 +88,7 @@ export default function FillBlankPage() {
         <div className="text-5xl mb-4">🎉</div>
         <h2 className="text-2xl font-bold mb-4">Hoàn thành!</h2>
         <p className="text-lg mb-2">Điểm: {score.correct}/{score.total}</p>
-        <p className="text-gray-500 mb-6">
+        <p className="text-muted-foreground mb-6">
           {score.correct === score.total ? 'Xuất sắc! Bạn nắm vững ngữ pháp!' : 'Tiếp tục luyện tập nhé!'}
         </p>
         <Button onClick={resetAll}>Làm lại</Button>
@@ -100,7 +100,7 @@ export default function FillBlankPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Điền từ</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Chọn từ đúng để hoàn thành câu</p>
+        <p className="text-muted-foreground mt-1">Chọn từ đúng để hoàn thành câu</p>
       </div>
 
       {/* Language selector */}
@@ -111,8 +111,8 @@ export default function FillBlankPage() {
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary-200'
             }`}
           >
             <span>{lang.flag}</span>
@@ -123,15 +123,15 @@ export default function FillBlankPage() {
 
       {/* Progress */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Câu {currentIndex + 1} / {currentExercises.length}</span>
+        <span className="text-muted-foreground">Câu {currentIndex + 1} / {currentExercises.length}</span>
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
       </div>
 
       {/* Sentence with blank */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
+      <div className="p-6 rounded-2xl bg-card border border text-center">
         <p className="text-xl font-medium leading-relaxed">
           {currentExercise.sentence.split('___').map((part, i, arr) => (
             <span key={i}>
@@ -150,21 +150,21 @@ export default function FillBlankPage() {
             </span>
           ))}
         </p>
-        <p className="text-sm text-gray-500 mt-3">{currentExercise.translation}</p>
-        <p className="text-xs text-gray-400 mt-1">Gợi ý: {currentExercise.hint}</p>
+        <p className="text-sm text-muted-foreground mt-3">{currentExercise.translation}</p>
+        <p className="text-xs text-muted-foreground mt-1">Gợi ý: {currentExercise.hint}</p>
       </div>
 
       {/* Options */}
       <div className="grid grid-cols-2 gap-3">
         {currentExercise.options.map((option) => {
-          let styles = 'border-gray-200 dark:border-gray-700 hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20';
+          let styles = 'border-border hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20';
           if (showResult) {
             if (option === currentExercise.blank) {
               styles = 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300';
             } else if (option === selectedAnswer) {
               styles = 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300';
             } else {
-              styles = 'border-gray-200 dark:border-gray-700 opacity-50';
+              styles = 'border-border opacity-50';
             }
           }
 

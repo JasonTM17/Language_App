@@ -31,8 +31,8 @@ export default function ReviewPage() {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto space-y-4">
-        <div className="animate-pulse h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded" />
-        <div className="animate-pulse h-48 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
+        <div className="animate-pulse h-8 w-48 bg-muted rounded" />
+        <div className="animate-pulse h-48 bg-muted rounded-2xl" />
       </div>
     );
   }
@@ -44,29 +44,29 @@ export default function ReviewPage() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Ôn tập</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Lịch ôn tập theo thuật toán lặp lại ngắt quãng</p>
+        <p className="text-muted-foreground mt-1">Lịch ôn tập theo thuật toán lặp lại ngắt quãng</p>
       </div>
 
       {/* Stats cards */}
       <div className="grid grid-cols-3 gap-4">
         <div className="p-4 rounded-xl bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 text-center">
           <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{data?.dueToday || 0}</p>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Cần ôn hôm nay</p>
+          <p className="text-xs text-muted-foreground mt-1">Cần ôn hôm nay</p>
         </div>
         <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-center">
           <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{data?.totalCards || 0}</p>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Tổng thẻ</p>
+          <p className="text-xs text-muted-foreground mt-1">Tổng thẻ</p>
         </div>
         <div className="p-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-center">
           <p className="text-2xl font-bold text-green-600 dark:text-green-400">{data?.masteredCards || 0}</p>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Đã thuộc</p>
+          <p className="text-xs text-muted-foreground mt-1">Đã thuộc</p>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-4 rounded-xl bg-card border border">
         <div className="flex justify-between text-sm mb-2">
-          <span className="text-gray-600 dark:text-gray-400">Tiến độ ghi nhớ</span>
+          <span className="text-muted-foreground">Tiến độ ghi nhớ</span>
           <span className="font-medium">{data?.totalCards ? Math.round((data.masteredCards / data.totalCards) * 100) : 0}%</span>
         </div>
         <div className="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -78,7 +78,7 @@ export default function ReviewPage() {
       </div>
 
       {/* 7-day forecast */}
-      <div className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-5 rounded-2xl bg-card border border">
         <h2 className="font-semibold mb-4">Dự báo 7 ngày tới</h2>
         <div className="flex items-end justify-between gap-2 h-40">
           {Object.entries(forecast).map(([date, count]) => {
@@ -88,7 +88,7 @@ export default function ReviewPage() {
 
             return (
               <div key={date} className="flex-1 flex flex-col items-center gap-1">
-                <span className="text-xs text-gray-500">{count}</span>
+                <span className="text-xs text-muted-foreground">{count}</span>
                 <div className="w-full flex items-end" style={{ height: '100px' }}>
                   <div
                     className={`w-full rounded-t-lg transition-all ${
@@ -99,7 +99,7 @@ export default function ReviewPage() {
                     style={{ height: `${Math.max(height, 5)}%` }}
                   />
                 </div>
-                <span className={`text-xs ${isToday ? 'font-bold text-primary-600' : 'text-gray-500'}`}>
+                <span className={`text-xs ${isToday ? 'font-bold text-primary' : 'text-muted-foreground'}`}>
                   {dayName}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export default function ReviewPage() {
       </div>
 
       {/* Tips */}
-      <div className="p-4 rounded-xl bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800">
+      <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
         <h3 className="font-medium text-sm text-primary-800 dark:text-primary-200 mb-2">Mẹo ôn tập hiệu quả</h3>
         <ul className="space-y-1 text-sm text-primary-700 dark:text-primary-300">
           <li>• Ôn tập mỗi ngày vào cùng một giờ để tạo thói quen</li>

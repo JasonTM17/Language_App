@@ -43,7 +43,7 @@ export default function DailyGoalsPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Mục tiêu hàng ngày</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Hoàn thành nhiệm vụ để nhận XP và gems</p>
+        <p className="text-muted-foreground mt-1">Hoàn thành nhiệm vụ để nhận XP và gems</p>
       </div>
 
       {/* Daily XP goal */}
@@ -62,7 +62,7 @@ export default function DailyGoalsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
+      <div className="flex gap-1 bg-muted rounded-xl p-1">
         {[
           { key: 'daily' as const, label: 'Hàng ngày', icon: '📅' },
           { key: 'weekly' as const, label: 'Hàng tuần', icon: '📆' },
@@ -74,7 +74,7 @@ export default function DailyGoalsPage() {
             className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
               activeTab === tab.key
                 ? 'bg-white dark:bg-gray-700 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-muted-foreground hover:text-gray-700'
             }`}
           >
             <span>{tab.icon}</span>
@@ -85,7 +85,7 @@ export default function DailyGoalsPage() {
 
       {/* Progress summary */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-500">Hoàn thành: {completedCount}/{filteredQuests.length}</span>
+        <span className="text-muted-foreground">Hoàn thành: {completedCount}/{filteredQuests.length}</span>
         <span className="text-green-600 font-medium">+{totalXP} XP đã nhận</span>
       </div>
 
@@ -99,29 +99,29 @@ export default function DailyGoalsPage() {
               className={`p-4 rounded-xl border-2 transition-all ${
                 quest.completed
                   ? 'border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/10'
-                  : 'border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800'
+                  : 'border bg-card'
               }`}
             >
               <div className="flex items-start gap-3">
                 <div className="text-2xl">{quest.icon}</div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className={`font-medium text-sm ${quest.completed ? 'line-through text-gray-400' : ''}`}>
+                    <h3 className={`font-medium text-sm ${quest.completed ? 'line-through text-muted-foreground' : ''}`}>
                       {quest.title}
                     </h3>
                     {quest.completed && <span className="text-green-500 text-xs">✓</span>}
                   </div>
-                  <p className="text-xs text-gray-500 mt-0.5">{quest.description}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{quest.description}</p>
 
                   {/* Progress bar */}
                   <div className="mt-2">
-                    <div className="flex justify-between text-xs text-gray-400 mb-1">
+                    <div className="flex justify-between text-xs text-muted-foreground mb-1">
                       <span>{quest.progress}/{quest.target}</span>
                       <span>{Math.round(progress)}%</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
-                        className={`h-full rounded-full transition-all ${quest.completed ? 'bg-green-400' : 'bg-primary-500'}`}
+                        className={`h-full rounded-full transition-all ${quest.completed ? 'bg-green-400' : 'bg-primary'}`}
                         style={{ width: `${progress}%` }}
                       />
                     </div>
@@ -149,7 +149,7 @@ export default function DailyGoalsPage() {
           <span className="text-2xl">🎁</span>
           <div className="flex-1">
             <p className="text-sm font-medium">Bonus hoàn thành tất cả</p>
-            <p className="text-xs text-gray-500">Hoàn thành tất cả nhiệm vụ {activeTab === 'daily' ? 'hôm nay' : 'tuần này'} để nhận thưởng bonus</p>
+            <p className="text-xs text-muted-foreground">Hoàn thành tất cả nhiệm vụ {activeTab === 'daily' ? 'hôm nay' : 'tuần này'} để nhận thưởng bonus</p>
           </div>
           <div className="text-right">
             <p className="text-sm font-bold text-purple-600">+50 💎</p>

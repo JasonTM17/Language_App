@@ -191,7 +191,7 @@ export default function ConversationPage() {
       <div className="max-w-3xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold font-display">Hội thoại</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Luyện tập hội thoại theo tình huống thực tế</p>
+          <p className="text-muted-foreground mt-1">Luyện tập hội thoại theo tình huống thực tế</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
@@ -201,8 +201,8 @@ export default function ConversationPage() {
               onClick={() => setSelectedLang(lang.code)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary-200'
               }`}
             >
               <span>{lang.flag}</span>
@@ -216,11 +216,11 @@ export default function ConversationPage() {
             <button
               key={scenario.id}
               onClick={() => startScenario(scenario)}
-              className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-left hover:border-primary-300 hover:shadow-md transition-all"
+              className="p-5 rounded-2xl bg-card border border text-left hover:border-primary-300 hover:shadow-md transition-all"
             >
               <h3 className="font-semibold text-lg">{scenario.title}</h3>
-              <p className="text-sm text-gray-500 mt-0.5">{scenario.titleVi}</p>
-              <p className="text-xs text-gray-400 mt-2">{scenario.context}</p>
+              <p className="text-sm text-muted-foreground mt-0.5">{scenario.titleVi}</p>
+              <p className="text-xs text-muted-foreground mt-2">{scenario.context}</p>
             </button>
           ))}
         </div>
@@ -228,7 +228,7 @@ export default function ConversationPage() {
         {currentScenarios.length === 0 && (
           <div className="text-center py-12">
             <div className="text-4xl mb-3">💬</div>
-            <p className="text-gray-500">Chưa có kịch bản hội thoại cho ngôn ngữ này.</p>
+            <p className="text-muted-foreground">Chưa có kịch bản hội thoại cho ngôn ngữ này.</p>
           </div>
         )}
       </div>
@@ -239,8 +239,8 @@ export default function ConversationPage() {
     <div className="max-w-2xl mx-auto space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <button onClick={backToList} className="text-sm text-primary-600 hover:underline">← Quay lại</button>
-        <span className="text-sm text-gray-500">{selectedScenario.title}</span>
+        <button onClick={backToList} className="text-sm text-primary hover:underline">← Quay lại</button>
+        <span className="text-sm text-muted-foreground">{selectedScenario.title}</span>
       </div>
 
       {/* Context */}
@@ -249,17 +249,17 @@ export default function ConversationPage() {
       </div>
 
       {/* Chat messages */}
-      <div className="space-y-3 min-h-[300px] max-h-[400px] overflow-y-auto p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
+      <div className="space-y-3 min-h-[300px] max-h-[400px] overflow-y-auto p-4 rounded-2xl bg-muted/50 border dark:border-gray-800">
         {chatMessages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] p-3 rounded-2xl ${
               msg.role === 'user'
-                ? 'bg-primary-500 text-white rounded-br-md'
-                : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-bl-md'
+                ? 'bg-primary text-white rounded-br-md'
+                : 'bg-card border border-border rounded-bl-md'
             }`}>
               <p className="text-sm">{msg.text}</p>
               {msg.translation && msg.role !== 'user' && (
-                <p className={`text-xs mt-1 ${msg.role === 'user' ? 'text-primary-100' : 'text-gray-400'}`}>
+                <p className={`text-xs mt-1 ${msg.role === 'user' ? 'text-primary-100' : 'text-muted-foreground'}`}>
                   {msg.translation}
                 </p>
               )}
@@ -272,12 +272,12 @@ export default function ConversationPage() {
       {/* User options */}
       {!completed && selectedScenario.userOptions[currentStep] && (
         <div className="space-y-2">
-          <p className="text-xs text-gray-500 font-medium">Chọn câu trả lời:</p>
+          <p className="text-xs text-muted-foreground font-medium">Chọn câu trả lời:</p>
           {selectedScenario.userOptions[currentStep].map((option, i) => (
             <button
               key={i}
               onClick={() => selectOption(option)}
-              className="w-full p-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-left text-sm font-medium hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
+              className="w-full p-3 rounded-xl border-2 border-border text-left text-sm font-medium hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
             >
               {option}
             </button>

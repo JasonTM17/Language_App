@@ -62,11 +62,11 @@ export default function FriendsPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Bạn bè</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Kết nối và cùng nhau học tập</p>
+        <p className="text-muted-foreground mt-1">Kết nối và cùng nhau học tập</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
+      <div className="flex gap-1 bg-muted rounded-xl p-1">
         {[
           { key: 'friends' as const, label: 'Bạn bè', count: friends.length },
           { key: 'requests' as const, label: 'Lời mời', count: friendRequests.length },
@@ -78,13 +78,13 @@ export default function FriendsPage() {
             className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
               activeTab === tab.key
                 ? 'bg-white dark:bg-gray-700 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-muted-foreground hover:text-gray-700'
             }`}
           >
             <span>{tab.label}</span>
             {tab.count > 0 && (
               <span className={`text-xs px-1.5 py-0.5 rounded-full ${
-                activeTab === tab.key ? 'bg-primary-100 text-primary-700' : 'bg-gray-200 text-gray-600'
+                activeTab === tab.key ? 'bg-primary-100 text-primary-700' : 'bg-gray-200 text-muted-foreground'
               }`}>
                 {tab.count}
               </span>
@@ -101,7 +101,7 @@ export default function FriendsPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Tìm bạn bè..."
-            className="w-full p-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:border-primary-500 focus:outline-none"
+            className="w-full p-3 rounded-xl border border-border bg-card text-sm focus:border-primary focus:outline-none"
           />
 
           {/* Online friends */}
@@ -112,7 +112,7 @@ export default function FriendsPage() {
                 return order[a.status] - order[b.status];
               })
               .map((friend) => (
-                <div key={friend.id} className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+                <div key={friend.id} className="p-4 rounded-xl bg-card border border flex items-center gap-3">
                   <div className="relative">
                     <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-2xl">
                       {friend.avatar}
@@ -123,10 +123,10 @@ export default function FriendsPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <p className="font-medium text-sm truncate">{friend.name}</p>
-                      <span className="text-xs text-gray-400">Lv.{friend.level}</span>
+                      <span className="text-xs text-muted-foreground">Lv.{friend.level}</span>
                     </div>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-xs text-gray-500">{friend.lastActive}</span>
+                      <span className="text-xs text-muted-foreground">{friend.lastActive}</span>
                       <span className="text-xs">•</span>
                       <span className="text-xs text-orange-500">🔥 {friend.streak}</span>
                     </div>
@@ -138,7 +138,7 @@ export default function FriendsPage() {
                   </div>
 
                   <div className="text-right">
-                    <p className="text-sm font-medium text-primary-600">{friend.xp.toLocaleString()} XP</p>
+                    <p className="text-sm font-medium text-primary">{friend.xp.toLocaleString()} XP</p>
                   </div>
                 </div>
               ))}
@@ -156,13 +156,13 @@ export default function FriendsPage() {
             />
           ) : (
             friendRequests.map((req) => (
-              <div key={req.id} className="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+              <div key={req.id} className="p-4 rounded-xl bg-card border border flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-2xl">
                   {req.avatar}
                 </div>
                 <div className="flex-1">
                   <p className="font-medium text-sm">{req.name}</p>
-                  <p className="text-xs text-gray-500">Level {req.level} • {req.mutualFriends} bạn chung</p>
+                  <p className="text-xs text-muted-foreground">Level {req.level} • {req.mutualFriends} bạn chung</p>
                 </div>
                 <div className="flex gap-2">
                   <Button size="sm">Chấp nhận</Button>
@@ -179,31 +179,31 @@ export default function FriendsPage() {
           <input
             type="text"
             placeholder="Nhập tên hoặc email..."
-            className="w-full p-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm focus:border-primary-500 focus:outline-none"
+            className="w-full p-3 rounded-xl border border-border bg-card text-sm focus:border-primary focus:outline-none"
           />
 
           <div className="text-center py-8">
             <div className="text-4xl mb-3">🔍</div>
-            <p className="text-gray-500 text-sm">Tìm bạn bè bằng tên hoặc email</p>
-            <p className="text-xs text-gray-400 mt-1">Mời bạn bè cùng học để tăng động lực!</p>
+            <p className="text-muted-foreground text-sm">Tìm bạn bè bằng tên hoặc email</p>
+            <p className="text-xs text-muted-foreground mt-1">Mời bạn bè cùng học để tăng động lực!</p>
           </div>
 
           {/* Suggested friends */}
           <div>
-            <p className="text-sm font-medium text-gray-500 mb-3">Gợi ý kết bạn</p>
+            <p className="text-sm font-medium text-muted-foreground mb-3">Gợi ý kết bạn</p>
             <div className="space-y-2">
               {[
                 { name: 'Bùi Thị Ngọc', avatar: '👩‍🎨', level: 9, reason: '3 bạn chung' },
                 { name: 'Lý Văn Đạt', avatar: '🧑‍💻', level: 14, reason: 'Cùng học English' },
                 { name: 'Trương Minh Châu', avatar: '👩‍🔬', level: 6, reason: '2 bạn chung' },
               ].map((suggestion, i) => (
-                <div key={i} className="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+                <div key={i} className="p-3 rounded-xl bg-card border border flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl">
                     {suggestion.avatar}
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-sm">{suggestion.name}</p>
-                    <p className="text-xs text-gray-500">Lv.{suggestion.level} • {suggestion.reason}</p>
+                    <p className="text-xs text-muted-foreground">Lv.{suggestion.level} • {suggestion.reason}</p>
                   </div>
                   <Button size="sm" variant="outline">Kết bạn</Button>
                 </div>
