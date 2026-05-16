@@ -7,6 +7,9 @@ import { StreakCelebration } from '@/components/ui/streak-celebration';
 import { useAuthStore } from '@/lib/store';
 import { api } from '@/services/api';
 
+import { FileText, Headphones, Mic, Ruler, Keyboard, Zap, Layers, HelpCircle } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
 interface DashboardData {
   stats: { xp: number; level: number; streak: number; completedLessons: number; quizAccuracy: number };
   enrollments: any[];
@@ -25,14 +28,14 @@ interface DailyGoal {
 }
 
 const quickActions = [
-  { href: '/vocabulary', icon: '📝', label: 'Từ vựng', color: 'from-blue-500 to-cyan-500' },
-  { href: '/listening', icon: '🎧', label: 'Luyện nghe', color: 'from-purple-500 to-pink-500' },
-  { href: '/speaking', icon: '🎤', label: 'Luyện nói', color: 'from-orange-500 to-red-500' },
-  { href: '/grammar-tips', icon: '📐', label: 'Ngữ pháp', color: 'from-green-500 to-emerald-500' },
-  { href: '/typing-practice', icon: '⌨️', label: 'Gõ phím', color: 'from-indigo-500 to-violet-500' },
-  { href: '/daily-challenge', icon: '⚡', label: 'Thử thách', color: 'from-amber-500 to-orange-500' },
-  { href: '/flashcards', icon: '🃏', label: 'Flashcard', color: 'from-teal-500 to-cyan-500' },
-  { href: '/quiz', icon: '❓', label: 'Quiz', color: 'from-rose-500 to-pink-500' },
+  { href: '/vocabulary', icon: FileText, label: 'Từ vựng', color: 'from-blue-500 to-cyan-500' },
+  { href: '/listening', icon: Headphones, label: 'Luyện nghe', color: 'from-purple-500 to-pink-500' },
+  { href: '/speaking', icon: Mic, label: 'Luyện nói', color: 'from-orange-500 to-red-500' },
+  { href: '/grammar-tips', icon: Ruler, label: 'Ngữ pháp', color: 'from-green-500 to-emerald-500' },
+  { href: '/typing-practice', icon: Keyboard, label: 'Gõ phím', color: 'from-indigo-500 to-violet-500' },
+  { href: '/daily-challenge', icon: Zap, label: 'Thử thách', color: 'from-amber-500 to-orange-500' },
+  { href: '/flashcards', icon: Layers, label: 'Flashcard', color: 'from-teal-500 to-cyan-500' },
+  { href: '/quiz', icon: HelpCircle, label: 'Quiz', color: 'from-rose-500 to-pink-500' },
 ];
 
 const weekDays = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
@@ -214,7 +217,9 @@ export default function DashboardPage() {
               href={action.href}
               className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border hover:shadow-md hover:-translate-y-0.5 transition-all"
             >
-              <span className="text-2xl">{action.icon}</span>
+              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${action.color} flex items-center justify-center`}>
+                <action.icon className="w-5 h-5 text-white" />
+              </div>
               <span className="text-[11px] font-medium text-center leading-tight">{action.label}</span>
             </Link>
           ))}
