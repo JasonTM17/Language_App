@@ -36,31 +36,31 @@ export default function AchievementsPage() {
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+        <div className="h-8 w-48 bg-muted rounded-lg" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[...Array(8)].map((_, i) => <div key={i} className="h-40 bg-gray-200 dark:bg-gray-800 rounded-2xl" />)}
+          {[...Array(8)].map((_, i) => <div key={i} className="h-40 bg-muted rounded-2xl" />)}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Thành tựu</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-muted-foreground text-sm mt-0.5">
             Đã mở khóa {unlockedCount} / {achievements.length} thành tựu
           </p>
         </div>
         <div className="text-right">
-          <p className="text-3xl font-bold text-primary-600">{unlockedCount}</p>
-          <p className="text-xs text-gray-500">Thành tựu</p>
+          <p className="text-3xl font-bold text-primary">{unlockedCount}</p>
+          <p className="text-xs text-muted-foreground">Thành tựu</p>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="h-3 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <div className="h-3 bg-muted rounded-full overflow-hidden">
         <div
           className="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all"
           style={{ width: `${(unlockedCount / achievements.length) * 100}%` }}
@@ -75,8 +75,8 @@ export default function AchievementsPage() {
             onClick={() => setFilter(cat)}
             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
               filter === cat
-                ? 'bg-primary-500 text-white'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-muted text-muted-foreground hover:bg-muted/80'
             }`}
           >
             {cat === 'all' ? 'Tất cả' : cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -92,14 +92,14 @@ export default function AchievementsPage() {
             className={`p-4 rounded-2xl border-2 text-center transition-all ${
               achievement.unlocked
                 ? 'border-yellow-300 dark:border-yellow-600 bg-gradient-to-b from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20'
-                : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 opacity-60'
+                : 'border-border bg-muted/50 opacity-60'
             }`}
           >
             <div className={`text-4xl mb-2 ${achievement.unlocked ? '' : 'grayscale'}`}>
               {achievement.icon}
             </div>
             <h3 className="font-semibold text-sm mb-1">{achievement.nameVi}</h3>
-            <p className="text-xs text-gray-500 mb-2">{achievement.descriptionVi}</p>
+            <p className="text-xs text-muted-foreground mb-2">{achievement.descriptionVi}</p>
             <div className="flex items-center justify-center gap-1">
               <span className="text-xs font-medium text-yellow-600">+{achievement.xpReward} XP</span>
             </div>
