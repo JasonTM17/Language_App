@@ -35,6 +35,10 @@ const exercises: Record<string, SentenceExercise[]> = {
     { id: '6', words: ['飲みます', 'を', 'コーヒー', '朝'], correctOrder: ['朝', 'コーヒー', 'を', '飲みます'], translation: 'Buổi sáng tôi uống cà phê.', language: 'ja' },
     { id: '7', words: ['います', 'に', '猫が', '部屋'], correctOrder: ['部屋', 'に', '猫が', 'います'], translation: 'Trong phòng có con mèo.', language: 'ja' },
     { id: '8', words: ['買いたい', 'を', '本', 'この'], correctOrder: ['この', '本', 'を', '買いたい'], translation: 'Tôi muốn mua cuốn sách này.', language: 'ja' },
+    { id: '9', words: ['見ました', 'を', '映画', '昨日'], correctOrder: ['昨日', '映画', 'を', '見ました'], translation: 'Hôm qua tôi đã xem phim.', language: 'ja' },
+    { id: '10', words: ['高い', 'は', 'この', 'です', 'ビル'], correctOrder: ['この', 'ビル', 'は', '高い', 'です'], translation: 'Tòa nhà này cao.', language: 'ja' },
+    { id: '11', words: ['住んでいます', 'に', '東京', '私は'], correctOrder: ['私は', '東京', 'に', '住んでいます'], translation: 'Tôi sống ở Tokyo.', language: 'ja' },
+    { id: '12', words: ['来ます', 'から', '友達が', '明日'], correctOrder: ['明日', '友達が', '来ます'], translation: 'Ngày mai bạn tôi sẽ đến.', language: 'ja' },
   ],
   zh: [
     { id: '1', words: ['学生', '我', '是'], correctOrder: ['我', '是', '学生'], translation: 'Tôi là học sinh.', language: 'zh' },
@@ -45,6 +49,10 @@ const exercises: Record<string, SentenceExercise[]> = {
     { id: '6', words: ['咖啡', '想', '喝', '我'], correctOrder: ['我', '想', '喝', '咖啡'], translation: 'Tôi muốn uống cà phê.', language: 'zh' },
     { id: '7', words: ['很', '今天', '冷', '天气'], correctOrder: ['今天', '天气', '很', '冷'], translation: 'Hôm nay thời tiết rất lạnh.', language: 'zh' },
     { id: '8', words: ['在', '他', '看书', '图书馆'], correctOrder: ['他', '在', '图书馆', '看书'], translation: 'Anh ấy đọc sách ở thư viện.', language: 'zh' },
+    { id: '9', words: ['买', '想', '我', '手机', '新'], correctOrder: ['我', '想', '买', '新', '手机'], translation: 'Tôi muốn mua điện thoại mới.', language: 'zh' },
+    { id: '10', words: ['漂亮', '很', '她', '长得'], correctOrder: ['她', '长得', '很', '漂亮'], translation: 'Cô ấy rất đẹp.', language: 'zh' },
+    { id: '11', words: ['坐', '地铁', '上班', '我'], correctOrder: ['我', '坐', '地铁', '上班'], translation: 'Tôi đi tàu điện ngầm đi làm.', language: 'zh' },
+    { id: '12', words: ['了', '吃', '我', '早饭', '已经'], correctOrder: ['我', '已经', '吃', '了', '早饭'], translation: 'Tôi đã ăn sáng rồi.', language: 'zh' },
   ],
   ko: [
     { id: '1', words: ['학생이에요', '저는'], correctOrder: ['저는', '학생이에요'], translation: 'Tôi là học sinh.', language: 'ko' },
@@ -55,6 +63,10 @@ const exercises: Record<string, SentenceExercise[]> = {
     { id: '6', words: ['마셔요', '커피를', '아침에'], correctOrder: ['아침에', '커피를', '마셔요'], translation: 'Buổi sáng tôi uống cà phê.', language: 'ko' },
     { id: '7', words: ['있어요', '고양이가', '방에'], correctOrder: ['방에', '고양이가', '있어요'], translation: 'Trong phòng có con mèo.', language: 'ko' },
     { id: '8', words: ['사고', '이', '싶어요', '책을'], correctOrder: ['이', '책을', '사고', '싶어요'], translation: 'Tôi muốn mua cuốn sách này.', language: 'ko' },
+    { id: '9', words: ['봤어요', '어제', '영화를'], correctOrder: ['어제', '영화를', '봤어요'], translation: 'Hôm qua tôi đã xem phim.', language: 'ko' },
+    { id: '10', words: ['살아요', '서울에', '저는'], correctOrder: ['저는', '서울에', '살아요'], translation: 'Tôi sống ở Seoul.', language: 'ko' },
+    { id: '11', words: ['타요', '지하철을', '출근할 때'], correctOrder: ['출근할 때', '지하철을', '타요'], translation: 'Khi đi làm tôi đi tàu điện ngầm.', language: 'ko' },
+    { id: '12', words: ['와요', '내일', '친구가'], correctOrder: ['내일', '친구가', '와요'], translation: 'Ngày mai bạn tôi sẽ đến.', language: 'ko' },
   ],
 };
 

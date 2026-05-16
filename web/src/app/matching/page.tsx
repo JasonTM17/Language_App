@@ -84,6 +84,39 @@ const matchSets: Record<string, MatchSet[]> = {
         { word: 'うま', meaning: 'ngựa' },
       ],
     },
+    {
+      language: 'ja', topic: 'Food',
+      pairs: [
+        { word: 'ごはん', meaning: 'cơm' },
+        { word: 'みず', meaning: 'nước' },
+        { word: 'にく', meaning: 'thịt' },
+        { word: 'やさい', meaning: 'rau' },
+        { word: 'くだもの', meaning: 'trái cây' },
+        { word: 'たまご', meaning: 'trứng' },
+      ],
+    },
+    {
+      language: 'ja', topic: 'Family',
+      pairs: [
+        { word: 'おかあさん', meaning: 'mẹ' },
+        { word: 'おとうさん', meaning: 'bố' },
+        { word: 'おねえさん', meaning: 'chị gái' },
+        { word: 'おにいさん', meaning: 'anh trai' },
+        { word: 'おばあさん', meaning: 'bà' },
+        { word: 'おじいさん', meaning: 'ông' },
+      ],
+    },
+    {
+      language: 'ja', topic: 'Places',
+      pairs: [
+        { word: 'がっこう', meaning: 'trường học' },
+        { word: 'びょういん', meaning: 'bệnh viện' },
+        { word: 'えき', meaning: 'nhà ga' },
+        { word: 'こうえん', meaning: 'công viên' },
+        { word: 'としょかん', meaning: 'thư viện' },
+        { word: 'スーパー', meaning: 'siêu thị' },
+      ],
+    },
   ],
   zh: [
     {
@@ -108,6 +141,39 @@ const matchSets: Record<string, MatchSet[]> = {
         { word: '热', meaning: 'nóng' },
       ],
     },
+    {
+      language: 'zh', topic: 'Family',
+      pairs: [
+        { word: '妈妈', meaning: 'mẹ' },
+        { word: '爸爸', meaning: 'bố' },
+        { word: '姐姐', meaning: 'chị gái' },
+        { word: '哥哥', meaning: 'anh trai' },
+        { word: '奶奶', meaning: 'bà nội' },
+        { word: '爷爷', meaning: 'ông nội' },
+      ],
+    },
+    {
+      language: 'zh', topic: 'Food',
+      pairs: [
+        { word: '米饭', meaning: 'cơm' },
+        { word: '面条', meaning: 'mì' },
+        { word: '鸡肉', meaning: 'thịt gà' },
+        { word: '蔬菜', meaning: 'rau' },
+        { word: '水果', meaning: 'trái cây' },
+        { word: '牛奶', meaning: 'sữa bò' },
+      ],
+    },
+    {
+      language: 'zh', topic: 'Places',
+      pairs: [
+        { word: '学校', meaning: 'trường học' },
+        { word: '医院', meaning: 'bệnh viện' },
+        { word: '银行', meaning: 'ngân hàng' },
+        { word: '超市', meaning: 'siêu thị' },
+        { word: '公园', meaning: 'công viên' },
+        { word: '图书馆', meaning: 'thư viện' },
+      ],
+    },
   ],
   ko: [
     {
@@ -130,6 +196,39 @@ const matchSets: Record<string, MatchSet[]> = {
         { word: '고기', meaning: 'thịt' },
         { word: '과일', meaning: 'trái cây' },
         { word: '빵', meaning: 'bánh mì' },
+      ],
+    },
+    {
+      language: 'ko', topic: 'Family',
+      pairs: [
+        { word: '어머니', meaning: 'mẹ' },
+        { word: '아버지', meaning: 'bố' },
+        { word: '언니/누나', meaning: 'chị gái' },
+        { word: '오빠/형', meaning: 'anh trai' },
+        { word: '할머니', meaning: 'bà' },
+        { word: '할아버지', meaning: 'ông' },
+      ],
+    },
+    {
+      language: 'ko', topic: 'Places',
+      pairs: [
+        { word: '학교', meaning: 'trường học' },
+        { word: '병원', meaning: 'bệnh viện' },
+        { word: '은행', meaning: 'ngân hàng' },
+        { word: '공원', meaning: 'công viên' },
+        { word: '도서관', meaning: 'thư viện' },
+        { word: '마트', meaning: 'siêu thị' },
+      ],
+    },
+    {
+      language: 'ko', topic: 'Body',
+      pairs: [
+        { word: '머리', meaning: 'đầu' },
+        { word: '손', meaning: 'tay' },
+        { word: '눈', meaning: 'mắt' },
+        { word: '귀', meaning: 'tai' },
+        { word: '코', meaning: 'mũi' },
+        { word: '입', meaning: 'miệng' },
       ],
     },
   ],
