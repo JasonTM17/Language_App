@@ -25,6 +25,16 @@ const challengeQuestions: ChallengeQuestion[] = [
   { id: '8', question: '"你好" is pronounced as...', questionVi: '"你好" được phát âm là...', options: ['Nǐ hǎo', 'Nǐ hào', 'Ní hǎo', 'Nì hǎo'], correctIndex: 0, category: 'Pronunciation' },
   { id: '9', question: 'Which is NOT a color in English?', questionVi: 'Từ nào KHÔNG phải màu sắc?', options: ['Purple', 'Orange', 'Silver', 'Dinner'], correctIndex: 3, category: 'Vocabulary' },
   { id: '10', question: '"사랑해요" means...', questionVi: '"사랑해요" có nghĩa là...', options: ['I miss you', 'I love you', 'I like you', 'I need you'], correctIndex: 1, category: 'Vocabulary' },
+  { id: '11', question: 'What is the plural of "child"?', questionVi: 'Số nhiều của "child" là gì?', options: ['childs', 'childrens', 'children', 'childes'], correctIndex: 2, category: 'Grammar' },
+  { id: '12', question: '"食べる" (taberu) means...', questionVi: '"食べる" (taberu) có nghĩa là...', options: ['to drink', 'to eat', 'to sleep', 'to run'], correctIndex: 1, category: 'Vocabulary' },
+  { id: '13', question: 'Which particle marks the topic in Japanese?', questionVi: 'Trợ từ nào đánh dấu chủ đề trong tiếng Nhật?', options: ['を', 'に', 'は', 'で'], correctIndex: 2, category: 'Grammar' },
+  { id: '14', question: '"我很高兴认识你" means...', questionVi: '"我很高兴认识你" có nghĩa là...', options: ['How are you?', 'Nice to meet you', 'See you later', 'What is your name?'], correctIndex: 1, category: 'Vocabulary' },
+  { id: '15', question: 'Choose the correct form: "He ___ here since 2020."', questionVi: 'Chọn dạng đúng: "He ___ here since 2020."', options: ['lives', 'lived', 'has lived', 'is living'], correctIndex: 2, category: 'Grammar' },
+  { id: '16', question: '"학교" (hakgyo) means...', questionVi: '"학교" (hakgyo) có nghĩa là...', options: ['hospital', 'school', 'library', 'office'], correctIndex: 1, category: 'Vocabulary' },
+  { id: '17', question: 'What does "すみません" express?', questionVi: '"すみません" thể hiện điều gì?', options: ['Happiness', 'Apology/Excuse me', 'Anger', 'Surprise'], correctIndex: 1, category: 'Vocabulary' },
+  { id: '18', question: '"多少钱" is used to ask about...', questionVi: '"多少钱" dùng để hỏi về...', options: ['time', 'direction', 'price', 'age'], correctIndex: 2, category: 'Vocabulary' },
+  { id: '19', question: 'Which is correct? "If it rains, I ___ stay home."', questionVi: 'Câu nào đúng? "If it rains, I ___ stay home."', options: ['would', 'will', 'am', 'have'], correctIndex: 1, category: 'Grammar' },
+  { id: '20', question: '"맛있어요" describes something that is...', questionVi: '"맛있어요" mô tả thứ gì đó...', options: ['expensive', 'delicious', 'beautiful', 'difficult'], correctIndex: 1, category: 'Vocabulary' },
 ];
 
 type ChallengeState = 'intro' | 'playing' | 'result';
