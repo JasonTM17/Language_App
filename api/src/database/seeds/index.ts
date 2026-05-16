@@ -70,6 +70,8 @@ import { chineseTechnologyLessons } from './chinese/elementary-technology';
 import { japaneseTransportLessons } from './japanese/elementary-transport';
 import { koreanTransportLessons } from './korean/elementary-transport';
 import { chineseTransportLessons } from './chinese/elementary-transport';
+import { koreanSchoolLessons } from './korean/elementary-school';
+import { chineseSchoolLessons } from './chinese/elementary-school';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -210,7 +212,7 @@ async function main() {
   }
 
   // Korean elementary lessons
-  const koElementaryLessons = [...koreanEmotionsLessons, ...koreanHobbiesLessons, ...koreanTechnologyLessons, ...koreanTransportLessons];
+  const koElementaryLessons = [...koreanEmotionsLessons, ...koreanHobbiesLessons, ...koreanTechnologyLessons, ...koreanTransportLessons, ...koreanSchoolLessons];
   for (let i = 0; i < koElementaryLessons.length; i++) {
     await createLessonWithContent(levels['ko']['elementary'], i + 1, koElementaryLessons[i]);
     lessonCount++;
@@ -219,7 +221,7 @@ async function main() {
   }
 
   // Chinese elementary lessons
-  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons, ...chineseTransportLessons];
+  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons, ...chineseTransportLessons, ...chineseSchoolLessons];
   for (let i = 0; i < zhElementaryLessons.length; i++) {
     await createLessonWithContent(levels['zh']['elementary'], i + 1, zhElementaryLessons[i]);
     lessonCount++;
