@@ -67,6 +67,9 @@ import { chineseHobbiesLessons } from './chinese/elementary-hobbies';
 import { japaneseTechnologyLessons } from './japanese/elementary-technology';
 import { koreanTechnologyLessons } from './korean/elementary-technology';
 import { chineseTechnologyLessons } from './chinese/elementary-technology';
+import { japaneseTransportLessons } from './japanese/elementary-transport';
+import { koreanTransportLessons } from './korean/elementary-transport';
+import { chineseTransportLessons } from './chinese/elementary-transport';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -198,7 +201,7 @@ async function main() {
   }
 
   // Japanese elementary lessons
-  const jaElementaryLessons = [...japaneseSchoolLessons, ...japaneseEmotionsLessons, ...japaneseHobbiesLessons, ...japaneseTechnologyLessons];
+  const jaElementaryLessons = [...japaneseSchoolLessons, ...japaneseEmotionsLessons, ...japaneseHobbiesLessons, ...japaneseTechnologyLessons, ...japaneseTransportLessons];
   for (let i = 0; i < jaElementaryLessons.length; i++) {
     await createLessonWithContent(levels['ja']['elementary'], i + 1, jaElementaryLessons[i]);
     lessonCount++;
@@ -207,7 +210,7 @@ async function main() {
   }
 
   // Korean elementary lessons
-  const koElementaryLessons = [...koreanEmotionsLessons, ...koreanHobbiesLessons, ...koreanTechnologyLessons];
+  const koElementaryLessons = [...koreanEmotionsLessons, ...koreanHobbiesLessons, ...koreanTechnologyLessons, ...koreanTransportLessons];
   for (let i = 0; i < koElementaryLessons.length; i++) {
     await createLessonWithContent(levels['ko']['elementary'], i + 1, koElementaryLessons[i]);
     lessonCount++;
@@ -216,7 +219,7 @@ async function main() {
   }
 
   // Chinese elementary lessons
-  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons];
+  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons, ...chineseTransportLessons];
   for (let i = 0; i < zhElementaryLessons.length; i++) {
     await createLessonWithContent(levels['zh']['elementary'], i + 1, zhElementaryLessons[i]);
     lessonCount++;
