@@ -45,10 +45,13 @@ import { englishCultureLessons } from './english/intermediate-culture';
 import { englishEnvironmentLessons } from './english/advanced-environment';
 import { japaneseWeatherLessons } from './japanese/beginner-weather';
 import { japaneseEmotionsLessons } from './japanese/elementary-emotions';
+import { japaneseHealthLessons } from './japanese/beginner-health';
 import { koreanWeatherLessons } from './korean/beginner-weather';
 import { koreanEmotionsLessons } from './korean/elementary-emotions';
+import { koreanHealthLessons } from './korean/beginner-health';
 import { chineseWeatherLessons } from './chinese/beginner-weather';
 import { chineseEmotionsLessons } from './chinese/elementary-emotions';
+import { chineseHealthLessons } from './chinese/beginner-health';
 import { japaneseWorkLessons } from './japanese/intermediate-work';
 import { japaneseTravelIntermediateLessons } from './japanese/intermediate-travel';
 import { chineseWorkLessons } from './chinese/intermediate-work';
@@ -153,7 +156,7 @@ async function main() {
   }
 
   // Japanese beginner lessons
-  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons, ...japaneseDailyLessons, ...japaneseGreetingsLessons, ...japaneseNumbersLessons, ...japaneseShoppingLessons, ...japaneseFamilyLessons, ...japaneseWeatherLessons];
+  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons, ...japaneseDailyLessons, ...japaneseGreetingsLessons, ...japaneseNumbersLessons, ...japaneseShoppingLessons, ...japaneseFamilyLessons, ...japaneseWeatherLessons, ...japaneseHealthLessons];
   for (let i = 0; i < jaBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['ja']['beginner'], i + 1, jaBeginnerLessons[i]);
     lessonCount++;
@@ -162,7 +165,7 @@ async function main() {
   }
 
   // Chinese beginner lessons
-  const zhBeginnerLessons = [...chineseFoodLessons, ...chineseShoppingLessons, ...chineseDailyLessons, ...chineseGreetingsLessons, ...chineseFamilyLessons, ...chineseNumbersLessons, ...chineseTravelLessons, ...chineseWeatherLessons];
+  const zhBeginnerLessons = [...chineseFoodLessons, ...chineseShoppingLessons, ...chineseDailyLessons, ...chineseGreetingsLessons, ...chineseFamilyLessons, ...chineseNumbersLessons, ...chineseTravelLessons, ...chineseWeatherLessons, ...chineseHealthLessons];
   for (let i = 0; i < zhBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['zh']['beginner'], i + 1, zhBeginnerLessons[i]);
     lessonCount++;
@@ -171,7 +174,7 @@ async function main() {
   }
 
   // Korean beginner lessons
-  const koBeginnerLessons = [...koreanFoodLessons, ...koreanDailyLessons, ...koreanFamilyLessons, ...koreanGreetingsLessons, ...koreanNumbersLessons, ...koreanShoppingLessons, ...koreanTravelLessons, ...koreanWeatherLessons];
+  const koBeginnerLessons = [...koreanFoodLessons, ...koreanDailyLessons, ...koreanFamilyLessons, ...koreanGreetingsLessons, ...koreanNumbersLessons, ...koreanShoppingLessons, ...koreanTravelLessons, ...koreanWeatherLessons, ...koreanHealthLessons];
   for (let i = 0; i < koBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['ko']['beginner'], i + 1, koBeginnerLessons[i]);
     lessonCount++;
