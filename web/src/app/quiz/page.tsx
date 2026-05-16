@@ -38,6 +38,14 @@ export default function QuizPage() {
     { id: '6', question: '"Tạm biệt" in English is...?', type: 'multiple_choice', options: ['Hello', 'Thank you', 'Sorry', 'Goodbye'], answer: 'Goodbye', explanation: '"Tạm biệt" means "Goodbye"' },
     { id: '7', question: 'How do you say "Xin lỗi" in Japanese?', type: 'multiple_choice', options: ['ありがとう', 'すみません', 'こんにちは', 'さようなら'], answer: 'すみません', explanation: 'すみません (sumimasen) = Xin lỗi / Sorry' },
     { id: '8', question: '"再见" (zài jiàn) means...?', type: 'multiple_choice', options: ['Xin chào', 'Cảm ơn', 'Tạm biệt', 'Xin lỗi'], answer: 'Tạm biệt', explanation: '再见 means goodbye (tái kiến = gặp lại)' },
+    { id: '9', question: 'What is the past tense of "eat"?', type: 'multiple_choice', options: ['eated', 'ate', 'eaten', 'eating'], answer: 'ate', explanation: 'eat → ate (past simple), eaten (past participle)' },
+    { id: '10', question: '"おいしい" (oishii) means...?', type: 'multiple_choice', options: ['Beautiful', 'Expensive', 'Delicious', 'Difficult'], answer: 'Delicious', explanation: 'おいしい means delicious/tasty (ngon)' },
+    { id: '11', question: 'Choose the correct: "She ___ to school every day."', type: 'multiple_choice', options: ['go', 'goes', 'going', 'gone'], answer: 'goes', explanation: 'Third person singular (she/he/it) uses "goes" in present simple' },
+    { id: '12', question: '"학생" (haksaeng) means...?', type: 'multiple_choice', options: ['Teacher', 'Student', 'Doctor', 'Driver'], answer: 'Student', explanation: '학생 means student (học sinh)' },
+    { id: '13', question: 'What does "我很高兴" mean?', type: 'multiple_choice', options: ['I am sad', 'I am happy', 'I am tired', 'I am hungry'], answer: 'I am happy', explanation: '我很高兴 (wǒ hěn gāoxìng) = I am very happy' },
+    { id: '14', question: '"Weather" in Vietnamese is...?', type: 'multiple_choice', options: ['Thời gian', 'Thời tiết', 'Thời trang', 'Thời đại'], answer: 'Thời tiết', explanation: 'Weather = Thời tiết' },
+    { id: '15', question: 'What does "いただきます" mean?', type: 'multiple_choice', options: ['Goodbye', 'Thank you for the food', 'Good morning', 'Excuse me'], answer: 'Thank you for the food', explanation: 'いただきます is said before eating (cảm ơn vì bữa ăn)' },
+    { id: '16', question: '"사랑" (sarang) means...?', type: 'multiple_choice', options: ['Friendship', 'Family', 'Love', 'Happiness'], answer: 'Love', explanation: '사랑 means love (tình yêu)' },
   ];
 
   useEffect(() => {
