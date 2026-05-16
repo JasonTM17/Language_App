@@ -32,6 +32,9 @@ import { japaneseNumbersLessons } from './japanese/beginner-numbers';
 import { japaneseSchoolLessons } from './japanese/elementary-school';
 import { koreanNumbersLessons } from './korean/beginner-numbers';
 import { koreanShoppingLessons } from './korean/beginner-shopping';
+import { englishClothingLessons } from './english/beginner-clothing';
+import { englishWeatherLessons } from './english/beginner-weather';
+import { japaneseShoppingLessons } from './japanese/beginner-shopping';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -109,7 +112,7 @@ async function main() {
   let quizCount = 0;
 
   // English beginner lessons
-  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons, ...englishHobbiesLessons, ...englishGreetingsLessons, ...englishNumbersLessons, ...englishHealthLessons, ...englishShoppingLessons];
+  const enBeginnerLessons = [...englishFoodLessons, ...englishTravelLessons, ...englishFamilyLessons, ...englishHobbiesLessons, ...englishGreetingsLessons, ...englishNumbersLessons, ...englishHealthLessons, ...englishShoppingLessons, ...englishClothingLessons, ...englishWeatherLessons];
   for (let i = 0; i < enBeginnerLessons.length; i++) {
     const lesson = await createLessonWithContent(levels['en']['beginner'], i + 1, enBeginnerLessons[i]);
     lessonCount++;
@@ -127,7 +130,7 @@ async function main() {
   }
 
   // Japanese beginner lessons
-  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons, ...japaneseDailyLessons, ...japaneseGreetingsLessons, ...japaneseNumbersLessons];
+  const jaBeginnerLessons = [...japaneseFoodLessons, ...japaneseTravelLessons, ...japaneseDailyLessons, ...japaneseGreetingsLessons, ...japaneseNumbersLessons, ...japaneseShoppingLessons];
   for (let i = 0; i < jaBeginnerLessons.length; i++) {
     await createLessonWithContent(levels['ja']['beginner'], i + 1, jaBeginnerLessons[i]);
     lessonCount++;
