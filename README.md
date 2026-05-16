@@ -206,15 +206,12 @@ cd web && npx tsc --noEmit
 
 ### Docker Images
 
-Docker images có sẵn tại [GitHub Releases](https://github.com/JasonTM17/Language_App/releases):
+Images có sẵn trên [Docker Hub](https://hub.docker.com/u/nguyenson1710):
 
 ```bash
-# Tải và load image từ release
-wget https://github.com/JasonTM17/Language_App/releases/download/v1.0.0/linguaflow-api-v1.0.0.tar.gz
-wget https://github.com/JasonTM17/Language_App/releases/download/v1.0.0/linguaflow-web-v1.0.0.tar.gz
-
-docker load < linguaflow-api-v1.0.0.tar.gz
-docker load < linguaflow-web-v1.0.0.tar.gz
+# Pull từ Docker Hub
+docker pull nguyenson1710/linguaflow-api:v1.0.0
+docker pull nguyenson1710/linguaflow-web:v1.0.0
 
 # Hoặc build từ source
 docker build -t linguaflow-api:latest ./api
