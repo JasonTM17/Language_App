@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Target, Bot, BookOpen, Layers, Trophy, Smartphone, type LucideIcon } from 'lucide-react';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧', learners: '2.5M+' },
@@ -11,13 +12,13 @@ const languages = [
   { code: 'ko', name: 'Korean', flag: '🇰🇷', learners: '900K+' },
 ];
 
-const features = [
-  { icon: '🎯', title: 'Personalized Learning', desc: 'AI-powered paths tailored to your goals - TOEIC, JLPT, HSK, TOPIK' },
-  { icon: '🤖', title: 'AI Tutor', desc: 'Practice conversations with an AI that corrects your grammar and pronunciation' },
-  { icon: '📚', title: 'Rich Content', desc: 'Vocabulary, grammar, listening, speaking, reading, and writing exercises' },
-  { icon: '🃏', title: 'Smart Flashcards', desc: 'Spaced repetition system to remember vocabulary long-term' },
-  { icon: '🏆', title: 'Gamification', desc: 'XP, streaks, levels, and achievements to keep you motivated' },
-  { icon: '📱', title: 'Learn Anywhere', desc: 'Web and mobile apps synced so you never miss a lesson' },
+const features: { icon: LucideIcon; title: string; desc: string; color: string }[] = [
+  { icon: Target, title: 'Personalized Learning', desc: 'AI-powered paths tailored to your goals - TOEIC, JLPT, HSK, TOPIK', color: 'text-red-500' },
+  { icon: Bot, title: 'AI Tutor', desc: 'Practice conversations with an AI that corrects your grammar and pronunciation', color: 'text-blue-500' },
+  { icon: BookOpen, title: 'Rich Content', desc: 'Vocabulary, grammar, listening, speaking, reading, and writing exercises', color: 'text-green-500' },
+  { icon: Layers, title: 'Smart Flashcards', desc: 'Spaced repetition system to remember vocabulary long-term', color: 'text-purple-500' },
+  { icon: Trophy, title: 'Gamification', desc: 'XP, streaks, levels, and achievements to keep you motivated', color: 'text-yellow-500' },
+  { icon: Smartphone, title: 'Learn Anywhere', desc: 'Web and mobile apps synced so you never miss a lesson', color: 'text-teal-500' },
 ];
 
 const fadeUp = {
@@ -110,7 +111,9 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, i) => (
               <div key={i} className="p-6 rounded-2xl bg-card/50 border dark:border-gray-800 hover:border-primary-200 dark:hover:border-primary-800 transition-colors">
-                <div className="text-3xl mb-4">{feature.icon}</div>
+                <div className="mb-4">
+                  <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                </div>
                 <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.desc}</p>
               </div>

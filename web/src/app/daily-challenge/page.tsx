@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Celebration } from '@/components/ui/celebration';
+import { Trophy, Star, Dumbbell, BookOpen } from 'lucide-react';
 import { XpPopup } from '@/components/ui/xp-popup';
 
 interface ChallengeQuestion {
@@ -166,8 +167,8 @@ export default function DailyChallengePage() {
         {accuracy >= 80 && <Celebration type="confetti" duration={3000} />}
         {showXp && <XpPopup amount={xpEarned} onComplete={() => setShowXp(false)} />}
         <div className="text-center py-6">
-          <div className="text-5xl mb-3">
-            {accuracy >= 80 ? '🏆' : accuracy >= 60 ? '⭐' : accuracy >= 40 ? '💪' : '📚'}
+          <div className="flex justify-center mb-3">
+            {accuracy >= 80 ? <Trophy className="w-12 h-12 text-yellow-500" /> : accuracy >= 60 ? <Star className="w-12 h-12 text-yellow-400" /> : accuracy >= 40 ? <Dumbbell className="w-12 h-12 text-blue-500" /> : <BookOpen className="w-12 h-12 text-primary" />}
           </div>
           <h1 className="text-2xl font-bold font-display">
             {accuracy >= 80 ? 'Xuất sắc!' : accuracy >= 60 ? 'Tốt lắm!' : accuracy >= 40 ? 'Khá tốt!' : 'Cần luyện thêm!'}

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { PartyPopper } from 'lucide-react';
 
 interface WeakWord {
   id: string;
@@ -76,7 +77,9 @@ export default function WeakWordsPage() {
     if (!card) {
       return (
         <div className="max-w-2xl mx-auto text-center py-16">
-          <div className="text-5xl mb-4">🎉</div>
+          <div className="flex justify-center mb-4">
+            <PartyPopper className="w-12 h-12 text-green-500" />
+          </div>
           <h2 className="text-2xl font-bold mb-2">Hoàn thành ôn tập!</h2>
           <p className="text-muted-foreground mb-4">Bạn đã ôn {reviewed.size} từ</p>
           <div className="flex gap-3 justify-center">

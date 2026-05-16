@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { PartyPopper } from 'lucide-react';
 
 interface Card {
   id: string;
@@ -160,7 +161,9 @@ export default function MemoryGamePage() {
     const stars = moves <= totalPairs + 2 ? 3 : moves <= totalPairs + 5 ? 2 : 1;
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-5xl mb-4">🎉</div>
+        <div className="flex justify-center mb-4">
+          <PartyPopper className="w-12 h-12 text-green-500" />
+        </div>
         <h2 className="text-2xl font-bold mb-2">Hoàn thành!</h2>
         <div className="flex justify-center gap-1 mb-4">
           {Array.from({ length: 3 }).map((_, i) => (

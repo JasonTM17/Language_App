@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Link2, PartyPopper } from 'lucide-react';
 
 interface MatchPair {
   word: string;
@@ -302,7 +303,9 @@ export default function MatchingPage() {
   if (!currentSet) {
     return (
       <div className="text-center py-16">
-        <div className="text-5xl mb-4">🔗</div>
+        <div className="flex justify-center mb-4">
+          <Link2 className="w-12 h-12 text-primary" />
+        </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài ghép từ</h3>
         <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
@@ -313,7 +316,9 @@ export default function MatchingPage() {
     const accuracy = Math.round((currentSet.pairs.length / attempts) * 100);
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-5xl mb-4">🎉</div>
+        <div className="flex justify-center mb-4">
+          <PartyPopper className="w-12 h-12 text-green-500" />
+        </div>
         <h2 className="text-2xl font-bold mb-2">Hoàn thành!</h2>
         <p className="text-muted-foreground mb-4">Chủ đề: {currentSet.topic}</p>
         <div className="flex justify-center gap-8 mb-8">

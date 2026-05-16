@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { api } from '@/services/api';
+import { BookOpen } from 'lucide-react';
 
 interface Lesson {
   id: string;
@@ -95,7 +96,9 @@ export default function LessonsPage() {
 
       {lessons.length === 0 && (
         <div className="text-center py-16">
-          <div className="text-5xl mb-4">📚</div>
+          <div className="flex justify-center mb-4">
+            <BookOpen className="w-12 h-12 text-primary" />
+          </div>
           <h3 className="text-lg font-semibold mb-2">Chưa có bài học</h3>
           <p className="text-muted-foreground">Hãy chọn ngôn ngữ trước để xem bài học.</p>
           <Link href="/languages" className="inline-block mt-4">

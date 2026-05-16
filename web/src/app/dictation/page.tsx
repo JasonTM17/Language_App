@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { Headphones, Volume2, PartyPopper } from 'lucide-react';
 
 interface DictationExercise {
   id: string;
@@ -149,7 +150,9 @@ export default function DictationPage() {
   if (!currentExercise) {
     return (
       <div className="text-center py-16">
-        <div className="text-5xl mb-4">🎧</div>
+        <div className="flex justify-center mb-4">
+          <Headphones className="w-12 h-12 text-primary" />
+        </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài nghe chép</h3>
         <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
       </div>
@@ -160,7 +163,9 @@ export default function DictationPage() {
     const pct = Math.round((score.correct / score.total) * 100);
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-5xl mb-4">🎉</div>
+        <div className="flex justify-center mb-4">
+          <PartyPopper className="w-12 h-12 text-green-500" />
+        </div>
         <h2 className="text-2xl font-bold mb-4">Hoàn thành!</h2>
         <div className="flex justify-center gap-8 mb-8">
           <div className="text-center">
@@ -213,7 +218,9 @@ export default function DictationPage() {
 
       {/* Audio controls */}
       <div className="p-6 rounded-2xl bg-card border border text-center space-y-4">
-        <div className="text-4xl mb-2">{isPlaying ? '🔊' : '🎧'}</div>
+        <div className="flex justify-center mb-2">
+          {isPlaying ? <Volume2 className="w-10 h-10 text-primary" /> : <Headphones className="w-10 h-10 text-muted-foreground" />}
+        </div>
         <p className="text-sm text-muted-foreground">Nhấn nút để nghe câu ({playCount} lần đã nghe)</p>
         <div className="flex gap-3 justify-center">
           <Button onClick={() => speak(false)} disabled={isPlaying} variant="outline">

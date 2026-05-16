@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { Trophy } from 'lucide-react';
 
 interface TimedQuestion {
   question: string;
@@ -199,7 +200,9 @@ export default function TimedChallengePage() {
     const xpEarned = Math.round(score / 5);
     return (
       <div className="max-w-2xl mx-auto text-center py-12 space-y-6">
-        <div className="text-5xl mb-2">🏆</div>
+        <div className="flex justify-center mb-2">
+          <Trophy className="w-12 h-12 text-yellow-500" />
+        </div>
         <h2 className="text-2xl font-bold">Hết giờ!</h2>
         <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
           <div className="p-4 rounded-xl bg-card border border">

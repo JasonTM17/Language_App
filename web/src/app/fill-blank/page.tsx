@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { PartyPopper } from 'lucide-react';
 
 interface FillExercise {
   id: string;
@@ -110,7 +111,9 @@ export default function FillBlankPage() {
   if (currentIndex >= currentExercises.length) {
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-5xl mb-4">🎉</div>
+        <div className="flex justify-center mb-4">
+          <PartyPopper className="w-12 h-12 text-green-500" />
+        </div>
         <h2 className="text-2xl font-bold mb-4">Hoàn thành!</h2>
         <p className="text-lg mb-2">Điểm: {score.correct}/{score.total}</p>
         <p className="text-muted-foreground mb-6">

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { api } from '@/services/api';
+import { Search } from 'lucide-react';
 
 interface SearchResult {
   type: 'lesson' | 'vocabulary' | 'grammar';
@@ -152,7 +153,9 @@ export default function SearchPage() {
       {/* Empty state */}
       {searched && !loading && results.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-4xl mb-3">🔍</div>
+          <div className="flex justify-center mb-3">
+            <Search className="w-10 h-10 text-muted-foreground" />
+          </div>
           <p className="text-muted-foreground">Không tìm thấy kết quả cho &ldquo;{query}&rdquo;</p>
           <p className="text-sm text-muted-foreground mt-1">Thử tìm kiếm với từ khóa khác</p>
         </div>
