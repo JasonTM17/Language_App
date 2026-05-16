@@ -32,18 +32,24 @@ const exercises: Record<string, ListeningExercise[]> = {
     { id: '8', language: 'ja', text: '何を聞きましたか？', translation: 'Bạn nghe được gì?', audioText: '明日は日曜日です。', options: ['明日は月曜日です。', '明日は日曜日です。', '今日は日曜日です。', '明日は土曜日です。'], correctAnswer: 1, difficulty: 'easy' },
     { id: '9', language: 'ja', text: '何を聞きましたか？', translation: 'Bạn nghe được gì?', audioText: '私は毎朝七時に起きます。', options: ['私は毎朝七時に起きます。', '私は毎朝六時に起きます。', '私は毎晩七時に寝ます。', '私は毎朝八時に起きます。'], correctAnswer: 0, difficulty: 'medium' },
     { id: '10', language: 'ja', text: '何を聞きましたか？', translation: 'Bạn nghe được gì?', audioText: '来週の月曜日に会議があります。', options: ['来週の火曜日に会議があります。', '今週の月曜日に会議があります。', '来週の月曜日に会議があります。', '来週の月曜日に授業があります。'], correctAnswer: 2, difficulty: 'medium' },
+    { id: '19', language: 'ja', text: '何を聞きましたか？', translation: 'Bạn nghe được gì?', audioText: '彼女は三年間日本語を勉強しています。', options: ['彼女は三年間日本語を勉強しています。', '彼女は二年間日本語を勉強しています。', '彼は三年間日本語を勉強しています。', '彼女は三年間中国語を勉強しています。'], correctAnswer: 0, difficulty: 'hard' },
+    { id: '20', language: 'ja', text: '何を聞きましたか？', translation: 'Bạn nghe được gì?', audioText: '空港までタクシーで四十分くらいかかります。', options: ['空港までバスで四十分くらいかかります。', '駅までタクシーで四十分くらいかかります。', '空港までタクシーで三十分くらいかかります。', '空港までタクシーで四十分くらいかかります。'], correctAnswer: 3, difficulty: 'hard' },
   ],
   zh: [
     { id: '11', language: 'zh', text: '你听到了什么？', translation: 'Bạn nghe được gì?', audioText: '请问，洗手间在哪里？', options: ['请问，洗手间在哪里？', '请问，图书馆在哪里？', '请问，餐厅在哪里？', '请问，医院在哪里？'], correctAnswer: 0, difficulty: 'easy' },
     { id: '12', language: 'zh', text: '你听到了什么？', translation: 'Bạn nghe được gì?', audioText: '我想买一杯咖啡。', options: ['我想买一杯茶。', '我想喝一杯水。', '我想买一杯咖啡。', '我想吃一个面包。'], correctAnswer: 2, difficulty: 'easy' },
     { id: '13', language: 'zh', text: '你听到了什么？', translation: 'Bạn nghe được gì?', audioText: '今天的天气非常好。', options: ['今天的天气非常好。', '昨天的天气非常好。', '今天的天气不太好。', '明天的天气非常好。'], correctAnswer: 0, difficulty: 'medium' },
     { id: '14', language: 'zh', text: '你听到了什么？', translation: 'Bạn nghe được gì?', audioText: '我每天早上六点半起床。', options: ['我每天早上七点起床。', '我每天早上六点半起床。', '我每天晚上六点半睡觉。', '我每天早上六点起床。'], correctAnswer: 1, difficulty: 'medium' },
+    { id: '21', language: 'zh', text: '你听到了什么？', translation: 'Bạn nghe được gì?', audioText: '她在北京大学学了四年中文。', options: ['她在北京大学学了四年中文。', '她在北京大学学了三年中文。', '他在北京大学学了四年中文。', '她在上海大学学了四年中文。'], correctAnswer: 0, difficulty: 'hard' },
+    { id: '22', language: 'zh', text: '你听到了什么？', translation: 'Bạn nghe được gì?', audioText: '从这里坐地铁到机场大概要一个小时。', options: ['从这里坐公交到机场大概要一个小时。', '从这里坐地铁到火车站大概要一个小时。', '从这里坐地铁到机场大概要半个小时。', '从这里坐地铁到机场大概要一个小时。'], correctAnswer: 3, difficulty: 'hard' },
   ],
   ko: [
     { id: '15', language: 'ko', text: '무엇을 들었습니까?', translation: 'Bạn nghe được gì?', audioText: '화장실이 어디에 있어요?', options: ['화장실이 어디에 있어요?', '도서관이 어디에 있어요?', '식당이 어디에 있어요?', '병원이 어디에 있어요?'], correctAnswer: 0, difficulty: 'easy' },
     { id: '16', language: 'ko', text: '무엇을 들었습니까?', translation: 'Bạn nghe được gì?', audioText: '커피 한 잔 주세요.', options: ['물 한 잔 주세요.', '커피 한 잔 주세요.', '차 한 잔 주세요.', '맥주 한 잔 주세요.'], correctAnswer: 1, difficulty: 'easy' },
     { id: '17', language: 'ko', text: '무엇을 들었습니까?', translation: 'Bạn nghe được gì?', audioText: '저는 매일 아침 일곱 시에 일어나요.', options: ['저는 매일 아침 일곱 시에 일어나요.', '저는 매일 아침 여섯 시에 일어나요.', '저는 매일 저녁 일곱 시에 자요.', '저는 매일 아침 여덟 시에 일어나요.'], correctAnswer: 0, difficulty: 'medium' },
     { id: '18', language: 'ko', text: '무엇을 들었습니까?', translation: 'Bạn nghe được gì?', audioText: '다음 주 월요일에 회의가 있어요.', options: ['이번 주 월요일에 회의가 있어요.', '다음 주 화요일에 회의가 있어요.', '다음 주 월요일에 회의가 있어요.', '다음 주 월요일에 수업이 있어요.'], correctAnswer: 2, difficulty: 'medium' },
+    { id: '23', language: 'ko', text: '무엇을 들었습니까?', translation: 'Bạn nghe được gì?', audioText: '그녀는 삼 년 동안 한국어를 공부하고 있어요.', options: ['그녀는 삼 년 동안 한국어를 공부하고 있어요.', '그녀는 이 년 동안 한국어를 공부하고 있어요.', '그는 삼 년 동안 한국어를 공부하고 있어요.', '그녀는 삼 년 동안 일본어를 공부하고 있어요.'], correctAnswer: 0, difficulty: 'hard' },
+    { id: '24', language: 'ko', text: '무엇을 들었습니까?', translation: 'Bạn nghe được gì?', audioText: '여기서 지하철로 공항까지 한 시간쯤 걸려요.', options: ['여기서 버스로 공항까지 한 시간쯤 걸려요.', '여기서 지하철로 역까지 한 시간쯤 걸려요.', '여기서 지하철로 공항까지 삼십 분쯤 걸려요.', '여기서 지하철로 공항까지 한 시간쯤 걸려요.'], correctAnswer: 3, difficulty: 'hard' },
   ],
 };
 
