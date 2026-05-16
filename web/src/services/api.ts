@@ -242,4 +242,12 @@ export const api = {
     changePassword: (data: { currentPassword: string; newPassword: string }) => request<{ message: string }>('/profile/password', { method: 'PUT', body: data }),
     stats: () => request<{ stats: any }>('/profile/stats'),
   },
+  reviewHistory: {
+    list: (days?: number) => request<{ history: any[]; summary: any }>(`/review-history?days=${days || 30}`),
+    calendar: () => request<{ calendar: Record<string, any> }>('/review-history/calendar'),
+  },
+  learningProgress: {
+    get: () => request<{ progress: any[] }>('/learning-progress'),
+    milestones: () => request<{ milestones: any[]; completedCount: number }>('/learning-progress/milestones'),
+  },
 };
