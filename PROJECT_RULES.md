@@ -197,6 +197,105 @@ project/
 - Có logo/branding
 - Save: `docs/screenshots/`
 
+### Screenshots & GIF — QUY TẮC BẮT BUỘC:
+
+> **Mọi repo PHẢI có screenshots VÀ GIF demos với chú thích cho TỪNG ảnh/GIF.**
+> Không có visual = repo chưa hoàn thiện.
+
+#### Cấu trúc thư mục:
+```
+docs/
+├── screenshots/
+│   ├── desktop-dashboard.png      # Dashboard - Desktop view
+│   ├── desktop-vocabulary.png     # Vocabulary page - Desktop
+│   ├── desktop-quiz.png           # Quiz feature - Desktop
+│   ├── desktop-dark-mode.png      # Dark mode - Desktop
+│   ├── mobile-dashboard.png       # Dashboard - Mobile view
+│   ├── mobile-vocabulary.png      # Vocabulary page - Mobile
+│   └── mobile-quiz.png            # Quiz feature - Mobile
+├── gifs/
+│   ├── demo-full-flow.gif         # Full user flow demo
+│   ├── demo-quiz-interaction.gif  # Quiz interaction
+│   ├── demo-dark-mode-toggle.gif  # Dark mode toggle
+│   └── demo-mobile-swipe.gif     # Mobile swipe gestures
+└── README.md                      # Mô tả từng file
+```
+
+#### Chú thích trong README.md (BẮT BUỘC):
+```markdown
+## Screenshots
+
+### Desktop
+
+| Screenshot | Mô tả |
+|-----------|--------|
+| ![Dashboard](docs/screenshots/desktop-dashboard.png) | **Trang chủ** — Hiển thị tiến độ học, streak, và từ vựng gần đây |
+| ![Vocabulary](docs/screenshots/desktop-vocabulary.png) | **Từ vựng** — Danh sách từ với phát âm, ví dụ, và flashcard |
+| ![Quiz](docs/screenshots/desktop-quiz.png) | **Quiz** — Bài kiểm tra trắc nghiệm với timer và điểm XP |
+| ![Dark Mode](docs/screenshots/desktop-dark-mode.png) | **Dark Mode** — Giao diện tối, dễ nhìn ban đêm |
+
+### Mobile
+
+| Screenshot | Mô tả |
+|-----------|--------|
+| ![Mobile Dashboard](docs/screenshots/mobile-dashboard.png) | **Trang chủ mobile** — Responsive layout, bottom navigation |
+| ![Mobile Vocab](docs/screenshots/mobile-vocabulary.png) | **Từ vựng mobile** — Swipe cards, compact view |
+
+## GIF Demos
+
+| GIF | Mô tả | Thời lượng |
+|-----|--------|-----------|
+| ![Full Flow](docs/gifs/demo-full-flow.gif) | **Luồng chính** — Đăng nhập → Dashboard → Học từ → Quiz | ~15s |
+| ![Quiz](docs/gifs/demo-quiz-interaction.gif) | **Quiz** — Chọn đáp án, animation đúng/sai, XP popup | ~8s |
+| ![Dark Mode](docs/gifs/demo-dark-mode-toggle.gif) | **Toggle Dark Mode** — Chuyển đổi theme mượt mà | ~5s |
+| ![Mobile](docs/gifs/demo-mobile-swipe.gif) | **Mobile gestures** — Swipe flashcard, pull-to-refresh | ~10s |
+```
+
+#### Quy tắc chụp:
+1. **Mỗi page/feature chính** = ít nhất 1 screenshot desktop + 1 mobile
+2. **Mỗi interaction quan trọng** = 1 GIF demo
+3. **Mỗi ảnh/GIF PHẢI có chú thích** mô tả nội dung hiển thị
+4. **Chú thích format**: `**Tên feature** — Mô tả ngắn gọn`
+5. **GIF**: max 15 giây, loop, chất lượng tốt (không blur)
+6. **Screenshots**: có data thật, KHÔNG trống, KHÔNG placeholder
+7. **Playwright script** để tự động chụp (consistent mỗi lần update)
+
+#### Playwright screenshot script mẫu:
+```typescript
+// e2e/screenshots.spec.ts
+import { test } from '@playwright/test';
+
+const pages = [
+  { path: '/', name: 'dashboard', title: 'Dashboard' },
+  { path: '/vocabulary', name: 'vocabulary', title: 'Vocabulary' },
+  { path: '/quiz', name: 'quiz', title: 'Quiz' },
+];
+
+test.describe('Screenshots', () => {
+  for (const page of pages) {
+    test(`capture ${page.title} - desktop`, async ({ page: p }) => {
+      await p.setViewportSize({ width: 1280, height: 720 });
+      await p.goto(page.path);
+      await p.waitForLoadState('networkidle');
+      await p.screenshot({ 
+        path: `docs/screenshots/desktop-${page.name}.png`,
+        fullPage: false 
+      });
+    });
+
+    test(`capture ${page.title} - mobile`, async ({ page: p }) => {
+      await p.setViewportSize({ width: 390, height: 844 });
+      await p.goto(page.path);
+      await p.waitForLoadState('networkidle');
+      await p.screenshot({ 
+        path: `docs/screenshots/mobile-${page.name}.png`,
+        fullPage: false 
+      });
+    });
+  }
+});
+```
+
 ---
 
 ## 5. Docker & Container Services
