@@ -218,4 +218,16 @@ export const api = {
     progress: (data: any) => request<any>('/daily-goals/progress', { method: 'POST', body: data }),
     history: () => request<any[]>('/daily-goals/history'),
   },
+  search: {
+    query: (q: string, lang?: string) => {
+      const params = new URLSearchParams({ q });
+      if (lang) params.set('lang', lang);
+      return request<{ results: any[]; query: string; total: number }>(`/search?${params.toString()}`);
+    },
+  },
+  notifications: {
+    list: () => request<{ notifications: any[]; unreadCount: number }>('/notifications'),
+    markRead: (id: string) => request<{ success: boolean }>(`/notifications/${id}/read`, { method: 'POST' }),
+    markAllRead: () => request<{ success: boolean }>('/notifications/read-all', { method: 'POST' }),
+  },
 };
