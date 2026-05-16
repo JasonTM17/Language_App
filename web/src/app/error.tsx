@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { AlertTriangle } from 'lucide-react';
 
 export default function Error({
   error,
@@ -17,7 +18,9 @@ export default function Error({
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 p-4">
       <div className="text-center max-w-md">
-        <div className="text-8xl mb-6">⚠️</div>
+        <div className="flex justify-center mb-6">
+          <AlertTriangle className="w-20 h-20 text-yellow-500" />
+        </div>
         <h1 className="text-4xl font-bold font-display mb-4">Oops!</h1>
         <h2 className="text-xl font-semibold mb-2">Đã xảy ra lỗi</h2>
         <p className="text-gray-600 dark:text-gray-400 mb-8">
