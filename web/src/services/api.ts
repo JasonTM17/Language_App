@@ -268,4 +268,43 @@ export const api = {
     },
     attempt: (data: { exerciseId: string; score: number }) => request<{ result: any }>('/pronunciation/attempt', { method: 'POST', body: data }),
   },
+  shop: {
+    list: () => request<{ items: any[]; gems: number }>('/shop'),
+    purchase: (itemId: string, quantity?: number) => request<{ success: boolean; gemsRemaining: number; message: string }>('/shop/purchase', { method: 'POST', body: { itemId, quantity } }),
+    history: () => request<{ purchases: any[] }>('/shop/history'),
+  },
+  friends: {
+    list: () => request<{ friends: any[]; total: number }>('/friends'),
+    requests: () => request<{ requests: any[] }>('/friends/requests'),
+    add: (userId: string) => request<{ message: string }>('/friends/add', { method: 'POST', body: { userId } }),
+    accept: (id: string) => request<{ message: string }>(`/friends/${id}/accept`, { method: 'POST' }),
+    reject: (id: string) => request<{ message: string }>(`/friends/${id}/reject`, { method: 'POST' }),
+    remove: (id: string) => request<{ message: string }>(`/friends/${id}`, { method: 'DELETE' }),
+    search: (q: string) => request<{ users: any[] }>(`/friends/search?q=${encodeURIComponent(q)}`),
+  },
+  skillTree: {
+    get: (lang: string, level?: string) => {
+      const params = level ? `?level=${level}` : '';
+      return request<{ tree: any[]; progress: any }>(`/skill-tree/${lang}${params}`);
+    },
+    recommendations: (lang: string) => request<{ nextSkills: any[]; reviewSkills: any[] }>(`/skill-tree/${lang}/recommendations`),
+  },
+  stories: {
+    list: (lang?: string, level?: string) => {
+      const params = new URLSearchParams();
+      if (lang) params.set('lang', lang);
+      if (level) params.set('level', level);
+      return request<{ stories: any[]; total: number }>(`/stories?${params.toString()}`);
+    },
+    get: (id: string) => request<{ story: any }>(`/stories/${id}`),
+    complete: (id: string, data: { correctAnswers: number; totalQuestions: number }) => request<{ completed: boolean; xpEarned: number; accuracy: number; message: string }>(`/stories/${id}/complete`, { method: 'POST', body: data }),
+  },
+  hearts: {
+    get: () => request<{ hearts: number; maxHearts: number; gems: number; nextRefillInMinutes: number | null }>('/hearts'),
+    lose: () => request<{ hearts: number; maxHearts: number }>('/hearts/lose', { method: 'POST' }),
+    refill: () => request<{ hearts: number; gems: number }>('/hearts/refill', { method: 'POST' }),
+  },
+  quests: {
+    today: () => request<{ quests: any[]; totalXpEarned: number; allCompleted: boolean; bonusXp: number }>('/quests/today'),
+  },
 };
