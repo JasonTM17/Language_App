@@ -1,0 +1,49 @@
+name: Bug Report
+description: Báo cáo lỗi để giúp cải thiện LinguaFlow
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Cảm ơn bạn đã báo cáo lỗi!
+  - type: textarea
+    id: description
+    attributes:
+      label: Mô tả lỗi
+      description: Mô tả rõ ràng lỗi bạn gặp phải
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Các bước tái tạo
+      description: Các bước để tái tạo lỗi
+      placeholder: |
+        1. Vào trang '...'
+        2. Click vào '...'
+        3. Lỗi xuất hiện
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Kết quả mong đợi
+      description: Bạn mong đợi điều gì xảy ra?
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Trình duyệt
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Mobile Safari
+        - Mobile Chrome
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Đính kèm ảnh chụp màn hình nếu có

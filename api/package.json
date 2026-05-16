@@ -4,6 +4,10 @@
   "description": "LinguaFlow REST API - Language learning platform backend with AI tutoring",
   "author": "Nguyễn Sơn <sonnguyenhoang17@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/JasonTM17/Language_App.git",

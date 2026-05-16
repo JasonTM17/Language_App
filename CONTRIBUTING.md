@@ -1,140 +1,71 @@
 # Contributing to LinguaFlow
 
-## Development Workflow
+Cảm ơn bạn quan tâm đến việc đóng góp cho LinguaFlow!
 
-### Branch Strategy
-- `master` — Production-ready code
-- `feature/*` — New features
-- `fix/*` — Bug fixes
-- `docs/*` — Documentation updates
+## Getting Started
 
-### Commit Convention
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+1. Fork repository
+2. Clone fork: `git clone https://github.com/<your-username>/Language_App.git`
+3. Cài đặt dependencies: `cd api && npm install && cd ../web && npm install`
+4. Tạo branch: `git checkout -b feature/ten-tinh-nang`
 
+## Development
+
+```bash
+# API (port 3001)
+cd api && npm run dev
+
+# Web (port 3000)
+cd web && npm run dev
+
+# Run tests
+cd api && npm test
+cd web && npx playwright test
 ```
-feat: add speaking exercises for Korean
-fix: resolve SM-2 interval calculation overflow
-docs: update API endpoint reference
-refactor: extract quiz scoring into service layer
-test: add integration tests for friend requests
-chore: update dependencies
-```
-
-### Pull Request Process
-1. Create a feature branch from `master`
-2. Make focused, atomic commits
-3. Ensure all type checks pass (`npx tsc --noEmit`)
-4. Run tests (`npm test`)
-5. Update documentation if adding new endpoints
-6. Submit PR with clear description
-
-## Project Architecture
-
-### API Layer (api/)
-
-Routes follow a consistent pattern:
-```typescript
-import { Router, Response } from 'express';
-import { z } from 'zod';
-import prisma from '../database/client';
-import { authenticate, AuthRequest } from '../middleware/auth';
-
-const router = Router();
-
-// Zod schema for request validation
-const submitSchema = z.object({
-  field: z.string(),
-  score: z.number().min(0).max(100),
-});
-
-// Protected route with validation
-router.post('/submit', authenticate, async (req: AuthRequest, res: Response) => {
-  try {
-    const data = submitSchema.parse(req.body);
-    // Business logic...
-    res.json({ result });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: error.errors });
-    }
-    res.status(500).json({ error: 'Lỗi server' });
-  }
-});
-```
-
-Key conventions:
-- All routes use `authenticate` middleware for protected endpoints
-- Request bodies validated with Zod schemas
-- Error messages in Vietnamese for user-facing responses
-- `AuthRequest` type provides `req.userId`
-- Prisma client imported as default: `import prisma from '../database/client'`
-
-### Frontend Layer (web/)
-
-Pages follow Next.js App Router conventions:
-```
-web/src/app/{feature}/page.tsx  — Page component
-web/src/components/ui/          — Shared UI components
-web/src/services/api.ts         — Typed API client
-web/src/lib/store.ts            — Zustand state
-web/src/locales/vi.json         — Vietnamese translations
-```
-
-Component conventions:
-- `'use client'` directive for interactive pages
-- Vietnamese labels for all user-facing text
-- Tailwind CSS with dark mode support (`dark:` prefix)
-- Responsive design (mobile-first)
-- Loading/error/empty states using shared components
-
-### Database
-
-- ORM: Prisma with SQLite
-- Schema: `api/prisma/schema.prisma`
-- After schema changes: `npx prisma migrate dev` then `npx prisma generate`
-- Seed data: `npx tsx src/database/seed.ts`
-
-### AI Service
-
-Three-tier fallback system:
-1. n8n webhook (if `N8N_WEBHOOK_URL` set)
-2. OpenAI-compatible API (if `OPENAI_API_KEY` set)
-3. Built-in mock responses (always available)
-
-## Adding a New Feature
-
-### Backend Route
-1. Create `api/src/routes/{feature}.ts`
-2. Define interfaces and Zod schemas
-3. Implement CRUD endpoints with authentication
-4. Register in `api/src/index.ts`
-5. Add endpoint constants to `web/src/config/endpoints.ts`
-6. Type-check: `cd api && npx tsc --noEmit`
-
-### Frontend Page
-1. Create `web/src/app/{feature}/page.tsx`
-2. Add Vietnamese translations to `web/src/locales/vi.json`
-3. Add navigation entry in `web/src/components/layout/app-layout.tsx`
-4. Add API methods to `web/src/services/api.ts` if needed
-5. Type-check: `cd web && npx tsc --noEmit`
 
 ## Code Style
 
 - TypeScript strict mode
-- No `any` types (use proper interfaces)
-- Functional components with hooks
-- Named exports for components, default export for pages
-- Tailwind utility classes (no custom CSS unless necessary)
-- Vietnamese error messages in API responses
-- English code comments only when explaining non-obvious logic
+- ESLint + Prettier formatting
+- Functional components (React)
+- Zod for validation
+- Prisma for database queries
 
-## Testing
+## Commit Convention
 
-```bash
-cd api
-npm test                    # Run all tests
-npm test -- --watch         # Watch mode
-npm test -- auth.test.ts    # Single file
+```
+feat: tính năng mới
+fix: sửa lỗi
+docs: cập nhật tài liệu
+style: format code (không thay đổi logic)
+refactor: tái cấu trúc code
+test: thêm/sửa test
+chore: công việc maintenance
+perf: cải thiện performance
 ```
 
-Tests use Vitest + Supertest for API integration testing.
+## Pull Request Process
+
+1. Đảm bảo tests pass: `npm test`
+2. Type check: `npx tsc --noEmit`
+3. Mô tả rõ ràng thay đổi trong PR description
+4. Link issue liên quan (nếu có)
+5. Đợi review từ maintainer
+
+## Project Structure
+
+```
+api/          → Express REST API
+web/          → Next.js frontend
+docs/         → Documentation
+```
+
+## Reporting Issues
+
+- Sử dụng issue templates có sẵn
+- Cung cấp đủ thông tin để tái tạo lỗi
+- Đính kèm screenshots nếu liên quan đến UI
+
+## License
+
+Bằng việc đóng góp, bạn đồng ý rằng contributions sẽ được license dưới MIT License.

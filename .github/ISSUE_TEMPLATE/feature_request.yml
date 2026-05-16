@@ -1,0 +1,46 @@
+name: Feature Request
+description: Đề xuất tính năng mới cho LinguaFlow
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Cảm ơn bạn đã đề xuất tính năng mới!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Vấn đề
+      description: Vấn đề bạn muốn giải quyết là gì?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Giải pháp đề xuất
+      description: Mô tả giải pháp bạn muốn
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Danh mục
+      options:
+        - Vocabulary
+        - Quiz
+        - Listening
+        - Speaking
+        - Reading
+        - Writing
+        - Gamification
+        - UI/UX
+        - Performance
+        - Other
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Mức độ ưu tiên
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical

@@ -8,8 +8,11 @@
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://docker.com)
-[![Tests](https://img.shields.io/badge/Tests-129%20passing-brightgreen)](api/)
+[![Docker](https://img.shields.io/badge/Docker_Hub-nguyenson1710-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/u/nguyenson1710)
+[![Tests](https://img.shields.io/badge/Tests-129%20passing-brightgreen?logo=vitest)](api/)
+[![E2E](https://img.shields.io/badge/E2E-24%20passing-brightgreen?logo=playwright)](web/e2e/)
+[![Deploy](https://img.shields.io/badge/Vercel-Live-000?logo=vercel)](https://web-lca3ll2b5-nguyen-sons-projects-4f98af92.vercel.app)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 [Demo](https://linguaflow.app) · [Tài liệu API](docs/api.md) · [Báo lỗi](https://github.com/JasonTM17/Language_App/issues)
 
