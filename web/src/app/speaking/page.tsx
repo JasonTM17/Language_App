@@ -37,6 +37,9 @@ const prompts: Record<string, SpeakingPrompt[]> = {
     { id: '14', language: 'ja', level: 'beginner', topic: 'Mua sắm', sentence: 'これはいくらですか？', translation: 'Cái này bao nhiêu tiền?', pronunciation: 'Kore wa ikura desu ka?' },
     { id: '15', language: 'ja', level: 'intermediate', topic: 'Du lịch', sentence: '駅までどうやって行きますか？', translation: 'Đi đến ga bằng cách nào?', pronunciation: 'Eki made dou yatte ikimasu ka?' },
     { id: '16', language: 'ja', level: 'intermediate', topic: 'Công việc', sentence: '来週の会議は何時からですか？', translation: 'Cuộc họp tuần sau bắt đầu lúc mấy giờ?', pronunciation: 'Raishuu no kaigi wa nanji kara desu ka?' },
+    { id: '29', language: 'ja', level: 'intermediate', topic: 'Sức khỏe', sentence: '頭が痛いので、薬をください。', translation: 'Tôi bị đau đầu, cho tôi thuốc.', pronunciation: 'Atama ga itai node, kusuri wo kudasai.' },
+    { id: '30', language: 'ja', level: 'advanced', topic: 'Thảo luận', sentence: '日本の文化について、もっと知りたいです。', translation: 'Tôi muốn biết thêm về văn hóa Nhật Bản.', pronunciation: 'Nihon no bunka ni tsuite, motto shiritai desu.' },
+    { id: '31', language: 'ja', level: 'advanced', topic: 'Thuyết trình', sentence: '今日の発表のテーマは環境問題です。', translation: 'Chủ đề bài thuyết trình hôm nay là vấn đề môi trường.', pronunciation: 'Kyou no happyou no teema wa kankyou mondai desu.' },
   ],
   zh: [
     { id: '17', language: 'zh', level: 'beginner', topic: 'Chào hỏi', sentence: '你好，很高兴认识你。', translation: 'Xin chào, rất vui được gặp bạn.', pronunciation: 'Nǐ hǎo, hěn gāoxìng rènshi nǐ.' },
@@ -45,6 +48,9 @@ const prompts: Record<string, SpeakingPrompt[]> = {
     { id: '20', language: 'zh', level: 'beginner', topic: 'Mua sắm', sentence: '这个多少钱？', translation: 'Cái này bao nhiêu tiền?', pronunciation: 'Zhège duōshǎo qián?' },
     { id: '21', language: 'zh', level: 'intermediate', topic: 'Du lịch', sentence: '请问，地铁站怎么走？', translation: 'Xin hỏi, ga tàu điện ngầm đi thế nào?', pronunciation: 'Qǐngwèn, dìtiě zhàn zěnme zǒu?' },
     { id: '22', language: 'zh', level: 'intermediate', topic: 'Công việc', sentence: '我在一家科技公司工作。', translation: 'Tôi làm việc ở một công ty công nghệ.', pronunciation: 'Wǒ zài yī jiā kējì gōngsī gōngzuò.' },
+    { id: '32', language: 'zh', level: 'intermediate', topic: 'Sức khỏe', sentence: '我头疼，需要看医生。', translation: 'Tôi đau đầu, cần đi khám bác sĩ.', pronunciation: 'Wǒ tóuténg, xūyào kàn yīshēng.' },
+    { id: '33', language: 'zh', level: 'advanced', topic: 'Thảo luận', sentence: '我觉得学习语言最重要的是坚持。', translation: 'Tôi nghĩ điều quan trọng nhất khi học ngôn ngữ là kiên trì.', pronunciation: 'Wǒ juéde xuéxí yǔyán zuì zhòngyào de shì jiānchí.' },
+    { id: '34', language: 'zh', level: 'advanced', topic: 'Thuyết trình', sentence: '今天我要介绍一下我们公司的新产品。', translation: 'Hôm nay tôi sẽ giới thiệu sản phẩm mới của công ty.', pronunciation: 'Jīntiān wǒ yào jièshào yīxià wǒmen gōngsī de xīn chǎnpǐn.' },
   ],
   ko: [
     { id: '23', language: 'ko', level: 'beginner', topic: 'Chào hỏi', sentence: '안녕하세요, 만나서 반갑습니다.', translation: 'Xin chào, rất vui được gặp bạn.', pronunciation: 'Annyeonghaseyo, mannaseo bangapseumnida.' },
@@ -53,6 +59,9 @@ const prompts: Record<string, SpeakingPrompt[]> = {
     { id: '26', language: 'ko', level: 'beginner', topic: 'Mua sắm', sentence: '이거 얼마예요?', translation: 'Cái này bao nhiêu tiền?', pronunciation: 'Igeo eolmayeyo?' },
     { id: '27', language: 'ko', level: 'intermediate', topic: 'Du lịch', sentence: '지하철역이 어디에 있어요?', translation: 'Ga tàu điện ngầm ở đâu?', pronunciation: 'Jihacheol-yeogi eodie isseoyo?' },
     { id: '28', language: 'ko', level: 'intermediate', topic: 'Công việc', sentence: '저는 IT 회사에서 일하고 있어요.', translation: 'Tôi đang làm việc ở công ty IT.', pronunciation: 'Jeoneun IT hoesaeseo ilhago isseoyo.' },
+    { id: '35', language: 'ko', level: 'intermediate', topic: 'Sức khỏe', sentence: '머리가 아파서 약을 사고 싶어요.', translation: 'Tôi đau đầu nên muốn mua thuốc.', pronunciation: 'Meoriga apaseo yageul sago sipeoyo.' },
+    { id: '36', language: 'ko', level: 'advanced', topic: 'Thảo luận', sentence: '한국 문화에 대해 더 알고 싶습니다.', translation: 'Tôi muốn biết thêm về văn hóa Hàn Quốc.', pronunciation: 'Hanguk munhwae daehae deo algo sipseumnida.' },
+    { id: '37', language: 'ko', level: 'advanced', topic: 'Thuyết trình', sentence: '오늘 발표 주제는 환경 문제입니다.', translation: 'Chủ đề bài thuyết trình hôm nay là vấn đề môi trường.', pronunciation: 'Oneul balpyo jujeneun hwangyeong munjeimnida.' },
   ],
 };
 
