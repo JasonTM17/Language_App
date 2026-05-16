@@ -13,6 +13,7 @@ const navItems = [
   { href: '/vocabulary', label: 'Vocabulary', icon: '📝' },
   { href: '/grammar', label: 'Grammar', icon: '📐' },
   { href: '/flashcards', label: 'Flashcards', icon: '🃏' },
+  { href: '/review', label: 'Review', icon: '🔄' },
   { href: '/quiz', label: 'Quiz', icon: '❓' },
   { href: '/ai-tutor', label: 'AI Tutor', icon: '🤖' },
   { href: '/speaking', label: 'Speaking', icon: '🎤' },
