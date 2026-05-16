@@ -30,6 +30,11 @@ const exercises: Record<string, GrammarCorrectionExercise[]> = {
     { id: '13', sentence: '私は寿司は好きです。', corrected: '私は寿司が好きです。', error: 'は → が', explanation: 'Với "好き" (thích), đối tượng được thích dùng trợ từ "が".' },
     { id: '14', sentence: '昨日、映画を見るました。', corrected: '昨日、映画を見ました。', error: '見るました → 見ました', explanation: 'Thể quá khứ lịch sự: 見る → 見ました (bỏ る, thêm ました).' },
     { id: '15', sentence: '日本語が上手ですね。いいえ、まだまだです。', corrected: '日本語がお上手ですね。いいえ、まだまだです。', error: '上手 → お上手', explanation: 'Khi khen người khác, thêm "お" trước "上手" để lịch sự hơn.' },
+    { id: '26', sentence: '私は毎日学校で行きます。', corrected: '私は毎日学校に行きます。', error: 'で → に', explanation: '"で" chỉ nơi hành động xảy ra, "に" chỉ đích đến của chuyển động.' },
+    { id: '27', sentence: '彼女は英語を話すことができるです。', corrected: '彼女は英語を話すことができます。', error: 'できるです → できます', explanation: '"できる" chia thể lịch sự thành "できます", không thêm "です" sau.' },
+    { id: '28', sentence: '先生は学生に本を読むさせました。', corrected: '先生は学生に本を読ませました。', error: '読むさせました → 読ませました', explanation: 'Thể sai khiến của 読む: bỏ む, thêm ませる → 読ませる → 読ませました.' },
+    { id: '29', sentence: 'この映画はとても面白いだった。', corrected: 'この映画はとても面白かった。', error: '面白いだった → 面白かった', explanation: 'Tính từ đuôi い chia quá khứ: bỏ い, thêm かった. Không dùng "だった".' },
+    { id: '30', sentence: '明日雨が降ったら、家にいます。', corrected: '明日雨が降ったら、家にいます。', error: 'Câu đúng!', explanation: 'Câu này đúng ngữ pháp! ～たら là cấu trúc điều kiện "nếu... thì...".' },
   ],
   zh: [
     { id: '16', sentence: '我很是高兴。', corrected: '我很高兴。', error: '很是 → 很', explanation: '"很" và "是" không dùng cùng nhau trước tính từ. Dùng "很 + adj".' },
@@ -37,6 +42,11 @@ const exercises: Record<string, GrammarCorrectionExercise[]> = {
     { id: '18', sentence: '我不会说中文很好。', corrected: '我中文说得不太好。', error: 'Sai cấu trúc bổ ngữ', explanation: 'Cấu trúc bổ ngữ trình độ: S + V + 得 + adj. Phủ định: 说得不太好.' },
     { id: '19', sentence: '昨天我看了一个很好电影。', corrected: '昨天我看了一部很好的电影。', error: '一个 → 一部, thiếu 的', explanation: 'Phim dùng lượng từ "部". Tính từ trước danh từ cần "的": 很好的电影.' },
     { id: '20', sentence: '我比他更高了三厘米。', corrected: '我比他高三厘米。', error: '更高了 → 高', explanation: 'Cấu trúc so sánh cụ thể: A 比 B + adj + số lượng. Không thêm "更" hay "了".' },
+    { id: '31', sentence: '我昨天在家里看了书两个小时。', corrected: '我昨天在家里看了两个小时的书。', error: 'Sai vị trí bổ ngữ thời lượng', explanation: 'Bổ ngữ thời lượng đặt sau động từ, trước tân ngữ: V + 了 + thời gian + 的 + tân ngữ.' },
+    { id: '32', sentence: '她穿着一件很漂亮裙子。', corrected: '她穿着一件很漂亮的裙子。', error: 'thiếu 的', explanation: 'Tính từ đa âm tiết (很漂亮) trước danh từ cần "的": 很漂亮的裙子.' },
+    { id: '33', sentence: '我把作业做完。', corrected: '我把作业做完了。', error: 'thiếu 了', explanation: 'Câu "把" diễn tả kết quả hoàn thành cần "了" ở cuối: 做完了.' },
+    { id: '34', sentence: '虽然他很忙，他还是来了。', corrected: '虽然他很忙，但是他还是来了。', error: 'thiếu 但是', explanation: '"虽然...但是..." là cặp liên từ cố định (mặc dù...nhưng...). Không bỏ "但是".' },
+    { id: '35', sentence: '我想去一下中国。', corrected: '我想去一趟中国。', error: '一下 → 一趟', explanation: '"一下" dùng cho hành động ngắn. Đi đến nơi nào dùng "一趟" (một chuyến).' },
   ],
   ko: [
     { id: '21', sentence: '저는 학생이입니다.', corrected: '저는 학생입니다.', error: '이입니다 → 입니다', explanation: '"학생" kết thúc bằng phụ âm nên dùng "입니다" trực tiếp (không thêm 이).' },
@@ -44,6 +54,11 @@ const exercises: Record<string, GrammarCorrectionExercise[]> = {
     { id: '23', sentence: '이 음식을 맛있어요.', corrected: '이 음식이 맛있어요.', error: '을 → 이', explanation: 'Với tính từ "맛있다", chủ ngữ dùng trợ từ "이/가" không phải "을/를".' },
     { id: '24', sentence: '어제 영화를 보다았어요.', corrected: '어제 영화를 봤어요.', error: '보다았어요 → 봤어요', explanation: 'Quá khứ của 보다: bỏ 다, thêm 았어요 → 보 + 았어요 = 봤어요 (rút gọn).' },
     { id: '25', sentence: '저는 커피를 마시고 좋아해요.', corrected: '저는 커피를 마시는 것을 좋아해요.', error: '마시고 → 마시는 것을', explanation: '"Thích làm gì" dùng cấu trúc: V + 는 것을 좋아하다.' },
+    { id: '36', sentence: '내일 비가 오면은 집에 있을 거예요.', corrected: '내일 비가 오면 집에 있을 거예요.', error: '오면은 → 오면', explanation: '"~면" đã là liên từ điều kiện, không thêm "은" phía sau.' },
+    { id: '37', sentence: '저는 한국어를 공부하는 중이에요.', corrected: '저는 한국어를 공부하고 있어요.', error: '공부하는 중이에요 → 공부하고 있어요', explanation: '"~고 있다" tự nhiên hơn cho hành động đang diễn ra. "~는 중" dùng khi nhấn mạnh "đang giữa chừng".' },
+    { id: '38', sentence: '그 사람은 키가 크는 편이에요.', corrected: '그 사람은 키가 큰 편이에요.', error: '크는 → 큰', explanation: 'Tính từ trước "편" dùng dạng định ngữ: 크다 → 큰 (không phải 크는).' },
+    { id: '39', sentence: '저는 서울에서 3년 동안 살았어요.', corrected: '저는 서울에서 3년 동안 살았어요.', error: 'Câu đúng!', explanation: 'Câu này đúng ngữ pháp! "에서" chỉ nơi hành động xảy ra, "동안" chỉ khoảng thời gian.' },
+    { id: '40', sentence: '선생님께서 학생들한테 숙제를 내줬어요.', corrected: '선생님께서 학생들에게 숙제를 내주셨어요.', error: '한테 → 에게, 내줬어요 → 내주셨어요', explanation: 'Với chủ ngữ kính ngữ (께서), dùng "에게" thay "한테" và động từ kính ngữ "~셨어요".' },
   ],
 };
 
