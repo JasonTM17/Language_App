@@ -15,6 +15,7 @@ const navItems = [
   { href: '/grammar-tips', label: 'Grammar Tips', icon: '💡' },
   { href: '/flashcards', label: 'Flashcards', icon: '🃏' },
   { href: '/review', label: 'Review', icon: '🔄' },
+  { href: '/weak-words', label: 'Weak Words', icon: '🧠' },
   { href: '/quiz', label: 'Quiz', icon: '❓' },
   { href: '/timed-challenge', label: 'Speed Quiz', icon: '⚡' },
   { href: '/ai-tutor', label: 'AI Tutor', icon: '🤖' },
