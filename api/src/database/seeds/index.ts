@@ -87,6 +87,9 @@ import { chineseEnvironmentLessons } from './chinese/advanced-environment';
 import { japaneseSelfIntroLessons } from './japanese/beginner-self-intro';
 import { koreanSelfIntroLessons } from './korean/beginner-self-intro';
 import { chineseSelfIntroLessons } from './chinese/beginner-self-intro';
+import { japaneseBusinessLessons } from './japanese/intermediate-business';
+import { koreanBusinessLessons } from './korean/intermediate-business';
+import { chineseBusinessLessons } from './chinese/intermediate-business';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -245,7 +248,7 @@ async function main() {
   }
 
   // Japanese intermediate lessons
-  const jaIntermediateLessons = [...japaneseWorkLessons, ...japaneseTravelIntermediateLessons, ...japaneseCultureLessons];
+  const jaIntermediateLessons = [...japaneseWorkLessons, ...japaneseTravelIntermediateLessons, ...japaneseCultureLessons, ...japaneseBusinessLessons];
   for (let i = 0; i < jaIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['ja']['intermediate'], i + 1, jaIntermediateLessons[i]);
     lessonCount++;
@@ -254,7 +257,7 @@ async function main() {
   }
 
   // Korean intermediate lessons
-  const koIntermediateLessons = [...koreanWorkLessons, ...koreanTravelIntermediateLessons, ...koreanCultureLessons];
+  const koIntermediateLessons = [...koreanWorkLessons, ...koreanTravelIntermediateLessons, ...koreanCultureLessons, ...koreanBusinessLessons];
   for (let i = 0; i < koIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['ko']['intermediate'], i + 1, koIntermediateLessons[i]);
     lessonCount++;
@@ -263,7 +266,7 @@ async function main() {
   }
 
   // Chinese intermediate lessons
-  const zhIntermediateLessons = [...chineseWorkLessons, ...chineseTravelIntermediateLessons, ...chineseCultureLessons];
+  const zhIntermediateLessons = [...chineseWorkLessons, ...chineseTravelIntermediateLessons, ...chineseCultureLessons, ...chineseBusinessLessons];
   for (let i = 0; i < zhIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['zh']['intermediate'], i + 1, zhIntermediateLessons[i]);
     lessonCount++;
