@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { paginate, errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -143,6 +144,8 @@ const STORIES: Story[] = [
 
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
   const { lang, level, category } = req.query;
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 20;
 
   let filtered = STORIES;
   if (lang) filtered = filtered.filter(s => s.language === String(lang));
@@ -155,19 +158,19 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
     questionCount: segments.filter(s => s.type === 'question').length,
   }));
 
-  res.json({ stories: summaries, total: summaries.length });
+  res.json(paginate(summaries, page, limit));
 });
 
 router.get('/:id', authenticate, async (req: AuthRequest, res: Response) => {
   const story = STORIES.find(s => s.id === req.params.id);
-  if (!story) return res.status(404).json({ error: 'Câu chuyện không tồn tại' });
+  if (!story) return res.status(404).json(errorResponse('Câu chuyện không tồn tại', 'NOT_FOUND'));
   res.json({ story });
 });
 
 router.post('/:id/complete', authenticate, async (req: AuthRequest, res: Response) => {
   try {
     const story = STORIES.find(s => s.id === req.params.id);
-    if (!story) return res.status(404).json({ error: 'Câu chuyện không tồn tại' });
+    if (!story) return res.status(404).json(errorResponse('Câu chuyện không tồn tại', 'NOT_FOUND'));
 
     const { correctAnswers = 0, totalQuestions = 0 } = req.body;
     const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 100;
@@ -185,7 +188,7 @@ router.post('/:id/complete', authenticate, async (req: AuthRequest, res: Respons
       message: accuracy >= 80 ? 'Tuyệt vời! Bạn hiểu câu chuyện rất tốt!' : 'Khá tốt! Hãy đọc lại để hiểu rõ hơn nhé.',
     });
   } catch {
-    res.status(500).json({ error: 'Lỗi khi hoàn thành câu chuyện' });
+    res.status(500).json(errorResponse('Lỗi khi hoàn thành câu chuyện', 'INTERNAL_ERROR'));
   }
 });
 

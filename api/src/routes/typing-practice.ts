@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
+import { paginate } from '../types/responses';
 
 const router = Router();
 
@@ -36,6 +37,8 @@ const typingExercises: Record<string, any[]> = {
 
 router.get('/', authenticate, async (req, res) => {
   const { lang = 'en', difficulty } = req.query;
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 20;
   const langCode = String(lang);
 
   let exercises = typingExercises[langCode] || typingExercises['en'];
@@ -44,7 +47,8 @@ router.get('/', authenticate, async (req, res) => {
     exercises = exercises.filter(e => e.difficulty === difficulty);
   }
 
-  res.json({ exercises, language: langCode });
+  const result = paginate(exercises, page, limit);
+  res.json({ ...result, language: langCode });
 });
 
 router.post('/result', authenticate, async (req, res) => {

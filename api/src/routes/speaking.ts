@@ -2,6 +2,7 @@ import { Router, Response } from 'express';
 import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { paginate, errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -50,12 +51,15 @@ const submitSchema = z.object({
 
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
   const { lang = 'en', level, type } = req.query;
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 20;
 
   let filtered = SPEAKING_EXERCISES.filter(e => e.language === String(lang));
   if (level) filtered = filtered.filter(e => e.level === String(level));
   if (type) filtered = filtered.filter(e => e.type === String(type));
 
-  res.json({ exercises: filtered, total: filtered.length, language: lang });
+  const result = paginate(filtered, page, limit);
+  res.json({ ...result, language: lang });
 });
 
 router.get('/:id', authenticate, async (req: AuthRequest, res: Response) => {
