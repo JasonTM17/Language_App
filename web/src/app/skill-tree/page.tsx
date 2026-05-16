@@ -67,6 +67,17 @@ const skillPaths: Record<string, SkillPath[]> = {
         { id: 'ja-weather', title: 'てんき', titleVi: 'Thời tiết', icon: '🌸', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 15 },
       ],
     },
+    {
+      language: 'Japanese',
+      levelName: 'Elementary',
+      skills: [
+        { id: 'ja-transport', title: 'こうつう', titleVi: 'Giao thông', icon: '🚃', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ja-school', title: 'がっこう', titleVi: 'Trường học', icon: '🏫', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ja-hobbies', title: 'しゅみ', titleVi: 'Sở thích', icon: '🎮', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ja-body', title: 'からだ', titleVi: 'Cơ thể', icon: '🏃', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ja-seasons', title: 'きせつ', titleVi: 'Mùa', icon: '🍁', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+      ],
+    },
   ],
   zh: [
     {
@@ -83,6 +94,17 @@ const skillPaths: Record<string, SkillPath[]> = {
         { id: 'zh-weather', title: '天气', titleVi: 'Thời tiết', icon: '☀️', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 15 },
       ],
     },
+    {
+      language: 'Chinese',
+      levelName: 'Elementary',
+      skills: [
+        { id: 'zh-transport', title: '交通', titleVi: 'Giao thông', icon: '🚇', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'zh-school', title: '学校', titleVi: 'Trường học', icon: '🏫', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'zh-hobbies', title: '爱好', titleVi: 'Sở thích', icon: '🎨', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'zh-body', title: '身体', titleVi: 'Cơ thể', icon: '🏃', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'zh-culture', title: '文化', titleVi: 'Văn hóa', icon: '🏮', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+      ],
+    },
   ],
   ko: [
     {
@@ -97,6 +119,17 @@ const skillPaths: Record<string, SkillPath[]> = {
         { id: 'ko-shopping', title: '쇼핑', titleVi: 'Mua sắm', icon: '🛍️', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 15 },
         { id: 'ko-travel', title: '여행', titleVi: 'Du lịch', icon: '✈️', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 15 },
         { id: 'ko-weather', title: '날씨', titleVi: 'Thời tiết', icon: '🌧️', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 15 },
+      ],
+    },
+    {
+      language: 'Korean',
+      levelName: 'Elementary',
+      skills: [
+        { id: 'ko-transport', title: '교통', titleVi: 'Giao thông', icon: '🚌', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ko-school', title: '학교', titleVi: 'Trường học', icon: '🏫', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ko-hobbies', title: '취미', titleVi: 'Sở thích', icon: '🎮', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ko-body', title: '몸', titleVi: 'Cơ thể', icon: '🏃', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
+        { id: 'ko-kpop', title: 'K-문화', titleVi: 'Văn hóa Hàn', icon: '🎵', lessonsTotal: 5, lessonsCompleted: 0, locked: true, level: 0, maxLevel: 5, xpReward: 20 },
       ],
     },
   ],
