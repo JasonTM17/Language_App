@@ -21,6 +21,10 @@ const exercises: Record<string, DictationExercise[]> = {
     { id: '6', language: 'en', sentence: 'She has been working here for five years', translation: 'Cô ấy đã làm việc ở đây 5 năm', speed: 'slow' },
     { id: '7', language: 'en', sentence: 'What time does the train leave', translation: 'Tàu khởi hành lúc mấy giờ', speed: 'normal' },
     { id: '8', language: 'en', sentence: 'I need to buy some groceries', translation: 'Tôi cần mua ít đồ tạp hóa', speed: 'normal' },
+    { id: '23', language: 'en', sentence: 'Could you please repeat that', translation: 'Bạn có thể nhắc lại được không', speed: 'normal' },
+    { id: '24', language: 'en', sentence: 'The restaurant is on the second floor', translation: 'Nhà hàng ở tầng hai', speed: 'normal' },
+    { id: '25', language: 'en', sentence: 'I have an appointment at three o clock', translation: 'Tôi có cuộc hẹn lúc 3 giờ', speed: 'normal' },
+    { id: '26', language: 'en', sentence: 'How much does this cost', translation: 'Cái này giá bao nhiêu', speed: 'normal' },
   ],
   ja: [
     { id: '9', language: 'ja', sentence: 'おはようございます', translation: 'Chào buổi sáng (lịch sự)', speed: 'slow' },
@@ -28,6 +32,9 @@ const exercises: Record<string, DictationExercise[]> = {
     { id: '11', language: 'ja', sentence: '日本語を勉強しています', translation: 'Tôi đang học tiếng Nhật', speed: 'slow' },
     { id: '12', language: 'ja', sentence: 'これはいくらですか', translation: 'Cái này bao nhiêu tiền?', speed: 'slow' },
     { id: '13', language: 'ja', sentence: '明日は何をしますか', translation: 'Ngày mai bạn sẽ làm gì?', speed: 'slow' },
+    { id: '27', language: 'ja', sentence: 'お水をください', translation: 'Cho tôi nước', speed: 'slow' },
+    { id: '28', language: 'ja', sentence: '私はベトナム人です', translation: 'Tôi là người Việt Nam', speed: 'slow' },
+    { id: '29', language: 'ja', sentence: '電車は何時に来ますか', translation: 'Tàu điện mấy giờ đến?', speed: 'slow' },
   ],
   zh: [
     { id: '14', language: 'zh', sentence: '你好，请问洗手间在哪里', translation: 'Xin chào, xin hỏi nhà vệ sinh ở đâu?', speed: 'slow' },
@@ -35,12 +42,19 @@ const exercises: Record<string, DictationExercise[]> = {
     { id: '16', language: 'zh', sentence: '今天天气很好', translation: 'Hôm nay thời tiết rất đẹp', speed: 'slow' },
     { id: '17', language: 'zh', sentence: '这个多少钱', translation: 'Cái này bao nhiêu tiền?', speed: 'slow' },
     { id: '18', language: 'zh', sentence: '我是越南人', translation: 'Tôi là người Việt Nam', speed: 'slow' },
+    { id: '30', language: 'zh', sentence: '请给我一杯咖啡', translation: 'Cho tôi một ly cà phê', speed: 'slow' },
+    { id: '31', language: 'zh', sentence: '我住在胡志明市', translation: 'Tôi sống ở TP Hồ Chí Minh', speed: 'slow' },
+    { id: '32', language: 'zh', sentence: '明天见', translation: 'Hẹn gặp lại ngày mai', speed: 'slow' },
   ],
   ko: [
     { id: '19', language: 'ko', sentence: '안녕하세요 만나서 반갑습니다', translation: 'Xin chào, rất vui được gặp bạn', speed: 'slow' },
     { id: '20', language: 'ko', sentence: '한국어를 공부하고 있어요', translation: 'Tôi đang học tiếng Hàn', speed: 'slow' },
     { id: '21', language: 'ko', sentence: '이것은 얼마예요', translation: 'Cái này bao nhiêu tiền?', speed: 'slow' },
     { id: '22', language: 'ko', sentence: '화장실이 어디에 있어요', translation: 'Nhà vệ sinh ở đâu?', speed: 'slow' },
+    { id: '33', language: 'ko', sentence: '물 한 잔 주세요', translation: 'Cho tôi một ly nước', speed: 'slow' },
+    { id: '34', language: 'ko', sentence: '저는 베트남 사람이에요', translation: 'Tôi là người Việt Nam', speed: 'slow' },
+    { id: '35', language: 'ko', sentence: '내일 만나요', translation: 'Hẹn gặp lại ngày mai', speed: 'slow' },
+    { id: '36', language: 'ko', sentence: '지하철역이 어디에 있어요', translation: 'Ga tàu điện ngầm ở đâu?', speed: 'slow' },
   ],
 };
 
