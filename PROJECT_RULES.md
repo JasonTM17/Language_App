@@ -62,7 +62,46 @@ gh release create v1.0.0 \
 
 ---
 
-## 3. Repo Structure (Monorepo)
+## 3. Repo Structure (BẮT BUỘC)
+
+### Quy tắc cốt lõi:
+> **Mọi repo PHẢI có backend và frontend TÁCH RIÊNG** — không ngoại lệ.
+> Kể cả dự án nhỏ cũng phải tách `api/` và `web/` riêng biệt.
+> Ngoài ra phải có đầy đủ các config files chuẩn.
+
+### Cấu trúc tối thiểu (mọi dự án):
+| Thành phần | Bắt buộc | Mô tả |
+|-----------|----------|-------|
+| `api/` | ✅ | Backend riêng: Express/Fastify/NestJS + Prisma |
+| `web/` | ✅ | Frontend riêng: Next.js/React + Tailwind |
+| `docker-compose.yml` | ✅ | Orchestration cả stack |
+| `api/Dockerfile` | ✅ | Container cho backend |
+| `web/Dockerfile` | ✅ | Container cho frontend |
+| `.github/workflows/ci.yml` | ✅ | CI pipeline |
+| `.github/workflows/codeql.yml` | ✅ | Security scanning |
+| `.github/dependabot.yml` | ✅ | Auto dependency updates |
+| `.github/CODEOWNERS` | ✅ | Code ownership |
+| `.prettierrc` | ✅ | Code formatting |
+| `.editorconfig` | ✅ | Editor settings |
+| `.nvmrc` | ✅ | Node version pinning |
+| `.gitignore` | ✅ | Comprehensive ignore rules |
+| `.gitattributes` | ✅ | Line endings (LF cho scripts) |
+| `README.md` | ✅ | Professional docs + badges |
+| `CONTRIBUTING.md` | ✅ | Hướng dẫn đóng góp |
+| `CHANGELOG.md` | ✅ | Lịch sử thay đổi |
+| `CODE_OF_CONDUCT.md` | ✅ | Quy tắc ứng xử |
+| `SECURITY.md` | ✅ | Security policy |
+| `LICENSE` | ✅ | MIT |
+
+### KHÔNG chấp nhận:
+- ❌ Fullstack trong 1 folder (backend + frontend lẫn lộn)
+- ❌ Repo chỉ có frontend mà không có backend
+- ❌ Repo thiếu Dockerfile
+- ❌ Repo thiếu CI/CD workflow
+- ❌ Repo thiếu `.prettierrc`, `.nvmrc`, `.editorconfig`
+- ❌ Repo thiếu community files (CONTRIBUTING, CODE_OF_CONDUCT, SECURITY)
+
+### Monorepo layout chuẩn:
 
 ```
 project/
