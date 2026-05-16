@@ -46,6 +46,7 @@ const navItems = [
   { href: '/daily-goals', label: 'Daily Goals', icon: '🎯' },
   { href: '/daily-challenge', label: 'Challenge', icon: '⚔️' },
   { href: '/shop', label: 'Shop', icon: '💎' },
+  { href: '/typing-practice', label: 'Typing', icon: '⌨️' },
   { href: '/games', label: 'Games', icon: '🎮' },
   { href: '/memory-game', label: 'Memory', icon: '🧩' },
   { href: '/progress', label: 'Progress', icon: '📊' },
