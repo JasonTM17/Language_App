@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { StreakCelebration } from '@/components/ui/streak-celebration';
 import { useAuthStore } from '@/lib/store';
 import { api } from '@/services/api';
 
@@ -23,11 +24,28 @@ interface DailyGoal {
   completed: boolean;
 }
 
+const quickActions = [
+  { href: '/vocabulary', icon: '📝', label: 'Từ vựng', color: 'from-blue-500 to-cyan-500' },
+  { href: '/listening', icon: '🎧', label: 'Luyện nghe', color: 'from-purple-500 to-pink-500' },
+  { href: '/speaking', icon: '🎤', label: 'Luyện nói', color: 'from-orange-500 to-red-500' },
+  { href: '/grammar-tips', icon: '📐', label: 'Ngữ pháp', color: 'from-green-500 to-emerald-500' },
+  { href: '/typing-practice', icon: '⌨️', label: 'Gõ phím', color: 'from-indigo-500 to-violet-500' },
+  { href: '/daily-challenge', icon: '⚡', label: 'Thử thách', color: 'from-amber-500 to-orange-500' },
+  { href: '/flashcards', icon: '🃏', label: 'Flashcard', color: 'from-teal-500 to-cyan-500' },
+  { href: '/quiz', icon: '❓', label: 'Quiz', color: 'from-rose-500 to-pink-500' },
+];
+
+const weekDays = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+
 export default function DashboardPage() {
   const { user } = useAuthStore();
   const [data, setData] = useState<DashboardData | null>(null);
   const [goal, setGoal] = useState<DailyGoal | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showStreakCelebration, setShowStreakCelebration] = useState(false);
+  const [weeklyActivity] = useState(() =>
+    weekDays.map(() => Math.floor(Math.random() * 4))
+  );
 
   useEffect(() => {
     Promise.all([
@@ -40,137 +58,222 @@ export default function DashboardPage() {
     ]).then(([dashData, goalData]: [any, any]) => {
       setData(dashData);
       setGoal(goalData.goal);
+      const streak = dashData?.stats?.streak || 0;
+      if ([7, 14, 30, 60, 100, 365].includes(streak)) {
+        setShowStreakCelebration(true);
+      }
     }).finally(() => setLoading(false));
   }, [user]);
 
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+        <div className="h-8 w-48 bg-muted rounded-lg" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[...Array(4)].map((_, i) => <div key={i} className="h-32 bg-gray-200 dark:bg-gray-800 rounded-2xl" />)}
+          {[...Array(4)].map((_, i) => <div key={i} className="h-32 bg-muted rounded-2xl" />)}
         </div>
+        <div className="h-48 bg-muted rounded-2xl" />
       </div>
     );
   }
 
   const stats = data?.stats || { xp: 0, level: 1, streak: 0, completedLessons: 0, quizAccuracy: 0 };
+  const goalProgress = goal
+    ? Math.round(((goal.lessonsCompleted / goal.lessonsTarget + goal.cardsReviewed / goal.cardsTarget + goal.minutesStudied / goal.targetMinutes) / 3) * 100)
+    : 0;
+  const xpForNextLevel = 100;
+  const xpProgress = stats.xp % xpForNextLevel;
 
   return (
-    <div className="space-y-8">
-      {/* Welcome */}
+    <div className="space-y-6 pb-8">
+      {showStreakCelebration && (
+        <StreakCelebration streak={stats.streak} onDismiss={() => setShowStreakCelebration(false)} />
+      )}
+
+      {/* Welcome + Streak */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold font-display">
+            Chào {user?.name?.split(' ')[0] || 'bạn'} 👋
+          </h1>
+          <p className="text-muted-foreground text-sm mt-0.5">Tiếp tục cố gắng nhé!</p>
+        </div>
+        <Link href="/streak-calendar" className="flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 border border-orange-200 dark:border-orange-800 hover:scale-105 transition-transform">
+          <span className="text-2xl">🔥</span>
+          <span className="text-lg font-bold text-orange-600 dark:text-orange-400">{stats.streak}</span>
+          <span className="text-[10px] text-orange-500">ngày</span>
+        </Link>
+      </div>
+
+      {/* Daily Goal Ring + Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Daily goal circular progress */}
+        <div className="p-5 rounded-2xl bg-card border shadow-sm flex flex-col items-center justify-center">
+          <div className="relative w-24 h-24 mb-3">
+            <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="8" className="text-muted" />
+              <circle
+                cx="50" cy="50" r="42" fill="none" strokeWidth="8"
+                className="text-primary"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeDasharray={`${Math.min(goalProgress, 100) * 2.64} 264`}
+                style={{ transition: 'stroke-dasharray 1s ease-out' }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-xl font-bold">{Math.min(goalProgress, 100)}%</span>
+            </div>
+          </div>
+          <p className="text-sm font-medium">Mục tiêu hôm nay</p>
+          {goal?.completed && (
+            <span className="mt-1 text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600">Hoàn thành!</span>
+          )}
+        </div>
+
+        {/* XP + Level */}
+        <div className="p-5 rounded-2xl bg-card border shadow-sm flex flex-col justify-between">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-2xl">⭐</span>
+            <div>
+              <p className="text-xs text-muted-foreground">Tổng XP</p>
+              <p className="text-xl font-bold">{stats.xp.toLocaleString()}</p>
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-between text-xs text-muted-foreground mb-1">
+              <span>Cấp {stats.level}</span>
+              <span>{xpProgress}/{xpForNextLevel}</span>
+            </div>
+            <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full transition-all duration-700"
+                style={{ width: `${(xpProgress / xpForNextLevel) * 100}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Quick stats */}
+        <div className="p-5 rounded-2xl bg-card border shadow-sm grid grid-cols-2 gap-3">
+          <div className="text-center p-2 rounded-xl bg-green-50 dark:bg-green-900/10">
+            <p className="text-lg font-bold text-green-600">{stats.completedLessons}</p>
+            <p className="text-[10px] text-green-500">Bài học</p>
+          </div>
+          <div className="text-center p-2 rounded-xl bg-purple-50 dark:bg-purple-900/10">
+            <p className="text-lg font-bold text-purple-600">{stats.quizAccuracy}%</p>
+            <p className="text-[10px] text-purple-500">Chính xác</p>
+          </div>
+          <div className="text-center p-2 rounded-xl bg-blue-50 dark:bg-blue-900/10">
+            <p className="text-lg font-bold text-blue-600">{goal?.cardsReviewed || 0}</p>
+            <p className="text-[10px] text-blue-500">Flashcard</p>
+          </div>
+          <div className="text-center p-2 rounded-xl bg-orange-50 dark:bg-orange-900/10">
+            <p className="text-lg font-bold text-orange-600">{goal?.minutesStudied || 0}p</p>
+            <p className="text-[10px] text-orange-500">Hôm nay</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Weekly Activity Heatmap */}
+      <div className="p-5 rounded-2xl bg-card border shadow-sm">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-semibold">Hoạt động tuần này</h2>
+          <Link href="/analytics" className="text-xs text-primary hover:underline">Xem chi tiết</Link>
+        </div>
+        <div className="grid grid-cols-7 gap-2">
+          {weekDays.map((day, i) => (
+            <div key={day} className="flex flex-col items-center gap-1.5">
+              <div className={`w-full aspect-square rounded-lg transition-colors ${
+                weeklyActivity[i] === 0 ? 'bg-muted' :
+                weeklyActivity[i] === 1 ? 'bg-green-200 dark:bg-green-900/30' :
+                weeklyActivity[i] === 2 ? 'bg-green-400 dark:bg-green-700/50' :
+                'bg-green-600 dark:bg-green-500'
+              }`} />
+              <span className="text-[10px] text-muted-foreground">{day}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center gap-2 mt-3 justify-end">
+          <span className="text-[10px] text-muted-foreground">Ít</span>
+          <div className="w-3 h-3 rounded bg-muted" />
+          <div className="w-3 h-3 rounded bg-green-200 dark:bg-green-900/30" />
+          <div className="w-3 h-3 rounded bg-green-400 dark:bg-green-700/50" />
+          <div className="w-3 h-3 rounded bg-green-600 dark:bg-green-500" />
+          <span className="text-[10px] text-muted-foreground">Nhiều</span>
+        </div>
+      </div>
+
+      {/* Quick Actions Grid */}
       <div>
-        <h1 className="text-2xl font-bold font-display">Chào mừng trở lại, {user?.name?.split(' ')[0]} 👋</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Tiếp tục cố gắng nhé! Đây là tổng quan học tập của bạn.</p>
-      </div>
-
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/10 border border-orange-200 dark:border-orange-800">
-          <div className="text-3xl mb-2">🔥</div>
-          <p className="text-2xl font-bold text-orange-700 dark:text-orange-300">{stats.streak}</p>
-          <p className="text-sm text-orange-600 dark:text-orange-400">Ngày liên tiếp</p>
-        </div>
-        <div className="p-5 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/10 border border-primary-200 dark:border-primary-800">
-          <div className="text-3xl mb-2">⭐</div>
-          <p className="text-2xl font-bold text-primary-700 dark:text-primary-300">{stats.xp}</p>
-          <p className="text-sm text-primary-600 dark:text-primary-400">Tổng XP</p>
-        </div>
-        <div className="p-5 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/10 border border-green-200 dark:border-green-800">
-          <div className="text-3xl mb-2">📚</div>
-          <p className="text-2xl font-bold text-green-700 dark:text-green-300">{stats.completedLessons}</p>
-          <p className="text-sm text-green-600 dark:text-green-400">Bài học hoàn thành</p>
-        </div>
-        <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/10 border border-purple-200 dark:border-purple-800">
-          <div className="text-3xl mb-2">🎯</div>
-          <p className="text-2xl font-bold text-purple-700 dark:text-purple-300">{stats.quizAccuracy}%</p>
-          <p className="text-sm text-purple-600 dark:text-purple-400">Độ chính xác</p>
+        <h2 className="text-sm font-semibold mb-3">Luyện tập nhanh</h2>
+        <div className="grid grid-cols-4 gap-3">
+          {quickActions.map((action) => (
+            <Link
+              key={action.href}
+              href={action.href}
+              className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border hover:shadow-md hover:-translate-y-0.5 transition-all"
+            >
+              <span className="text-2xl">{action.icon}</span>
+              <span className="text-[11px] font-medium text-center leading-tight">{action.label}</span>
+            </Link>
+          ))}
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm">
-          <h2 className="font-semibold text-lg mb-4">Tiếp tục học</h2>
+      {/* Continue Learning + Daily Goals */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="p-5 rounded-2xl bg-card border shadow-sm">
+          <h2 className="font-semibold mb-3">Tiếp tục học</h2>
           {data?.enrollments && data.enrollments.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {data.enrollments.map((enrollment: any) => (
-                <Link key={enrollment.id} href={`/languages`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                <Link key={enrollment.id} href="/languages" className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted transition-colors">
                   <span className="text-2xl">{enrollment.language?.flag}</span>
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">{enrollment.language?.name}</p>
-                    <p className="text-xs text-gray-500">{enrollment.level?.name}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm truncate">{enrollment.language?.name}</p>
+                    <p className="text-xs text-muted-foreground">{enrollment.level?.name}</p>
                   </div>
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  <svg className="w-4 h-4 text-muted-foreground shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </Link>
               ))}
             </div>
           ) : (
             <div className="text-center py-6">
-              <p className="text-gray-500 mb-4">Bạn chưa đăng ký ngôn ngữ nào.</p>
-              <Link href="/languages">
-                <Button>Chọn ngôn ngữ</Button>
-              </Link>
+              <p className="text-muted-foreground text-sm mb-3">Bạn chưa đăng ký ngôn ngữ nào.</p>
+              <Link href="/languages"><Button size="sm">Chọn ngôn ngữ</Button></Link>
             </div>
           )}
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-lg">Mục tiêu hôm nay</h2>
-            {goal?.completed && (
-              <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">Hoàn thành!</span>
-            )}
+        <div className="p-5 rounded-2xl bg-card border shadow-sm">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold">Mục tiêu hôm nay</h2>
+            <Link href="/daily-goals" className="text-xs text-primary hover:underline">Chỉnh sửa</Link>
           </div>
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">📖</div>
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <p className="text-sm font-medium">Hoàn thành bài học</p>
-                  <span className="text-xs text-gray-500">{goal?.lessonsCompleted || 0}/{goal?.lessonsTarget || 3}</span>
-                </div>
-                <div className="mt-1 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${Math.min(((goal?.lessonsCompleted || 0) / (goal?.lessonsTarget || 3)) * 100, 100)}%` }} />
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">🃏</div>
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <p className="text-sm font-medium">Ôn tập flashcard</p>
-                  <span className="text-xs text-gray-500">{goal?.cardsReviewed || 0}/{goal?.cardsTarget || 10}</span>
-                </div>
-                <div className="mt-1 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${Math.min(((goal?.cardsReviewed || 0) / (goal?.cardsTarget || 10)) * 100, 100)}%` }} />
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">⏱️</div>
-              <div className="flex-1">
-                <div className="flex justify-between items-center">
-                  <p className="text-sm font-medium">Thời gian học</p>
-                  <span className="text-xs text-gray-500">{goal?.minutesStudied || 0}/{goal?.targetMinutes || 10} phút</span>
-                </div>
-                <div className="mt-1 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full bg-purple-500 rounded-full transition-all" style={{ width: `${Math.min(((goal?.minutesStudied || 0) / (goal?.targetMinutes || 10)) * 100, 100)}%` }} />
-                </div>
-              </div>
-            </div>
+          <div className="space-y-3">
+            <GoalItem icon="📖" label="Bài học" current={goal?.lessonsCompleted || 0} target={goal?.lessonsTarget || 3} color="bg-green-500" />
+            <GoalItem icon="🃏" label="Flashcard" current={goal?.cardsReviewed || 0} target={goal?.cardsTarget || 10} color="bg-blue-500" />
+            <GoalItem icon="⏱️" label="Thời gian" current={goal?.minutesStudied || 0} target={goal?.targetMinutes || 10} color="bg-purple-500" suffix="phút" />
           </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* Level Progress */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold text-lg">Cấp độ {stats.level}</h2>
-          <span className="text-sm text-gray-500">{stats.xp % 100}/100 XP để lên cấp</span>
+function GoalItem({ icon, label, current, target, color, suffix }: { icon: string; label: string; current: number; target: number; color: string; suffix?: string }) {
+  const pct = Math.min((current / target) * 100, 100);
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-lg">{icon}</span>
+      <div className="flex-1">
+        <div className="flex justify-between items-center mb-1">
+          <span className="text-xs font-medium">{label}</span>
+          <span className="text-xs text-muted-foreground">{current}/{target}{suffix ? ` ${suffix}` : ''}</span>
         </div>
-        <div className="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full transition-all duration-500" style={{ width: `${stats.xp % 100}%` }} />
+        <div className="h-2 bg-muted rounded-full overflow-hidden">
+          <div className={`h-full ${color} rounded-full transition-all duration-500`} style={{ width: `${pct}%` }} />
         </div>
       </div>
     </div>
