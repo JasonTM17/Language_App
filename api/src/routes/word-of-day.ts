@@ -1,9 +1,8 @@
 import { Router, Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { authenticate } from '../middleware/auth';
+import { paginate, errorResponse } from '../types/responses';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 const wordOfDayData: Record<string, Array<{ word: string; meaning: string; example: string; exampleMeaning: string; funFact: string }>> = {
   en: [
@@ -59,13 +58,15 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Word of day error:', error);
-    res.status(500).json({ error: 'Failed to get word of the day' });
+    res.status(500).json(errorResponse('Không thể tải từ trong ngày', 'INTERNAL_ERROR'));
   }
 });
 
 router.get('/history', authenticate, async (req: Request, res: Response) => {
   try {
     const lang = (req.query.lang as string) || 'en';
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
     const words = wordOfDayData[lang] || wordOfDayData['en'];
 
     const today = new Date();
@@ -82,10 +83,10 @@ router.get('/history', authenticate, async (req: Request, res: Response) => {
       });
     }
 
-    res.json(history);
+    res.json(paginate(history, page, limit));
   } catch (error) {
     console.error('Word history error:', error);
-    res.status(500).json({ error: 'Failed to get word history' });
+    res.status(500).json(errorResponse('Không thể tải lịch sử từ vựng', 'INTERNAL_ERROR'));
   }
 });
 

@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { paginate, errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -100,7 +101,7 @@ router.get('/:lang', authenticate, async (req: AuthRequest, res: Response) => {
 
     const tree = SKILL_TREES[lang]?.[levelStr];
     if (!tree) {
-      return res.status(404).json({ error: 'Cây kỹ năng không tồn tại cho ngôn ngữ này' });
+      return res.status(404).json(errorResponse('Cây kỹ năng không tồn tại cho ngôn ngữ này', 'NOT_FOUND'));
     }
 
     const userProgress = await prisma.lessonProgress.findMany({
@@ -159,7 +160,7 @@ router.get('/:lang', authenticate, async (req: AuthRequest, res: Response) => {
       },
     });
   } catch {
-    res.status(500).json({ error: 'Lỗi khi tải cây kỹ năng' });
+    res.status(500).json(errorResponse('Lỗi khi tải cây kỹ năng', 'INTERNAL_ERROR'));
   }
 });
 
@@ -196,7 +197,7 @@ router.get('/:lang/recommendations', authenticate, async (req: AuthRequest, res:
       reviewSkills: decaying.slice(0, 3).map(n => ({ id: n.id, name: n.name, nameVi: n.nameVi, icon: n.icon, reason: 'Kỹ năng đang suy giảm, cần ôn tập!' })),
     });
   } catch {
-    res.status(500).json({ error: 'Lỗi khi tải đề xuất' });
+    res.status(500).json(errorResponse('Lỗi khi tải đề xuất', 'INTERNAL_ERROR'));
   }
 });
 

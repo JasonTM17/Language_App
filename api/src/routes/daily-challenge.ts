@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -102,7 +103,7 @@ router.get('/today', authenticate, async (req: AuthRequest, res: Response) => {
       streakBonus: `${Math.round((streakMultiplier - 1) * 100)}% XP thưởng từ chuỗi ${user?.streak || 0} ngày`,
     });
   } catch {
-    res.status(500).json({ error: 'Lỗi khi tải thử thách hôm nay' });
+    res.status(500).json(errorResponse('Lỗi khi tải thử thách hôm nay', 'INTERNAL_ERROR'));
   }
 });
 
@@ -110,7 +111,7 @@ router.post('/claim', authenticate, async (req: AuthRequest, res: Response) => {
   try {
     const { challengeId } = req.body;
     const challenge = CHALLENGE_POOL.find(c => c.id === challengeId);
-    if (!challenge) return res.status(404).json({ error: 'Thử thách không tồn tại' });
+    if (!challenge) return res.status(404).json(errorResponse('Thử thách không tồn tại', 'NOT_FOUND'));
 
     const user = await prisma.user.findUnique({
       where: { id: req.userId! },
@@ -135,7 +136,7 @@ router.post('/claim', authenticate, async (req: AuthRequest, res: Response) => {
       message: `Tuyệt vời! Bạn nhận được ${xpEarned} XP và ${challenge.gemReward} kim cương!`,
     });
   } catch {
-    res.status(500).json({ error: 'Lỗi khi nhận thưởng' });
+    res.status(500).json(errorResponse('Lỗi khi nhận thưởng', 'INTERNAL_ERROR'));
   }
 });
 

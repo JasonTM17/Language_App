@@ -1,9 +1,9 @@
 import { Router, Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../database/client';
 import { authenticate } from '../middleware/auth';
+import { paginate, errorResponse } from '../types/responses';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.get('/overview', authenticate, async (req: Request, res: Response) => {
   try {
@@ -30,13 +30,15 @@ router.get('/overview', authenticate, async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Analytics overview error:', error);
-    res.status(500).json({ error: 'Failed to fetch analytics' });
+    res.status(500).json(errorResponse('Không thể tải tổng quan phân tích', 'INTERNAL_ERROR'));
   }
 });
 
 router.get('/languages', authenticate, async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
 
     const enrollments = await prisma.enrollment.findMany({
       where: { userId },
@@ -71,10 +73,10 @@ router.get('/languages', authenticate, async (req: Request, res: Response) => {
       })
     );
 
-    res.json(languageStats);
+    res.json(paginate(languageStats, page, limit));
   } catch (error) {
     console.error('Language analytics error:', error);
-    res.status(500).json({ error: 'Failed to fetch language analytics' });
+    res.status(500).json(errorResponse('Không thể tải phân tích ngôn ngữ', 'INTERNAL_ERROR'));
   }
 });
 
@@ -82,6 +84,8 @@ router.get('/activity', authenticate, async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
     const days = parseInt(req.query.days as string) || 30;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
 
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
@@ -126,10 +130,10 @@ router.get('/activity', authenticate, async (req: Request, res: Response) => {
       .map(([date, data]) => ({ date, ...data }))
       .sort((a, b) => a.date.localeCompare(b.date));
 
-    res.json(result);
+    res.json(paginate(result, page, limit));
   } catch (error) {
     console.error('Activity analytics error:', error);
-    res.status(500).json({ error: 'Failed to fetch activity data' });
+    res.status(500).json(errorResponse('Không thể tải dữ liệu hoạt động', 'INTERNAL_ERROR'));
   }
 });
 
