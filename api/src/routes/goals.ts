@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { prisma } from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { paginateQuery, errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -36,7 +37,7 @@ router.get('/today', authenticate, async (req: AuthRequest, res) => {
 
     res.json({ goal });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch daily goal' });
+    res.status(500).json(errorResponse('Không thể tải mục tiêu hôm nay', 'INTERNAL_ERROR'));
   }
 });
 
@@ -66,33 +67,46 @@ router.post('/update', authenticate, async (req: AuthRequest, res) => {
     res.json({ goal });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: error.errors });
+      return res.status(400).json(errorResponse('Dữ liệu không hợp lệ', 'VALIDATION_ERROR', error.errors));
     }
-    res.status(500).json({ error: 'Failed to update daily goal' });
+    res.status(500).json(errorResponse('Không thể cập nhật mục tiêu', 'INTERNAL_ERROR'));
   }
 });
 
 // Get goal history (last 30 days)
 router.get('/history', authenticate, async (req: AuthRequest, res) => {
   try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
+    const { skip, take } = paginateQuery(page, limit);
+
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
     thirtyDaysAgo.setHours(0, 0, 0, 0);
 
-    const goals = await prisma.dailyGoal.findMany({
-      where: {
-        userId: req.userId!,
-        date: { gte: thirtyDaysAgo },
-      },
-      orderBy: { date: 'desc' },
-    });
+    const where = { userId: req.userId!, date: { gte: thirtyDaysAgo } };
+
+    const [goals, total] = await Promise.all([
+      prisma.dailyGoal.findMany({
+        where,
+        orderBy: { date: 'desc' },
+        skip,
+        take,
+      }),
+      prisma.dailyGoal.count({ where }),
+    ]);
 
     const completedDays = goals.filter((g) => g.completed).length;
-    const totalDays = goals.length;
+    const totalPages = Math.ceil(total / limit);
 
-    res.json({ goals, completedDays, totalDays });
+    res.json({
+      data: goals,
+      pagination: { page, limit, total, totalPages },
+      completedDays,
+      totalDays: total,
+    });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch goal history' });
+    res.status(500).json(errorResponse('Không thể tải lịch sử mục tiêu', 'INTERNAL_ERROR'));
   }
 });
 

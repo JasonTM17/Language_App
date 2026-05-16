@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { authenticate } from '../middleware/auth';
+import { paginate, errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -8,8 +9,10 @@ interface GrammarTip {
   title: string;
   titleVi: string;
   explanation: string;
+  pattern?: string;
   examples: Array<{ sentence: string; translation: string }>;
   level: string;
+  commonMistakes?: string;
 }
 
 const grammarTips: Record<string, GrammarTip[]> = {
