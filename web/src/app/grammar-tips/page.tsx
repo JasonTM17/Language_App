@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { AudioPlayer } from '@/components/ui/audio-player';
+import type { SupportedLanguage } from '@/services/audio';
 
 interface GrammarTip {
   id: string;
@@ -137,17 +139,35 @@ const languages = [
   { code: 'ko', name: 'Korean', flag: '🇰🇷' },
 ];
 
+const levelColors: Record<string, string> = {
+  Beginner: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300',
+  Elementary: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+  Intermediate: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+  Advanced: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300',
+};
+
 export default function GrammarTipsPage() {
   const [selectedLang, setSelectedLang] = useState('en');
   const [expandedTip, setExpandedTip] = useState<string | null>(null);
+  const [filterLevel, setFilterLevel] = useState<string | null>(null);
 
   const currentTips = tips[selectedLang] || [];
+  const filteredTips = filterLevel ? currentTips.filter(t => t.level === filterLevel) : currentTips;
+  const levels = [...new Set(currentTips.map(t => t.level))];
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold font-display">Mẹo ngữ pháp</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Giải thích ngữ pháp chi tiết trước khi học</p>
+    <div className="max-w-3xl mx-auto space-y-6 pb-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold font-display">Mẹo ngữ pháp</h1>
+          <p className="text-muted-foreground text-sm mt-0.5">
+            {currentTips.length} bài giải thích ngữ pháp chi tiết
+          </p>
+        </div>
+        <div className="text-right">
+          <div className="text-2xl font-bold text-primary">{currentTips.length}</div>
+          <div className="text-xs text-muted-foreground">chủ đề</div>
+        </div>
       </div>
 
       {/* Language selector */}
@@ -155,55 +175,87 @@ export default function GrammarTipsPage() {
         {languages.map((lang) => (
           <button
             key={lang.code}
-            onClick={() => { setSelectedLang(lang.code); setExpandedTip(null); }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
+            onClick={() => { setSelectedLang(lang.code); setExpandedTip(null); setFilterLevel(null); }}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                ? 'border-primary bg-primary/5 text-primary font-medium'
+                : 'border-border text-muted-foreground hover:border-primary/30'
             }`}
           >
             <span>{lang.flag}</span>
-            <span className="text-sm font-medium">{lang.name}</span>
+            <span className="text-sm">{lang.name}</span>
           </button>
         ))}
       </div>
 
+      {/* Level filter */}
+      {levels.length > 1 && (
+        <div className="flex gap-2 flex-wrap">
+          <button
+            onClick={() => setFilterLevel(null)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              !filterLevel ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+            }`}
+          >
+            Tất cả
+          </button>
+          {levels.map(level => (
+            <button
+              key={level}
+              onClick={() => setFilterLevel(filterLevel === level ? null : level)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                filterLevel === level ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+              }`}
+            >
+              {level}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Tips list */}
       <div className="space-y-3">
-        {currentTips.map((tip) => (
+        {filteredTips.map((tip) => (
           <div
             key={tip.id}
-            className="rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 overflow-hidden transition-all"
+            className="rounded-2xl bg-card border overflow-hidden transition-all hover:shadow-sm"
           >
             <button
               onClick={() => setExpandedTip(expandedTip === tip.id ? null : tip.id)}
-              className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+              className="w-full p-4 flex items-center justify-between text-left hover:bg-muted/30 transition-colors"
             >
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium">
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${levelColors[tip.level] || 'bg-muted text-muted-foreground'}`}>
                     {tip.level}
                   </span>
                   <h3 className="font-semibold">{tip.title}</h3>
                 </div>
-                <p className="text-sm text-gray-500 mt-0.5">{tip.titleVi}</p>
+                <p className="text-sm text-muted-foreground mt-0.5">{tip.titleVi}</p>
               </div>
-              <span className={`text-gray-400 transition-transform ${expandedTip === tip.id ? 'rotate-180' : ''}`}>
-                ▼
-              </span>
+              <svg className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform ${expandedTip === tip.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
 
             {expandedTip === tip.id && (
-              <div className="px-4 pb-4 border-t border-gray-100 dark:border-gray-700 pt-4 space-y-4">
-                <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
+              <div className="px-4 pb-4 border-t pt-4 space-y-4 animate-in slide-in-from-top-1 duration-200">
+                <div className="text-sm text-foreground/80 whitespace-pre-line leading-relaxed">
                   {tip.content}
                 </div>
                 <div className="space-y-2">
-                  <p className="text-xs font-medium text-gray-500 uppercase">Ví dụ:</p>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Ví dụ:</p>
                   {tip.examples.map((ex, i) => (
-                    <div key={i} className="p-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700">
-                      <p className="font-medium text-sm">{ex.sentence}</p>
-                      <p className="text-xs text-gray-500 mt-1">{ex.translation}</p>
+                    <div key={i} className="p-3 rounded-xl bg-muted/50 border">
+                      <div className="flex items-center gap-2">
+                        <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+                          <AudioPlayer text={ex.sentence} language={selectedLang as SupportedLanguage} size="sm" showSlowButton={false} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm">{ex.sentence}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{ex.translation}</p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -213,10 +265,15 @@ export default function GrammarTipsPage() {
         ))}
       </div>
 
-      {currentTips.length === 0 && (
-        <div className="text-center py-12">
-          <div className="text-4xl mb-3">📚</div>
-          <p className="text-gray-500">Chưa có mẹo ngữ pháp cho ngôn ngữ này.</p>
+      {filteredTips.length === 0 && (
+        <div className="text-center py-16">
+          <div className="text-6xl mb-4">📐</div>
+          <h3 className="text-lg font-semibold mb-2">
+            {filterLevel ? 'Không có bài nào ở cấp độ này' : 'Chưa có mẹo ngữ pháp'}
+          </h3>
+          <p className="text-muted-foreground">
+            {filterLevel ? 'Thử chọn cấp độ khác.' : 'Chưa có mẹo ngữ pháp cho ngôn ngữ này.'}
+          </p>
         </div>
       )}
     </div>
