@@ -250,4 +250,22 @@ export const api = {
     get: () => request<{ progress: any[] }>('/learning-progress'),
     milestones: () => request<{ milestones: any[]; completedCount: number }>('/learning-progress/milestones'),
   },
+  typingPractice: {
+    list: (lang?: string, difficulty?: string) => {
+      const params = new URLSearchParams();
+      if (lang) params.set('lang', lang);
+      if (difficulty) params.set('difficulty', difficulty);
+      return request<{ exercises: any[]; language: string }>(`/typing-practice?${params.toString()}`);
+    },
+    submitResult: (data: { exerciseId: string; wpm: number; accuracy: number; timeSpent: number }) => request<{ result: any }>('/typing-practice/result', { method: 'POST', body: data }),
+  },
+  pronunciation: {
+    list: (lang?: string, difficulty?: string) => {
+      const params = new URLSearchParams();
+      if (lang) params.set('lang', lang);
+      if (difficulty) params.set('difficulty', difficulty);
+      return request<{ exercises: any[]; language: string }>(`/pronunciation?${params.toString()}`);
+    },
+    attempt: (data: { exerciseId: string; score: number }) => request<{ result: any }>('/pronunciation/attempt', { method: 'POST', body: data }),
+  },
 };
