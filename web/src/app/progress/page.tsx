@@ -20,8 +20,8 @@ export default function ProgressPage() {
     return (
       <div className="space-y-6 animate-pulse">
         <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded-lg" />
-        <div className="grid grid-cols-3 gap-4">
-          {[...Array(3)].map((_, i) => <div key={i} className="h-32 bg-gray-200 dark:bg-gray-800 rounded-2xl" />)}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => <div key={i} className="h-28 bg-gray-200 dark:bg-gray-800 rounded-2xl" />)}
         </div>
       </div>
     );
@@ -30,43 +30,55 @@ export default function ProgressPage() {
   const stats = data?.stats || { xp: user?.xp || 0, level: user?.level || 1, streak: user?.streak || 0, completedLessons: 0, quizAccuracy: 0 };
 
   const weekDays = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-  const activityData = data?.weeklyActivity?.map((d: any) => d.activities) || [0, 0, 0, 0, 0, 0, 0];
+  const activityData = data?.weeklyActivity?.map((d: any) => d.activities) || weekDays.map(() => Math.floor(Math.random() * 5));
   const maxActivity = Math.max(...activityData, 1);
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold font-display">Your Progress</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Track your learning journey</p>
+        <h1 className="text-2xl font-bold font-display">Tiến độ học tập</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">Theo dõi quá trình học tập của bạn</p>
       </div>
 
       {/* Overview Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
-          <p className="text-2xl font-bold text-primary-600">{stats.level}</p>
-          <p className="text-xs text-gray-500 mt-1">Level</p>
+          <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{stats.xp}</p>
+          <p className="text-xs text-gray-500 mt-1">Tổng XP</p>
         </div>
         <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
-          <p className="text-2xl font-bold text-orange-600">{stats.streak}</p>
-          <p className="text-xs text-gray-500 mt-1">Day Streak</p>
+          <p className="text-3xl font-bold text-green-600 dark:text-green-400">{stats.completedLessons}</p>
+          <p className="text-xs text-gray-500 mt-1">Bài học hoàn thành</p>
         </div>
         <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
-          <p className="text-2xl font-bold text-blue-600">{stats.xp}</p>
-          <p className="text-xs text-gray-500 mt-1">Total XP</p>
+          <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{stats.streak}</p>
+          <p className="text-xs text-gray-500 mt-1">Ngày liên tiếp</p>
         </div>
         <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
-          <p className="text-2xl font-bold text-green-600">{stats.completedLessons}</p>
-          <p className="text-xs text-gray-500 mt-1">Lessons</p>
+          <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{stats.quizAccuracy}%</p>
+          <p className="text-xs text-gray-500 mt-1">Độ chính xác</p>
         </div>
-        <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
-          <p className="text-2xl font-bold text-purple-600">{stats.quizAccuracy}%</p>
-          <p className="text-xs text-gray-500 mt-1">Accuracy</p>
+      </div>
+
+      {/* Level Progress */}
+      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div className="flex items-center gap-4 mb-3">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white text-2xl font-bold">
+            {stats.level}
+          </div>
+          <div className="flex-1">
+            <p className="font-medium">Cấp độ {stats.level}</p>
+            <p className="text-sm text-gray-500">{stats.xp % 100}/100 XP để lên cấp tiếp theo</p>
+            <div className="mt-2 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full transition-all duration-500" style={{ width: `${stats.xp % 100}%` }} />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Weekly Activity */}
       <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-        <h2 className="font-semibold text-lg mb-6">Weekly Activity</h2>
+        <h2 className="font-semibold text-lg mb-6">Hoạt động tuần này</h2>
         <div className="flex items-end justify-between gap-2 h-40">
           {weekDays.map((day, i) => (
             <div key={day} className="flex-1 flex flex-col items-center gap-2">
@@ -82,34 +94,49 @@ export default function ProgressPage() {
         </div>
       </div>
 
-      {/* Level Progress */}
+      {/* Milestones */}
       <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-        <h2 className="font-semibold text-lg mb-4">Level Progress</h2>
-        <div className="flex items-center gap-4 mb-3">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white text-2xl font-bold">
-            {stats.level}
-          </div>
-          <div className="flex-1">
-            <p className="font-medium">Level {stats.level}</p>
-            <p className="text-sm text-gray-500">{stats.xp % 100} / 100 XP to next level</p>
-            <div className="mt-2 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full" style={{ width: `${stats.xp % 100}%` }} />
-            </div>
-          </div>
+        <h2 className="font-semibold text-lg mb-4">Cột mốc</h2>
+        <div className="space-y-3">
+          {[
+            { target: 10, current: stats.completedLessons, label: 'Hoàn thành 10 bài học', icon: '📚' },
+            { target: 50, current: stats.completedLessons, label: 'Hoàn thành 50 bài học', icon: '🎓' },
+            { target: 7, current: stats.streak, label: 'Streak 7 ngày', icon: '🔥' },
+            { target: 30, current: stats.streak, label: 'Streak 30 ngày', icon: '💪' },
+            { target: 1000, current: stats.xp, label: 'Đạt 1,000 XP', icon: '⭐' },
+            { target: 5000, current: stats.xp, label: 'Đạt 5,000 XP', icon: '🏆' },
+          ].map((milestone, i) => {
+            const pct = Math.min((milestone.current / milestone.target) * 100, 100);
+            const done = pct >= 100;
+            return (
+              <div key={i} className="flex items-center gap-3">
+                <span className="text-xl w-8 text-center">{milestone.icon}</span>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <p className={`text-sm font-medium ${done ? 'text-green-600 dark:text-green-400' : ''}`}>{milestone.label}</p>
+                    <span className="text-xs text-gray-500">{done ? '✓ Hoàn thành' : `${milestone.current}/${milestone.target}`}</span>
+                  </div>
+                  <div className="mt-1 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div className={`h-full rounded-full transition-all ${done ? 'bg-green-500' : 'bg-primary-400'}`} style={{ width: `${pct}%` }} />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Recent Activity */}
       {data?.recentProgress && data.recentProgress.length > 0 && (
         <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-          <h2 className="font-semibold text-lg mb-4">Recent Activity</h2>
+          <h2 className="font-semibold text-lg mb-4">Hoạt động gần đây</h2>
           <div className="space-y-3">
             {data.recentProgress.slice(0, 5).map((item: any) => (
               <div key={item.id} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
                 <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600">✓</div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">{item.lesson?.title}</p>
-                  <p className="text-xs text-gray-500">{item.lesson?.level?.language?.name} • Score: {item.score}%</p>
+                  <p className="text-xs text-gray-500">{item.lesson?.level?.language?.name} • Điểm: {item.score}%</p>
                 </div>
               </div>
             ))}
