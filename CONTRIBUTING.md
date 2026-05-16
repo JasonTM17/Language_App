@@ -2,25 +2,110 @@
 
 Cảm ơn bạn quan tâm đến việc đóng góp cho LinguaFlow!
 
-## Getting Started
+## Thiết lập môi trường phát triển
 
-1. Fork repository
-2. Clone fork: `git clone https://github.com/<your-username>/Language_App.git`
-3. Cài đặt dependencies: `cd api && npm install && cd ../web && npm install`
-4. Tạo branch: `git checkout -b feature/ten-tinh-nang`
+### Yêu cầu
+
+- Node.js >= 20.0
+- npm >= 10.0
+
+### Khởi động nhanh
+
+```bash
+# Clone repository
+git clone https://github.com/JasonTM17/Language_App.git
+cd Language_App
+
+# Cài đặt tất cả dependencies
+cd api && npm install && cd ../web && npm install && cd ..
+
+# Khởi tạo database
+cd api && cp .env.example .env && npx prisma migrate dev && npm run db:seed && cd ..
+
+# Chạy toàn bộ stack với một lệnh duy nhất
+npm run dev
+```
+
+Lệnh `npm run dev` sẽ khởi động đồng thời API server (port 3001) và Web server (port 3000).
+
+## Tổng quan kiến trúc
+
+Dự án được chia thành hai phần chính:
+
+```
+Language_App/
+├── api/                    # Backend REST API (Express.js + TypeScript)
+│   ├── src/
+│   │   ├── routes/         # Các API endpoint
+│   │   ├── middleware/     # Auth, rate-limit, validation
+│   │   ├── database/       # Prisma ORM + SQLite
+│   │   └── types/          # TypeScript definitions
+│   ├── prisma/             # Schema & migrations
+│   └── tests/              # Unit & integration tests
+└── web/                    # Frontend (Next.js 14 + TypeScript)
+    ├── src/
+    │   ├── app/            # Pages (App Router)
+    │   ├── components/     # Reusable UI components
+    │   ├── hooks/          # Custom React hooks
+    │   ├── lib/            # Utilities & helpers
+    │   └── types/          # Shared type definitions
+    └── public/             # Static assets & PWA
+```
+
+**`api/`** chứa toàn bộ logic backend: xác thực JWT, xử lý dữ liệu qua Prisma ORM, và các REST endpoint được validate bằng Zod.
+
+**`web/`** là ứng dụng Next.js sử dụng App Router, Server Components, và Tailwind CSS. Giao tiếp với API qua TanStack Query.
+
+## Chất lượng code
+
+Dự án áp dụng các tiêu chuẩn sau để đảm bảo chất lượng:
+
+### Định dạng code
+
+```bash
+# Kiểm tra định dạng
+npm run format:check
+
+# Tự động sửa định dạng (Prettier)
+npm run format
+```
+
+### Kiểm tra kiểu dữ liệu
+
+```bash
+# Type check toàn bộ dự án (api + web)
+npm run typecheck
+```
+
+### Chạy tests
+
+```bash
+# Unit & integration tests (Vitest)
+npm test
+
+# E2E tests (Playwright)
+npm run test:e2e
+
+# Chạy với coverage report
+cd api && npx vitest run --coverage
+```
+
+Mọi Pull Request cần đảm bảo `npm run typecheck` và `npm test` đều pass trước khi được merge.
 
 ## Development
 
 ```bash
-# API (port 3001)
-cd api && npm run dev
+# Chạy toàn bộ stack
+npm run dev
 
-# Web (port 3000)
-cd web && npm run dev
+# Chỉ API (port 3001)
+npm run dev:api
 
-# Run tests
-cd api && npm test
-cd web && npx playwright test
+# Chỉ Web (port 3000)
+npm run dev:web
+
+# Build production
+npm run build
 ```
 
 ## Code Style
@@ -47,18 +132,11 @@ perf: cải thiện performance
 ## Pull Request Process
 
 1. Đảm bảo tests pass: `npm test`
-2. Type check: `npx tsc --noEmit`
-3. Mô tả rõ ràng thay đổi trong PR description
-4. Link issue liên quan (nếu có)
-5. Đợi review từ maintainer
-
-## Project Structure
-
-```
-api/          → Express REST API
-web/          → Next.js frontend
-docs/         → Documentation
-```
+2. Type check: `npm run typecheck`
+3. Kiểm tra định dạng: `npm run format:check`
+4. Mô tả rõ ràng thay đổi trong PR description
+5. Link issue liên quan (nếu có)
+6. Đợi review từ maintainer
 
 ## Reporting Issues
 
