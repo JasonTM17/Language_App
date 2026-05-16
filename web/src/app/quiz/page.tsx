@@ -122,7 +122,15 @@ export default function QuizPage() {
       </div>
 
       <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full transition-all" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
+        <div
+          role="progressbar"
+          aria-valuenow={currentIndex + 1}
+          aria-valuemin={1}
+          aria-valuemax={questions.length}
+          aria-label={`Câu hỏi ${currentIndex + 1} trên ${questions.length}`}
+          className="h-full bg-gradient-to-r from-primary-500 to-accent-500 rounded-full transition-all"
+          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+        />
       </div>
 
       <div className="p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm">
@@ -146,7 +154,7 @@ export default function QuizPage() {
             )}
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-3" role="group" aria-label="Các lựa chọn trả lời">
             {currentQuestion.options.map((option, i) => {
               let optionClass = 'border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700';
               if (showResult) {
@@ -160,7 +168,10 @@ export default function QuizPage() {
                 <button
                   key={i}
                   onClick={() => handleAnswer(option)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleAnswer(option); } }}
                   disabled={showResult}
+                  aria-pressed={selectedAnswer === option}
+                  aria-label={`Lựa chọn ${i + 1}: ${option}`}
                   className={`w-full text-left p-4 rounded-xl border-2 transition-all ${optionClass}`}
                 >
                   <span className="font-medium">{option}</span>

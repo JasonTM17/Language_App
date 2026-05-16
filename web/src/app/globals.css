@@ -99,6 +99,12 @@ html {
   scroll-behavior: smooth;
 }
 
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 ::selection {
   background-color: hsl(211 90% 47% / 0.2);
 }
