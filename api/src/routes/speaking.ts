@@ -64,7 +64,7 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
 
 router.get('/:id', authenticate, async (req: AuthRequest, res: Response) => {
   const exercise = SPEAKING_EXERCISES.find(e => e.id === req.params.id);
-  if (!exercise) return res.status(404).json({ error: 'Bài nói không tồn tại' });
+  if (!exercise) return res.status(404).json(errorResponse('Bài nói không tồn tại', 'NOT_FOUND'));
   res.json({ exercise });
 });
 
@@ -73,7 +73,7 @@ router.post('/submit', authenticate, async (req: AuthRequest, res: Response) => 
     const { exerciseId, audioScore, duration, transcript } = submitSchema.parse(req.body);
 
     const exercise = SPEAKING_EXERCISES.find(e => e.id === exerciseId);
-    if (!exercise) return res.status(404).json({ error: 'Bài nói không tồn tại' });
+    if (!exercise) return res.status(404).json(errorResponse('Bài nói không tồn tại', 'NOT_FOUND'));
 
     const score = audioScore || 0;
     const passed = score >= 60;
@@ -105,8 +105,8 @@ router.post('/submit', authenticate, async (req: AuthRequest, res: Response) => 
       },
     });
   } catch (error) {
-    if (error instanceof z.ZodError) return res.status(400).json({ error: error.errors });
-    res.status(500).json({ error: 'Lỗi khi xử lý bài nói' });
+    if (error instanceof z.ZodError) return res.status(400).json(errorResponse('Dữ liệu không hợp lệ', 'VALIDATION_ERROR', error.errors));
+    res.status(500).json(errorResponse('Lỗi khi xử lý bài nói', 'INTERNAL_ERROR'));
   }
 });
 

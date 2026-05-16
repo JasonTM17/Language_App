@@ -47,17 +47,18 @@ router.get('/', authenticate, async (req: Request, res: Response) => {
   try {
     const lang = (req.query.lang as string) || 'en';
     const level = req.query.level as string;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
 
     let tips = grammarTips[lang] || grammarTips['en'];
-
     if (level) {
       tips = tips.filter((t) => t.level === level);
     }
 
-    res.json(tips);
+    res.json(paginate(tips, page, limit));
   } catch (error) {
     console.error('Grammar tips error:', error);
-    res.status(500).json({ error: 'Failed to fetch grammar tips' });
+    res.status(500).json(errorResponse('Không thể tải mẹo ngữ pháp', 'INTERNAL_ERROR'));
   }
 });
 
@@ -73,10 +74,10 @@ router.get('/:id', authenticate, async (req: Request, res: Response) => {
       }
     }
 
-    res.status(404).json({ error: 'Grammar tip not found' });
+    res.status(404).json(errorResponse('Không tìm thấy mẹo ngữ pháp', 'NOT_FOUND'));
   } catch (error) {
     console.error('Grammar tip error:', error);
-    res.status(500).json({ error: 'Failed to fetch grammar tip' });
+    res.status(500).json(errorResponse('Không thể tải mẹo ngữ pháp', 'INTERNAL_ERROR'));
   }
 });
 
