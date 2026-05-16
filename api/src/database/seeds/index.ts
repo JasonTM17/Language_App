@@ -61,6 +61,9 @@ import { koreanTravelIntermediateLessons } from './korean/intermediate-travel';
 import { japaneseCultureLessons } from './japanese/intermediate-culture';
 import { koreanCultureLessons } from './korean/intermediate-culture';
 import { chineseCultureLessons } from './chinese/intermediate-culture';
+import { japaneseHobbiesLessons } from './japanese/elementary-hobbies';
+import { koreanHobbiesLessons } from './korean/elementary-hobbies';
+import { chineseHobbiesLessons } from './chinese/elementary-hobbies';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -192,7 +195,7 @@ async function main() {
   }
 
   // Japanese elementary lessons
-  const jaElementaryLessons = [...japaneseSchoolLessons, ...japaneseEmotionsLessons];
+  const jaElementaryLessons = [...japaneseSchoolLessons, ...japaneseEmotionsLessons, ...japaneseHobbiesLessons];
   for (let i = 0; i < jaElementaryLessons.length; i++) {
     await createLessonWithContent(levels['ja']['elementary'], i + 1, jaElementaryLessons[i]);
     lessonCount++;
@@ -201,19 +204,21 @@ async function main() {
   }
 
   // Korean elementary lessons
-  for (let i = 0; i < koreanEmotionsLessons.length; i++) {
-    await createLessonWithContent(levels['ko']['elementary'], i + 1, koreanEmotionsLessons[i]);
+  const koElementaryLessons = [...koreanEmotionsLessons, ...koreanHobbiesLessons];
+  for (let i = 0; i < koElementaryLessons.length; i++) {
+    await createLessonWithContent(levels['ko']['elementary'], i + 1, koElementaryLessons[i]);
     lessonCount++;
-    vocabCount += koreanEmotionsLessons[i].vocabulary.length;
-    quizCount += koreanEmotionsLessons[i].quizzes.length;
+    vocabCount += koElementaryLessons[i].vocabulary.length;
+    quizCount += koElementaryLessons[i].quizzes.length;
   }
 
   // Chinese elementary lessons
-  for (let i = 0; i < chineseEmotionsLessons.length; i++) {
-    await createLessonWithContent(levels['zh']['elementary'], i + 1, chineseEmotionsLessons[i]);
+  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons];
+  for (let i = 0; i < zhElementaryLessons.length; i++) {
+    await createLessonWithContent(levels['zh']['elementary'], i + 1, zhElementaryLessons[i]);
     lessonCount++;
-    vocabCount += chineseEmotionsLessons[i].vocabulary.length;
-    quizCount += chineseEmotionsLessons[i].quizzes.length;
+    vocabCount += zhElementaryLessons[i].vocabulary.length;
+    quizCount += zhElementaryLessons[i].quizzes.length;
   }
 
   // Japanese intermediate lessons
