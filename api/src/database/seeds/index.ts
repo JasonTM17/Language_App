@@ -75,6 +75,9 @@ import { chineseSchoolLessons } from './chinese/elementary-school';
 import { japaneseColorsLessons } from './japanese/elementary-colors';
 import { koreanColorsLessons } from './korean/elementary-colors';
 import { chineseColorsLessons } from './chinese/elementary-colors';
+import { japaneseAnimalsLessons } from './japanese/elementary-animals';
+import { koreanAnimalsLessons } from './korean/elementary-animals';
+import { chineseAnimalsLessons } from './chinese/elementary-animals';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -206,7 +209,7 @@ async function main() {
   }
 
   // Japanese elementary lessons
-  const jaElementaryLessons = [...japaneseSchoolLessons, ...japaneseEmotionsLessons, ...japaneseHobbiesLessons, ...japaneseTechnologyLessons, ...japaneseTransportLessons, ...japaneseColorsLessons];
+  const jaElementaryLessons = [...japaneseSchoolLessons, ...japaneseEmotionsLessons, ...japaneseHobbiesLessons, ...japaneseTechnologyLessons, ...japaneseTransportLessons, ...japaneseColorsLessons, ...japaneseAnimalsLessons];
   for (let i = 0; i < jaElementaryLessons.length; i++) {
     await createLessonWithContent(levels['ja']['elementary'], i + 1, jaElementaryLessons[i]);
     lessonCount++;
@@ -215,7 +218,7 @@ async function main() {
   }
 
   // Korean elementary lessons
-  const koElementaryLessons = [...koreanEmotionsLessons, ...koreanHobbiesLessons, ...koreanTechnologyLessons, ...koreanTransportLessons, ...koreanSchoolLessons, ...koreanColorsLessons];
+  const koElementaryLessons = [...koreanEmotionsLessons, ...koreanHobbiesLessons, ...koreanTechnologyLessons, ...koreanTransportLessons, ...koreanSchoolLessons, ...koreanColorsLessons, ...koreanAnimalsLessons];
   for (let i = 0; i < koElementaryLessons.length; i++) {
     await createLessonWithContent(levels['ko']['elementary'], i + 1, koElementaryLessons[i]);
     lessonCount++;
@@ -224,7 +227,7 @@ async function main() {
   }
 
   // Chinese elementary lessons
-  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons, ...chineseTransportLessons, ...chineseSchoolLessons, ...chineseColorsLessons];
+  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons, ...chineseTransportLessons, ...chineseSchoolLessons, ...chineseColorsLessons, ...chineseAnimalsLessons];
   for (let i = 0; i < zhElementaryLessons.length; i++) {
     await createLessonWithContent(levels['zh']['elementary'], i + 1, zhElementaryLessons[i]);
     lessonCount++;
