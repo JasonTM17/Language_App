@@ -207,6 +207,35 @@ const stories: Record<string, Story[]> = {
         },
       ],
     },
+    {
+      id: '11', title: '日本語の授業', titleVi: 'Lớp học tiếng Nhật', level: 'Elementary', language: 'ja',
+      segments: [
+        { text: 'ハイさんはベトナムから来た留学生です。', translation: 'Hải là du học sinh đến từ Việt Nam.' },
+        { text: '毎週月曜日と水曜日に日本語の授業があります。', translation: 'Mỗi tuần thứ Hai và thứ Tư có lớp tiếng Nhật.' },
+        {
+          text: '今日の授業は「買い物」がテーマです。先生が「いらっしゃいませ」と言います。',
+          translation: 'Bài học hôm nay có chủ đề "Mua sắm". Cô giáo nói "Xin mời vào".',
+          question: 'ハイさんはどこから来ましたか？',
+          choices: [
+            { text: '中国', correct: false, feedback: '違います。ベトナムから来ました。' },
+            { text: 'ベトナム', correct: true, feedback: '正解！ベトナムから来た留学生です。' },
+            { text: '韓国', correct: false, feedback: '違います。ベトナムから来ました。' },
+          ],
+        },
+        { text: 'ハイさんは「このりんごはいくらですか？」と練習します。', translation: 'Hải luyện tập nói "Quả táo này bao nhiêu tiền?"' },
+        { text: '先生は「上手ですね！発音がきれいです」と褒めます。', translation: 'Cô giáo khen "Giỏi lắm! Phát âm đẹp."' },
+        {
+          text: '授業の後、クラスメートと一緒にお昼ご飯を食べに行きます。',
+          translation: 'Sau giờ học, đi ăn trưa cùng bạn cùng lớp.',
+          question: '今日のテーマは何ですか？',
+          choices: [
+            { text: '旅行', correct: false, feedback: '違います。「買い物」がテーマです。' },
+            { text: '買い物', correct: true, feedback: '正解！今日は「買い物」がテーマです。' },
+            { text: '料理', correct: false, feedback: '違います。「買い物」がテーマです。' },
+          ],
+        },
+      ],
+    },
   ],
   zh: [
     {
@@ -267,6 +296,35 @@ const stories: Record<string, Story[]> = {
         },
       ],
     },
+    {
+      id: '12', title: '学做中国菜', titleVi: 'Học nấu món Trung', level: 'Elementary', language: 'zh',
+      segments: [
+        { text: '小李的妈妈做菜做得很好吃。', translation: 'Mẹ của Tiểu Lý nấu ăn rất ngon.' },
+        { text: '今天小李想学做番茄炒蛋。这是一道很简单的中国菜。', translation: 'Hôm nay Tiểu Lý muốn học làm trứng xào cà chua. Đây là một món Trung Quốc rất đơn giản.' },
+        {
+          text: '妈妈说：「先把鸡蛋打好，加一点盐。」',
+          translation: 'Mẹ nói: "Trước tiên đánh trứng, thêm một chút muối."',
+          question: '小李想学做什么菜？',
+          choices: [
+            { text: '红烧肉', correct: false, feedback: '不对。他想学做番茄炒蛋。' },
+            { text: '番茄炒蛋', correct: true, feedback: '对！他想学做番茄炒蛋。' },
+            { text: '炒面', correct: false, feedback: '不对。他想学做番茄炒蛋。' },
+          ],
+        },
+        { text: '然后把番茄切成小块。锅里放油，先炒鸡蛋。', translation: 'Sau đó cắt cà chua thành miếng nhỏ. Cho dầu vào chảo, xào trứng trước.' },
+        { text: '鸡蛋炒好以后，放入番茄，加糖和盐。', translation: 'Trứng xào xong, cho cà chua vào, thêm đường và muối.' },
+        {
+          text: '五分钟以后，菜做好了。小李尝了一口：「真好吃！跟妈妈做的一样！」',
+          translation: 'Năm phút sau, món ăn xong. Tiểu Lý nếm thử: "Ngon thật! Giống mẹ nấu!"',
+          question: '先炒什么？',
+          choices: [
+            { text: '番茄', correct: false, feedback: '不对。先炒鸡蛋。' },
+            { text: '鸡蛋', correct: true, feedback: '对！先炒鸡蛋，然后放入番茄。' },
+            { text: '一起炒', correct: false, feedback: '不对。先炒鸡蛋。' },
+          ],
+        },
+      ],
+    },
   ],
   ko: [
     {
@@ -323,6 +381,35 @@ const stories: Record<string, Story[]> = {
             { text: '비빔밥', correct: false, feedback: '아닙니다. 김치찌개를 좋아합니다.' },
             { text: '김치찌개', correct: true, feedback: '맞습니다! 특히 김치찌개를 좋아합니다.' },
             { text: '불고기', correct: false, feedback: '아닙니다. 김치찌개를 좋아합니다.' },
+          ],
+        },
+      ],
+    },
+    {
+      id: '13', title: '주말 계획', titleVi: 'Kế hoạch cuối tuần', level: 'Elementary', language: 'ko',
+      segments: [
+        { text: '금요일 오후입니다. 수진이는 친구 하나에게 전화합니다.', translation: 'Chiều thứ Sáu. Sujin gọi điện cho bạn Hana.' },
+        { text: '「하나야, 이번 주말에 뭐 할 거야?」', translation: '"Hana ơi, cuối tuần này làm gì?"' },
+        {
+          text: '「토요일에 홍대에서 쇼핑하고 싶어. 같이 갈래?」 하나가 대답합니다.',
+          translation: '"Thứ Bảy muốn đi mua sắm ở Hongdae. Đi cùng không?" Hana trả lời.',
+          question: '하나는 토요일에 어디에 가고 싶습니까?',
+          choices: [
+            { text: '명동', correct: false, feedback: '아닙니다. 홍대에 가고 싶습니다.' },
+            { text: '홍대', correct: true, feedback: '맞습니다! 홍대에서 쇼핑하고 싶습니다.' },
+            { text: '강남', correct: false, feedback: '아닙니다. 홍대에 가고 싶습니다.' },
+          ],
+        },
+        { text: '「좋아! 그리고 일요일에는 한강 공원에 가자. 자전거 타고 싶어.」 수진이가 말합니다.', translation: '"Được! Và Chủ nhật đi công viên sông Hàn nhé. Muốn đạp xe." Sujin nói.' },
+        { text: '「좋은 생각이야! 도시락도 만들어 가자.」', translation: '"Ý hay! Làm cơm hộp mang theo luôn."' },
+        {
+          text: '두 사람은 신나게 주말 계획을 세웁니다.',
+          translation: 'Hai người hào hứng lên kế hoạch cuối tuần.',
+          question: '일요일에 무엇을 하고 싶습니까?',
+          choices: [
+            { text: '쇼핑하기', correct: false, feedback: '아닙니다. 쇼핑은 토요일입니다. 일요일에는 자전거를 타고 싶습니다.' },
+            { text: '자전거 타기', correct: true, feedback: '맞습니다! 한강 공원에서 자전거를 타고 싶습니다.' },
+            { text: '영화 보기', correct: false, feedback: '아닙니다. 자전거를 타고 싶습니다.' },
           ],
         },
       ],
