@@ -2,7 +2,6 @@ import { test } from '@playwright/test';
 
 const pages = [
   { name: 'landing', path: '/', wait: 1000 },
-  { name: 'login', path: '/auth/login', wait: 500 },
   { name: 'dashboard', path: '/dashboard', wait: 1000 },
   { name: 'vocabulary', path: '/vocabulary', wait: 500 },
   { name: 'quiz', path: '/quiz', wait: 500 },
@@ -11,33 +10,47 @@ const pages = [
   { name: 'leaderboard', path: '/leaderboard', wait: 500 },
   { name: 'ai-tutor', path: '/ai-tutor', wait: 500 },
   { name: 'daily-challenge', path: '/daily-challenge', wait: 500 },
+  { name: 'profile', path: '/profile', wait: 500 },
 ];
 
-test.describe('Screenshot Capture - Desktop', () => {
+test.describe('Screenshots - Desktop (1280x720)', () => {
   test.use({ viewport: { width: 1280, height: 720 } });
 
   for (const p of pages) {
-    test(`capture ${p.name}`, async ({ page }) => {
+    test(`${p.name} - Desktop`, async ({ page }) => {
       await page.goto(p.path);
       await page.waitForTimeout(p.wait);
-      await page.screenshot({ 
-        path: `../docs/screenshots/${p.name}-desktop.png`,
-        fullPage: false 
+      await page.screenshot({
+        path: `../docs/screenshots/desktop-${p.name}.png`,
+        fullPage: false,
       });
     });
   }
+
+  test('Dark Mode - Desktop', async ({ page }) => {
+    await page.goto('/dashboard');
+    await page.evaluate(() => {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    });
+    await page.waitForTimeout(800);
+    await page.screenshot({
+      path: '../docs/screenshots/desktop-dark-mode.png',
+      fullPage: false,
+    });
+  });
 });
 
-test.describe('Screenshot Capture - Mobile', () => {
-  test.use({ viewport: { width: 375, height: 812 } });
+test.describe('Screenshots - Mobile (390x844)', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
 
-  for (const p of pages.slice(0, 5)) {
-    test(`capture mobile ${p.name}`, async ({ page }) => {
+  for (const p of pages) {
+    test(`${p.name} - Mobile`, async ({ page }) => {
       await page.goto(p.path);
       await page.waitForTimeout(p.wait);
-      await page.screenshot({ 
-        path: `../docs/screenshots/${p.name}-mobile.png`,
-        fullPage: false 
+      await page.screenshot({
+        path: `../docs/screenshots/mobile-${p.name}.png`,
+        fullPage: false,
       });
     });
   }

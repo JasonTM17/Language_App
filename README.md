@@ -1,116 +1,86 @@
-<div align="center">
+![CI](https://github.com/JasonTM17/Language_App/actions/workflows/ci.yml/badge.svg) [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js)](https://nodejs.org) [![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6?logo=typescript)](https://www.typescriptlang.org) [![Docker](https://img.shields.io/badge/Docker_Hub-nguyenson1710-2496ED?logo=docker)](https://hub.docker.com/u/nguyenson1710) [![Deploy](https://img.shields.io/badge/Render-Live-46E3B7?logo=render)](https://linguaflow-api-ujjo.onrender.com) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-# 🎓 LinguaFlow
+# LinguaFlow
 
-**Nền tảng học ngôn ngữ thông minh cho người Việt**
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white)](https://nodejs.org)
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Docker](https://img.shields.io/badge/Docker_Hub-nguyenson1710-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/u/nguyenson1710)
-![CI](https://github.com/JasonTM17/Language_App/actions/workflows/ci.yml/badge.svg)
-[![E2E](https://img.shields.io/badge/E2E-24%20passing-brightgreen?logo=playwright)](web/e2e/)
-[![Deploy](https://img.shields.io/badge/Vercel-Live-000?logo=vercel)](https://web-lca3ll2b5-nguyen-sons-projects-4f98af92.vercel.app)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-[Demo](https://linguaflow.app) · [Tài liệu API](docs/api.md) · [Báo lỗi](https://github.com/JasonTM17/Language_App/issues)
-
-</div>
-
----
-
-## Giới thiệu
-
-LinguaFlow là nền tảng học ngôn ngữ toàn diện được thiết kế riêng cho người Việt Nam. Hỗ trợ 4 ngôn ngữ: **Tiếng Anh**, **Tiếng Nhật**, **Tiếng Trung**, và **Tiếng Hàn** với hệ thống AI Tutor, gamification, và spaced repetition.
-
-### Tính năng nổi bật
-
-| Tính năng | Mô tả |
-|-----------|--------|
-| **AI Tutor** | Trợ lý AI hỗ trợ học tập cá nhân hóa |
-| **Spaced Repetition** | Thuật toán SM-2 tối ưu hóa ghi nhớ dài hạn |
-| **Gamification** | XP, streak, leaderboard, achievements |
-| **4 kỹ năng** | Nghe, Nói, Đọc, Viết với bài tập tương tác |
-| **Skill Tree** | Lộ trình học từ Beginner đến Advanced |
-| **PWA** | Cài đặt như app native, hoạt động offline |
-| **Dark Mode** | Giao diện tối bảo vệ mắt |
-| **Responsive** | Tối ưu cho mobile, tablet, desktop |
+Nền tảng học ngôn ngữ thông minh dành cho người Việt — học Tiếng Anh, Nhật, Trung, Hàn với spaced repetition, gamification và lộ trình cá nhân hóa.
 
 ---
 
 ## Screenshots
 
-### Demo
+| Screenshot | Mô tả |
+|---|---|
+| ![Dashboard](docs/screenshots/desktop-dashboard.png) | **Trang chủ** — Hiển thị tiến độ học, streak hàng ngày, và từ vựng gần đây |
+| ![Vocabulary](docs/screenshots/desktop-vocabulary.png) | **Từ vựng** — Danh sách từ với phát âm, ví dụ, và flashcard tương tác |
+| ![Quiz](docs/screenshots/desktop-quiz.png) | **Quiz** — Bài kiểm tra trắc nghiệm với timer và điểm XP |
+| ![Dark Mode](docs/screenshots/desktop-dark-mode.png) | **Dark Mode** — Giao diện tối, dễ nhìn ban đêm |
 
-| Desktop | Mobile |
-|:---:|:---:|
-| ![Desktop Demo](docs/screenshots/demo-desktop.gif) | ![Mobile Demo](docs/screenshots/demo-mobile.gif) |
+---
 
-### Desktop
+## Demo
 
-| Landing Page | Dashboard | Skill Tree |
-|:---:|:---:|:---:|
-| ![Landing](docs/screenshots/landing-desktop.png) | ![Dashboard](docs/screenshots/dashboard-desktop.png) | ![Skill Tree](docs/screenshots/skill-tree-desktop.png) |
+| GIF | Mô tả | Thời lượng |
+|---|---|---|
+| ![Full Flow](docs/gifs/demo-full-flow.gif) | **Luồng chính** — Dashboard → Học từ → Quiz → Kết quả | ~15s |
+| ![Quiz](docs/gifs/demo-quiz-interaction.gif) | **Quiz tương tác** — Chọn đáp án, animation đúng/sai, XP popup | ~8s |
 
-| Listening | Daily Challenge | AI Tutor |
-|:---:|:---:|:---:|
-| ![Listening](docs/screenshots/listening-desktop.png) | ![Daily Challenge](docs/screenshots/daily-challenge-desktop.png) | ![AI Tutor](docs/screenshots/ai-tutor-desktop.png) |
+---
 
-### Mobile
+## Giới thiệu
 
-| Landing | Dashboard | Vocabulary |
-|:---:|:---:|:---:|
-| ![Landing](docs/screenshots/landing-mobile.png) | ![Dashboard](docs/screenshots/dashboard-mobile.png) | ![Vocabulary](docs/screenshots/vocabulary-mobile.png) |
+LinguaFlow là nền tảng học ngôn ngữ toàn diện được xây dựng cho người Việt Nam. Hỗ trợ 4 ngôn ngữ — Tiếng Anh, Nhật, Trung, Hàn — với thuật toán spaced repetition SM-2, hệ thống gamification (XP, streak, leaderboard), và lộ trình học từ Beginner đến Advanced. Giao diện responsive, hỗ trợ dark mode, và tối ưu cho mọi thiết bị.
+
+| Tính năng | Mô tả |
+|---|---|
+| 📚 Từ vựng | Flashcard, spaced repetition, phát âm |
+| 🎯 Quiz | Trắc nghiệm, điền từ, nghe hiểu |
+| 📊 Tiến độ | Streak, XP, thống kê chi tiết |
+| 🌙 Dark Mode | Giao diện tối/sáng tự động |
+| 📱 Responsive | Tối ưu cho mọi thiết bị |
+| 🎨 Animations | Framer Motion, micro-interactions |
 
 ---
 
 ## Kiến trúc
 
+### Tech Stack
+
+| Lớp | Công nghệ |
+|---|---|
+| Frontend | Next.js 14 (App Router), React 18, TypeScript 5.4 |
+| Styling | Tailwind CSS 3.4, Radix UI, Framer Motion |
+| State | Zustand, TanStack Query |
+| Backend | Express.js, TypeScript, Prisma ORM, SQLite |
+| Auth | JWT, bcryptjs |
+| Validation | Zod |
+| Security | Helmet, CORS, Rate Limiting |
+| Infrastructure | Docker, GitHub Actions CI/CD |
+
+### Cấu trúc thư mục
+
 ```
 linguaflow/
 ├── api/                    # Backend REST API
 │   ├── src/
-│   │   ├── routes/         # 38 API endpoints
+│   │   ├── routes/         # 38+ API endpoints
 │   │   ├── middleware/     # Auth, rate-limit, validation
-│   │   ├── database/      # Prisma ORM + SQLite
-│   │   └── types/         # TypeScript definitions
+│   │   ├── database/       # Prisma ORM + SQLite
+│   │   ├── services/       # Business logic (gamification, v.v.)
+│   │   └── types/          # TypeScript definitions
 │   ├── prisma/             # Schema & migrations
-│   └── tests/              # 129 unit & integration tests
-├── web/                    # Frontend Next.js App
+│   └── tests/              # Unit & integration tests
+├── web/                    # Frontend Next.js
 │   ├── src/
-│   │   ├── app/            # 50+ pages (App Router)
-│   │   ├── components/     # Reusable UI components
+│   │   ├── app/            # Pages (App Router)
+│   │   ├── components/     # UI components
 │   │   ├── hooks/          # Custom React hooks
 │   │   ├── lib/            # Utilities & helpers
-│   │   └── types/          # Shared type definitions
-│   └── public/             # Static assets & PWA
+│   │   └── types/          # Type definitions
+│   └── public/             # Static assets
+├── shared/                 # Shared types & utilities
 ├── docker-compose.yml      # Container orchestration
-└── docs/                   # Documentation
+└── docs/                   # Documentation & screenshots
 ```
-
-### Tech Stack
-
-**Frontend:**
-- Next.js 14 (App Router, Server Components)
-- React 18 + TypeScript 5.4
-- Tailwind CSS 3.4 + Radix UI
-- Framer Motion (animations)
-- Zustand (state management)
-- TanStack Query (data fetching)
-- Lucide React (icons)
-
-**Backend:**
-- Express.js + TypeScript
-- Prisma ORM + SQLite
-- JWT Authentication
-- Zod (validation)
-- Helmet + CORS + Rate Limiting
-
-**Infrastructure:**
-- Docker (multi-stage builds)
-- PWA (Service Worker, offline support)
-- GitHub Actions CI/CD
 
 ---
 
@@ -120,9 +90,8 @@ linguaflow/
 
 - Node.js >= 20.0
 - npm >= 10.0
-- Docker (optional, cho deployment)
 
-### Development
+### Các bước cài đặt
 
 ```bash
 # Clone repository
@@ -130,34 +99,28 @@ git clone https://github.com/JasonTM17/Language_App.git
 cd Language_App
 
 # Cài đặt dependencies
-cd api && npm install && cd ../web && npm install && cd ..
+cd api && npm install
+cd ../web && npm install
+cd ..
 
-# Khởi tạo database
+# Cấu hình biến môi trường
 cd api
 cp .env.example .env
+
+# Khởi tạo database và seed dữ liệu
 npx prisma migrate dev
 npm run db:seed
 
 # Chạy development servers
-# Terminal 1 - API (port 3001)
+
+# Terminal 1 — API (port 3001)
 cd api && npm run dev
 
-# Terminal 2 - Web (port 3000)
+# Terminal 2 — Web (port 3000)
 cd web && npm run dev
 ```
 
-### Docker
-
-```bash
-# Build và chạy toàn bộ stack
-docker compose up -d
-
-# Hoặc build riêng từng service
-docker compose build api
-docker compose build web
-```
-
-### Environment Variables
+### Biến môi trường
 
 ```env
 # api/.env
@@ -173,41 +136,43 @@ NODE_ENV=development
 
 Base URL: `http://localhost:3001/api`
 
+### Health
+
+| Method | Endpoint | Mô tả |
+|---|---|---|
+| GET | `/health` | Kiểm tra trạng thái server |
+| GET | `/ready` | Kiểm tra kết nối database |
+
 ### Authentication
 
 | Method | Endpoint | Mô tả |
-|--------|----------|--------|
-| POST | `/auth/register` | Đăng ký tài khoản |
-| POST | `/auth/login` | Đăng nhập |
-| POST | `/auth/refresh` | Refresh token |
-| POST | `/auth/forgot-password` | Quên mật khẩu |
+|---|---|---|
+| POST | `/auth/register` | Đăng ký tài khoản mới |
+| POST | `/auth/login` | Đăng nhập, trả về JWT token |
+| GET | `/auth/me` | Lấy thông tin người dùng hiện tại |
+| POST | `/auth/logout` | Đăng xuất, xóa cookie |
 
-### Vocabulary
-
-| Method | Endpoint | Mô tả |
-|--------|----------|--------|
-| GET | `/vocabulary` | Danh sách từ vựng |
-| POST | `/vocabulary` | Thêm từ mới |
-| GET | `/vocabulary/review` | Từ cần ôn tập (SRS) |
-| POST | `/vocabulary/:id/review` | Ghi nhận kết quả ôn tập |
-
-### Progress & Gamification
+### Từ vựng
 
 | Method | Endpoint | Mô tả |
-|--------|----------|--------|
-| GET | `/progress` | Tiến độ học tập |
+|---|---|---|
+| GET | `/vocabulary` | Danh sách từ vựng (phân trang, lọc theo bài học, lọc từ đến hạn ôn) |
+| POST | `/vocabulary/:id/review` | Ghi nhận kết quả ôn tập (thuật toán SM-2) |
+
+### Quiz
+
+| Method | Endpoint | Mô tả |
+|---|---|---|
+| GET | `/quiz/lesson/:lessonId` | Lấy câu hỏi quiz theo bài học |
+| GET | `/quiz/practice` | Lấy câu hỏi luyện tập ngẫu nhiên |
+| POST | `/quiz/:id/attempt` | Nộp đáp án, nhận XP nếu trả lời đúng |
+
+### Tiến độ
+
+| Method | Endpoint | Mô tả |
+|---|---|---|
+| GET | `/progress/dashboard` | Thống kê tổng quan (XP, level, streak, hoạt động 7 ngày) |
 | GET | `/progress/streak` | Streak hiện tại |
-| GET | `/leaderboard` | Bảng xếp hạng |
-| GET | `/achievements` | Thành tích |
-| POST | `/daily-challenge` | Thử thách hàng ngày |
-
-### Quiz & Exercises
-
-| Method | Endpoint | Mô tả |
-|--------|----------|--------|
-| GET | `/quiz/:language` | Lấy câu hỏi quiz |
-| POST | `/quiz/submit` | Nộp bài quiz |
-| GET | `/exercises/:type` | Bài tập theo loại |
 
 [Xem đầy đủ API docs →](docs/api.md)
 
@@ -216,72 +181,56 @@ Base URL: `http://localhost:3001/api`
 ## Testing
 
 ```bash
-# Chạy toàn bộ test suite
+# Chạy unit & integration tests (Vitest)
 cd api && npm test
 
-# Chạy với coverage
+# Chạy với coverage report
 cd api && npx vitest run --coverage
 
-# Type checking
+# Kiểm tra TypeScript
 cd api && npx tsc --noEmit
 cd web && npx tsc --noEmit
-```
 
-**Test coverage:** 16 test files, 129 tests passing
+# Chạy E2E tests (Playwright)
+cd web && npx playwright test
+
+# Xem báo cáo E2E
+cd web && npx playwright show-report
+```
 
 ---
 
 ## Deployment
 
-### Docker Images
+### Render (API)
+
+API được deploy trên Render tại [https://linguaflow-api-ujjo.onrender.com](https://linguaflow-api-ujjo.onrender.com).
+
+- Runtime: Node.js
+- Database: SQLite (persistent disk)
+
+### Vercel (Web)
+
+Frontend được deploy trên Vercel.
+
+### Docker
 
 Images có sẵn trên [Docker Hub](https://hub.docker.com/u/nguyenson1710):
 
 ```bash
 # Pull từ Docker Hub
-docker pull nguyenson1710/linguaflow-api:v1.0.0
-docker pull nguyenson1710/linguaflow-web:v1.0.0
+docker pull nguyenson1710/linguaflow-api
+docker pull nguyenson1710/linguaflow-web
 
-# Hoặc build từ source
-docker build -t linguaflow-api:latest ./api
-docker build -t linguaflow-web:latest ./web
-```
-
-### Render
-
-Dự án được cấu hình sẵn cho Render deployment:
-- **API**: Web Service (Docker)
-- **Web**: Static Site hoặc Web Service (Docker)
-
-### Cấu hình Production
-
-```env
-NODE_ENV=production
-JWT_SECRET=<strong-random-secret>
-DATABASE_URL=file:./data/linguaflow.db
+# Chạy toàn bộ stack với Docker Compose
+docker compose up -d
 ```
 
 ---
 
 ## Đóng góp
 
-1. Fork repository
-2. Tạo feature branch (`git checkout -b feature/ten-tinh-nang`)
-3. Commit changes (`git commit -m 'feat: mô tả'`)
-4. Push to branch (`git push origin feature/ten-tinh-nang`)
-5. Tạo Pull Request
-
-### Commit Convention
-
-```
-feat: tính năng mới
-fix: sửa lỗi
-docs: cập nhật tài liệu
-style: format code
-refactor: tái cấu trúc
-test: thêm/sửa test
-chore: công việc maintenance
-```
+Xem hướng dẫn đóng góp chi tiết tại [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -293,12 +242,4 @@ Dự án được phân phối dưới giấy phép [MIT](LICENSE).
 
 ## Tác giả
 
-**Nguyễn Sơn** — [@JasonTM17](https://github.com/JasonTM17)
-
----
-
-<div align="center">
-
-Made with ❤️ in Vietnam
-
-</div>
+**Nguyễn Sơn** — [sonnguyenhoang17@gmail.com](mailto:sonnguyenhoang17@gmail.com)
