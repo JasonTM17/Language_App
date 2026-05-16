@@ -43,6 +43,7 @@ import shopRoutes from './routes/shop';
 import friendsRoutes from './routes/friends';
 import skillTreeRoutes from './routes/skill-tree';
 import storiesRoutes from './routes/stories';
+import dailyChallengeRoutes from './routes/daily-challenge';
 
 dotenv.config();
 
@@ -112,6 +113,7 @@ app.use('/api/shop', shopRoutes);
 app.use('/api/friends', friendsRoutes);
 app.use('/api/skill-tree', skillTreeRoutes);
 app.use('/api/stories', storiesRoutes);
+app.use('/api/daily-challenge', dailyChallengeRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
