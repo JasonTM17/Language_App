@@ -23,6 +23,7 @@ const navItems = [
   { href: '/dictation', label: 'Dictation', icon: '✏️' },
   { href: '/pronunciation', label: 'Pronunciation', icon: '🎙️' },
   { href: '/writing', label: 'Writing', icon: '✍️' },
+  { href: '/conversation', label: 'Conversation', icon: '💬' },
   { href: '/translation', label: 'Translation', icon: '🌐' },
   { href: '/sentence', label: 'Sentences', icon: '🧩' },
   { href: '/fill-blank', label: 'Fill Blank', icon: '📋' },
