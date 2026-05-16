@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { api } from '@/services/api';
+import { GraduationCap, HandMetal, Briefcase, UtensilsCrossed, type LucideIcon } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -12,11 +13,11 @@ interface Message {
   timestamp?: string;
 }
 
-const roles = [
-  { id: 'teacher', label: 'Teacher', icon: '👩‍🏫', desc: 'Formal learning' },
-  { id: 'friend', label: 'Friend', icon: '👋', desc: 'Casual chat' },
-  { id: 'interviewer', label: 'Interviewer', icon: '💼', desc: 'Job practice' },
-  { id: 'restaurant', label: 'Restaurant', icon: '🍽️', desc: 'Order food' },
+const roles: { id: string; label: string; icon: LucideIcon; desc: string }[] = [
+  { id: 'teacher', label: 'Teacher', icon: GraduationCap, desc: 'Formal learning' },
+  { id: 'friend', label: 'Friend', icon: HandMetal, desc: 'Casual chat' },
+  { id: 'interviewer', label: 'Interviewer', icon: Briefcase, desc: 'Job practice' },
+  { id: 'restaurant', label: 'Restaurant', icon: UtensilsCrossed, desc: 'Order food' },
 ];
 
 const languageOptions = [
@@ -128,7 +129,9 @@ export default function AITutorPage() {
                     : 'border-border hover:border-primary-200'
                 }`}
               >
-                <div className="text-2xl mb-1">{role.icon}</div>
+                <div className="flex justify-center mb-1">
+                  <role.icon className="w-6 h-6 text-primary" />
+                </div>
                 <p className="text-sm font-medium">{role.label}</p>
                 <p className="text-xs text-muted-foreground">{role.desc}</p>
               </button>
