@@ -30,6 +30,7 @@ import bookmarksRoutes from './routes/bookmarks';
 import wordOfDayRoutes from './routes/word-of-day';
 import analyticsRoutes from './routes/analytics';
 import grammarTipsRoutes from './routes/grammar-tips';
+import sentenceBuilderRoutes from './routes/sentence-builder';
 
 dotenv.config();
 
@@ -86,6 +87,7 @@ app.use('/api/bookmarks', bookmarksRoutes);
 app.use('/api/word-of-day', wordOfDayRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/grammar-tips', grammarTipsRoutes);
+app.use('/api/sentence-builder', sentenceBuilderRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
