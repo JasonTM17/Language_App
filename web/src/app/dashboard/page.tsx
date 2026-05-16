@@ -2,12 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { StreakCelebration } from '@/components/ui/streak-celebration';
 import { useAuthStore } from '@/lib/store';
 import { api } from '@/services/api';
 
-import { FileText, Headphones, Mic, Ruler, Keyboard, Zap, Layers, HelpCircle } from 'lucide-react';
+import {
+  FileText, Headphones, Mic, Ruler, Keyboard, Zap, Layers, HelpCircle,
+  TrendingUp, Target, BookOpen, Star, ArrowRight, ChevronRight, Flame,
+  Trophy, BarChart3, Clock, CheckCircle2,
+} from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface DashboardData {
