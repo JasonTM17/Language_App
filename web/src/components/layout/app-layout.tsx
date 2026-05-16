@@ -71,11 +71,19 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      {/* Skip to main content */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-lg"
+      >
+        Chuyển đến nội dung chính
+      </a>
+
       {/* Top Bar */}
       <header className="fixed top-0 left-0 right-0 z-40 h-16 glass border-b border-gray-200/50 dark:border-gray-800/50">
         <div className="h-full px-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={toggleSidebar} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 lg:hidden">
+            <button onClick={toggleSidebar} aria-label="Mở/đóng menu điều hướng" className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 lg:hidden">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
             <Link href="/dashboard" className="flex items-center gap-2">
@@ -105,7 +113,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               <span className="text-sm font-medium text-primary-700 dark:text-primary-300">{user?.xp || 0} XP</span>
             </div>
             <div className="relative group">
-              <button className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-400 to-accent-400 flex items-center justify-center text-white font-medium text-sm">
+              <button aria-label={`Tài khoản của ${user?.name || 'người dùng'}`} className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-400 to-accent-400 flex items-center justify-center text-white font-medium text-sm">
                 {user?.name?.charAt(0) || 'U'}
               </button>
               <div className="absolute right-0 top-full mt-2 w-48 py-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
@@ -148,7 +156,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       </aside>
 
       {/* Main Content */}
-      <main className="pt-16 lg:pl-64">
+      <main id="main-content" className="pt-16 lg:pl-64">
         <div className="p-6 lg:p-8">
           {children}
         </div>

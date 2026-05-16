@@ -17,7 +17,11 @@ export function LoadingState({ message, size = 'md' }: LoadingStateProps) {
 
   return (
     <div className="flex flex-col items-center justify-center py-12 gap-4">
-      <div className={`${sizeClasses[size]} animate-spin rounded-full border-4 border-primary/20 border-t-primary`} />
+      <div
+        role="status"
+        aria-label={message || 'Đang tải...'}
+        className={`${sizeClasses[size]} animate-spin rounded-full border-4 border-primary/20 border-t-primary`}
+      />
       <p className="text-muted-foreground text-sm">{message || t('common.loading')}</p>
     </div>
   );
@@ -42,6 +46,7 @@ export function EmptyState({ icon, title, description, action }: EmptyStateProps
       {action && (
         <button
           onClick={action.onClick}
+          aria-label={action.label}
           className="mt-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
         >
           {action.label}
@@ -68,6 +73,7 @@ export function ErrorState({ title, message, onRetry }: ErrorStateProps) {
       {onRetry && (
         <button
           onClick={onRetry}
+          aria-label={t('common.retry')}
           className="mt-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
         >
           {t('common.retry')}
