@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { api } from '@/services/api';
+import { EmptyState } from '@/components/ui/states';
 
 interface BookmarkedWord {
   id: string;
@@ -112,10 +113,11 @@ export default function BookmarksPage() {
       {activeTab === 'word-of-day' && (
         <div className="space-y-4">
           {wordsOfDay.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-4xl mb-3">📅</div>
-              <p className="text-gray-500">Đăng ký học ngôn ngữ để nhận từ vựng hàng ngày</p>
-            </div>
+            <EmptyState
+              icon="📅"
+              title="Chưa có từ vựng hôm nay"
+              description="Đăng ký học ngôn ngữ để nhận từ vựng hàng ngày"
+            />
           ) : (
             wordsOfDay.map((word) => (
               <WordCard key={word.id} word={word} showBookmark onBookmark={() => {}} />
@@ -128,11 +130,11 @@ export default function BookmarksPage() {
       {activeTab === 'bookmarks' && (
         <div className="space-y-3">
           {bookmarks.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-4xl mb-3">🔖</div>
-              <p className="text-gray-500">Chưa có từ vựng nào được lưu</p>
-              <p className="text-sm text-gray-400 mt-1">Nhấn biểu tượng bookmark khi học để lưu từ</p>
-            </div>
+            <EmptyState
+              icon="🔖"
+              title="Chưa có từ vựng nào được lưu"
+              description="Nhấn biểu tượng bookmark khi học để lưu từ"
+            />
           ) : (
             bookmarks.map((word) => (
               <WordCard key={word.id} word={word} showRemove onRemove={() => removeBookmark(word.id)} />
