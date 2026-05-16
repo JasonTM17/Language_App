@@ -64,6 +64,22 @@ export default function FlashcardsPage() {
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (currentIndex >= cards.length) return;
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        setFlipped(f => !f);
+      } else if (e.key === 'ArrowRight' && flipped) {
+        handleReview(true);
+      } else if (e.key === 'ArrowLeft' && flipped) {
+        handleReview(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [flipped, currentIndex, cards.length]);
+
   const resetDeck = () => {
     setCurrentIndex(0);
     setFlipped(false);
@@ -159,6 +175,11 @@ export default function FlashcardsPage() {
           ✓ Đã thuộc
         </Button>
       </div>
+
+      {/* Keyboard hints */}
+      <p className="text-center text-xs text-gray-400">
+        Phím tắt: Space để lật • ← chưa thuộc • → đã thuộc
+      </p>
     </div>
   );
 }
