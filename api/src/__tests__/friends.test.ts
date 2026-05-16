@@ -4,16 +4,18 @@ import app from '../index';
 
 describe('Friends Routes', () => {
   let tokenA: string;
+  let userAId: string;
   let tokenB: string;
   let userBId: string;
 
   beforeAll(async () => {
+    const ts = Date.now();
     const resA = await request(app)
       .post('/api/auth/register')
-      .send({ email: `friends_a_${Date.now()}@test.com`, password: 'TestPass123!', name: 'Friend A' });
+      .send({ email: `friends_a_${ts}@test.com`, password: 'TestPass123!', name: 'Friend A' });
     tokenA = resA.body.token;
+    userAId = resA.body.user.id;
 
-    const ts = Date.now() + 1;
     const resB = await request(app)
       .post('/api/auth/register')
       .send({ email: `friends_b_${ts}@test.com`, password: 'TestPass123!', name: 'Friend B' });
@@ -73,16 +75,10 @@ describe('Friends Routes', () => {
     });
 
     it('should return 400 when trying to friend yourself', async () => {
-      // Get own user id from profile
-      const profileRes = await request(app)
-        .get('/api/profile')
-        .set('Authorization', `Bearer ${tokenA}`);
-      const selfId = profileRes.body.user?.id || profileRes.body.id;
-
       const res = await request(app)
         .post('/api/friends/add')
         .set('Authorization', `Bearer ${tokenA}`)
-        .send({ userId: selfId });
+        .send({ userId: userAId });
 
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty('error');
@@ -103,25 +99,23 @@ describe('Friends Routes', () => {
     let friendshipId: string;
 
     beforeAll(async () => {
-      // Create a new request from B to A for accept/reject tests
-      const ts = Date.now() + 2;
+      const ts = Date.now();
+      // Create two fresh users so we have a clean pending request
       const resC = await request(app)
         .post('/api/auth/register')
         .send({ email: `friends_c_${ts}@test.com`, password: 'TestPass123!', name: 'Friend C' });
       const tokenC = resC.body.token;
-      const userCId = resC.body.user.id;
 
-      const ts2 = Date.now() + 3;
       const resD = await request(app)
         .post('/api/auth/register')
-        .send({ email: `friends_d_${ts2}@test.com`, password: 'TestPass123!', name: 'Friend D' });
-      const tokenD = resD.body.token;
+        .send({ email: `friends_d_${ts}@test.com`, password: 'TestPass123!', name: 'Friend D' });
+      const userDId = resD.body.user.id;
 
       // C sends request to D
       const addRes = await request(app)
         .post('/api/friends/add')
         .set('Authorization', `Bearer ${tokenC}`)
-        .send({ userId: resD.body.user.id });
+        .send({ userId: userDId });
       friendshipId = addRes.body.friendship?.id;
     });
 
@@ -135,7 +129,7 @@ describe('Friends Routes', () => {
     });
 
     it('should return 404 when accepting a request not addressed to you', async () => {
-      // tokenA tries to accept a request that was sent to tokenB
+      // tokenA tries to accept a request that was sent to D (not A)
       const res = await request(app)
         .post(`/api/friends/${friendshipId}/accept`)
         .set('Authorization', `Bearer ${tokenA}`);

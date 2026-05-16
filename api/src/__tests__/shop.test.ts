@@ -53,13 +53,13 @@ describe('Shop Routes', () => {
   });
 
   describe('POST /api/shop/purchase', () => {
-    it('should return 400 with insufficient gems details when user has no gems', async () => {
+    it('should return 400 with insufficient gems details when user cannot afford item', async () => {
+      // streak_freeze costs 200 gems; new users start with 50 gems
       const res = await request(app)
         .post('/api/shop/purchase')
         .set('Authorization', `Bearer ${token}`)
-        .send({ itemId: 'heart_refill' });
+        .send({ itemId: 'streak_freeze' });
 
-      // New users start with 0 gems, so purchase should fail
       expect(res.status).toBe(400);
       expect(res.body).toHaveProperty('error');
       expect(res.body).toHaveProperty('required');
