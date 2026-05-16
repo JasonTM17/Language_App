@@ -98,6 +98,13 @@ import { japaneseTimeLessons } from './japanese/elementary-time';
 import { koreanTimeLessons } from './korean/elementary-time';
 import { chineseTimeLessons } from './chinese/elementary-time';
 import { englishAcademicLessons } from './english/advanced-academic';
+import { japaneseAcademicLessons } from './japanese/advanced-academic';
+import { koreanAcademicLessons } from './korean/advanced-academic';
+import { chineseAcademicLessons } from './chinese/advanced-academic';
+import { englishHealthIntermediateLessons } from './english/intermediate-health';
+import { japaneseHealthIntermediateLessons } from './japanese/intermediate-health';
+import { koreanHealthIntermediateLessons } from './korean/intermediate-health';
+import { chineseHealthIntermediateLessons } from './chinese/intermediate-health';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -184,7 +191,7 @@ async function main() {
   }
 
   // English intermediate lessons
-  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons, ...englishCultureLessons, ...englishBusinessLessons];
+  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons, ...englishCultureLessons, ...englishBusinessLessons, ...englishHealthIntermediateLessons];
   for (let i = 0; i < enIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['en']['intermediate'], i + 1, enIntermediateLessons[i]);
     lessonCount++;
@@ -256,7 +263,7 @@ async function main() {
   }
 
   // Japanese intermediate lessons
-  const jaIntermediateLessons = [...japaneseWorkLessons, ...japaneseTravelIntermediateLessons, ...japaneseCultureLessons, ...japaneseBusinessLessons];
+  const jaIntermediateLessons = [...japaneseWorkLessons, ...japaneseTravelIntermediateLessons, ...japaneseCultureLessons, ...japaneseBusinessLessons, ...japaneseHealthIntermediateLessons];
   for (let i = 0; i < jaIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['ja']['intermediate'], i + 1, jaIntermediateLessons[i]);
     lessonCount++;
@@ -265,7 +272,7 @@ async function main() {
   }
 
   // Korean intermediate lessons
-  const koIntermediateLessons = [...koreanWorkLessons, ...koreanTravelIntermediateLessons, ...koreanCultureLessons, ...koreanBusinessLessons];
+  const koIntermediateLessons = [...koreanWorkLessons, ...koreanTravelIntermediateLessons, ...koreanCultureLessons, ...koreanBusinessLessons, ...koreanHealthIntermediateLessons];
   for (let i = 0; i < koIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['ko']['intermediate'], i + 1, koIntermediateLessons[i]);
     lessonCount++;
@@ -274,7 +281,7 @@ async function main() {
   }
 
   // Chinese intermediate lessons
-  const zhIntermediateLessons = [...chineseWorkLessons, ...chineseTravelIntermediateLessons, ...chineseCultureLessons, ...chineseBusinessLessons];
+  const zhIntermediateLessons = [...chineseWorkLessons, ...chineseTravelIntermediateLessons, ...chineseCultureLessons, ...chineseBusinessLessons, ...chineseHealthIntermediateLessons];
   for (let i = 0; i < zhIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['zh']['intermediate'], i + 1, zhIntermediateLessons[i]);
     lessonCount++;
@@ -292,27 +299,30 @@ async function main() {
   }
 
   // Japanese advanced lessons
-  for (let i = 0; i < japaneseEnvironmentLessons.length; i++) {
-    await createLessonWithContent(levels['ja']['advanced'], i + 1, japaneseEnvironmentLessons[i]);
+  const jaAdvancedLessons = [...japaneseEnvironmentLessons, ...japaneseAcademicLessons];
+  for (let i = 0; i < jaAdvancedLessons.length; i++) {
+    await createLessonWithContent(levels['ja']['advanced'], i + 1, jaAdvancedLessons[i]);
     lessonCount++;
-    vocabCount += japaneseEnvironmentLessons[i].vocabulary.length;
-    quizCount += japaneseEnvironmentLessons[i].quizzes.length;
+    vocabCount += jaAdvancedLessons[i].vocabulary.length;
+    quizCount += jaAdvancedLessons[i].quizzes.length;
   }
 
   // Korean advanced lessons
-  for (let i = 0; i < koreanEnvironmentLessons.length; i++) {
-    await createLessonWithContent(levels['ko']['advanced'], i + 1, koreanEnvironmentLessons[i]);
+  const koAdvancedLessons = [...koreanEnvironmentLessons, ...koreanAcademicLessons];
+  for (let i = 0; i < koAdvancedLessons.length; i++) {
+    await createLessonWithContent(levels['ko']['advanced'], i + 1, koAdvancedLessons[i]);
     lessonCount++;
-    vocabCount += koreanEnvironmentLessons[i].vocabulary.length;
-    quizCount += koreanEnvironmentLessons[i].quizzes.length;
+    vocabCount += koAdvancedLessons[i].vocabulary.length;
+    quizCount += koAdvancedLessons[i].quizzes.length;
   }
 
   // Chinese advanced lessons
-  for (let i = 0; i < chineseEnvironmentLessons.length; i++) {
-    await createLessonWithContent(levels['zh']['advanced'], i + 1, chineseEnvironmentLessons[i]);
+  const zhAdvancedLessons = [...chineseEnvironmentLessons, ...chineseAcademicLessons];
+  for (let i = 0; i < zhAdvancedLessons.length; i++) {
+    await createLessonWithContent(levels['zh']['advanced'], i + 1, zhAdvancedLessons[i]);
     lessonCount++;
-    vocabCount += chineseEnvironmentLessons[i].vocabulary.length;
-    quizCount += chineseEnvironmentLessons[i].quizzes.length;
+    vocabCount += zhAdvancedLessons[i].vocabulary.length;
+    quizCount += zhAdvancedLessons[i].quizzes.length;
   }
 
   console.log(`✅ Lessons created (${lessonCount})`);
