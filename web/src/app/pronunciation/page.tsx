@@ -27,10 +27,10 @@ export default function PronunciationPage() {
   ];
 
   const samplePhrases: Record<string, string[]> = {
-    en: ['Hello, how are you?', 'Nice to meet you.', 'What is your name?', 'Thank you very much.'],
-    ja: ['こんにちは、元気ですか？', 'はじめまして。', 'お名前は何ですか？', 'ありがとうございます。'],
-    zh: ['你好，你好吗？', '认识你很高兴。', '你叫什么名字？', '非常感谢。'],
-    ko: ['안녕하세요, 잘 지내세요?', '만나서 반갑습니다.', '이름이 뭐예요?', '감사합니다.'],
+    en: ['Hello, how are you?', 'Nice to meet you.', 'What is your name?', 'Thank you very much.', 'Where is the nearest station?', 'I would like to order, please.', 'Could you speak more slowly?', 'I am learning English every day.'],
+    ja: ['こんにちは、元気ですか？', 'はじめまして。', 'お名前は何ですか？', 'ありがとうございます。', 'すみません、駅はどこですか？', '注文をお願いします。', 'もう少しゆっくり話してください。', '毎日日本語を勉強しています。'],
+    zh: ['你好，你好吗？', '认识你很高兴。', '你叫什么名字？', '非常感谢。', '请问，地铁站在哪里？', '我想点菜。', '请说慢一点。', '我每天都在学中文。'],
+    ko: ['안녕하세요, 잘 지내세요?', '만나서 반갑습니다.', '이름이 뭐예요?', '감사합니다.', '실례합니다, 역이 어디에 있어요?', '주문하고 싶어요.', '좀 더 천천히 말해 주세요.', '매일 한국어를 공부하고 있어요.'],
   };
 
   const startRecording = () => {
