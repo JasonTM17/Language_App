@@ -97,6 +97,7 @@ import { englishTimeLessons } from './english/elementary-time';
 import { japaneseTimeLessons } from './japanese/elementary-time';
 import { koreanTimeLessons } from './korean/elementary-time';
 import { chineseTimeLessons } from './chinese/elementary-time';
+import { englishAcademicLessons } from './english/advanced-academic';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -282,11 +283,12 @@ async function main() {
   }
 
   // English advanced lessons
-  for (let i = 0; i < englishEnvironmentLessons.length; i++) {
-    await createLessonWithContent(levels['en']['advanced'], i + 1, englishEnvironmentLessons[i]);
+  const enAdvancedLessons = [...englishEnvironmentLessons, ...englishAcademicLessons];
+  for (let i = 0; i < enAdvancedLessons.length; i++) {
+    await createLessonWithContent(levels['en']['advanced'], i + 1, enAdvancedLessons[i]);
     lessonCount++;
-    vocabCount += englishEnvironmentLessons[i].vocabulary.length;
-    quizCount += englishEnvironmentLessons[i].quizzes.length;
+    vocabCount += enAdvancedLessons[i].vocabulary.length;
+    quizCount += enAdvancedLessons[i].quizzes.length;
   }
 
   // Japanese advanced lessons
