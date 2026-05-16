@@ -1,0 +1,301 @@
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+
+interface ConversationScenario {
+  id: string;
+  title: string;
+  titleVi: string;
+  context: string;
+  language: string;
+  messages: { role: 'system' | 'user' | 'bot'; text: string; translation: string }[];
+  userOptions: string[][];
+}
+
+const scenarios: Record<string, ConversationScenario[]> = {
+  en: [
+    {
+      id: '1', title: 'At a Restaurant', titleVi: 'Ở nhà hàng', language: 'en',
+      context: 'You are at a restaurant and want to order food.',
+      messages: [
+        { role: 'bot', text: 'Good evening! Welcome to our restaurant. Table for how many?', translation: 'Chào buổi tối! Chào mừng đến nhà hàng. Bàn cho mấy người?' },
+      ],
+      userOptions: [
+        ['Table for two, please.', 'Just one, thank you.', 'We are a group of four.'],
+        ['Can I see the menu, please?', 'What do you recommend?', 'Do you have any specials today?'],
+        ['I would like the grilled chicken.', 'Can I have the pasta?', 'I will have the fish and chips.'],
+        ['Just water, please.', 'A glass of orange juice.', 'Can I have a coffee?'],
+        ['Yes, that will be all. Thank you!', 'Actually, can I also get dessert?', 'No, thank you. Just the bill please.'],
+      ],
+    },
+    {
+      id: '2', title: 'Asking for Directions', titleVi: 'Hỏi đường', language: 'en',
+      context: 'You are lost and need to find the train station.',
+      messages: [
+        { role: 'bot', text: 'Hi there! You look a bit lost. Can I help you?', translation: 'Chào! Bạn có vẻ bị lạc. Tôi giúp được gì?' },
+      ],
+      userOptions: [
+        ['Yes, please! How do I get to the train station?', 'Excuse me, where is the nearest bus stop?', 'Can you help me find a taxi?'],
+        ['Is it far from here?', 'How long does it take to walk?', 'Should I take a bus?'],
+        ['Turn left or right at the traffic light?', 'Is it on this street?', 'Can you show me on the map?'],
+        ['Thank you so much for your help!', 'Got it, thanks!', 'I appreciate it. Have a nice day!'],
+      ],
+    },
+  ],
+  ja: [
+    {
+      id: '3', title: 'コンビニで (At a Convenience Store)', titleVi: 'Ở cửa hàng tiện lợi', language: 'ja',
+      context: 'You are buying items at a Japanese convenience store.',
+      messages: [
+        { role: 'bot', text: 'いらっしゃいませ！', translation: 'Xin chào quý khách!' },
+      ],
+      userOptions: [
+        ['すみません、おにぎりはどこですか？', 'お弁当はありますか？', 'トイレはどこですか？'],
+        ['これをください。', 'これとこれをお願いします。', '温めてもらえますか？'],
+        ['袋はいりません。', '袋をお願いします。', 'お箸をください。'],
+        ['ありがとうございます！', 'おつりはいりません。', 'レシートはいりません。'],
+      ],
+    },
+  ],
+  zh: [
+    {
+      id: '4', title: '在咖啡店 (At a Coffee Shop)', titleVi: 'Ở quán cà phê', language: 'zh',
+      context: 'You are ordering coffee at a Chinese coffee shop.',
+      messages: [
+        { role: 'bot', text: '欢迎光临！请问您要点什么？', translation: 'Chào mừng! Bạn muốn gọi gì?' },
+      ],
+      userOptions: [
+        ['我要一杯美式咖啡。', '请给我一杯拿铁。', '有什么推荐的吗？'],
+        ['大杯的。', '中杯就好。', '小杯的，谢谢。'],
+        ['热的，谢谢。', '冰的，谢谢。', '温的可以吗？'],
+        ['在这里喝。', '带走。', '可以打包吗？'],
+        ['谢谢！', '多少钱？', '可以用手机支付吗？'],
+      ],
+    },
+  ],
+  ko: [
+    {
+      id: '5', title: '카페에서 (At a Cafe)', titleVi: 'Ở quán cà phê', language: 'ko',
+      context: 'You are ordering at a Korean cafe.',
+      messages: [
+        { role: 'bot', text: '어서오세요! 주문하시겠어요?', translation: 'Xin chào! Bạn muốn gọi gì?' },
+      ],
+      userOptions: [
+        ['아메리카노 한 잔 주세요.', '카페라떼 주세요.', '메뉴 좀 볼게요.'],
+        ['큰 사이즈로 주세요.', '작은 사이즈로 주세요.', '보통 사이즈로 주세요.'],
+        ['뜨거운 걸로 주세요.', '아이스로 주세요.', '미지근하게 해주세요.'],
+        ['여기서 마실게요.', '포장해 주세요.', '테이크아웃이요.'],
+        ['감사합니다!', '얼마예요?', '카드로 결제할게요.'],
+      ],
+    },
+  ],
+};
+
+const botResponses: Record<string, string[][]> = {
+  '1': [
+    ['Right this way! Here is your table.', 'Mời đi theo tôi! Đây là bàn của bạn.'],
+    ['Here is the menu. I will give you a few minutes.', 'Đây là thực đơn. Tôi sẽ cho bạn vài phút.'],
+    ['Excellent choice! And what would you like to drink?', 'Lựa chọn tuyệt vời! Bạn muốn uống gì?'],
+    ['Perfect. Your order will be ready in about 15 minutes.', 'Hoàn hảo. Đơn hàng sẽ sẵn sàng trong khoảng 15 phút.'],
+    ['Thank you for dining with us! Have a wonderful evening.', 'Cảm ơn bạn đã dùng bữa! Chúc buổi tối vui vẻ.'],
+  ],
+  '2': [
+    ['Sure! The train station is about 10 minutes walk from here.', 'Được! Nhà ga cách đây khoảng 10 phút đi bộ.'],
+    ['It is not too far. Go straight and turn left at the traffic light.', 'Không xa lắm. Đi thẳng rồi rẽ trái ở đèn giao thông.'],
+    ['Turn left, then you will see it on your right side.', 'Rẽ trái, rồi bạn sẽ thấy nó bên phải.'],
+    ['You are welcome! Good luck!', 'Không có gì! Chúc may mắn!'],
+  ],
+  '3': [
+    ['おにぎりはあちらの棚にあります。', 'Onigiri ở kệ bên kia.'],
+    ['かしこまりました。温めますか？', 'Vâng ạ. Bạn muốn hâm nóng không?'],
+    ['はい、わかりました。', 'Vâng, tôi hiểu rồi.'],
+    ['ありがとうございました！またお越しください。', 'Cảm ơn! Hẹn gặp lại!'],
+  ],
+  '4': [
+    ['好的，美式咖啡。要什么杯型？', 'Được, americano. Bạn muốn size nào?'],
+    ['好的。要热的还是冰的？', 'Được. Nóng hay đá?'],
+    ['好的。在这里喝还是带走？', 'Được. Uống tại đây hay mang đi?'],
+    ['好的，请稍等。', 'Được, xin chờ một chút.'],
+    ['一共25块。谢谢光临！', 'Tổng cộng 25 tệ. Cảm ơn!'],
+  ],
+  '5': [
+    ['네, 사이즈는요?', 'Vâng, size nào ạ?'],
+    ['알겠습니다. 뜨거운 걸로 드릴까요, 아이스로 드릴까요?', 'Vâng. Nóng hay đá ạ?'],
+    ['네. 매장에서 드시나요, 포장하시나요?', 'Vâng. Uống tại đây hay mang đi ạ?'],
+    ['잠시만 기다려주세요.', 'Xin chờ một chút.'],
+    ['4,500원입니다. 감사합니다!', '4.500 won ạ. Cảm ơn!'],
+  ],
+};
+
+const languages = [
+  { code: 'en', name: 'English', flag: '🇬🇧' },
+  { code: 'ja', name: 'Japanese', flag: '🇯🇵' },
+  { code: 'zh', name: 'Chinese', flag: '🇨🇳' },
+  { code: 'ko', name: 'Korean', flag: '🇰🇷' },
+];
+
+export default function ConversationPage() {
+  const [selectedLang, setSelectedLang] = useState('en');
+  const [selectedScenario, setSelectedScenario] = useState<ConversationScenario | null>(null);
+  const [chatMessages, setChatMessages] = useState<{ role: string; text: string; translation: string }[]>([]);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [completed, setCompleted] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  const currentScenarios = scenarios[selectedLang] || [];
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages]);
+
+  const startScenario = (scenario: ConversationScenario) => {
+    setSelectedScenario(scenario);
+    setChatMessages([...scenario.messages]);
+    setCurrentStep(0);
+    setCompleted(false);
+  };
+
+  const selectOption = (option: string) => {
+    if (!selectedScenario) return;
+
+    setChatMessages(prev => [...prev, { role: 'user', text: option, translation: '' }]);
+
+    const responses = botResponses[selectedScenario.id];
+    if (responses && responses[currentStep]) {
+      setTimeout(() => {
+        setChatMessages(prev => [...prev, {
+          role: 'bot',
+          text: responses[currentStep][0],
+          translation: responses[currentStep][1],
+        }]);
+      }, 800);
+    }
+
+    const nextStep = currentStep + 1;
+    if (nextStep >= selectedScenario.userOptions.length) {
+      setCompleted(true);
+    } else {
+      setCurrentStep(nextStep);
+    }
+  };
+
+  const backToList = () => {
+    setSelectedScenario(null);
+    setChatMessages([]);
+    setCompleted(false);
+  };
+
+  if (!selectedScenario) {
+    return (
+      <div className="max-w-3xl mx-auto space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold font-display">Hội thoại</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Luyện tập hội thoại theo tình huống thực tế</p>
+        </div>
+
+        <div className="flex gap-2 flex-wrap">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => setSelectedLang(lang.code)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
+                selectedLang === lang.code
+                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                  : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+              }`}
+            >
+              <span>{lang.flag}</span>
+              <span className="text-sm font-medium">{lang.name}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="grid gap-4">
+          {currentScenarios.map((scenario) => (
+            <button
+              key={scenario.id}
+              onClick={() => startScenario(scenario)}
+              className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-left hover:border-primary-300 hover:shadow-md transition-all"
+            >
+              <h3 className="font-semibold text-lg">{scenario.title}</h3>
+              <p className="text-sm text-gray-500 mt-0.5">{scenario.titleVi}</p>
+              <p className="text-xs text-gray-400 mt-2">{scenario.context}</p>
+            </button>
+          ))}
+        </div>
+
+        {currentScenarios.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-4xl mb-3">💬</div>
+            <p className="text-gray-500">Chưa có kịch bản hội thoại cho ngôn ngữ này.</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto space-y-4">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <button onClick={backToList} className="text-sm text-primary-600 hover:underline">← Quay lại</button>
+        <span className="text-sm text-gray-500">{selectedScenario.title}</span>
+      </div>
+
+      {/* Context */}
+      <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800">
+        <p className="text-xs text-blue-700 dark:text-blue-300">{selectedScenario.context}</p>
+      </div>
+
+      {/* Chat messages */}
+      <div className="space-y-3 min-h-[300px] max-h-[400px] overflow-y-auto p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
+        {chatMessages.map((msg, i) => (
+          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[80%] p-3 rounded-2xl ${
+              msg.role === 'user'
+                ? 'bg-primary-500 text-white rounded-br-md'
+                : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-bl-md'
+            }`}>
+              <p className="text-sm">{msg.text}</p>
+              {msg.translation && msg.role !== 'user' && (
+                <p className={`text-xs mt-1 ${msg.role === 'user' ? 'text-primary-100' : 'text-gray-400'}`}>
+                  {msg.translation}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+        <div ref={chatEndRef} />
+      </div>
+
+      {/* User options */}
+      {!completed && selectedScenario.userOptions[currentStep] && (
+        <div className="space-y-2">
+          <p className="text-xs text-gray-500 font-medium">Chọn câu trả lời:</p>
+          {selectedScenario.userOptions[currentStep].map((option, i) => (
+            <button
+              key={i}
+              onClick={() => selectOption(option)}
+              className="w-full p-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-left text-sm font-medium hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Completed */}
+      {completed && (
+        <div className="p-5 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-center">
+          <p className="text-lg font-bold text-green-700 dark:text-green-300">Hoàn thành hội thoại!</p>
+          <p className="text-sm text-green-600 dark:text-green-400 mt-1">Bạn đã hoàn thành tình huống này.</p>
+          <div className="flex gap-3 justify-center mt-4">
+            <Button variant="outline" onClick={() => startScenario(selectedScenario)}>Thử lại</Button>
+            <Button onClick={backToList}>Chọn tình huống khác</Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
