@@ -41,6 +41,7 @@ const navItems = [
   { href: '/leaderboard', label: 'Leaderboard', icon: '🥇' },
   { href: '/study-plan', label: 'Study Plan', icon: '📅' },
   { href: '/quests', label: 'Quests', icon: '⚔️' },
+  { href: '/daily-goals', label: 'Daily Goals', icon: '🎯' },
   { href: '/shop', label: 'Shop', icon: '💎' },
   { href: '/progress', label: 'Progress', icon: '📊' },
   { href: '/analytics', label: 'Analytics', icon: '📈' },
