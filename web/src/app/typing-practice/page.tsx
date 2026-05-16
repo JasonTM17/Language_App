@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { XpPopup } from '@/components/ui/xp-popup';
+import { Celebration } from '@/components/ui/celebration';
 
 interface TypingExercise {
   id: string;
@@ -59,6 +61,9 @@ export default function TypingPracticePage() {
   const [elapsed, setElapsed] = useState(0);
   const [results, setResults] = useState<{ wpm: number; accuracy: number; time: number }[]>([]);
   const [charStates, setCharStates] = useState<('correct' | 'incorrect' | 'pending')[]>([]);
+  const [showXp, setShowXp] = useState(false);
+  const [xpAmount, setXpAmount] = useState(0);
+  const [showCelebration, setShowCelebration] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -108,6 +113,10 @@ export default function TypingPracticePage() {
       const newResults = [...results, result];
       setResults(newResults);
 
+      const baseXp = accuracy >= 95 ? 15 : accuracy >= 80 ? 10 : 5;
+      setXpAmount(baseXp);
+      setShowXp(true);
+
       if (currentIndex < currentExercises.length - 1) {
         setCurrentIndex(prev => prev + 1);
         setInput('');
@@ -118,6 +127,7 @@ export default function TypingPracticePage() {
       } else {
         setGameState('finished');
         if (timerRef.current) clearInterval(timerRef.current);
+        if (accuracy >= 90) setShowCelebration(true);
       }
     }
   }, [currentExercise, currentIndex, currentExercises, results, startTime]);
@@ -127,10 +137,10 @@ export default function TypingPracticePage() {
 
   if (gameState === 'idle') {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6 pb-8">
         <div>
           <h1 className="text-2xl font-bold font-display">Luyện gõ phím</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Cải thiện tốc độ gõ trong ngôn ngữ bạn đang học</p>
+          <p className="text-muted-foreground text-sm mt-0.5">Cải thiện tốc độ gõ trong ngôn ngữ bạn đang học</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
@@ -138,31 +148,31 @@ export default function TypingPracticePage() {
             <button
               key={lang.code}
               onClick={() => setSelectedLang(lang.code)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                  ? 'border-primary bg-primary/5 text-primary font-medium'
+                  : 'border-border text-muted-foreground hover:border-primary/30'
               }`}
             >
               <span>{lang.flag}</span>
-              <span className="text-sm font-medium">{lang.name}</span>
+              <span className="text-sm">{lang.name}</span>
             </button>
           ))}
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center space-y-4">
+        <div className="p-6 rounded-2xl bg-card border text-center space-y-4">
           <div className="text-5xl">⌨️</div>
           <h2 className="text-lg font-semibold">Sẵn sàng luyện tập?</h2>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             Gõ lại {currentExercises.length} câu bằng {languages.find(l => l.code === selectedLang)?.name}.
             Tốc độ và độ chính xác sẽ được đo.
           </p>
           <Button onClick={startPractice} className="px-8">Bắt đầu</Button>
         </div>
 
-        <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">Mẹo:</h3>
-          <ul className="text-xs text-gray-500 space-y-1">
+        <div className="p-4 rounded-xl bg-muted/50 border">
+          <h3 className="text-sm font-medium text-muted-foreground mb-2">Mẹo:</h3>
+          <ul className="text-xs text-muted-foreground space-y-1">
             <li>• Tập trung vào độ chính xác trước, tốc độ sẽ đến sau</li>
             <li>• Nhìn vào văn bản gốc, không nhìn bàn phím</li>
             <li>• Luyện tập đều đặn mỗi ngày để cải thiện</li>
@@ -174,40 +184,41 @@ export default function TypingPracticePage() {
 
   if (gameState === 'finished') {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6 pb-8">
+        {showCelebration && <Celebration type="confetti" duration={3000} />}
         <div className="text-center py-6">
           <div className="text-5xl mb-3">
             {avgAccuracy >= 95 ? '🏆' : avgAccuracy >= 80 ? '⭐' : '💪'}
           </div>
           <h1 className="text-2xl font-bold font-display">Hoàn thành!</h1>
-          <p className="text-gray-500 mt-1">Kết quả luyện gõ phím của bạn</p>
+          <p className="text-muted-foreground mt-1">Kết quả luyện gõ phím của bạn</p>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
           <div className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-center">
             <p className="text-3xl font-bold text-blue-600">{avgWpm}</p>
-            <p className="text-xs text-gray-500 mt-1">WPM trung bình</p>
+            <p className="text-xs text-muted-foreground mt-1">WPM trung bình</p>
           </div>
           <div className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-center">
             <p className="text-3xl font-bold text-green-600">{avgAccuracy}%</p>
-            <p className="text-xs text-gray-500 mt-1">Chính xác</p>
+            <p className="text-xs text-muted-foreground mt-1">Chính xác</p>
           </div>
           <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-center">
             <p className="text-3xl font-bold text-purple-600">{results.length}</p>
-            <p className="text-xs text-gray-500 mt-1">Câu hoàn thành</p>
+            <p className="text-xs text-muted-foreground mt-1">Câu hoàn thành</p>
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div className="p-4 rounded-2xl bg-card border">
           <h3 className="font-semibold mb-3">Chi tiết từng câu:</h3>
           <div className="space-y-2">
             {results.map((r, i) => (
-              <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-900">
-                <span className="text-sm text-gray-600 truncate flex-1">Câu {i + 1}</span>
+              <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+                <span className="text-sm text-muted-foreground truncate flex-1">Câu {i + 1}</span>
                 <div className="flex gap-4 text-xs">
                   <span className="text-blue-600 font-medium">{r.wpm} WPM</span>
                   <span className="text-green-600 font-medium">{r.accuracy}%</span>
-                  <span className="text-gray-400">{r.time.toFixed(1)}s</span>
+                  <span className="text-muted-foreground">{r.time.toFixed(1)}s</span>
                 </div>
               </div>
             ))}
@@ -223,16 +234,18 @@ export default function TypingPracticePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 pb-8">
+      {showXp && <XpPopup amount={xpAmount} onComplete={() => setShowXp(false)} />}
+
       {/* Progress header */}
       <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-500">Câu {currentIndex + 1}/{currentExercises.length}</span>
-        <span className="text-sm font-medium text-gray-600">{(elapsed / 1000).toFixed(1)}s</span>
+        <span className="text-sm text-muted-foreground">Câu {currentIndex + 1}/{currentExercises.length}</span>
+        <span className="text-sm font-medium text-muted-foreground">{(elapsed / 1000).toFixed(1)}s</span>
       </div>
 
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
         <div
-          className="h-full bg-primary-500 rounded-full transition-all"
+          className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all"
           style={{ width: `${((currentIndex) / currentExercises.length) * 100}%` }}
         />
       </div>
@@ -243,7 +256,7 @@ export default function TypingPracticePage() {
       </div>
 
       {/* Target text with character highlighting */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+      <div className="p-6 rounded-2xl bg-card border">
         <p className="text-xl leading-relaxed font-mono tracking-wide">
           {currentExercise.text.split('').map((char, i) => (
             <span
@@ -251,8 +264,8 @@ export default function TypingPracticePage() {
               className={`${
                 charStates[i] === 'correct' ? 'text-green-600 dark:text-green-400' :
                 charStates[i] === 'incorrect' ? 'text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30 rounded' :
-                i === input.length ? 'border-b-2 border-primary-500' :
-                'text-gray-400'
+                i === input.length ? 'border-b-2 border-primary' :
+                'text-muted-foreground'
               }`}
             >
               {char}
@@ -267,7 +280,7 @@ export default function TypingPracticePage() {
         type="text"
         value={input}
         onChange={(e) => handleInput(e.target.value)}
-        className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-lg font-mono focus:border-primary-500 focus:outline-none"
+        className="w-full p-4 rounded-xl border-2 border-border bg-card text-lg font-mono focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
         placeholder="Gõ lại câu trên..."
         autoComplete="off"
         spellCheck={false}
@@ -275,10 +288,10 @@ export default function TypingPracticePage() {
 
       {/* Live stats */}
       {input.length > 0 && (
-        <div className="flex justify-center gap-6 text-sm text-gray-500">
+        <div className="flex justify-center gap-6 text-sm text-muted-foreground">
           <span>{input.length}/{currentExercise.text.length} ký tự</span>
-          <span>{charStates.filter(s => s === 'correct').length} đúng</span>
-          <span>{charStates.filter(s => s === 'incorrect').length} sai</span>
+          <span className="text-green-600">{charStates.filter(s => s === 'correct').length} đúng</span>
+          <span className="text-red-500">{charStates.filter(s => s === 'incorrect').length} sai</span>
         </div>
       )}
     </div>
