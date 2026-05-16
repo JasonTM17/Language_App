@@ -11,8 +11,15 @@ services:
       - DATABASE_URL=file:./data/linguaflow.db
       - JWT_SECRET=${JWT_SECRET}
       - PORT=3001
+      - FRONTEND_URL=http://localhost:3000
     volumes:
       - api-data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
     restart: unless-stopped
     networks:
       - linguaflow
@@ -25,7 +32,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://api:3001
+      - NEXT_PUBLIC_API_URL=http://api:3001/api
     depends_on:
       api:
         condition: service_healthy

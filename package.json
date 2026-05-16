@@ -2,20 +2,41 @@
   "name": "linguaflow",
   "version": "1.0.0",
   "private": true,
-  "description": "LinguaFlow - Modern Language Learning Platform",
+  "description": "LinguaFlow - Smart language learning platform for Vietnamese students",
+  "author": "Nguyễn Sơn <sonnguyenhoang17@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JasonTM17/Language_App.git"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
-    "dev:web": "cd web && npm run dev",
-    "dev:api": "cd api && npm run dev",
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
-    "build:web": "cd web && npm run build",
-    "build:api": "cd api && npm run build",
+    "dev:api": "cd api && npm run dev",
+    "dev:web": "cd web && npm run dev",
     "build": "npm run build:api && npm run build:web",
+    "build:api": "cd api && npm run build",
+    "build:web": "cd web && npm run build",
+    "test": "cd api && npm test",
+    "test:e2e": "cd web && npx playwright test",
+    "lint": "cd web && npm run lint",
+    "typecheck": "cd api && npx tsc --noEmit && cd ../web && npx tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
+    "db:migrate": "cd api && npx prisma migrate dev",
     "db:seed": "cd api && npm run db:seed",
     "db:reset": "cd api && npx prisma db push --force-reset && npm run db:seed",
-    "lint": "cd web && npm run lint",
-    "test": "cd web && npm run test"
+    "db:studio": "cd api && npx prisma studio",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:build": "docker compose build",
+    "clean": "rm -rf api/dist web/.next node_modules api/node_modules web/node_modules"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prettier": "^3.2.0"
   }
 }
