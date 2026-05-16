@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinguaFlow - Ngoại tuyến</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9fafb;
+      color: #1f2937;
+      padding: 1rem;
+    }
+    .container { text-align: center; max-width: 400px; }
+    .icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    p { color: #6b7280; font-size: 0.875rem; line-height: 1.5; margin-bottom: 1.5rem; }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover { background: #4f46e5; }
+    .tips { margin-top: 2rem; padding: 1rem; background: #fef3c7; border-radius: 0.75rem; text-align: left; }
+    .tips h3 { font-size: 0.75rem; font-weight: 600; color: #92400e; margin-bottom: 0.5rem; }
+    .tips li { font-size: 0.75rem; color: #78350f; margin-left: 1rem; margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📡</div>
+    <h1>Không có kết nối mạng</h1>
+    <p>Bạn đang ngoại tuyến. Một số tính năng có thể không khả dụng cho đến khi kết nối được khôi phục.</p>
+    <button class="btn" onclick="window.location.reload()">Thử lại</button>
+    <div class="tips">
+      <h3>💡 Mẹo khi ngoại tuyến:</h3>
+      <ul>
+        <li>Ôn lại từ vựng đã lưu trong bộ nhớ cache</li>
+        <li>Xem lại ghi chú ngữ pháp đã tải</li>
+        <li>Luyện viết câu trong sổ tay</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

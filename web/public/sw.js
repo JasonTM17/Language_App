@@ -2,6 +2,7 @@ const CACHE_NAME = 'linguaflow-v1';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
+  '/offline.html',
 ];
 
 self.addEventListener('install', (event) => {
@@ -23,11 +24,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
 
-  // Only handle GET requests
   if (request.method !== 'GET') return;
 
   if (request.url.includes('/api/')) {
-    // Network-first strategy for API requests
     event.respondWith(
       fetch(request)
         .then((response) => {
@@ -37,8 +36,11 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() => caches.match(request))
     );
+  } else if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request).catch(() => caches.match('/offline.html'))
+    );
   } else {
-    // Cache-first strategy for static assets (images, fonts, CSS, JS)
     event.respondWith(
       caches.match(request).then((cached) => cached || fetch(request))
     );
