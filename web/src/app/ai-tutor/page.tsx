@@ -94,11 +94,11 @@ export default function AITutorPage() {
       <div className="max-w-2xl mx-auto space-y-8">
         <div>
           <h1 className="text-2xl font-bold font-display">AI Tutor</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Practice conversation with an AI language partner</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Luyện hội thoại với trợ lý AI</p>
         </div>
 
         <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-          <h2 className="font-semibold mb-4">Choose Language</h2>
+          <h2 className="font-semibold mb-4">Chọn ngôn ngữ</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {languageOptions.map((lang) => (
               <button
@@ -116,7 +116,7 @@ export default function AITutorPage() {
             ))}
           </div>
 
-          <h2 className="font-semibold mb-4">Choose Scenario</h2>
+          <h2 className="font-semibold mb-4">Chọn tình huống</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {roles.map((role) => (
               <button
@@ -136,7 +136,7 @@ export default function AITutorPage() {
           </div>
 
           <Button onClick={startSession} loading={loading} className="w-full" size="lg">
-            Start Conversation
+            Bắt đầu hội thoại
           </Button>
         </div>
       </div>
@@ -198,7 +198,7 @@ export default function AITutorPage() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-          placeholder="Type your message..."
+          placeholder="Nhập tin nhắn..."
           className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500 outline-none"
           disabled={loading}
         />
