@@ -27,6 +27,7 @@ const navItems = [
   { href: '/conversation', label: 'Conversation', icon: '💬' },
   { href: '/translation', label: 'Translation', icon: '🌐' },
   { href: '/sentence', label: 'Sentences', icon: '🧩' },
+  { href: '/sentence-builder', label: 'Build', icon: '🧱' },
   { href: '/fill-blank', label: 'Fill Blank', icon: '📋' },
   { href: '/matching', label: 'Matching', icon: '🔗' },
   { href: '/characters', label: 'Characters', icon: '字' },
