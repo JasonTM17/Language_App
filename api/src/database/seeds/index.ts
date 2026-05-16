@@ -47,6 +47,9 @@ import { koreanWeatherLessons } from './korean/beginner-weather';
 import { koreanEmotionsLessons } from './korean/elementary-emotions';
 import { chineseWeatherLessons } from './chinese/beginner-weather';
 import { chineseEmotionsLessons } from './chinese/elementary-emotions';
+import { japaneseWorkLessons } from './japanese/intermediate-work';
+import { chineseWorkLessons } from './chinese/intermediate-work';
+import { koreanWorkLessons } from './korean/intermediate-work';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -200,6 +203,30 @@ async function main() {
     lessonCount++;
     vocabCount += chineseEmotionsLessons[i].vocabulary.length;
     quizCount += chineseEmotionsLessons[i].quizzes.length;
+  }
+
+  // Japanese intermediate lessons
+  for (let i = 0; i < japaneseWorkLessons.length; i++) {
+    await createLessonWithContent(levels['ja']['intermediate'], i + 1, japaneseWorkLessons[i]);
+    lessonCount++;
+    vocabCount += japaneseWorkLessons[i].vocabulary.length;
+    quizCount += japaneseWorkLessons[i].quizzes.length;
+  }
+
+  // Korean intermediate lessons
+  for (let i = 0; i < koreanWorkLessons.length; i++) {
+    await createLessonWithContent(levels['ko']['intermediate'], i + 1, koreanWorkLessons[i]);
+    lessonCount++;
+    vocabCount += koreanWorkLessons[i].vocabulary.length;
+    quizCount += koreanWorkLessons[i].quizzes.length;
+  }
+
+  // Chinese intermediate lessons
+  for (let i = 0; i < chineseWorkLessons.length; i++) {
+    await createLessonWithContent(levels['zh']['intermediate'], i + 1, chineseWorkLessons[i]);
+    lessonCount++;
+    vocabCount += chineseWorkLessons[i].vocabulary.length;
+    quizCount += chineseWorkLessons[i].quizzes.length;
   }
 
   console.log(`✅ Lessons created (${lessonCount})`);
