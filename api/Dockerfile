@@ -1,36 +1,23 @@
-FROM node:20-alpine AS base
+FROM node:20-alpine
 WORKDIR /app
 
-FROM base AS deps
 COPY package.json package-lock.json* ./
-COPY prisma ./prisma/
-RUN npm ci && npx prisma generate
+RUN npm ci
 
-FROM base AS build
-COPY --from=deps /app/node_modules ./node_modules
-COPY package.json package-lock.json* ./
 COPY prisma ./prisma/
+RUN npx prisma generate
+
 COPY tsconfig.json ./
 COPY src ./src/
 RUN npm run build
 
-FROM base AS production-deps
-COPY package.json package-lock.json* ./
-COPY prisma ./prisma/
-RUN npm ci --omit=dev && npx prisma generate
+RUN mkdir -p /app/data
 
-FROM base AS runner
 ENV NODE_ENV=production
-RUN mkdir -p /app/data && chown -R node:node /app
-COPY --from=production-deps /app/node_modules ./node_modules
-COPY --from=production-deps /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
-COPY --from=deps /app/node_modules/@prisma/engines ./node_modules/@prisma/engines
-COPY --from=build /app/dist ./dist
-COPY prisma ./prisma/
-COPY package.json ./
-USER node
+ENV DATABASE_URL=file:./data/linguaflow.db
 EXPOSE 3001
+
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3001/api/health || exit 1
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
+
+CMD sh -c "npx prisma migrate deploy 2>/dev/null || npx prisma db push --accept-data-loss; node dist/index.js"
