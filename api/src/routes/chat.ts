@@ -8,7 +8,7 @@ const router = Router();
 
 const startSchema = z.object({
   language: z.enum(['en', 'ja', 'zh', 'ko']).optional(),
-  role: z.enum(['teacher', 'friend', 'interviewer', 'restaurant', 'customer']).optional(),
+  role: z.enum(['teacher', 'friend', 'interviewer', 'restaurant', 'customer', 'doctor', 'travel']).optional(),
 });
 
 const messageSchema = z.object({
