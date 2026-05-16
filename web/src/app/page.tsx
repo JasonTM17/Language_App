@@ -144,7 +144,7 @@ export default function LandingPage() {
             <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-xs">L</div>
             <span className="font-display font-semibold">LinguaFlow</span>
           </div>
-          <p className="text-sm text-muted-foreground">© 2025 LinguaFlow. Made with ❤️ for Vietnamese learners.</p>
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} LinguaFlow. Made with ❤️ for Vietnamese learners.</p>
         </div>
       </footer>
     </div>
