@@ -51,9 +51,9 @@ export default function LessonsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold font-display">Lessons</h1>
+        <h1 className="text-2xl font-bold font-display">Bài học</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
-          {langCode ? `Showing lessons for ${langCode.toUpperCase()}` : 'All available lessons'}
+          {langCode ? `Bài học cho ${langCode.toUpperCase()}` : 'Tất cả bài học'}
         </p>
       </div>
 
@@ -96,10 +96,10 @@ export default function LessonsPage() {
       {lessons.length === 0 && (
         <div className="text-center py-16">
           <div className="text-5xl mb-4">📚</div>
-          <h3 className="text-lg font-semibold mb-2">No lessons available</h3>
-          <p className="text-gray-500">Choose a language first to see available lessons.</p>
+          <h3 className="text-lg font-semibold mb-2">Chưa có bài học</h3>
+          <p className="text-gray-500">Hãy chọn ngôn ngữ trước để xem bài học.</p>
           <Link href="/languages" className="inline-block mt-4">
-            <button className="px-6 py-2 rounded-xl bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors">Browse Languages</button>
+            <button className="px-6 py-2 rounded-xl bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors">Chọn ngôn ngữ</button>
           </Link>
         </div>
       )}
