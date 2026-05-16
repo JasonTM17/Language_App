@@ -11,6 +11,8 @@ import { englishNumbersLessons } from './english/beginner-numbers';
 import { englishHealthLessons } from './english/beginner-health';
 import { englishShoppingLessons } from './english/beginner-shopping';
 import { englishWorkLessons } from './english/intermediate-work';
+import { englishTravelIntermediateLessons } from './english/intermediate-travel';
+import { englishEmotionsLessons } from './english/elementary-emotions';
 import { japaneseFoodLessons } from './japanese/beginner-food';
 import { japaneseTravelLessons } from './japanese/beginner-travel';
 import { japaneseDailyLessons } from './japanese/beginner-daily';
@@ -116,11 +118,12 @@ async function main() {
   }
 
   // English intermediate lessons
-  for (let i = 0; i < englishWorkLessons.length; i++) {
-    await createLessonWithContent(levels['en']['intermediate'], i + 1, englishWorkLessons[i]);
+  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons];
+  for (let i = 0; i < enIntermediateLessons.length; i++) {
+    await createLessonWithContent(levels['en']['intermediate'], i + 1, enIntermediateLessons[i]);
     lessonCount++;
-    vocabCount += englishWorkLessons[i].vocabulary.length;
-    quizCount += englishWorkLessons[i].quizzes.length;
+    vocabCount += enIntermediateLessons[i].vocabulary.length;
+    quizCount += enIntermediateLessons[i].quizzes.length;
   }
 
   // Japanese beginner lessons
@@ -151,7 +154,7 @@ async function main() {
   }
 
   // English elementary lessons
-  const enElementaryLessons = [...englishTransportLessons, ...englishTechnologyLessons];
+  const enElementaryLessons = [...englishTransportLessons, ...englishTechnologyLessons, ...englishEmotionsLessons];
   for (let i = 0; i < enElementaryLessons.length; i++) {
     await createLessonWithContent(levels['en']['elementary'], i + 1, enElementaryLessons[i]);
     lessonCount++;
