@@ -6,7 +6,8 @@ import { authenticate, AuthRequest } from '../middleware/auth';
 const router = Router();
 
 const reviewSchema = z.object({
-  known: z.boolean(),
+  known: z.boolean().optional(),
+  quality: z.number().min(0).max(5).optional(),
 });
 
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
@@ -40,7 +41,7 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
 
 router.post('/:id/review', authenticate, async (req: AuthRequest, res: Response) => {
   try {
-    const { known } = reviewSchema.parse(req.body);
+    const { known, quality } = reviewSchema.parse(req.body);
     const vocab = await prisma.vocabulary.findUnique({ where: { id: req.params.id } });
     if (!vocab) return res.status(404).json({ error: 'Vocabulary not found' });
 
@@ -48,27 +49,36 @@ router.post('/:id/review', authenticate, async (req: AuthRequest, res: Response)
       where: { userId_vocabularyId: { userId: req.userId!, vocabularyId: vocab.id } },
     });
 
+    const q = quality !== undefined ? quality : (known ? 4 : 1);
+    const now = new Date();
+
     let easeFactor = existing?.easeFactor || 2.5;
     let interval = existing?.interval || 1;
+    const reviewCount = (existing?.reviewCount || 0) + 1;
 
-    if (known) {
-      easeFactor = Math.max(1.3, easeFactor + 0.1);
-      interval = Math.round(interval * easeFactor);
-    } else {
-      easeFactor = Math.max(1.3, easeFactor - 0.2);
+    easeFactor = easeFactor + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02));
+    easeFactor = Math.max(1.3, easeFactor);
+
+    if (q < 3) {
       interval = 1;
+    } else if (reviewCount === 1) {
+      interval = 1;
+    } else if (reviewCount === 2) {
+      interval = 6;
+    } else {
+      interval = Math.round(interval * easeFactor);
     }
 
-    const nextReview = new Date();
-    nextReview.setDate(nextReview.getDate() + interval);
+    const nextReview = new Date(now.getTime() + interval * 24 * 60 * 60 * 1000);
+    const isKnown = q >= 4 && reviewCount >= 3;
 
     const progress = await prisma.flashcardProgress.upsert({
       where: { userId_vocabularyId: { userId: req.userId!, vocabularyId: vocab.id } },
-      update: { known, reviewCount: { increment: 1 }, nextReview, easeFactor, interval },
-      create: { userId: req.userId!, vocabularyId: vocab.id, known, nextReview, easeFactor, interval },
+      update: { known: isKnown, reviewCount, nextReview, easeFactor, interval },
+      create: { userId: req.userId!, vocabularyId: vocab.id, known: isKnown, nextReview, easeFactor, interval },
     });
 
-    res.json({ progress });
+    res.json({ progress, nextReview, interval, easeFactor, quality: q });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
