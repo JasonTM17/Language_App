@@ -45,6 +45,7 @@ import skillTreeRoutes from './routes/skill-tree';
 import storiesRoutes from './routes/stories';
 import dailyChallengeRoutes from './routes/daily-challenge';
 import listeningRoutes from './routes/listening';
+import speakingRoutes from './routes/speaking';
 
 dotenv.config();
 
@@ -116,6 +117,7 @@ app.use('/api/skill-tree', skillTreeRoutes);
 app.use('/api/stories', storiesRoutes);
 app.use('/api/daily-challenge', dailyChallengeRoutes);
 app.use('/api/listening', listeningRoutes);
+app.use('/api/speaking', speakingRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
