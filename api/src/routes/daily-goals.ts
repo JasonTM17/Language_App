@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { prisma } from '../database/client';
 import { authenticate } from '../middleware/auth';
+import { paginateQuery, errorResponse } from '../types/responses';
 
 const router = Router();
 
@@ -31,7 +32,7 @@ router.get('/', authenticate, async (req, res) => {
 
     res.json(dailyGoal);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch daily goal' });
+    res.status(500).json(errorResponse('Không thể tải mục tiêu hàng ngày', 'INTERNAL_ERROR'));
   }
 });
 
@@ -65,7 +66,7 @@ router.put('/target', authenticate, async (req, res) => {
 
     res.json(dailyGoal);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update daily goal' });
+    res.status(500).json(errorResponse('Không thể cập nhật mục tiêu', 'INTERNAL_ERROR'));
   }
 });
 
@@ -109,7 +110,7 @@ router.post('/progress', authenticate, async (req, res) => {
 
     res.json({ ...dailyGoal, completed: isCompleted });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update progress' });
+    res.status(500).json(errorResponse('Không thể cập nhật tiến độ', 'INTERNAL_ERROR'));
   }
 });
 
@@ -117,19 +118,30 @@ router.get('/history', authenticate, async (req, res) => {
   try {
     const userId = (req as any).user.id;
     const days = parseInt(req.query.days as string) || 7;
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
+    const { skip, take } = paginateQuery(page, limit);
 
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
     startDate.setHours(0, 0, 0, 0);
 
-    const history = await prisma.dailyGoal.findMany({
-      where: { userId, date: { gte: startDate } },
-      orderBy: { date: 'desc' },
-    });
+    const where = { userId, date: { gte: startDate } };
 
-    res.json(history);
+    const [history, total] = await Promise.all([
+      prisma.dailyGoal.findMany({
+        where,
+        orderBy: { date: 'desc' },
+        skip,
+        take,
+      }),
+      prisma.dailyGoal.count({ where }),
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+    res.json({ data: history, pagination: { page, limit, total, totalPages } });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch history' });
+    res.status(500).json(errorResponse('Không thể tải lịch sử', 'INTERNAL_ERROR'));
   }
 });
 
