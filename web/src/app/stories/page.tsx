@@ -236,10 +236,10 @@ export default function StoriesPage() {
 
   if (!selectedStory) {
     return (
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto space-y-6 pb-8">
         <div>
           <h1 className="text-2xl font-bold font-display">Truyện đọc</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Đọc truyện ngắn và trả lời câu hỏi</p>
+          <p className="text-muted-foreground text-sm mt-0.5">Đọc truyện ngắn và trả lời câu hỏi</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
@@ -247,14 +247,14 @@ export default function StoriesPage() {
             <button
               key={lang.code}
               onClick={() => setSelectedLang(lang.code)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+                  ? 'border-primary bg-primary/5 text-primary font-medium'
+                  : 'border-border text-muted-foreground hover:border-primary/30'
               }`}
             >
               <span>{lang.flag}</span>
-              <span className="text-sm font-medium">{lang.name}</span>
+              <span className="text-sm">{lang.name}</span>
             </button>
           ))}
         </div>
@@ -264,26 +264,27 @@ export default function StoriesPage() {
             <button
               key={story.id}
               onClick={() => startStory(story)}
-              className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-left hover:border-primary-300 hover:shadow-md transition-all"
+              className="p-5 rounded-2xl bg-card border text-left hover:border-primary/40 hover:shadow-md transition-all"
             >
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-semibold text-lg">{story.title}</h3>
-                  <p className="text-sm text-gray-500 mt-0.5">{story.titleVi}</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">{story.titleVi}</p>
                 </div>
-                <span className="text-xs px-2 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium">
+                <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary font-medium">
                   {story.level}
                 </span>
               </div>
-              <p className="text-xs text-gray-400 mt-2">{story.segments.length} đoạn</p>
+              <p className="text-xs text-muted-foreground mt-2">{story.segments.length} đoạn</p>
             </button>
           ))}
         </div>
 
         {currentStories.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-4xl mb-3">📚</div>
-            <p className="text-gray-500">Chưa có truyện cho ngôn ngữ này.</p>
+          <div className="text-center py-16">
+            <div className="text-6xl mb-4">📚</div>
+            <h3 className="text-lg font-semibold mb-2">Chưa có truyện</h3>
+            <p className="text-muted-foreground">Chưa có truyện cho ngôn ngữ này.</p>
           </div>
         )}
       </div>
@@ -295,30 +296,30 @@ export default function StoriesPage() {
   const totalQuestions = selectedStory.segments.filter(s => s.question).length;
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 pb-8">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <button onClick={backToList} className="text-sm text-primary-600 hover:underline">
+        <button onClick={backToList} className="text-sm text-primary hover:underline">
           ← Quay lại
         </button>
-        <span className="text-sm text-gray-500">{currentSegment + 1} / {selectedStory.segments.length}</span>
+        <span className="text-sm text-muted-foreground">{currentSegment + 1} / {selectedStory.segments.length}</span>
       </div>
 
       {/* Progress bar */}
-      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${((currentSegment + 1) / selectedStory.segments.length) * 100}%` }} />
+      <div className="h-2 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all" style={{ width: `${((currentSegment + 1) / selectedStory.segments.length) * 100}%` }} />
       </div>
 
       {/* Story title */}
       <div className="text-center">
         <h2 className="text-xl font-bold">{selectedStory.title}</h2>
-        <p className="text-sm text-gray-500">{selectedStory.titleVi}</p>
+        <p className="text-sm text-muted-foreground">{selectedStory.titleVi}</p>
       </div>
 
       {/* Segment content */}
-      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 space-y-3">
+      <div className="p-6 rounded-2xl bg-card border space-y-3">
         <p className="text-lg leading-relaxed">{segment.text}</p>
-        <p className="text-sm text-gray-500 italic">{segment.translation}</p>
+        <p className="text-sm text-muted-foreground italic">{segment.translation}</p>
       </div>
 
       {/* Question */}
@@ -327,14 +328,14 @@ export default function StoriesPage() {
           <p className="font-medium text-blue-800 dark:text-blue-200">{segment.question}</p>
           <div className="space-y-2">
             {segment.choices.map((choice, i) => {
-              let styles = 'border-gray-200 dark:border-gray-700 hover:border-blue-300';
+              let styles = 'border-border hover:border-blue-300';
               if (answeredQuestions[currentSegment]) {
                 if (choice.correct) {
                   styles = 'border-green-500 bg-green-50 dark:bg-green-900/20';
                 } else if (i === selectedChoice && !choice.correct) {
                   styles = 'border-red-500 bg-red-50 dark:bg-red-900/20';
                 } else {
-                  styles = 'border-gray-200 dark:border-gray-700 opacity-50';
+                  styles = 'border-border opacity-50';
                 }
               }
 
@@ -347,7 +348,7 @@ export default function StoriesPage() {
                 >
                   {choice.text}
                   {answeredQuestions[currentSegment] && (i === selectedChoice || choice.correct) && (
-                    <p className="text-xs font-normal text-gray-500 mt-1">{choice.feedback}</p>
+                    <p className="text-xs font-normal text-muted-foreground mt-1">{choice.feedback}</p>
                   )}
                 </button>
               );
@@ -363,7 +364,7 @@ export default function StoriesPage() {
         </Button>
         {isLastSegment ? (
           <div className="text-center">
-            <p className="text-sm text-gray-500">Điểm: {score}/{totalQuestions}</p>
+            <p className="text-sm text-muted-foreground">Điểm: {score}/{totalQuestions}</p>
             <Button onClick={backToList} className="mt-2">Hoàn thành</Button>
           </div>
         ) : (

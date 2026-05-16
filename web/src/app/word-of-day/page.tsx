@@ -86,23 +86,23 @@ export default function WordOfDayPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 pb-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Từ mỗi ngày</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Mỗi ngày một từ mới, mở rộng vốn từ</p>
+        <p className="text-muted-foreground text-sm mt-0.5">Mỗi ngày một từ mới, mở rộng vốn từ</p>
       </div>
 
       {/* Word card */}
-      <div className="p-8 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/10 border border-primary-200 dark:border-primary-800">
+      <div className="p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/20">
         <div className="flex items-center justify-between mb-4">
-          <span className="flex items-center gap-2 text-sm text-gray-500">
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{word.flag}</span>
             <span>{word.language}</span>
-            <span className="px-2 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-xs">{word.partOfSpeech}</span>
+            <span className="px-2 py-0.5 rounded bg-muted text-xs">{word.partOfSpeech}</span>
           </span>
           <button
             onClick={toggleSave}
-            className={`text-xl transition-all ${saved.has(currentIndex) ? 'text-yellow-500' : 'text-gray-300 hover:text-yellow-400'}`}
+            className={`text-xl transition-all ${saved.has(currentIndex) ? 'text-yellow-500' : 'text-muted-foreground hover:text-yellow-400'}`}
           >
             {saved.has(currentIndex) ? '★' : '☆'}
           </button>
@@ -110,25 +110,25 @@ export default function WordOfDayPage() {
 
         <div className="text-center space-y-3">
           <h2 className="text-3xl font-bold">{word.word}</h2>
-          <p className="text-sm text-gray-500">{word.pronunciation}</p>
+          <p className="text-sm text-muted-foreground">{word.pronunciation}</p>
           <button
             onClick={() => speak(word.word.replace(/\s*\(.*?\)\s*/g, ''), word.language)}
-            className="mx-auto flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-gray-800 shadow-sm text-sm text-primary-600 hover:bg-primary-50 transition-all"
+            className="mx-auto flex items-center gap-1 px-3 py-1 rounded-full bg-card shadow-sm text-sm text-primary hover:bg-primary/5 transition-all"
           >
             🔊 Nghe phát âm
           </button>
-          <p className="text-xl text-primary-700 dark:text-primary-300 font-medium mt-4">{word.meaning}</p>
+          <p className="text-xl text-primary font-medium mt-4">{word.meaning}</p>
         </div>
       </div>
 
       {/* Example */}
-      <div className="p-5 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-        <p className="text-xs text-gray-500 font-medium mb-2">Ví dụ:</p>
+      <div className="p-5 rounded-xl bg-card border">
+        <p className="text-xs text-muted-foreground font-medium mb-2">Ví dụ:</p>
         <p className="text-lg font-medium">{word.example}</p>
-        <p className="text-sm text-gray-500 mt-1">{word.exampleMeaning}</p>
+        <p className="text-sm text-muted-foreground mt-1">{word.exampleMeaning}</p>
         <button
           onClick={() => speak(word.example, word.language)}
-          className="mt-2 text-xs text-primary-500 hover:underline"
+          className="mt-2 text-xs text-primary hover:underline"
         >
           🔊 Nghe ví dụ
         </button>
@@ -137,7 +137,7 @@ export default function WordOfDayPage() {
       {/* Fun fact */}
       <div className="p-4 rounded-xl bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30">
         <p className="text-xs font-medium text-yellow-700 dark:text-yellow-400 mb-1">💡 Bạn có biết?</p>
-        <p className="text-sm text-gray-700 dark:text-gray-300">{word.funFact}</p>
+        <p className="text-sm text-foreground/80">{word.funFact}</p>
       </div>
 
       {/* Navigation */}
@@ -149,7 +149,7 @@ export default function WordOfDayPage() {
         >
           ← Hôm qua
         </Button>
-        <span className="text-sm text-gray-500">{currentIndex + 1} / {wordsOfDay.length}</span>
+        <span className="text-sm text-muted-foreground">{currentIndex + 1} / {wordsOfDay.length}</span>
         <Button
           onClick={() => setCurrentIndex(prev => Math.min(wordsOfDay.length - 1, prev + 1))}
           disabled={currentIndex === wordsOfDay.length - 1}
@@ -160,11 +160,11 @@ export default function WordOfDayPage() {
 
       {/* Saved words */}
       {saved.size > 0 && (
-        <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
-          <p className="text-xs font-medium text-gray-500 mb-2">Từ đã lưu ({saved.size})</p>
+        <div className="p-4 rounded-xl bg-muted/50 border">
+          <p className="text-xs font-medium text-muted-foreground mb-2">Từ đã lưu ({saved.size})</p>
           <div className="flex flex-wrap gap-2">
             {Array.from(saved).map(idx => (
-              <span key={idx} className="px-3 py-1 rounded-lg bg-white dark:bg-gray-700 text-sm border border-gray-200 dark:border-gray-600">
+              <span key={idx} className="px-3 py-1 rounded-lg bg-card text-sm border">
                 {wordsOfDay[idx].flag} {wordsOfDay[idx].word.split(' ')[0]}
               </span>
             ))}
