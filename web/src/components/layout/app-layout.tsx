@@ -19,6 +19,7 @@ const navItems = [
   { href: '/pronunciation', label: 'Pronunciation', icon: '🎙️' },
   { href: '/writing', label: 'Writing', icon: '✍️' },
   { href: '/achievements', label: 'Achievements', icon: '🏆' },
+  { href: '/bookmarks', label: 'Bookmarks', icon: '🔖' },
   { href: '/leaderboard', label: 'Leaderboard', icon: '🥇' },
   { href: '/study-plan', label: 'Study Plan', icon: '📅' },
   { href: '/progress', label: 'Progress', icon: '📊' },
