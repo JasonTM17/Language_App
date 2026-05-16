@@ -1,0 +1,255 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+
+interface DictationExercise {
+  id: string;
+  language: string;
+  sentence: string;
+  translation: string;
+  speed: 'slow' | 'normal';
+}
+
+const exercises: Record<string, DictationExercise[]> = {
+  en: [
+    { id: '1', language: 'en', sentence: 'I would like a glass of water please', translation: 'Tôi muốn một ly nước', speed: 'normal' },
+    { id: '2', language: 'en', sentence: 'The weather is very nice today', translation: 'Hôm nay thời tiết rất đẹp', speed: 'normal' },
+    { id: '3', language: 'en', sentence: 'Can you speak more slowly', translation: 'Bạn có thể nói chậm hơn không', speed: 'normal' },
+    { id: '4', language: 'en', sentence: 'I am learning English every day', translation: 'Tôi đang học tiếng Anh mỗi ngày', speed: 'normal' },
+    { id: '5', language: 'en', sentence: 'Where is the nearest hospital', translation: 'Bệnh viện gần nhất ở đâu', speed: 'normal' },
+    { id: '6', language: 'en', sentence: 'She has been working here for five years', translation: 'Cô ấy đã làm việc ở đây 5 năm', speed: 'slow' },
+    { id: '7', language: 'en', sentence: 'What time does the train leave', translation: 'Tàu khởi hành lúc mấy giờ', speed: 'normal' },
+    { id: '8', language: 'en', sentence: 'I need to buy some groceries', translation: 'Tôi cần mua ít đồ tạp hóa', speed: 'normal' },
+  ],
+  ja: [
+    { id: '9', language: 'ja', sentence: 'おはようございます', translation: 'Chào buổi sáng (lịch sự)', speed: 'slow' },
+    { id: '10', language: 'ja', sentence: 'すみません、駅はどこですか', translation: 'Xin lỗi, nhà ga ở đâu?', speed: 'slow' },
+    { id: '11', language: 'ja', sentence: '日本語を勉強しています', translation: 'Tôi đang học tiếng Nhật', speed: 'slow' },
+    { id: '12', language: 'ja', sentence: 'これはいくらですか', translation: 'Cái này bao nhiêu tiền?', speed: 'slow' },
+    { id: '13', language: 'ja', sentence: '明日は何をしますか', translation: 'Ngày mai bạn sẽ làm gì?', speed: 'slow' },
+  ],
+  zh: [
+    { id: '14', language: 'zh', sentence: '你好，请问洗手间在哪里', translation: 'Xin chào, xin hỏi nhà vệ sinh ở đâu?', speed: 'slow' },
+    { id: '15', language: 'zh', sentence: '我想学中文', translation: 'Tôi muốn học tiếng Trung', speed: 'slow' },
+    { id: '16', language: 'zh', sentence: '今天天气很好', translation: 'Hôm nay thời tiết rất đẹp', speed: 'slow' },
+    { id: '17', language: 'zh', sentence: '这个多少钱', translation: 'Cái này bao nhiêu tiền?', speed: 'slow' },
+    { id: '18', language: 'zh', sentence: '我是越南人', translation: 'Tôi là người Việt Nam', speed: 'slow' },
+  ],
+  ko: [
+    { id: '19', language: 'ko', sentence: '안녕하세요 만나서 반갑습니다', translation: 'Xin chào, rất vui được gặp bạn', speed: 'slow' },
+    { id: '20', language: 'ko', sentence: '한국어를 공부하고 있어요', translation: 'Tôi đang học tiếng Hàn', speed: 'slow' },
+    { id: '21', language: 'ko', sentence: '이것은 얼마예요', translation: 'Cái này bao nhiêu tiền?', speed: 'slow' },
+    { id: '22', language: 'ko', sentence: '화장실이 어디에 있어요', translation: 'Nhà vệ sinh ở đâu?', speed: 'slow' },
+  ],
+};
+
+const languages = [
+  { code: 'en', name: 'English', flag: '🇬🇧', speechLang: 'en-US' },
+  { code: 'ja', name: 'Japanese', flag: '🇯🇵', speechLang: 'ja-JP' },
+  { code: 'zh', name: 'Chinese', flag: '🇨🇳', speechLang: 'zh-CN' },
+  { code: 'ko', name: 'Korean', flag: '🇰🇷', speechLang: 'ko-KR' },
+];
+
+export default function DictationPage() {
+  const [selectedLang, setSelectedLang] = useState('en');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userInput, setUserInput] = useState('');
+  const [showResult, setShowResult] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [score, setScore] = useState({ correct: 0, total: 0 });
+  const [playCount, setPlayCount] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const currentExercises = exercises[selectedLang] || [];
+  const currentExercise = currentExercises[currentIndex];
+  const langConfig = languages.find(l => l.code === selectedLang)!;
+
+  const speak = (slow = false) => {
+    if (!currentExercise || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(currentExercise.sentence);
+    utterance.lang = langConfig.speechLang;
+    utterance.rate = slow ? 0.6 : (currentExercise.speed === 'slow' ? 0.75 : 0.9);
+    utterance.onstart = () => setIsPlaying(true);
+    utterance.onend = () => setIsPlaying(false);
+    window.speechSynthesis.speak(utterance);
+    setPlayCount(prev => prev + 1);
+  };
+
+  useEffect(() => {
+    setPlayCount(0);
+    setUserInput('');
+    setShowResult(false);
+  }, [currentIndex, selectedLang]);
+
+  const checkAnswer = () => {
+    if (!currentExercise) return;
+    setShowResult(true);
+    const normalize = (s: string) => s.toLowerCase().replace(/[.,!?;:'"]/g, '').trim();
+    const isCorrect = normalize(userInput) === normalize(currentExercise.sentence);
+    setScore(prev => ({
+      correct: prev.correct + (isCorrect ? 1 : 0),
+      total: prev.total + 1,
+    }));
+  };
+
+  const getAccuracy = () => {
+    if (!currentExercise) return 0;
+    const normalize = (s: string) => s.toLowerCase().replace(/[.,!?;:'"]/g, '').trim();
+    const target = normalize(currentExercise.sentence).split(' ');
+    const input = normalize(userInput).split(' ');
+    let matches = 0;
+    target.forEach((word, i) => {
+      if (input[i] === word) matches++;
+    });
+    return Math.round((matches / target.length) * 100);
+  };
+
+  const nextExercise = () => {
+    if (currentIndex < currentExercises.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+    }
+  };
+
+  const resetAll = () => {
+    setCurrentIndex(0);
+    setScore({ correct: 0, total: 0 });
+    setShowResult(false);
+    setUserInput('');
+    setPlayCount(0);
+  };
+
+  if (!currentExercise) {
+    return (
+      <div className="text-center py-16">
+        <div className="text-5xl mb-4">🎧</div>
+        <h3 className="text-lg font-semibold mb-2">Chưa có bài nghe chép</h3>
+        <p className="text-gray-500">Chọn ngôn ngữ để bắt đầu.</p>
+      </div>
+    );
+  }
+
+  if (currentIndex >= currentExercises.length) {
+    const pct = Math.round((score.correct / score.total) * 100);
+    return (
+      <div className="max-w-2xl mx-auto text-center py-16">
+        <div className="text-5xl mb-4">🎉</div>
+        <h2 className="text-2xl font-bold mb-4">Hoàn thành!</h2>
+        <div className="flex justify-center gap-8 mb-8">
+          <div className="text-center">
+            <p className="text-3xl font-bold text-green-600">{score.correct}/{score.total}</p>
+            <p className="text-sm text-gray-500">Đúng</p>
+          </div>
+          <div className="text-center">
+            <p className="text-3xl font-bold text-primary-600">{pct}%</p>
+            <p className="text-sm text-gray-500">Chính xác</p>
+          </div>
+        </div>
+        <Button onClick={resetAll}>Làm lại</Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold font-display">Nghe chép</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">Nghe và gõ lại câu bạn nghe được</p>
+      </div>
+
+      {/* Language selector */}
+      <div className="flex gap-2 flex-wrap">
+        {languages.map((lang) => (
+          <button
+            key={lang.code}
+            onClick={() => { setSelectedLang(lang.code); resetAll(); }}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
+              selectedLang === lang.code
+                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                : 'border-gray-200 dark:border-gray-700 hover:border-primary-200'
+            }`}
+          >
+            <span>{lang.flag}</span>
+            <span className="text-sm font-medium">{lang.name}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Progress */}
+      <div className="flex items-center justify-between text-sm">
+        <span className="text-gray-500">Câu {currentIndex + 1} / {currentExercises.length}</span>
+        <span className="font-medium text-green-600">{score.correct} đúng</span>
+      </div>
+      <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+        <div className="h-full bg-primary-500 rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+      </div>
+
+      {/* Audio controls */}
+      <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center space-y-4">
+        <div className="text-4xl mb-2">{isPlaying ? '🔊' : '🎧'}</div>
+        <p className="text-sm text-gray-500">Nhấn nút để nghe câu ({playCount} lần đã nghe)</p>
+        <div className="flex gap-3 justify-center">
+          <Button onClick={() => speak(false)} disabled={isPlaying} variant="outline">
+            ▶ Nghe bình thường
+          </Button>
+          <Button onClick={() => speak(true)} disabled={isPlaying} variant="outline">
+            🐢 Nghe chậm
+          </Button>
+        </div>
+        <p className="text-xs text-gray-400 mt-2">Gợi ý: {currentExercise.translation}</p>
+      </div>
+
+      {/* Input */}
+      <div className="space-y-3">
+        <input
+          ref={inputRef}
+          type="text"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && !showResult && userInput.trim() && checkAnswer()}
+          placeholder="Gõ lại câu bạn nghe được..."
+          disabled={showResult}
+          className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-lg focus:border-primary-500 focus:outline-none transition-all"
+          autoComplete="off"
+        />
+      </div>
+
+      {/* Result */}
+      {showResult && (
+        <div className={`p-4 rounded-xl ${
+          getAccuracy() === 100
+            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+            : 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800'
+        }`}>
+          <div className="flex items-center justify-between mb-2">
+            <p className={`font-medium ${getAccuracy() === 100 ? 'text-green-700 dark:text-green-300' : 'text-orange-700 dark:text-orange-300'}`}>
+              {getAccuracy() === 100 ? '✓ Hoàn hảo!' : `Chính xác: ${getAccuracy()}%`}
+            </p>
+          </div>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="font-medium">Đáp án:</span> {currentExercise.sentence}
+          </p>
+          {getAccuracy() < 100 && (
+            <p className="text-sm text-gray-500 mt-1">
+              <span className="font-medium">Bạn gõ:</span> {userInput}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Actions */}
+      <div className="flex justify-between">
+        {!showResult ? (
+          <Button onClick={checkAnswer} disabled={!userInput.trim()} className="ml-auto">
+            Kiểm tra
+          </Button>
+        ) : (
+          <Button onClick={nextExercise} className="ml-auto">
+            {currentIndex < currentExercises.length - 1 ? 'Câu tiếp →' : 'Xem kết quả'}
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
