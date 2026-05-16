@@ -44,6 +44,7 @@ const navItems = [
   { href: '/study-plan', label: 'Study Plan', icon: '📅' },
   { href: '/quests', label: 'Quests', icon: '⚔️' },
   { href: '/daily-goals', label: 'Daily Goals', icon: '🎯' },
+  { href: '/daily-challenge', label: 'Challenge', icon: '⚔️' },
   { href: '/shop', label: 'Shop', icon: '💎' },
   { href: '/games', label: 'Games', icon: '🎮' },
   { href: '/memory-game', label: 'Memory', icon: '🧩' },
