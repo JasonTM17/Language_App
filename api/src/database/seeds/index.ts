@@ -92,6 +92,7 @@ import { koreanBusinessLessons } from './korean/intermediate-business';
 import { chineseBusinessLessons } from './chinese/intermediate-business';
 import { englishDailyLifeLessons } from './english/beginner-daily-life';
 import { englishSelfIntroLessons } from './english/beginner-self-intro';
+import { englishBusinessLessons } from './english/intermediate-business';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -178,7 +179,7 @@ async function main() {
   }
 
   // English intermediate lessons
-  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons, ...englishCultureLessons];
+  const enIntermediateLessons = [...englishWorkLessons, ...englishTravelIntermediateLessons, ...englishCultureLessons, ...englishBusinessLessons];
   for (let i = 0; i < enIntermediateLessons.length; i++) {
     await createLessonWithContent(levels['en']['intermediate'], i + 1, enIntermediateLessons[i]);
     lessonCount++;
