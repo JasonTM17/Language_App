@@ -37,6 +37,8 @@ import settingsRoutes from './routes/settings';
 import profileRoutes from './routes/profile';
 import reviewHistoryRoutes from './routes/review-history';
 import learningProgressRoutes from './routes/learning-progress';
+import typingPracticeRoutes from './routes/typing-practice';
+import pronunciationRoutes from './routes/pronunciation';
 
 dotenv.config();
 
@@ -100,6 +102,8 @@ app.use('/api/settings', settingsRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/review-history', reviewHistoryRoutes);
 app.use('/api/learning-progress', learningProgressRoutes);
+app.use('/api/typing-practice', typingPracticeRoutes);
+app.use('/api/pronunciation', pronunciationRoutes);
 app.use('/api', healthRoutes);
 
 app.get('/api/health', (_req, res) => {
