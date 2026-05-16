@@ -96,6 +96,7 @@ import { englishBusinessLessons } from './english/intermediate-business';
 import { englishTimeLessons } from './english/elementary-time';
 import { japaneseTimeLessons } from './japanese/elementary-time';
 import { koreanTimeLessons } from './korean/elementary-time';
+import { chineseTimeLessons } from './chinese/elementary-time';
 
 async function main() {
   console.log('🌱 Seeding database...\n');
@@ -245,7 +246,7 @@ async function main() {
   }
 
   // Chinese elementary lessons
-  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons, ...chineseTransportLessons, ...chineseSchoolLessons, ...chineseColorsLessons, ...chineseAnimalsLessons];
+  const zhElementaryLessons = [...chineseEmotionsLessons, ...chineseHobbiesLessons, ...chineseTechnologyLessons, ...chineseTransportLessons, ...chineseSchoolLessons, ...chineseColorsLessons, ...chineseAnimalsLessons, ...chineseTimeLessons];
   for (let i = 0; i < zhElementaryLessons.length; i++) {
     await createLessonWithContent(levels['zh']['elementary'], i + 1, zhElementaryLessons[i]);
     lessonCount++;
