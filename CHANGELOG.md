@@ -1,74 +1,53 @@
 # Changelog
 
-All notable changes to LinguaFlow are documented here.
+All notable changes to LinguaFlow will be documented in this file.
 
-## [1.0.0] - 2024-12-20
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### Core Platform
-- 4-language support: English, Japanese, Chinese, Korean
-- User authentication with JWT (register, login, profile)
-- Admin dashboard with user and content management
-- Responsive UI with dark mode support
-- Vietnamese-first interface with full i18n
+## [1.0.0] - 2026-05-16
 
-### Learning Features
-- Structured lesson system with progressive curriculum
-- SM-2 spaced repetition flashcards (quality 0-5 scale)
-- Interactive quizzes (multiple choice, fill-blank, matching, translation)
-- Grammar tips with contextual explanations per language
-- Sentence builder with drag-and-drop construction
-- Word of the Day with cultural fun facts for all 4 languages
+### Added
 
-### Speaking & Listening
-- Speaking exercises: repeat, respond, describe, read aloud, role play
-- Listening exercises: dictation, comprehension, fill-audio, word recognition
-- Pronunciation practice with phoneme-level analysis
-- Vietnamese-specific error pattern detection per target language
+- **Core Platform**
+  - Full-stack language learning application (Next.js 14 + Express)
+  - Support for 4 languages: English, Japanese, Chinese, Korean
+  - JWT authentication with secure session management
+  - Responsive design with dark mode support
 
-### Reading & Writing
-- Interactive stories with inline comprehension questions
-- Reading passages with multi-question assessments
-- Typing practice with real-time character highlighting and WPM tracking
-- Dictation exercises with audio playback
+- **Learning Features**
+  - AI Tutor with personalized learning assistance
+  - Spaced Repetition System (SM-2 algorithm) for vocabulary
+  - Skill tree progression from Beginner to Advanced
+  - Daily challenges with XP rewards
+  - Gamification: streaks, leaderboard, achievements
 
-### AI Tutor
-- Multi-role conversation: teacher, friend, interviewer, doctor, travel guide
-- n8n workflow integration for AI orchestration
-- OpenAI-compatible API support
-- Built-in mock fallback (no configuration needed)
-- Vocabulary highlights and grammar corrections in responses
+- **Practice Modules**
+  - Listening comprehension (10 exercises per language)
+  - Speaking practice with pronunciation feedback
+  - Reading comprehension exercises
+  - Writing practice with grammar correction
+  - Typing practice for character-based languages
+  - Sentence ordering exercises
+  - Grammar correction challenges
+  - Fill-in-the-blank exercises
 
-### Gamification
-- XP and level progression system
-- Daily/weekly/challenge quests with gem rewards
-- Daily challenge: timed competitive quiz with combo scoring
-- Streak system with calendar tracking
-- Hearts system with limited attempts
-- Shop with power-ups, cosmetics, and streak items
-- Achievement badges and milestone tracking
-- Leaderboard with weekly/monthly/all-time rankings
-- Skill tree with visual progression and unlock dependencies
+- **Technical**
+  - 38 REST API endpoints with Zod validation
+  - 129 passing tests (unit + integration)
+  - PWA with offline support and service worker
+  - Docker containerization (multi-stage builds)
+  - Rate limiting, CORS, Helmet security headers
+  - Prisma ORM with SQLite database
+  - Full TypeScript coverage (API + Web)
 
-### Social
-- Friend system: add, accept, reject, unfriend
-- Friend activity feed and status indicators
-- Suggested friends based on mutual connections
-- User search functionality
+### Security
 
-### Personalization
-- Onboarding flow with placement tests
-- Study plan generation based on goals
-- Learning analytics with detailed statistics
-- Notification system (streak, achievements, friends, reminders)
-- Settings: theme, language, notification preferences
+- Helmet.js security headers
+- Rate limiting on all endpoints
+- JWT token rotation
+- Input validation with Zod schemas
+- CORS configuration
+- Content Security Policy headers
 
-### Technical
-- Express.js API with 38+ route modules
-- Prisma ORM with SQLite database
-- Zod request validation on all endpoints
-- Rate limiting (general + auth-specific)
-- Comprehensive test suite (Vitest + Supertest)
-- TypeScript strict mode across entire codebase
-- Next.js 14 with App Router (50+ pages)
-- Zustand state management
-- Typed API client with error handling
+[1.0.0]: https://github.com/JasonTM17/Language_App/releases/tag/v1.0.0
