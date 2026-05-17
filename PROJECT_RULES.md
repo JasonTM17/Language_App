@@ -950,6 +950,11 @@ web/e2e/
 | CRLF line endings cho shell scripts | Script fail trên Linux | .gitattributes force LF |
 | Quên screenshots/GIFs | README thiếu visual | Playwright automated capture |
 | Badges hardcoded (không live) | Misleading | Dùng GitHub Actions badge URL |
+| `req.user.id` thay vì `req.userId` | API crash 500 | Check auth middleware interface trước khi dùng |
+| Vercel env var trống | Frontend không connect API | Set NEXT_PUBLIC_API_URL ngay khi deploy |
+| Port conflict khi test | E2E test fail sai lý do | Playwright config dùng BASE_URL env var |
+| Heading tiếng Anh trong app tiếng Việt | UX không nhất quán | Review tất cả h1/h2 phải đúng ngôn ngữ target |
+| Không test rate limiting | Không biết API có bảo vệ | Luôn test 429 response trước khi ship |
 
 ---
 
