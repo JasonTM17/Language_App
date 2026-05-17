@@ -93,36 +93,51 @@ export default function DashboardPage() {
   const xpProgress = stats.xp % xpForNextLevel;
 
   return (
-    <div className="space-y-6 pb-8">
+    <motion.div
+      className="space-y-6 pb-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
       {showStreakCelebration && (
         <StreakCelebration streak={stats.streak} onDismiss={() => setShowStreakCelebration(false)} />
       )}
 
       {/* Welcome + Streak */}
-      <div className="flex items-start justify-between">
+      <motion.div
+        className="flex items-start justify-between"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+      >
         <div>
-          <h1 className="text-2xl font-bold font-display">
+          <h1 className="text-2xl font-bold font-display bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
             Chào {user?.name?.split(' ')[0] || 'bạn'} 👋
           </h1>
           <p className="text-muted-foreground text-sm mt-0.5">Tiếp tục cố gắng nhé!</p>
         </div>
-        <Link href="/streak-calendar" className="flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 border border-orange-200 dark:border-orange-800 hover:scale-105 transition-transform">
+        <Link href="/streak-calendar" className="flex flex-col items-center p-3 rounded-2xl bg-gradient-to-br from-orange-100 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30 border border-orange-200/60 dark:border-orange-800/40 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300">
           <span className="text-2xl">🔥</span>
           <span className="text-lg font-bold text-orange-600 dark:text-orange-400">{stats.streak}</span>
           <span className="text-[10px] text-orange-500">ngày</span>
         </Link>
-      </div>
+      </motion.div>
 
       {/* Daily Goal Ring + Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Daily goal circular progress */}
-        <div className="p-5 rounded-2xl bg-card border shadow-sm flex flex-col items-center justify-center">
+        <motion.div
+          className="p-5 rounded-2xl bg-gradient-to-br from-white to-purple-50/50 dark:from-gray-900/80 dark:to-purple-950/20 border border-purple-100/50 dark:border-purple-800/30 shadow-lg shadow-purple-500/5 backdrop-blur-sm flex flex-col items-center justify-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.15 }}
+        >
           <div className="relative w-24 h-24 mb-3">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="8" className="text-muted" />
+              <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="8" className="text-muted/30" />
               <circle
                 cx="50" cy="50" r="42" fill="none" strokeWidth="8"
-                className="text-primary"
+                className="text-purple-500 dark:text-purple-400"
                 stroke="currentColor"
                 strokeLinecap="round"
                 strokeDasharray={`${Math.min(goalProgress, 100) * 2.64} 264`}
@@ -137,10 +152,15 @@ export default function DashboardPage() {
           {goal?.completed && (
             <span className="mt-1 text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600">Hoàn thành!</span>
           )}
-        </div>
+        </motion.div>
 
         {/* XP + Level */}
-        <div className="p-5 rounded-2xl bg-card border shadow-sm flex flex-col justify-between">
+        <motion.div
+          className="p-5 rounded-2xl bg-gradient-to-br from-white to-amber-50/50 dark:from-gray-900/80 dark:to-amber-950/20 border border-amber-100/50 dark:border-amber-800/30 shadow-lg shadow-amber-500/5 backdrop-blur-sm flex flex-col justify-between"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <div className="flex items-center gap-2 mb-3">
             <span className="text-2xl">⭐</span>
             <div>
@@ -160,31 +180,41 @@ export default function DashboardPage() {
               />
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Quick stats */}
-        <div className="p-5 rounded-2xl bg-card border shadow-sm grid grid-cols-2 gap-3">
-          <div className="text-center p-2 rounded-xl bg-green-50 dark:bg-green-900/10">
+        <motion.div
+          className="p-5 rounded-2xl bg-gradient-to-br from-white to-blue-50/50 dark:from-gray-900/80 dark:to-blue-950/20 border border-blue-100/50 dark:border-blue-800/30 shadow-lg shadow-blue-500/5 backdrop-blur-sm grid grid-cols-2 gap-3"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.25 }}
+        >
+          <div className="text-center p-2 rounded-xl bg-green-50/80 dark:bg-green-900/20 border border-green-100/50 dark:border-green-800/20">
             <p className="text-lg font-bold text-green-600">{stats.completedLessons}</p>
             <p className="text-[10px] text-green-500">Bài học</p>
           </div>
-          <div className="text-center p-2 rounded-xl bg-purple-50 dark:bg-purple-900/10">
+          <div className="text-center p-2 rounded-xl bg-purple-50/80 dark:bg-purple-900/20 border border-purple-100/50 dark:border-purple-800/20">
             <p className="text-lg font-bold text-purple-600">{stats.quizAccuracy}%</p>
             <p className="text-[10px] text-purple-500">Chính xác</p>
           </div>
-          <div className="text-center p-2 rounded-xl bg-blue-50 dark:bg-blue-900/10">
+          <div className="text-center p-2 rounded-xl bg-blue-50/80 dark:bg-blue-900/20 border border-blue-100/50 dark:border-blue-800/20">
             <p className="text-lg font-bold text-blue-600">{goal?.cardsReviewed || 0}</p>
             <p className="text-[10px] text-blue-500">Flashcard</p>
           </div>
-          <div className="text-center p-2 rounded-xl bg-orange-50 dark:bg-orange-900/10">
+          <div className="text-center p-2 rounded-xl bg-orange-50/80 dark:bg-orange-900/20 border border-orange-100/50 dark:border-orange-800/20">
             <p className="text-lg font-bold text-orange-600">{goal?.minutesStudied || 0}p</p>
             <p className="text-[10px] text-orange-500">Hôm nay</p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Weekly Activity Heatmap */}
-      <div className="p-5 rounded-2xl bg-card border shadow-sm">
+      <motion.div
+        className="p-5 rounded-2xl bg-gradient-to-br from-white to-green-50/30 dark:from-gray-900/80 dark:to-green-950/10 border border-green-100/40 dark:border-green-800/20 shadow-lg shadow-green-500/5 backdrop-blur-sm"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-semibold">Hoạt động tuần này</h2>
           <Link href="/analytics" className="text-xs text-primary hover:underline">Xem chi tiết</Link>
@@ -192,11 +222,11 @@ export default function DashboardPage() {
         <div className="grid grid-cols-7 gap-2">
           {weekDays.map((day, i) => (
             <div key={day} className="flex flex-col items-center gap-1.5">
-              <div className={`w-full aspect-square rounded-lg transition-colors ${
-                weeklyActivity[i] === 0 ? 'bg-muted' :
-                weeklyActivity[i] === 1 ? 'bg-green-200 dark:bg-green-900/30' :
-                weeklyActivity[i] === 2 ? 'bg-green-400 dark:bg-green-700/50' :
-                'bg-green-600 dark:bg-green-500'
+              <div className={`w-full aspect-square rounded-lg transition-all duration-300 hover:scale-110 ${
+                weeklyActivity[i] === 0 ? 'bg-muted/50' :
+                weeklyActivity[i] === 1 ? 'bg-green-200 dark:bg-green-900/30 shadow-sm shadow-green-200/50' :
+                weeklyActivity[i] === 2 ? 'bg-green-400 dark:bg-green-700/50 shadow-sm shadow-green-400/30' :
+                'bg-green-600 dark:bg-green-500 shadow-md shadow-green-600/30'
               }`} />
               <span className="text-[10px] text-muted-foreground">{day}</span>
             </div>
@@ -204,36 +234,51 @@ export default function DashboardPage() {
         </div>
         <div className="flex items-center gap-2 mt-3 justify-end">
           <span className="text-[10px] text-muted-foreground">Ít</span>
-          <div className="w-3 h-3 rounded bg-muted" />
+          <div className="w-3 h-3 rounded bg-muted/50" />
           <div className="w-3 h-3 rounded bg-green-200 dark:bg-green-900/30" />
           <div className="w-3 h-3 rounded bg-green-400 dark:bg-green-700/50" />
           <div className="w-3 h-3 rounded bg-green-600 dark:bg-green-500" />
           <span className="text-[10px] text-muted-foreground">Nhiều</span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Quick Actions Grid */}
-      <div>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+      >
         <h2 className="text-sm font-semibold mb-3">Luyện tập nhanh</h2>
         <div className="grid grid-cols-4 gap-3">
-          {quickActions.map((action) => (
-            <Link
+          {quickActions.map((action, i) => (
+            <motion.div
               key={action.href}
-              href={action.href}
-              className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border hover:shadow-md hover:-translate-y-0.5 transition-all"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 + i * 0.05 }}
             >
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${action.color} flex items-center justify-center`}>
-                <action.icon className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-[11px] font-medium text-center leading-tight">{action.label}</span>
-            </Link>
+              <Link
+                href={action.href}
+                className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-white/80 dark:bg-gray-900/60 border border-gray-100 dark:border-gray-800/50 hover:shadow-lg hover:-translate-y-1 hover:border-transparent transition-all duration-300 backdrop-blur-sm"
+              >
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${action.color} flex items-center justify-center shadow-lg shadow-current/20`}>
+                  <action.icon className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-[11px] font-medium text-center leading-tight">{action.label}</span>
+              </Link>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Continue Learning + Daily Goals */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="p-5 rounded-2xl bg-card border shadow-sm">
+        <motion.div
+          className="p-5 rounded-2xl bg-gradient-to-br from-white to-indigo-50/30 dark:from-gray-900/80 dark:to-indigo-950/10 border border-indigo-100/40 dark:border-indigo-800/20 shadow-lg shadow-indigo-500/5 backdrop-blur-sm"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.5 }}
+        >
           <h2 className="font-semibold mb-3">Tiếp tục học</h2>
           {data?.enrollments && data.enrollments.length > 0 ? (
             <div className="space-y-2">
@@ -254,9 +299,14 @@ export default function DashboardPage() {
               <Link href="/languages"><Button size="sm">Chọn ngôn ngữ</Button></Link>
             </div>
           )}
-        </div>
+        </motion.div>
 
-        <div className="p-5 rounded-2xl bg-card border shadow-sm">
+        <motion.div
+          className="p-5 rounded-2xl bg-gradient-to-br from-white to-teal-50/30 dark:from-gray-900/80 dark:to-teal-950/10 border border-teal-100/40 dark:border-teal-800/20 shadow-lg shadow-teal-500/5 backdrop-blur-sm"
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.55 }}
+        >
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-semibold">Mục tiêu hôm nay</h2>
             <Link href="/daily-goals" className="text-xs text-primary hover:underline">Chỉnh sửa</Link>
@@ -266,9 +316,9 @@ export default function DashboardPage() {
             <GoalItem icon="🃏" label="Flashcard" current={goal?.cardsReviewed || 0} target={goal?.cardsTarget || 10} color="bg-blue-500" />
             <GoalItem icon="⏱️" label="Thời gian" current={goal?.minutesStudied || 0} target={goal?.targetMinutes || 10} color="bg-purple-500" suffix="phút" />
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
