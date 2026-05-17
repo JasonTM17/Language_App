@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Shuffle, Zap, Wrench, PenLine, Globe, Link2, TextCursorInput, MessageCircle, type LucideIcon } from 'lucide-react';
 
 interface MiniGame {
@@ -33,19 +34,29 @@ export default function GamesPage() {
   const router = useRouter();
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-4xl mx-auto space-y-6"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Mini Games</h1>
         <p className="text-muted-foreground mt-1">Học mà chơi, chơi mà học</p>
       </div>
 
       {/* Daily challenge banner */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-primary-500 to-primary-700 text-white">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="p-5 rounded-2xl bg-gradient-to-r from-primary-500 to-primary-700 text-white shadow-lg shadow-purple-500/10"
+      >
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs opacity-80 uppercase tracking-wide">Thử thách hôm nay</p>
+            <p className="text-xs opacity-80 uppercase tracking-wide">Th thách hôm nay</p>
             <p className="text-lg font-bold mt-1">Speed Quiz: Đạt 15 điểm</p>
-            <p className="text-sm opacity-80 mt-0.5">Phần thưởng: +50 XP, +10 💎</p>
+            <p className="text-sm opacity-80 mt-0.5">Phần thưởng: +50 XP, +10 gems</p>
           </div>
           <button
             onClick={() => router.push('/timed-challenge')}
@@ -54,15 +65,18 @@ export default function GamesPage() {
             Chơi ngay
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Games grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {miniGames.map((game) => (
-          <button
+        {miniGames.map((game, index) => (
+          <motion.button
             key={game.id}
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: Math.min(index * 0.04, 0.4) }}
             onClick={() => router.push(game.href)}
-            className="p-5 rounded-2xl bg-card border border text-left hover:scale-[1.02] transition-all hover:shadow-lg"
+            className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-left hover:scale-[1.02] transition-all hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20"
           >
             <div className="flex items-start gap-4">
               <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${game.color} flex items-center justify-center shadow-sm`}>
@@ -79,12 +93,17 @@ export default function GamesPage() {
                 <p className="text-xs text-primary font-medium mt-2">+{game.xpReward} XP</p>
               </div>
             </div>
-          </button>
+          </motion.button>
         ))}
       </div>
 
       {/* Stats */}
-      <div className="p-4 rounded-xl bg-muted/50 border border">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.4 }}
+        className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="text-center">
@@ -101,7 +120,7 @@ export default function GamesPage() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

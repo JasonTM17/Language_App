@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 const BCP47_MAP: Record<string, string> = {
   en: 'en-US',
@@ -137,13 +138,13 @@ export default function PronunciationPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <motion.div className="max-w-2xl mx-auto space-y-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Pronunciation Practice</h1>
         <p className="text-muted-foreground mt-1">Improve your speaking skills with real-time feedback</p>
       </div>
 
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <h2 className="font-semibold mb-4">Select Language</h2>
         <div className="grid grid-cols-4 gap-3 mb-6">
           {languages.map((lang) => (
@@ -163,7 +164,7 @@ export default function PronunciationPage() {
         <h2 className="font-semibold mb-3">Sample Phrases</h2>
         <div className="space-y-2 mb-6">
           {samplePhrases[language]?.map((phrase, i) => (
-            <button
+            <motion.button
               key={i}
               onClick={() => setText(phrase)}
               className={`w-full text-left p-3 rounded-xl border transition-colors text-sm ${
@@ -171,9 +172,12 @@ export default function PronunciationPage() {
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary-300 dark:hover:border-primary-700'
               }`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, delay: Math.min(i * 0.05, 0.3) }}
             >
               {phrase}
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -228,6 +232,6 @@ export default function PronunciationPage() {
           </p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

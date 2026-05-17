@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { BookOpen } from 'lucide-react';
 
@@ -195,7 +196,12 @@ export default function ReadingPage() {
 
   if (!selectedPassage) {
     return (
-      <div className="max-w-3xl mx-auto space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-3xl mx-auto space-y-6"
+      >
         <div>
           <h1 className="text-2xl font-bold font-display">Đọc hiểu</h1>
           <p className="text-muted-foreground mt-1">Đọc bài văn và trả lời câu hỏi</p>
@@ -219,11 +225,14 @@ export default function ReadingPage() {
         </div>
 
         <div className="grid gap-4">
-          {currentPassages.map((passage) => (
-            <button
+          {currentPassages.map((passage, index) => (
+            <motion.button
               key={passage.id}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: Math.min(index * 0.04, 0.4) }}
               onClick={() => { setSelectedPassage(passage); resetPassage(); }}
-              className="p-5 rounded-2xl bg-card border border text-left hover:border-primary-300 hover:shadow-md transition-all"
+              className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-left hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20 transition-all"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -235,31 +244,36 @@ export default function ReadingPage() {
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mt-2">{passage.questions.length} câu hỏi</p>
-            </button>
+            </motion.button>
           ))}
         </div>
 
         {currentPassages.length === 0 && (
           <div className="text-center py-12">
-            <div className="flex justify-center mb-3">
-              <BookOpen className="w-10 h-10 text-muted-foreground" />
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-purple-500/20 mb-4">
+              <BookOpen className="w-8 h-8 text-white" />
             </div>
             <p className="text-muted-foreground">Chưa có bài đọc cho ngôn ngữ này.</p>
           </div>
         )}
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-3xl mx-auto space-y-6"
+    >
       <div className="flex items-center justify-between">
         <button onClick={() => setSelectedPassage(null)} className="text-sm text-primary hover:underline">← Quay lại</button>
         <span className="text-xs px-2 py-1 rounded-full bg-primary-100 text-primary-700 font-medium">{selectedPassage.level}</span>
       </div>
 
       {/* Passage */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <h2 className="font-bold text-lg mb-3">{selectedPassage.title}</h2>
         <p className="text-base leading-relaxed whitespace-pre-line">{selectedPassage.text}</p>
         {showTranslation && (
@@ -279,7 +293,13 @@ export default function ReadingPage() {
       <div className="space-y-4">
         <h3 className="font-semibold">Câu hỏi:</h3>
         {selectedPassage.questions.map((q, qIndex) => (
-          <div key={qIndex} className="p-4 rounded-xl bg-card border border">
+          <motion.div
+            key={qIndex}
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: Math.min(qIndex * 0.04, 0.4) }}
+            className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+          >
             <p className="font-medium text-sm mb-3">{qIndex + 1}. {q.question}</p>
             <div className="grid grid-cols-2 gap-2">
               {q.options.map((option) => {
@@ -311,7 +331,7 @@ export default function ReadingPage() {
             {showResults && answers[qIndex] !== q.answer && (
               <p className="text-xs text-muted-foreground mt-2 italic">{q.explanation}</p>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -325,7 +345,7 @@ export default function ReadingPage() {
           Kiểm tra ({Object.keys(answers).length}/{selectedPassage.questions.length} đã trả lời)
         </Button>
       ) : (
-        <div className="p-4 rounded-xl bg-card border border text-center">
+        <div className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-lg font-bold">
             Kết quả: {getScore()}/{selectedPassage.questions.length}
           </p>
@@ -338,6 +358,6 @@ export default function ReadingPage() {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

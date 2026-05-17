@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { PartyPopper } from 'lucide-react';
 
@@ -76,7 +77,12 @@ export default function WeakWordsPage() {
     const card = sortedWords[currentCard];
     if (!card) {
       return (
-        <div className="max-w-2xl mx-auto text-center py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="max-w-2xl mx-auto text-center py-16"
+        >
           <div className="flex justify-center mb-4">
             <PartyPopper className="w-12 h-12 text-green-500" />
           </div>
@@ -86,12 +92,17 @@ export default function WeakWordsPage() {
             <Button onClick={resetReview}>Ôn lại</Button>
             <Button variant="outline" onClick={() => setMode('list')}>Xem danh sách</Button>
           </div>
-        </div>
+        </motion.div>
       );
     }
 
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto space-y-6"
+      >
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold font-display">Ôn từ yếu</h1>
           <Button variant="outline" size="sm" onClick={() => setMode('list')}>Danh sách</Button>
@@ -105,41 +116,62 @@ export default function WeakWordsPage() {
           <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${((currentCard + 1) / sortedWords.length) * 100}%` }} />
         </div>
 
-        <div
+        <motion.div
+          key={card.id}
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.25 }}
           onClick={() => setShowAnswer(true)}
-          className="p-8 rounded-2xl bg-card border-2 border text-center cursor-pointer hover:border-primary-200 transition-all min-h-[200px] flex flex-col justify-center"
+          className="p-8 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center cursor-pointer hover:border-primary-200 transition-all min-h-[200px] flex flex-col justify-center"
         >
           <p className="text-3xl font-bold mb-2">{card.word}</p>
-          {showAnswer ? (
-            <div className="space-y-2 mt-4">
-              <p className="text-lg text-primary font-medium">{card.meaning}</p>
-              <p className="text-sm text-muted-foreground italic">{card.example}</p>
-            </div>
-          ) : (
-            <p className="text-sm text-muted-foreground mt-2">Nhấn để xem nghĩa</p>
-          )}
-        </div>
+          <AnimatePresence>
+            {showAnswer ? (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
+                className="space-y-2 mt-4"
+              >
+                <p className="text-lg text-primary font-medium">{card.meaning}</p>
+                <p className="text-sm text-muted-foreground italic">{card.example}</p>
+              </motion.div>
+            ) : (
+              <p className="text-sm text-muted-foreground mt-2">Nhấn để xem nghĩa</p>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
         {showAnswer && (
-          <div className="flex gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex gap-3"
+          >
             <Button className="flex-1 bg-red-500 hover:bg-red-600" onClick={handleDontKnow}>
               Chưa nhớ
             </Button>
             <Button className="flex-1 bg-green-500 hover:bg-green-600" onClick={handleKnow}>
               Đã nhớ
             </Button>
-          </div>
+          </motion.div>
         )}
 
         <div className="text-center">
           <p className="text-xs text-muted-foreground">Độ chính xác: <span className="text-red-500 font-medium">{card.accuracy}%</span> | Đã ôn: {card.reviewCount} lần</p>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-3xl mx-auto space-y-6"
+    >
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Từ cần ôn tập</h1>
@@ -152,9 +184,12 @@ export default function WeakWordsPage() {
 
       {/* Language filter */}
       <div className="flex gap-2 flex-wrap">
-        {languages.map((lang) => (
-          <button
+        {languages.map((lang, index) => (
+          <motion.button
             key={lang.code}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
             onClick={() => setSelectedLang(lang.code)}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${
               selectedLang === lang.code
@@ -164,30 +199,40 @@ export default function WeakWordsPage() {
           >
             <span>{lang.flag}</span>
             <span className="font-medium">{lang.name}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 text-center">
-          <p className="text-xl font-bold text-red-600">{sortedWords.filter(w => w.accuracy < 35).length}</p>
-          <p className="text-xs text-muted-foreground">Rất yếu</p>
-        </div>
-        <div className="p-3 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 text-center">
-          <p className="text-xl font-bold text-orange-600">{sortedWords.filter(w => w.accuracy >= 35 && w.accuracy < 50).length}</p>
-          <p className="text-xs text-muted-foreground">Cần ôn</p>
-        </div>
-        <div className="p-3 rounded-xl bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30 text-center">
-          <p className="text-xl font-bold text-yellow-600">{sortedWords.length}</p>
-          <p className="text-xs text-muted-foreground">Tổng từ yếu</p>
-        </div>
+        {[
+          { value: sortedWords.filter(w => w.accuracy < 35).length, label: 'Rất yếu', color: 'text-red-600', bg: 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/30' },
+          { value: sortedWords.filter(w => w.accuracy >= 35 && w.accuracy < 50).length, label: 'Cần ôn', color: 'text-orange-600', bg: 'bg-orange-50 dark:bg-orange-900/10 border-orange-100 dark:border-orange-900/30' },
+          { value: sortedWords.length, label: 'Tổng từ yếu', color: 'text-yellow-600', bg: 'bg-yellow-50 dark:bg-yellow-900/10 border-yellow-100 dark:border-yellow-900/30' },
+        ].map((stat, index) => (
+          <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
+            className={`p-3 rounded-xl border text-center ${stat.bg}`}
+          >
+            <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
+            <p className="text-xs text-muted-foreground">{stat.label}</p>
+          </motion.div>
+        ))}
       </div>
 
       {/* Word list */}
       <div className="space-y-2">
-        {sortedWords.map((word) => (
-          <div key={word.id} className="p-4 rounded-xl bg-card border border flex items-center justify-between">
+        {sortedWords.map((word, index) => (
+          <motion.div
+            key={word.id}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
+            className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 flex items-center justify-between"
+          >
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <span className="font-medium">{word.word}</span>
@@ -201,9 +246,9 @@ export default function WeakWordsPage() {
               </p>
               <p className="text-xs text-muted-foreground">{word.lastReviewed}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }

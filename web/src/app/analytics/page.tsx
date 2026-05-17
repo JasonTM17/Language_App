@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface WeeklyData {
   day: string;
@@ -83,7 +84,7 @@ export default function AnalyticsPage() {
   const maxXP = Math.max(...weeklyData.map(d => d.xp));
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-4xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Phân tích tiến độ</h1>
         <p className="text-muted-foreground mt-1">Theo dõi quá trình học tập của bạn</p>
@@ -91,26 +92,26 @@ export default function AnalyticsPage() {
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-card border border text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-2xl font-bold text-primary">{totalXP}</p>
           <p className="text-xs text-muted-foreground">XP tuần này</p>
-        </div>
-        <div className="p-4 rounded-xl bg-card border border text-center">
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-2xl font-bold text-green-600">{totalLessons}</p>
           <p className="text-xs text-muted-foreground">Bài học</p>
-        </div>
-        <div className="p-4 rounded-xl bg-card border border text-center">
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-2xl font-bold text-blue-600">{totalMinutes}</p>
           <p className="text-xs text-muted-foreground">Phút học</p>
-        </div>
-        <div className="p-4 rounded-xl bg-card border border text-center">
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-2xl font-bold text-orange-600">12</p>
           <p className="text-xs text-muted-foreground">Ngày streak</p>
-        </div>
+        </motion.div>
       </div>
 
       {/* XP Chart */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold">XP hàng ngày</h3>
           <div className="flex gap-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-0.5">
@@ -134,8 +135,14 @@ export default function AnalyticsPage() {
       {/* Language progress */}
       <div className="space-y-4">
         <h3 className="font-semibold">Tiến độ theo ngôn ngữ</h3>
-        {languageProgress.map((lang) => (
-          <div key={lang.language} className="p-4 rounded-xl bg-card border border">
+        {languageProgress.map((lang, index) => (
+          <motion.div
+            key={lang.language}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
+            className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+          >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <span className="text-xl">{lang.flag}</span>
@@ -173,12 +180,12 @@ export default function AnalyticsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* Weak areas */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <h3 className="font-semibold mb-4">Điểm yếu cần cải thiện</h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between p-3 rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30">
@@ -204,6 +211,6 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

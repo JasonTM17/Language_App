@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Trophy } from 'lucide-react';
 
@@ -160,16 +161,24 @@ export default function TimedChallengePage() {
 
   if (gameState === 'idle') {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto space-y-6"
+      >
         <div>
           <h1 className="text-2xl font-bold font-display">Thử thách tốc độ</h1>
           <p className="text-muted-foreground mt-1">Trả lời nhanh nhất có thể trong 60 giây!</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
-          {languages.map((lang) => (
-            <button
+          {languages.map((lang, index) => (
+            <motion.button
               key={lang.code}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
               onClick={() => setSelectedLang(lang.code)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
@@ -179,11 +188,11 @@ export default function TimedChallengePage() {
             >
               <span>{lang.flag}</span>
               <span className="text-sm font-medium">{lang.name}</span>
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        <div className="p-8 rounded-2xl bg-card border border text-center space-y-4">
+        <div className="p-8 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center space-y-4">
           <div className="text-6xl">⚡</div>
           <h2 className="text-xl font-bold">Sẵn sàng?</h2>
           <p className="text-muted-foreground">Bạn có {TOTAL_TIME} giây để trả lời nhiều câu nhất có thể.</p>
@@ -192,38 +201,47 @@ export default function TimedChallengePage() {
             Bắt đầu!
           </Button>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   if (gameState === 'finished') {
     const xpEarned = Math.round(score / 5);
     return (
-      <div className="max-w-2xl mx-auto text-center py-12 space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-12 space-y-6"
+      >
         <div className="flex justify-center mb-2">
           <Trophy className="w-12 h-12 text-yellow-500" />
         </div>
         <h2 className="text-2xl font-bold">Hết giờ!</h2>
         <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
-          <div className="p-4 rounded-xl bg-card border border">
-            <p className="text-3xl font-bold text-primary">{score}</p>
-            <p className="text-xs text-muted-foreground">Điểm</p>
-          </div>
-          <div className="p-4 rounded-xl bg-card border border">
-            <p className="text-3xl font-bold text-green-600">{currentIndex}</p>
-            <p className="text-xs text-muted-foreground">Câu trả lời</p>
-          </div>
-          <div className="p-4 rounded-xl bg-card border border">
-            <p className="text-3xl font-bold text-orange-600">{bestStreak}</p>
-            <p className="text-xs text-muted-foreground">Combo cao nhất</p>
-          </div>
+          {[
+            { value: score, label: 'Điểm', color: 'text-primary' },
+            { value: currentIndex, label: 'Câu trả lời', color: 'text-green-600' },
+            { value: bestStreak, label: 'Combo cao nhất', color: 'text-orange-600' },
+          ].map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
+              className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+            >
+              <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
+              <p className="text-xs text-muted-foreground">{stat.label}</p>
+            </motion.div>
+          ))}
         </div>
         <p className="text-sm text-muted-foreground">+{xpEarned} XP kiếm được</p>
         <div className="flex gap-3 justify-center">
           <Button onClick={startGame}>Chơi lại</Button>
           <Button variant="outline" onClick={() => setGameState('idle')}>Đổi ngôn ngữ</Button>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
@@ -236,7 +254,12 @@ export default function TimedChallengePage() {
   const timeColor = timeLeft > 20 ? 'bg-green-500' : timeLeft > 10 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6"
+    >
       {/* Timer bar */}
       <div className="space-y-2">
         <div className="flex justify-between items-center">
@@ -252,14 +275,14 @@ export default function TimedChallengePage() {
       </div>
 
       {/* Question */}
-      <div className="p-6 rounded-2xl bg-card border border text-center">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
         <p className="text-xs text-muted-foreground mb-2">Câu {currentIndex + 1}</p>
         <p className="text-xl font-bold">{currentQuestion.question}</p>
       </div>
 
       {/* Options */}
       <div className="grid grid-cols-2 gap-3">
-        {currentQuestion.options.map((option) => {
+        {currentQuestion.options.map((option, index) => {
           let styles = 'border-border hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 active:scale-95';
           if (showFeedback) {
             if (option === currentQuestion.answer) {
@@ -272,17 +295,20 @@ export default function TimedChallengePage() {
           }
 
           return (
-            <button
+            <motion.button
               key={option}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
               onClick={() => selectAnswer(option)}
               disabled={showFeedback}
               className={`p-4 rounded-xl border-2 text-center font-medium transition-all transform ${styles}`}
             >
               {option}
-            </button>
+            </motion.button>
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }

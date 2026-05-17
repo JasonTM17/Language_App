@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { api } from '@/services/api';
 import { EmptyState } from '@/components/ui/states';
@@ -79,7 +80,12 @@ export default function BookmarksPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Từ vựng của tôi</h1>
         <p className="text-muted-foreground mt-1">Từ vựng hàng ngày và từ đã lưu</p>
@@ -110,44 +116,73 @@ export default function BookmarksPage() {
       </div>
 
       {/* Word of the Day */}
-      {activeTab === 'word-of-day' && (
-        <div className="space-y-4">
-          {wordsOfDay.length === 0 ? (
-            <EmptyState
-              icon="📅"
-              title="Chưa có từ vựng hôm nay"
-              description="Đăng ký học ngôn ngữ để nhận từ vựng hàng ngày"
-            />
-          ) : (
-            wordsOfDay.map((word) => (
-              <WordCard key={word.id} word={word} showBookmark onBookmark={() => {}} />
-            ))
-          )}
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {activeTab === 'word-of-day' && (
+          <motion.div
+            key="word-of-day"
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 12 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            {wordsOfDay.length === 0 ? (
+              <EmptyState
+                icon={
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                }
+                title="Chưa có từ vựng hôm nay"
+                description="Đăng ký học ngôn ngữ để nhận từ vựng hàng ngày"
+              />
+            ) : (
+              wordsOfDay.map((word, index) => (
+                <WordCard key={word.id} word={word} index={index} showBookmark onBookmark={() => {}} />
+              ))
+            )}
+          </motion.div>
+        )}
 
-      {/* Bookmarks */}
-      {activeTab === 'bookmarks' && (
-        <div className="space-y-3">
-          {bookmarks.length === 0 ? (
-            <EmptyState
-              icon="🔖"
-              title="Chưa có từ vựng nào được lưu"
-              description="Nhấn biểu tượng bookmark khi học để lưu từ"
-            />
-          ) : (
-            bookmarks.map((word) => (
-              <WordCard key={word.id} word={word} showRemove onRemove={() => removeBookmark(word.id)} />
-            ))
-          )}
-        </div>
-      )}
-    </div>
+        {/* Bookmarks */}
+        {activeTab === 'bookmarks' && (
+          <motion.div
+            key="bookmarks"
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 12 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-3"
+          >
+            {bookmarks.length === 0 ? (
+              <EmptyState
+                icon={
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                    </svg>
+                  </div>
+                }
+                title="Chưa có từ vựng nào được lưu"
+                description="Nhấn biểu tượng bookmark khi học để lưu từ"
+              />
+            ) : (
+              bookmarks.map((word, index) => (
+                <WordCard key={word.id} word={word} index={index} showRemove onRemove={() => removeBookmark(word.id)} />
+              ))
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
-function WordCard({ word, showBookmark, showRemove, onBookmark, onRemove }: {
+function WordCard({ word, index, showBookmark, showRemove, onBookmark, onRemove }: {
   word: BookmarkedWord | WordOfDay;
+  index: number;
   showBookmark?: boolean;
   showRemove?: boolean;
   onBookmark?: () => void;
@@ -156,7 +191,12 @@ function WordCard({ word, showBookmark, showRemove, onBookmark, onRemove }: {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="p-4 rounded-xl bg-card border border hover:shadow-md transition-all">
+    <motion.div
+      initial={{ opacity: 0, x: -12 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: Math.min(index * 0.04, 0.4) }}
+      className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20 transition-all"
+    >
       <div className="flex items-start justify-between">
         <div className="flex-1" onClick={() => setExpanded(!expanded)}>
           <div className="flex items-center gap-2 mb-1">
@@ -181,13 +221,21 @@ function WordCard({ word, showBookmark, showRemove, onBookmark, onRemove }: {
           </button>
         )}
       </div>
-      {expanded && word.example && (
-        <div className="mt-3 pt-3 border-t border">
-          <p className="text-sm italic text-gray-700 dark:text-gray-300">{word.example}</p>
-          {word.exampleMeaning && <p className="text-xs text-muted-foreground mt-1">{word.exampleMeaning}</p>}
-        </div>
-      )}
-    </div>
+      <AnimatePresence>
+        {expanded && word.example && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="mt-3 pt-3 border-t border-border/60"
+          >
+            <p className="text-sm italic text-gray-700 dark:text-gray-300">{word.example}</p>
+            {word.exampleMeaning && <p className="text-xs text-muted-foreground mt-1">{word.exampleMeaning}</p>}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 

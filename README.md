@@ -32,12 +32,12 @@ LinguaFlow là nền tảng học ngôn ngữ toàn diện được xây dựng 
 
 | Tính năng | Mô tả |
 |---|---|
-| 📚 Từ vựng | Flashcard, spaced repetition, phát âm |
-| 🎯 Quiz | Trắc nghiệm, điền từ, nghe hiểu |
-| 📊 Tiến độ | Streak, XP, thống kê chi tiết |
-| 🌙 Dark Mode | Giao diện tối/sáng tự động |
-| 📱 Responsive | Tối ưu cho mọi thiết bị |
-| 🎨 Animations | Framer Motion, micro-interactions |
+| Vocabulary | Flashcard, spaced repetition, phát âm |
+| Quiz | Trắc nghiệm, điền từ, nghe hiểu |
+| Progress | Streak, XP, thống kê chi tiết |
+| Dark Mode | Giao diện tối/sáng tự động |
+| Responsive | Tối ưu cho mọi thiết bị |
+| Animations | Framer Motion, micro-interactions |
 
 ---
 
@@ -240,6 +240,14 @@ Dự án được phân phối dưới giấy phép [MIT](LICENSE).
 
 ---
 
+## Disclaimer
+
+Đây là dự án học tập nhằm mục đích rèn luyện kỹ năng phát triển phần mềm fullstack. Mọi ý kiến đóng góp, phản hồi đều được hoan nghênh.
+
+---
+
 ## Tác giả
 
-**Nguyễn Sơn** — [sonnguyenhoang17@gmail.com](mailto:sonnguyenhoang17@gmail.com)
+**Nguyễn Sơn** — [jasonbmt06@gmail.com](mailto:jasonbmt06@gmail.com)
+
+Mọi góp ý, phản hồi xin gửi về email trên.

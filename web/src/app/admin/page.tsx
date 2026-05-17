@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store';
 import { api } from '@/services/api';
@@ -51,7 +52,7 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Admin Dashboard</h1>
@@ -90,7 +91,7 @@ export default function AdminPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-card border border">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
               <h3 className="font-semibold mb-4">Quick Actions</h3>
               <div className="space-y-2">
                 <button className="w-full text-left px-4 py-3 rounded-xl bg-muted/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm">
@@ -108,7 +109,7 @@ export default function AdminPage() {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-card border border">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
               <h3 className="font-semibold mb-4">Platform Health</h3>
               <div className="space-y-4">
                 <HealthItem label="API Server" status="healthy" />
@@ -123,7 +124,7 @@ export default function AdminPage() {
 
       {/* Users Tab */}
       {tab === 'users' && (
-        <div className="p-6 rounded-2xl bg-card border border">
+        <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-lg">All Users ({users.length})</h2>
             <Button size="sm" variant="outline">Export CSV</Button>
@@ -184,8 +185,14 @@ export default function AdminPage() {
             <Button size="sm">+ New Lesson</Button>
           </div>
           <div className="grid gap-3">
-            {['English', 'Japanese', 'Chinese', 'Korean'].map((lang) => (
-              <div key={lang} className="p-5 rounded-2xl bg-card border border">
+            {['English', 'Japanese', 'Chinese', 'Korean'].map((lang, index) => (
+              <motion.div
+                key={lang}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: Math.min(index * 0.05, 0.3) }}
+                className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{lang === 'English' ? '🇬🇧' : lang === 'Japanese' ? '🇯🇵' : lang === 'Chinese' ? '🇨🇳' : '🇰🇷'}</span>
@@ -199,12 +206,12 @@ export default function AdminPage() {
                     <Button size="sm" variant="ghost">View</Button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -217,7 +224,7 @@ function StatCard({ value, label, color }: { value: number; label: string; color
     pink: 'text-pink-600',
   };
   return (
-    <div className="p-4 rounded-2xl bg-card border border text-center">
+    <div className="p-4 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
       <p className={`text-2xl font-bold ${colors[color]}`}>{value}</p>
       <p className="text-xs text-muted-foreground mt-1">{label}</p>
     </div>

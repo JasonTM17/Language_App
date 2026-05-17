@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Headphones, Volume2, PartyPopper } from 'lucide-react';
 
@@ -149,20 +150,30 @@ export default function DictationPage() {
 
   if (!currentExercise) {
     return (
-      <div className="text-center py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="text-center py-16"
+      >
         <div className="flex justify-center mb-4">
           <Headphones className="w-12 h-12 text-primary" />
         </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài nghe chép</h3>
         <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
-      </div>
+      </motion.div>
     );
   }
 
   if (currentIndex >= currentExercises.length) {
     const pct = Math.round((score.correct / score.total) * 100);
     return (
-      <div className="max-w-2xl mx-auto text-center py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-16"
+      >
         <div className="flex justify-center mb-4">
           <PartyPopper className="w-12 h-12 text-green-500" />
         </div>
@@ -178,12 +189,17 @@ export default function DictationPage() {
           </div>
         </div>
         <Button onClick={resetAll}>Làm lại</Button>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Nghe chép</h1>
         <p className="text-muted-foreground mt-1">Nghe và gõ lại câu bạn nghe được</p>
@@ -191,9 +207,12 @@ export default function DictationPage() {
 
       {/* Language selector */}
       <div className="flex gap-2 flex-wrap">
-        {languages.map((lang) => (
-          <button
+        {languages.map((lang, index) => (
+          <motion.button
             key={lang.code}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
@@ -203,7 +222,7 @@ export default function DictationPage() {
           >
             <span>{lang.flag}</span>
             <span className="text-sm font-medium">{lang.name}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
 
@@ -217,7 +236,7 @@ export default function DictationPage() {
       </div>
 
       {/* Audio controls */}
-      <div className="p-6 rounded-2xl bg-card border border text-center space-y-4">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center space-y-4">
         <div className="flex justify-center mb-2">
           {isPlaying ? <Volume2 className="w-10 h-10 text-primary" /> : <Headphones className="w-10 h-10 text-muted-foreground" />}
         </div>
@@ -250,11 +269,16 @@ export default function DictationPage() {
 
       {/* Result */}
       {showResult && (
-        <div className={`p-4 rounded-xl ${
-          getAccuracy() === 100
-            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-            : 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800'
-        }`}>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className={`p-4 rounded-xl ${
+            getAccuracy() === 100
+              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+              : 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800'
+          }`}
+        >
           <div className="flex items-center justify-between mb-2">
             <p className={`font-medium ${getAccuracy() === 100 ? 'text-green-700 dark:text-green-300' : 'text-orange-700 dark:text-orange-300'}`}>
               {getAccuracy() === 100 ? '✓ Hoàn hảo!' : `Chính xác: ${getAccuracy()}%`}
@@ -268,7 +292,7 @@ export default function DictationPage() {
               <span className="font-medium">Bạn gõ:</span> {userInput}
             </p>
           )}
-        </div>
+        </motion.div>
       )}
 
       {/* Actions */}
@@ -283,6 +307,6 @@ export default function DictationPage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

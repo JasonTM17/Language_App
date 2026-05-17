@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { MessageCircle } from 'lucide-react';
 
@@ -271,16 +272,24 @@ export default function ConversationPage() {
 
   if (!selectedScenario) {
     return (
-      <div className="max-w-3xl mx-auto space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-3xl mx-auto space-y-6"
+      >
         <div>
           <h1 className="text-2xl font-bold font-display">Hội thoại</h1>
           <p className="text-muted-foreground mt-1">Luyện tập hội thoại theo tình huống thực tế</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
-          {languages.map((lang) => (
-            <button
+          {languages.map((lang, index) => (
+            <motion.button
               key={lang.code}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
               onClick={() => setSelectedLang(lang.code)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
@@ -290,21 +299,24 @@ export default function ConversationPage() {
             >
               <span>{lang.flag}</span>
               <span className="text-sm font-medium">{lang.name}</span>
-            </button>
+            </motion.button>
           ))}
         </div>
 
         <div className="grid gap-4">
-          {currentScenarios.map((scenario) => (
-            <button
+          {currentScenarios.map((scenario, index) => (
+            <motion.button
               key={scenario.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
               onClick={() => startScenario(scenario)}
-              className="p-5 rounded-2xl bg-card border border text-left hover:border-primary-300 hover:shadow-md transition-all"
+              className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-left hover:border-primary-300 hover:shadow-md transition-all"
             >
               <h3 className="font-semibold text-lg">{scenario.title}</h3>
               <p className="text-sm text-muted-foreground mt-0.5">{scenario.titleVi}</p>
               <p className="text-xs text-muted-foreground mt-2">{scenario.context}</p>
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -316,12 +328,17 @@ export default function ConversationPage() {
             <p className="text-muted-foreground">Chưa có kịch bản hội thoại cho ngôn ngữ này.</p>
           </div>
         )}
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-4"
+    >
       {/* Header */}
       <div className="flex items-center justify-between">
         <button onClick={backToList} className="text-sm text-primary hover:underline">← Quay lại</button>
@@ -334,23 +351,31 @@ export default function ConversationPage() {
       </div>
 
       {/* Chat messages */}
-      <div className="space-y-3 min-h-[300px] max-h-[400px] overflow-y-auto p-4 rounded-2xl bg-muted/50 border dark:border-gray-800">
-        {chatMessages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] p-3 rounded-2xl ${
-              msg.role === 'user'
-                ? 'bg-primary text-white rounded-br-md'
-                : 'bg-card border border-border rounded-bl-md'
-            }`}>
-              <p className="text-sm">{msg.text}</p>
-              {msg.translation && msg.role !== 'user' && (
-                <p className={`text-xs mt-1 ${msg.role === 'user' ? 'text-primary-100' : 'text-muted-foreground'}`}>
-                  {msg.translation}
-                </p>
-              )}
-            </div>
-          </div>
-        ))}
+      <div className="space-y-3 min-h-[300px] max-h-[400px] overflow-y-auto p-4 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
+        <AnimatePresence initial={false}>
+          {chatMessages.map((msg, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div className={`max-w-[80%] p-3 rounded-2xl ${
+                msg.role === 'user'
+                  ? 'bg-primary text-white rounded-br-md'
+                  : 'bg-card border border-border rounded-bl-md'
+              }`}>
+                <p className="text-sm">{msg.text}</p>
+                {msg.translation && msg.role !== 'user' && (
+                  <p className={`text-xs mt-1 ${msg.role === 'user' ? 'text-primary-100' : 'text-muted-foreground'}`}>
+                    {msg.translation}
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
         <div ref={chatEndRef} />
       </div>
 
@@ -359,28 +384,38 @@ export default function ConversationPage() {
         <div className="space-y-2">
           <p className="text-xs text-muted-foreground font-medium">Chọn câu trả lời:</p>
           {selectedScenario.userOptions[currentStep].map((option, i) => (
-            <button
+            <motion.button
               key={i}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: Math.min(i * 0.05, 0.3) }}
               onClick={() => selectOption(option)}
               className="w-full p-3 rounded-xl border-2 border-border text-left text-sm font-medium hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
             >
               {option}
-            </button>
+            </motion.button>
           ))}
         </div>
       )}
 
       {/* Completed */}
-      {completed && (
-        <div className="p-5 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-center">
-          <p className="text-lg font-bold text-green-700 dark:text-green-300">Hoàn thành hội thoại!</p>
-          <p className="text-sm text-green-600 dark:text-green-400 mt-1">Bạn đã hoàn thành tình huống này.</p>
-          <div className="flex gap-3 justify-center mt-4">
-            <Button variant="outline" onClick={() => startScenario(selectedScenario)}>Thử lại</Button>
-            <Button onClick={backToList}>Chọn tình huống khác</Button>
-          </div>
-        </div>
-      )}
-    </div>
+      <AnimatePresence>
+        {completed && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="p-5 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-center"
+          >
+            <p className="text-lg font-bold text-green-700 dark:text-green-300">Hoàn thành hội thoại!</p>
+            <p className="text-sm text-green-600 dark:text-green-400 mt-1">Bạn đã hoàn thành tình huống này.</p>
+            <div className="flex gap-3 justify-center mt-4">
+              <Button variant="outline" onClick={() => startScenario(selectedScenario)}>Thử lại</Button>
+              <Button onClick={backToList}>Chọn tình huống khác</Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

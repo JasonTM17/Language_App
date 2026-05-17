@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface WritingPrompt {
   id: string;
@@ -66,7 +67,7 @@ export default function WritingPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <motion.div className="space-y-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Luyện viết</h1>
         <p className="text-muted-foreground mt-1">Rèn luyện kỹ năng viết với các chủ đề đa dạng</p>
@@ -94,11 +95,14 @@ export default function WritingPage() {
 
           {/* Prompt cards */}
           <div className="grid md:grid-cols-2 gap-4">
-            {filteredPrompts.map((prompt) => (
-              <button
+            {filteredPrompts.map((prompt, index) => (
+              <motion.button
                 key={prompt.id}
                 onClick={() => setSelectedPrompt(prompt)}
-                className="p-5 rounded-2xl bg-card border border text-left hover:shadow-md hover:border-primary-200 dark:hover:border-primary-700 transition-all"
+                className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-left hover:shadow-md transition-all"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
               >
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium">
@@ -108,7 +112,7 @@ export default function WritingPage() {
                 </div>
                 <p className="text-sm font-medium">{prompt.promptVi}</p>
                 <p className="text-xs text-muted-foreground mt-1 italic">{prompt.prompt}</p>
-              </button>
+              </motion.button>
             ))}
           </div>
         </>
@@ -121,7 +125,7 @@ export default function WritingPage() {
           </button>
 
           {/* Prompt display */}
-          <div className="p-5 rounded-2xl bg-primary/5 border border-primary-100 dark:border-primary-800">
+          <div className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
             <p className="font-medium">{selectedPrompt.promptVi}</p>
             <p className="text-sm text-muted-foreground mt-1 italic">{selectedPrompt.prompt}</p>
             {selectedPrompt.hints.length > 0 && (
@@ -172,6 +176,6 @@ export default function WritingPage() {
           )}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

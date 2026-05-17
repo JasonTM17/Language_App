@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { api } from '@/services/api';
+import { Trophy } from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -45,7 +47,12 @@ export default function AchievementsPage() {
   }
 
   return (
-    <div className="space-y-8 pb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8 pb-8"
+    >
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Thành tựu</h1>
@@ -60,15 +67,25 @@ export default function AchievementsPage() {
       </div>
 
       {/* Progress bar */}
-      <div className="h-3 bg-muted rounded-full overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="h-3 bg-muted rounded-full overflow-hidden origin-left"
+      >
         <div
           className="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all"
-          style={{ width: `${(unlockedCount / achievements.length) * 100}%` }}
+          style={{ width: `${achievements.length > 0 ? (unlockedCount / achievements.length) * 100 : 0}%` }}
         />
-      </div>
+      </motion.div>
 
       {/* Category filter */}
-      <div className="flex gap-2 overflow-x-auto pb-2">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.15 }}
+        className="flex gap-2 overflow-x-auto pb-2"
+      >
         {categories.map((cat) => (
           <button
             key={cat}
@@ -82,35 +99,48 @@ export default function AchievementsPage() {
             {cat === 'all' ? 'Tất cả' : cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Achievement grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {filtered.map((achievement) => (
-          <div
-            key={achievement.id}
-            className={`p-4 rounded-2xl border-2 text-center transition-all ${
-              achievement.unlocked
-                ? 'border-yellow-300 dark:border-yellow-600 bg-gradient-to-b from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20'
-                : 'border-border bg-muted/50 opacity-60'
-            }`}
-          >
-            <div className={`text-4xl mb-2 ${achievement.unlocked ? '' : 'grayscale'}`}>
-              {achievement.icon}
+        {filtered.length === 0 ? (
+          <div className="col-span-full flex flex-col items-center justify-center py-16">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center mb-4">
+              <Trophy className="w-8 h-8 text-yellow-500" />
             </div>
-            <h3 className="font-semibold text-sm mb-1">{achievement.nameVi}</h3>
-            <p className="text-xs text-muted-foreground mb-2">{achievement.descriptionVi}</p>
-            <div className="flex items-center justify-center gap-1">
-              <span className="text-xs font-medium text-yellow-600">+{achievement.xpReward} XP</span>
-            </div>
-            {achievement.unlocked && achievement.unlockedAt && (
-              <p className="text-xs text-green-600 mt-1">
-                {new Date(achievement.unlockedAt).toLocaleDateString('vi-VN')}
-              </p>
-            )}
+            <h3 className="text-lg font-semibold mb-1">Chưa có thành tựu</h3>
+            <p className="text-sm text-muted-foreground">Hoàn thành bài học để mở khóa thành tựu.</p>
           </div>
-        ))}
+        ) : (
+          filtered.map((achievement, index) => (
+            <motion.div
+              key={achievement.id}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: Math.min(index * 0.04, 0.4) }}
+              className={`p-4 rounded-2xl border-2 text-center transition-all hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20 ${
+                achievement.unlocked
+                  ? 'border-yellow-300/60 dark:border-yellow-600/40 bg-gradient-to-br from-yellow-50 to-orange-50/50 dark:from-yellow-900/20 dark:to-orange-900/10 backdrop-blur-sm shadow-lg shadow-yellow-500/5'
+                  : 'border-border/60 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 backdrop-blur-sm opacity-60'
+              }`}
+            >
+              <div className={`text-4xl mb-2 ${achievement.unlocked ? '' : 'grayscale'}`}>
+                {achievement.icon}
+              </div>
+              <h3 className="font-semibold text-sm mb-1">{achievement.nameVi}</h3>
+              <p className="text-xs text-muted-foreground mb-2">{achievement.descriptionVi}</p>
+              <div className="flex items-center justify-center gap-1">
+                <span className="text-xs font-medium text-yellow-600">+{achievement.xpReward} XP</span>
+              </div>
+              {achievement.unlocked && achievement.unlockedAt && (
+                <p className="text-xs text-green-600 mt-1">
+                  {new Date(achievement.unlockedAt).toLocaleDateString('vi-VN')}
+                </p>
+              )}
+            </motion.div>
+          ))
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 }

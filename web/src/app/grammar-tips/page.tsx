@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AudioPlayer } from '@/components/ui/audio-player';
 import type { SupportedLanguage } from '@/services/audio';
 
@@ -219,7 +220,7 @@ export default function GrammarTipsPage() {
   const levels = [...new Set(currentTips.map(t => t.level))];
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6 pb-8">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-3xl mx-auto space-y-6 pb-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Mẹo ngữ pháp</h1>
@@ -278,10 +279,13 @@ export default function GrammarTipsPage() {
 
       {/* Tips list */}
       <div className="space-y-3">
-        {filteredTips.map((tip) => (
-          <div
+        {filteredTips.map((tip, index) => (
+          <motion.div
             key={tip.id}
-            className="rounded-2xl bg-card border overflow-hidden transition-all hover:shadow-sm"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
+            className="rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 overflow-hidden transition-all hover:shadow-xl hover:shadow-purple-500/10"
           >
             <button
               onClick={() => setExpandedTip(expandedTip === tip.id ? null : tip.id)}
@@ -324,7 +328,7 @@ export default function GrammarTipsPage() {
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -339,6 +343,6 @@ export default function GrammarTipsPage() {
           </p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

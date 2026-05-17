@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 interface CharacterData {
@@ -106,7 +107,7 @@ export default function CharactersPage() {
   if (quizMode) {
     const char = currentChars[quizIndex];
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-2xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
           <button onClick={() => setQuizMode(false)} className="text-sm text-primary hover:underline">← Quay lại</button>
           <span className="text-sm text-muted-foreground">{quizIndex + 1}/{currentChars.length}</span>
@@ -114,7 +115,7 @@ export default function CharactersPage() {
         <div className="h-2 bg-muted rounded-full overflow-hidden">
           <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${((quizIndex + 1) / currentChars.length) * 100}%` }} />
         </div>
-        <div className="p-8 rounded-2xl bg-card border border text-center">
+        <div className="p-8 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-8xl font-bold mb-4">{char.character}</p>
           <p className="text-sm text-muted-foreground">Nhập cách đọc hoặc nghĩa</p>
         </div>
@@ -145,12 +146,12 @@ export default function CharactersPage() {
             </Button>
           )}
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Học chữ</h1>
         <p className="text-muted-foreground mt-1">Học bảng chữ cái và chữ Hán</p>
@@ -199,7 +200,12 @@ export default function CharactersPage() {
 
       {/* Character detail */}
       {selectedChar && (
-        <div className="p-6 rounded-2xl bg-card border border space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 space-y-4"
+        >
           <div className="flex items-start gap-6">
             <div className="text-7xl font-bold">{selectedChar.character}</div>
             <div className="flex-1">
@@ -223,8 +229,8 @@ export default function CharactersPage() {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }

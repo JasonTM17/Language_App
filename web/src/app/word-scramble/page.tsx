@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Shuffle, PartyPopper } from 'lucide-react';
 
@@ -165,20 +166,30 @@ export default function WordScramblePage() {
 
   if (!currentWord) {
     return (
-      <div className="text-center py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="text-center py-16"
+      >
         <div className="flex justify-center mb-4">
           <Shuffle className="w-12 h-12 text-primary" />
         </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài xáo chữ</h3>
-        <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
-      </div>
+        <p className="text-muted-foreground">Chn ngôn ngữ để bắt đầu.</p>
+      </motion.div>
     );
   }
 
   if (currentIndex >= currentWords.length) {
     const pct = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
     return (
-      <div className="max-w-2xl mx-auto text-center py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-16"
+      >
         <div className="flex justify-center mb-4">
           <PartyPopper className="w-12 h-12 text-green-500" />
         </div>
@@ -194,12 +205,17 @@ export default function WordScramblePage() {
           </div>
         </div>
         <Button onClick={resetAll}>Chơi lại</Button>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Xáo chữ</h1>
         <p className="text-muted-foreground mt-1">Sắp xếp lại các chữ cái thành từ đúng</p>
@@ -207,9 +223,12 @@ export default function WordScramblePage() {
 
       {/* Language selector */}
       <div className="flex gap-2 flex-wrap">
-        {languages.map((lang) => (
-          <button
+        {languages.map((lang, index) => (
+          <motion.button
             key={lang.code}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
@@ -219,7 +238,7 @@ export default function WordScramblePage() {
           >
             <span>{lang.flag}</span>
             <span className="text-sm font-medium">{lang.name}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
 
@@ -233,15 +252,18 @@ export default function WordScramblePage() {
       </div>
 
       {/* Scrambled word */}
-      <div className="p-8 rounded-2xl bg-card border border text-center space-y-3">
+      <div className="p-8 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center space-y-3">
         <div className="flex justify-center gap-2 flex-wrap">
           {scrambled.split('').map((char, i) => (
-            <span
+            <motion.span
               key={i}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: Math.min(i * 0.05, 0.3) }}
               className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold text-lg border-2 border-primary/20"
             >
               {char}
-            </span>
+            </motion.span>
           ))}
         </div>
         <p className="text-sm text-muted-foreground mt-3">Nghĩa: <span className="font-medium">{currentWord.meaning}</span></p>
@@ -269,11 +291,16 @@ export default function WordScramblePage() {
 
       {/* Result */}
       {showResult && (
-        <div className={`p-4 rounded-xl text-center ${
-          userAnswer.toLowerCase().trim() === currentWord.word.toLowerCase()
-            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200'
-            : 'bg-red-50 dark:bg-red-900/20 border border-red-200'
-        }`}>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className={`p-4 rounded-xl text-center ${
+            userAnswer.toLowerCase().trim() === currentWord.word.toLowerCase()
+              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200'
+              : 'bg-red-50 dark:bg-red-900/20 border border-red-200'
+          }`}
+        >
           <p className={`font-medium ${
             userAnswer.toLowerCase().trim() === currentWord.word.toLowerCase()
               ? 'text-green-700' : 'text-red-700'
@@ -281,7 +308,7 @@ export default function WordScramblePage() {
             {userAnswer.toLowerCase().trim() === currentWord.word.toLowerCase()
               ? '✓ Chính xác!' : `✗ Đáp án: ${currentWord.word}`}
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* Actions */}
@@ -294,6 +321,6 @@ export default function WordScramblePage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

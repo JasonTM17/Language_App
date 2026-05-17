@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { api } from '@/services/api';
 import { BookOpen } from 'lucide-react';
 
@@ -50,7 +51,12 @@ export default function LessonsPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Bài học</h1>
         <p className="text-muted-foreground mt-1">
@@ -62,50 +68,61 @@ export default function LessonsPage() {
         {lessons.map((lesson, index) => {
           const isCompleted = lesson.progress?.some(p => p.completed);
           return (
-            <Link key={lesson.id} href={`/lessons?id=${lesson.id}`}>
-              <div className={`p-5 rounded-2xl border transition-all hover:shadow-md ${
-                isCompleted
-                  ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
-                  : 'bg-card hover:border-primary/30'
-              }`}>
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold ${
-                    isCompleted
-                      ? 'bg-green-100 dark:bg-green-900/30 text-green-600'
-                      : 'bg-primary/10 text-primary'
-                  }`}>
-                    {isCompleted ? '✓' : index + 1}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">{lesson.level?.language?.flag}</span>
-                      <h3 className="font-semibold">{lesson.title}</h3>
+            <motion.div
+              key={lesson.id}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
+            >
+              <Link href={`/lessons?id=${lesson.id}`}>
+                <div className={`p-5 rounded-2xl border transition-all hover:shadow-md backdrop-blur-sm ${
+                  isCompleted
+                    ? 'bg-gradient-to-br from-green-50 to-emerald-50/50 dark:from-green-900/10 dark:to-emerald-900/10 border-green-200/60 dark:border-green-800/40'
+                    : 'bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border-border/60 hover:border-primary/20 hover:shadow-purple-500/5'
+                }`}>
+                  <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-sm ${
+                      isCompleted
+                        ? 'bg-green-100 dark:bg-green-900/30 text-green-600 shadow-green-500/10'
+                        : 'bg-gradient-to-br from-primary/10 to-purple-500/10 text-primary shadow-primary/10'
+                    }`}>
+                      {isCompleted ? '✓' : index + 1}
                     </div>
-                    <p className="text-sm text-muted-foreground mt-0.5">{lesson.description}</p>
-                  </div>
-                  <div className="hidden sm:flex items-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">⭐ {lesson.xpReward} XP</span>
-                    <span className="flex items-center gap-1">⏱️ {lesson.duration}min</span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg">{lesson.level?.language?.flag}</span>
+                        <h3 className="font-semibold">{lesson.title}</h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-0.5">{lesson.description}</p>
+                    </div>
+                    <div className="hidden sm:flex items-center gap-4 text-sm text-muted-foreground">
+                      <span className="flex items-center gap-1">{lesson.xpReward} XP</span>
+                      <span className="flex items-center gap-1">{lesson.duration}min</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </motion.div>
           );
         })}
       </div>
 
       {lessons.length === 0 && (
-        <div className="text-center py-16">
-          <div className="flex justify-center mb-4">
-            <BookOpen className="w-12 h-12 text-primary" />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center py-16"
+        >
+          <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-purple-500/10 flex items-center justify-center">
+            <BookOpen className="w-10 h-10 text-primary/60" />
           </div>
           <h3 className="text-lg font-semibold mb-2">Chưa có bài học</h3>
           <p className="text-muted-foreground">Hãy chọn ngôn ngữ trước để xem bài học.</p>
           <Link href="/languages" className="inline-block mt-4">
-            <button className="px-6 py-2 rounded-xl bg-primary text-white font-medium hover:bg-primary-600 transition-colors">Chọn ngôn ngữ</button>
+            <button className="px-6 py-2 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">Chọn ngôn ngữ</button>
           </Link>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }

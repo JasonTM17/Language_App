@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 interface StoryChoice {
   text: string;
@@ -470,7 +471,7 @@ export default function StoriesPage() {
 
   if (!selectedStory) {
     return (
-      <div className="max-w-3xl mx-auto space-y-6 pb-8">
+      <motion.div className="max-w-3xl mx-auto space-y-6 pb-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <div>
           <h1 className="text-2xl font-bold font-display">Truyện đọc</h1>
           <p className="text-muted-foreground text-sm mt-0.5">Đọc truyện ngắn và trả lời câu hỏi</p>
@@ -494,11 +495,14 @@ export default function StoriesPage() {
         </div>
 
         <div className="grid gap-4">
-          {currentStories.map((story) => (
-            <button
+          {currentStories.map((story, index) => (
+            <motion.button
               key={story.id}
               onClick={() => startStory(story)}
-              className="p-5 rounded-2xl bg-card border text-left hover:border-primary/40 hover:shadow-md transition-all"
+              className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-left hover:border-primary/40 hover:shadow-md transition-all"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -510,7 +514,7 @@ export default function StoriesPage() {
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mt-2">{story.segments.length} đoạn</p>
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -521,7 +525,7 @@ export default function StoriesPage() {
             <p className="text-muted-foreground">Chưa có truyện cho ngôn ngữ này.</p>
           </div>
         )}
-      </div>
+      </motion.div>
     );
   }
 
@@ -530,7 +534,7 @@ export default function StoriesPage() {
   const totalQuestions = selectedStory.segments.filter(s => s.question).length;
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-8">
+    <motion.div className="max-w-2xl mx-auto space-y-6 pb-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <button onClick={backToList} className="text-sm text-primary hover:underline">
@@ -551,7 +555,7 @@ export default function StoriesPage() {
       </div>
 
       {/* Segment content */}
-      <div className="p-6 rounded-2xl bg-card border space-y-3">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 space-y-3">
         <p className="text-lg leading-relaxed">{segment.text}</p>
         <p className="text-sm text-muted-foreground italic">{segment.translation}</p>
       </div>
@@ -607,6 +611,6 @@ export default function StoriesPage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

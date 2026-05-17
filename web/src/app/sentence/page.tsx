@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Puzzle, PartyPopper } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface SentenceExercise {
   id: string;
@@ -145,7 +146,7 @@ export default function SentencePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div className="max-w-2xl mx-auto space-y-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Sắp xếp câu</h1>
         <p className="text-muted-foreground mt-1">Sắp xếp các từ thành câu hoàn chỉnh</p>
@@ -179,7 +180,7 @@ export default function SentencePage() {
       </div>
 
       {/* Translation prompt */}
-      <div className="p-4 rounded-xl bg-card border border">
+      <div className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <p className="text-sm text-muted-foreground mb-1">Dịch câu sau:</p>
         <p className="text-lg font-medium">{currentExercise.translation}</p>
       </div>
@@ -255,6 +256,6 @@ export default function SentencePage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

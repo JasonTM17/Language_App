@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 interface ShopItem {
@@ -49,20 +50,35 @@ export default function ShopPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-3xl mx-auto space-y-6"
+    >
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Cửa hàng</h1>
           <p className="text-muted-foreground mt-1">Dùng gems để mua vật phẩm hữu ích</p>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
-          <span className="text-lg">💎</span>
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200/60 dark:border-purple-800/30"
+        >
+          <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           <span className="text-lg font-bold text-purple-700 dark:text-purple-300">{gems}</span>
-        </div>
+        </motion.div>
       </div>
 
       {/* Category tabs */}
-      <div className="flex gap-2 flex-wrap">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="flex gap-2 flex-wrap"
+      >
         {[
           { key: 'all', label: 'Tất cả' },
           { key: 'power-ups', label: 'Tăng sức mạnh' },
@@ -74,29 +90,32 @@ export default function ShopPage() {
             onClick={() => setCategory(tab.key as any)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               category === tab.key
-                ? 'bg-primary text-white'
-                : 'bg-muted text-muted-foreground hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'bg-primary text-white shadow-sm shadow-primary/20'
+                : 'bg-muted/60 text-muted-foreground hover:bg-primary/5 hover:text-primary'
             }`}
           >
             {tab.label}
           </button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Shop items */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filteredItems.map((item) => {
+        {filteredItems.map((item, index) => {
           const canAfford = gems >= item.price;
           const alreadyBought = purchased.has(item.id);
 
           return (
-            <div
+            <motion.div
               key={item.id}
-              className={`p-4 rounded-2xl bg-card border transition-all ${
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
+              className={`p-4 rounded-2xl transition-all backdrop-blur-sm ${
                 alreadyBought
-                  ? 'border-green-200 dark:border-green-800 opacity-70'
-                  : 'border hover:border-primary-200 hover:shadow-md'
-              }`}
+                  ? 'border-green-200/60 dark:border-green-800/40 bg-gradient-to-br from-green-50 to-emerald-50/50 dark:from-green-900/10 dark:to-emerald-900/10 opacity-70'
+                  : 'bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20'
+              } border`}
             >
               <div className="flex items-start gap-3">
                 <div className="text-3xl">{item.icon}</div>
@@ -105,9 +124,9 @@ export default function ShopPage() {
                   <p className="text-xs text-muted-foreground mt-0.5">{item.description}</p>
                 </div>
               </div>
-              <div className="flex items-center justify-between mt-3 pt-3 border-t border">
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/40">
                 <div className="flex items-center gap-1">
-                  <span className="text-sm">💎</span>
+                  <svg className="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                   <span className="font-bold text-sm">{item.price}</span>
                 </div>
                 {alreadyBought ? (
@@ -122,35 +141,59 @@ export default function ShopPage() {
                   </Button>
                 )}
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
 
       {/* How to earn gems */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm"
+      >
         <button
           onClick={() => setShowEarn(!showEarn)}
           className="w-full flex items-center justify-between"
         >
-          <h2 className="font-semibold text-lg">Cách kiếm gems 💎</h2>
-          <span className={`text-muted-foreground transition-transform ${showEarn ? 'rotate-180' : ''}`}>▼</span>
+          <h2 className="font-semibold text-lg">Cách kiếm gems</h2>
+          <motion.svg
+            animate={{ rotate: showEarn ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+            className="w-5 h-5 text-muted-foreground"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </motion.svg>
         </button>
-        {showEarn && (
-          <div className="mt-4 space-y-3">
-            {earnMethods.map((method, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
-                <span className="text-xl">{method.icon}</span>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">{method.title}</p>
-                  <p className="text-xs text-muted-foreground">{method.description}</p>
-                </div>
-                <span className="text-sm font-bold text-purple-600 dark:text-purple-400">{method.gems}</span>
+        <AnimatePresence>
+          {showEarn && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="mt-4 space-y-3">
+                {earnMethods.map((method, i) => (
+                  <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-primary/5 border border-primary/10">
+                    <span className="text-xl">{method.icon}</span>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">{method.title}</p>
+                      <p className="text-xs text-muted-foreground">{method.description}</p>
+                    </div>
+                    <span className="text-sm font-bold text-purple-600 dark:text-purple-400">{method.gems}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { XpPopup } from '@/components/ui/xp-popup';
 import { Trophy, Star, Dumbbell } from 'lucide-react';
@@ -150,16 +151,24 @@ export default function TypingPracticePage() {
 
   if (gameState === 'idle') {
     return (
-      <div className="max-w-2xl mx-auto space-y-6 pb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto space-y-6 pb-8"
+      >
         <div>
           <h1 className="text-2xl font-bold font-display">Luyện gõ phím</h1>
           <p className="text-muted-foreground text-sm mt-0.5">Cải thiện tốc độ gõ trong ngôn ngữ bạn đang học</p>
         </div>
 
         <div className="flex gap-2 flex-wrap">
-          {languages.map((lang) => (
-            <button
+          {languages.map((lang, index) => (
+            <motion.button
               key={lang.code}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
               onClick={() => setSelectedLang(lang.code)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 transition-all ${
                 selectedLang === lang.code
@@ -169,11 +178,11 @@ export default function TypingPracticePage() {
             >
               <span>{lang.flag}</span>
               <span className="text-sm">{lang.name}</span>
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        <div className="p-6 rounded-2xl bg-card border text-center space-y-4">
+        <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center space-y-4">
           <div className="text-5xl">⌨️</div>
           <h2 className="text-lg font-semibold">Sẵn sàng luyện tập?</h2>
           <p className="text-sm text-muted-foreground">
@@ -191,13 +200,18 @@ export default function TypingPracticePage() {
             <li>• Luyện tập đều đặn mỗi ngày để cải thiện</li>
           </ul>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   if (gameState === 'finished') {
     return (
-      <div className="max-w-2xl mx-auto space-y-6 pb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto space-y-6 pb-8"
+      >
         {showCelebration && <Celebration type="confetti" duration={3000} />}
         <div className="text-center py-6">
           <div className="flex justify-center mb-3">
@@ -208,32 +222,42 @@ export default function TypingPracticePage() {
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          <div className="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-center">
-            <p className="text-3xl font-bold text-blue-600">{avgWpm}</p>
-            <p className="text-xs text-muted-foreground mt-1">WPM trung bình</p>
-          </div>
-          <div className="p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-center">
-            <p className="text-3xl font-bold text-green-600">{avgAccuracy}%</p>
-            <p className="text-xs text-muted-foreground mt-1">Chính xác</p>
-          </div>
-          <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-center">
-            <p className="text-3xl font-bold text-purple-600">{results.length}</p>
-            <p className="text-xs text-muted-foreground mt-1">Câu hoàn thành</p>
-          </div>
+          {[
+            { value: avgWpm, label: 'WPM trung bình', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' },
+            { value: `${avgAccuracy}%`, label: 'Chính xác', color: 'text-green-600', bg: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' },
+            { value: results.length, label: 'Câu hoàn thành', color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800' },
+          ].map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.3) }}
+              className={`p-4 rounded-2xl border text-center ${stat.bg}`}
+            >
+              <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
+              <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+            </motion.div>
+          ))}
         </div>
 
-        <div className="p-4 rounded-2xl bg-card border">
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
           <h3 className="font-semibold mb-3">Chi tiết từng câu:</h3>
           <div className="space-y-2">
             {results.map((r, i) => (
-              <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: Math.min(i * 0.05, 0.3) }}
+                className="flex items-center justify-between p-2 rounded-lg bg-muted/50"
+              >
                 <span className="text-sm text-muted-foreground truncate flex-1">Câu {i + 1}</span>
                 <div className="flex gap-4 text-xs">
                   <span className="text-blue-600 font-medium">{r.wpm} WPM</span>
                   <span className="text-green-600 font-medium">{r.accuracy}%</span>
                   <span className="text-muted-foreground">{r.time.toFixed(1)}s</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -242,12 +266,17 @@ export default function TypingPracticePage() {
           <Button onClick={startPractice}>Luyện lại</Button>
           <Button variant="outline" onClick={() => setGameState('idle')}>Đổi ngôn ngữ</Button>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6 pb-8"
+    >
       {showXp && <XpPopup amount={xpAmount} onComplete={() => setShowXp(false)} />}
 
       {/* Progress header */}
@@ -269,7 +298,7 @@ export default function TypingPracticePage() {
       </div>
 
       {/* Target text with character highlighting */}
-      <div className="p-6 rounded-2xl bg-card border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <p className="text-xl leading-relaxed font-mono tracking-wide">
           {currentExercise.text.split('').map((char, i) => (
             <span
@@ -307,6 +336,6 @@ export default function TypingPracticePage() {
           <span className="text-red-500">{charStates.filter(s => s === 'incorrect').length} sai</span>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

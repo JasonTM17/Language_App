@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { AudioPlayer } from '@/components/ui/audio-player';
 import { VoiceRecorder } from '@/components/ui/voice-recorder';
@@ -147,16 +148,32 @@ export default function SpeakingPage() {
 
   if (!currentPrompt) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-6xl mb-4">🎤</div>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-16"
+      >
+        <div className="flex justify-center mb-4">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center">
+            <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+            </svg>
+          </div>
+        </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài luyện nói</h3>
         <p className="text-muted-foreground">Chọn ngôn ngữ và cấp độ để bắt đầu.</p>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6 pb-8"
+    >
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -207,9 +224,11 @@ export default function SpeakingPage() {
       {/* Progress bar */}
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all duration-500"
-            style={{ width: `${((currentPromptIndex + 1) / filteredPrompts.length) * 100}%` }}
+          <motion.div
+            className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentPromptIndex + 1) / filteredPrompts.length) * 100}%` }}
+            transition={{ duration: 0.5 }}
           />
         </div>
         <span className="text-xs text-muted-foreground font-medium">
@@ -218,75 +237,112 @@ export default function SpeakingPage() {
       </div>
 
       {/* Prompt card */}
-      <div className="p-6 rounded-2xl bg-card border shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">
-            {currentPrompt.topic}
-          </span>
-          <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
-            {currentPrompt.level === 'beginner' ? 'Cơ bản' : currentPrompt.level === 'intermediate' ? 'Trung cấp' : 'Nâng cao'}
-          </span>
-        </div>
-
-        <p className="text-xl font-bold text-center leading-relaxed py-2">
-          {currentPrompt.sentence}
-        </p>
-
-        {currentPrompt.pronunciation && (
-          <p className="text-center text-sm text-muted-foreground italic">
-            {currentPrompt.pronunciation}
-          </p>
-        )}
-
-        {/* Audio player for model pronunciation */}
-        <div className="flex justify-center">
-          <AudioPlayer
-            text={currentPrompt.sentence}
-            language={selectedLang as SupportedLanguage}
-            size="lg"
-            showSlowButton={true}
-          />
-        </div>
-
-        <button
-          onClick={() => setShowTranslation(!showTranslation)}
-          className="block mx-auto text-sm text-primary hover:underline"
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentPrompt.id}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3 }}
+          className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 space-y-4"
         >
-          {showTranslation ? 'Ẩn nghĩa' : 'Xem nghĩa tiếng Việt'}
-        </button>
+          <div className="flex items-center justify-between">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">
+              {currentPrompt.topic}
+            </span>
+            <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
+              {currentPrompt.level === 'beginner' ? 'Cơ bản' : currentPrompt.level === 'intermediate' ? 'Trung cấp' : 'Nâng cao'}
+            </span>
+          </div>
 
-        {showTranslation && (
-          <p className="text-center text-muted-foreground text-sm animate-in fade-in duration-200">
-            {currentPrompt.translation}
+          <p className="text-xl font-bold text-center leading-relaxed py-2">
+            {currentPrompt.sentence}
           </p>
-        )}
-      </div>
+
+          {currentPrompt.pronunciation && (
+            <p className="text-center text-sm text-muted-foreground italic">
+              {currentPrompt.pronunciation}
+            </p>
+          )}
+
+          {/* Audio player for model pronunciation */}
+          <div className="flex justify-center">
+            <AudioPlayer
+              text={currentPrompt.sentence}
+              language={selectedLang as SupportedLanguage}
+              size="lg"
+              showSlowButton={true}
+            />
+          </div>
+
+          <button
+            onClick={() => setShowTranslation(!showTranslation)}
+            className="block mx-auto text-sm text-primary hover:underline"
+          >
+            {showTranslation ? 'Ẩn nghĩa' : 'Xem nghĩa tiếng Việt'}
+          </button>
+
+          <AnimatePresence>
+            {showTranslation && (
+              <motion.p
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="text-center text-muted-foreground text-sm"
+              >
+                {currentPrompt.translation}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
 
       {/* Voice recorder */}
-      <div className="p-6 rounded-2xl bg-card border shadow-sm">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+      >
         <h3 className="text-sm font-semibold text-center mb-4">Ghi âm giọng nói của bạn</h3>
         <VoiceRecorder
           onRecordingComplete={handleRecordingComplete}
           maxDuration={15}
         />
-      </div>
+      </motion.div>
 
       {/* Playback */}
-      {audioUrl && (
-        <div className="p-4 rounded-xl bg-muted/50 border">
-          <p className="text-xs font-medium text-muted-foreground mb-2">Bản ghi của bạn:</p>
-          <audio src={audioUrl} controls className="w-full h-10" />
-        </div>
-      )}
+      <AnimatePresence>
+        {audioUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="p-4 rounded-xl bg-muted/50 border border-border/60"
+          >
+            <p className="text-xs font-medium text-muted-foreground mb-2">Bản ghi của bạn:</p>
+            <audio src={audioUrl} controls className="w-full h-10" />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Pronunciation score */}
-      {score !== null && breakdown && (
-        <PronunciationScore
-          score={score}
-          breakdown={breakdown}
-          feedback={getFeedback(score)}
-        />
-      )}
+      <AnimatePresence>
+        {score !== null && breakdown && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+          >
+            <PronunciationScore
+              score={score}
+              breakdown={breakdown}
+              feedback={getFeedback(score)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Navigation */}
       <div className="flex justify-between pt-2">
@@ -297,6 +353,6 @@ export default function SpeakingPage() {
           Câu tiếp →
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }

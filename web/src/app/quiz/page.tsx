@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Celebration } from '@/components/ui/celebration';
 import { XpPopup } from '@/components/ui/xp-popup';
@@ -131,12 +132,31 @@ export default function QuizPage() {
   if (finished) {
     const percentage = Math.round((score / questions.length) * 100);
     return (
-      <div className="max-w-md mx-auto text-center py-16 space-y-6">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-md mx-auto text-center py-16 space-y-6"
+      >
         {percentage >= 80 && <Celebration type="confetti" duration={3000} />}
-        <div className="text-6xl">{percentage >= 80 ? '🏆' : percentage >= 50 ? '🎉' : '💪'}</div>
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+          className="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 border border-primary/20 flex items-center justify-center"
+        >
+          <span className="text-4xl font-bold text-primary">
+            {percentage >= 80 ? 'A+' : percentage >= 50 ? 'B' : 'C'}
+          </span>
+        </motion.div>
         <h2 className="text-2xl font-bold">Hoàn thành bài kiểm tra!</h2>
 
-        <div className="inline-flex items-center gap-6 p-6 rounded-2xl bg-card border">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="inline-flex items-center gap-6 p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+        >
           <div className="text-center">
             <div className="text-3xl font-bold text-primary">{score}/{questions.length}</div>
             <div className="text-xs text-muted-foreground">Câu đúng</div>
@@ -151,23 +171,30 @@ export default function QuizPage() {
             <div className="text-3xl font-bold text-orange-500">{maxCombo}x</div>
             <div className="text-xs text-muted-foreground">Combo cao nhất</div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="w-32 h-32 mx-auto relative">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="w-32 h-32 mx-auto relative"
+        >
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="8" className="text-muted" />
-            <circle
+            <motion.circle
               cx="50" cy="50" r="42" fill="none" strokeWidth="8"
               className="text-primary"
               stroke="currentColor"
               strokeLinecap="round"
-              strokeDasharray={`${percentage * 2.64} 264`}
+              initial={{ strokeDasharray: '0 264' }}
+              animate={{ strokeDasharray: `${percentage * 2.64} 264` }}
+              transition={{ duration: 1, delay: 0.6, ease: 'easeOut' }}
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-2xl font-bold">{percentage}%</span>
           </div>
-        </div>
+        </motion.div>
 
         <p className="text-muted-foreground">
           {percentage >= 90 ? 'Xuất sắc! Bạn nắm vững kiến thức rồi!' :
@@ -176,14 +203,19 @@ export default function QuizPage() {
            'Cần luyện tập thêm. Đừng nản, hãy thử lại!'}
         </p>
         <Button onClick={resetQuiz} size="lg">Làm lại</Button>
-      </div>
+      </motion.div>
     );
   }
 
   if (!currentQuestion) return null;
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6 pb-8"
+    >
       {showCelebration && <Celebration type="stars" onComplete={() => setShowCelebration(false)} />}
       {showXp && <XpPopup amount={xpAmount} onComplete={() => setShowXp(false)} />}
 
@@ -194,31 +226,46 @@ export default function QuizPage() {
           <p className="text-muted-foreground text-sm">Trả lời đúng để tăng combo!</p>
         </div>
         <div className="flex items-center gap-3">
-          {combo > 0 && (
-            <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-orange-100 dark:bg-orange-900/20 text-orange-600 animate-in zoom-in duration-200">
-              <span className="text-sm font-bold">{combo}x</span>
-              <span className="text-xs">combo</span>
-            </div>
-          )}
+          <AnimatePresence>
+            {combo > 0 && (
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0, opacity: 0 }}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900/20 dark:to-amber-900/20 text-orange-600 border border-orange-200/50 dark:border-orange-800/30"
+              >
+                <span className="text-sm font-bold">{combo}x</span>
+                <span className="text-xs">combo</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <span className="text-sm text-muted-foreground font-medium">{currentIndex + 1}/{questions.length}</span>
         </div>
       </div>
 
       {/* Progress */}
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div
+        <motion.div
           role="progressbar"
           aria-valuenow={currentIndex + 1}
           aria-valuemin={1}
           aria-valuemax={questions.length}
           aria-label={`Câu hỏi ${currentIndex + 1} trên ${questions.length}`}
-          className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all duration-500"
-          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+          className="h-full bg-gradient-to-r from-primary to-purple-500 rounded-full"
+          initial={{ width: 0 }}
+          animate={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
         />
       </div>
 
       {/* Question card */}
-      <div className="p-6 rounded-2xl bg-card border shadow-sm">
+      <motion.div
+        key={currentQuestion.id}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 shadow-lg shadow-purple-500/5 backdrop-blur-sm"
+      >
         <p className="text-xs font-medium text-primary uppercase mb-2 tracking-wide">{currentQuestion.type.replace('_', ' ')}</p>
         <h2 className="text-xl font-semibold mb-6">{currentQuestion.question}</h2>
 
@@ -226,7 +273,7 @@ export default function QuizPage() {
           <div>
             <input
               type="text"
-              className="w-full px-4 py-3 rounded-xl border bg-muted/50 focus:ring-2 focus:ring-primary outline-none"
+              className="w-full px-4 py-3 rounded-xl border bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm focus:ring-2 focus:ring-primary/50 outline-none transition-all"
               placeholder="Nhập câu trả lời..."
               onKeyDown={(e) => { if (e.key === 'Enter') handleAnswer((e.target as HTMLInputElement).value); }}
               disabled={showResult}
@@ -241,67 +288,89 @@ export default function QuizPage() {
         ) : (
           <div className="space-y-3" role="group" aria-label="Các lựa chọn trả lời">
             {currentQuestion.options.map((option, i) => {
-              let optionClass = 'border-border hover:border-primary/40 hover:bg-primary/5';
+              let optionClass = 'border-border/60 hover:border-primary/40 hover:bg-primary/5 hover:shadow-sm';
               let icon = '';
 
               if (showResult) {
                 if (option === currentQuestion.answer) {
-                  optionClass = 'border-green-500 bg-green-50 dark:bg-green-900/10';
+                  optionClass = 'border-green-500 bg-green-50 dark:bg-green-900/10 shadow-sm shadow-green-500/10';
                   icon = '✓';
                 } else if (option === selectedAnswer) {
                   optionClass = 'border-red-500 bg-red-50 dark:bg-red-900/10';
                   icon = '✗';
                 } else {
-                  optionClass = 'border-border opacity-50';
+                  optionClass = 'border-border/40 opacity-50';
                 }
               } else if (option === selectedAnswer) {
                 optionClass = 'border-primary bg-primary/5';
               }
 
               return (
-                <button
+                <motion.button
                   key={i}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
                   onClick={() => handleAnswer(option)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleAnswer(option); } }}
                   disabled={showResult}
                   aria-pressed={selectedAnswer === option}
                   aria-label={`Lựa chọn ${i + 1}: ${option}`}
                   className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-center gap-3 ${optionClass}`}
+                  whileHover={!showResult ? { scale: 1.01 } : undefined}
+                  whileTap={!showResult ? { scale: 0.98 } : undefined}
                 >
-                  <span className="w-7 h-7 rounded-full bg-muted flex items-center justify-center text-xs font-bold shrink-0">
+                  <span className="w-7 h-7 rounded-full bg-muted/80 flex items-center justify-center text-xs font-bold shrink-0">
                     {icon || String.fromCharCode(65 + i)}
                   </span>
                   <span className="font-medium">{option}</span>
-                </button>
+                </motion.button>
               );
             })}
           </div>
         )}
 
-        {showResult && (
-          <div className={`mt-6 p-4 rounded-xl border animate-in slide-in-from-bottom-2 duration-200 ${
-            selectedAnswer === currentQuestion.answer
-              ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
-              : 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800'
-          }`}>
-            <p className="font-medium text-sm mb-1">
-              {selectedAnswer === currentQuestion.answer
-                ? `🎉 Chính xác! ${combo > 1 ? `Combo ${combo}x!` : ''}`
-                : `❌ Sai rồi. Đáp án: ${currentQuestion.answer}`}
-            </p>
-            {currentQuestion.explanation && <p className="text-sm text-muted-foreground">{currentQuestion.explanation}</p>}
-          </div>
-        )}
-      </div>
+        <AnimatePresence>
+          {showResult && (
+            <motion.div
+              initial={{ opacity: 0, y: 8, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              exit={{ opacity: 0, y: -8, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className={`mt-6 p-4 rounded-xl border ${
+                selectedAnswer === currentQuestion.answer
+                  ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
+                  : 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800'
+              }`}
+            >
+              <p className="font-medium text-sm mb-1">
+                {selectedAnswer === currentQuestion.answer
+                  ? `Chính xác! ${combo > 1 ? `Combo ${combo}x!` : ''}`
+                  : `Sai rồi. Đáp án: ${currentQuestion.answer}`}
+              </p>
+              {currentQuestion.explanation && <p className="text-sm text-muted-foreground">{currentQuestion.explanation}</p>}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
 
       {/* Next button */}
-      {showResult && (
-        <div className="flex justify-end">
-          <Button onClick={nextQuestion} size="lg" className="gap-1">
-            {currentIndex < questions.length - 1 ? 'Câu tiếp theo →' : 'Xem kết quả'}
-          </Button>
-        </div>
-      )}
-    </div>
+      <AnimatePresence>
+        {showResult && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex justify-end"
+          >
+            <Button onClick={nextQuestion} size="lg" className="gap-1">
+              {currentIndex < questions.length - 1 ? 'Câu tiếp theo' : 'Xem kết quả'}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { api } from '@/services/api';
 
 interface GoalHistory {
@@ -62,7 +63,7 @@ export default function StudyPlanPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold font-display">Kế hoạch học tập</h1>
         <p className="text-muted-foreground mt-1">Thiết lập mục tiêu và theo dõi tiến độ hàng ngày</p>
@@ -70,22 +71,22 @@ export default function StudyPlanPage() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="p-5 rounded-2xl bg-card border border text-center">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-3xl font-bold text-green-600 dark:text-green-400">{completedDays}</p>
           <p className="text-sm text-muted-foreground mt-1">Ngày hoàn thành</p>
-        </div>
-        <div className="p-5 rounded-2xl bg-card border border text-center">
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-3xl font-bold text-primary dark:text-primary-400">{completionRate}%</p>
           <p className="text-sm text-muted-foreground mt-1">Tỷ lệ hoàn thành</p>
-        </div>
-        <div className="p-5 rounded-2xl bg-card border border text-center">
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{totalDays}</p>
           <p className="text-sm text-muted-foreground mt-1">Tổng ngày học</p>
-        </div>
+        </motion.div>
       </div>
 
       {/* Weekly Progress */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <h2 className="font-semibold text-lg mb-4">7 ngày gần đây</h2>
         <div className="flex items-end justify-between gap-2 h-32">
           {last7Days.length > 0 ? last7Days.map((day, i) => {
@@ -112,7 +113,7 @@ export default function StudyPlanPage() {
       </div>
 
       {/* Goal Settings */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <h2 className="font-semibold text-lg mb-4">Cài đặt mục tiêu hàng ngày</h2>
         <div className="space-y-6">
           <div>
@@ -207,6 +208,6 @@ export default function StudyPlanPage() {
           </li>
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 }

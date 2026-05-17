@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { api } from '@/services/api';
 
@@ -45,17 +46,28 @@ export default function LanguagesPage() {
   }
 
   return (
-    <div className="space-y-8 pb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8 pb-8"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Chọn ngôn ngữ</h1>
         <p className="text-muted-foreground text-sm mt-0.5">Chọn ngôn ngữ bạn muốn học hoặc tiếp tục</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {languages.map((lang) => (
-          <div key={lang.id} className="group p-6 rounded-2xl bg-card border shadow-sm hover:shadow-md hover:border-primary/30 transition-all">
+        {languages.map((lang, index) => (
+          <motion.div
+            key={lang.id}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="group p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 shadow-sm hover:shadow-lg hover:shadow-purple-500/5 hover:border-primary/20 transition-all backdrop-blur-sm"
+          >
             <div className="flex items-start gap-4">
-              <div className="text-5xl">{lang.flag}</div>
+              <div className="text-5xl group-hover:scale-110 transition-transform">{lang.flag}</div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold">{lang.name}</h3>
                 <p className="text-sm text-muted-foreground">{lang.nativeName}</p>
@@ -65,7 +77,7 @@ export default function LanguagesPage() {
 
             <div className="mt-4 flex flex-wrap gap-2">
               {lang.levels.map((level) => (
-                <span key={level.id} className="px-3 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground">
+                <span key={level.id} className="px-3 py-1 rounded-full text-xs font-medium bg-primary/5 text-primary/80 border border-primary/10">
                   {level.name}
                 </span>
               ))}
@@ -73,12 +85,12 @@ export default function LanguagesPage() {
 
             <div className="mt-5 flex gap-3">
               <Link href={`/lessons?lang=${lang.code}`} className="flex-1">
-                <Button className="w-full" size="sm">Bắt đầu học</Button>
+                <Button className="w-full shadow-sm shadow-primary/10" size="sm">Bắt đầu học</Button>
               </Link>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
