@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://linguaflow.app/sitemap.xml
+Sitemap: https://web-vert-phi-72.vercel.app/sitemap.xml

@@ -1,8 +1,8 @@
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { z } from 'zod';
 import prisma from '../database/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
-import { PaginatedResponse, paginateQuery, paginate, errorResponse } from '../types/responses';
+import { paginateQuery, paginate, errorResponse } from '../types/responses';
 
 const router = Router();
 
