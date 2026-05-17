@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { api } from '@/services/api';
-import { GraduationCap, HandMetal, Briefcase, UtensilsCrossed, type LucideIcon } from 'lucide-react';
+import { GraduationCap, HandMetal, Briefcase, UtensilsCrossed, MessageSquare, type LucideIcon } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -92,41 +93,52 @@ export default function AITutorPage() {
 
   if (!sessionId) {
     return (
-      <div className="max-w-2xl mx-auto space-y-8">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto space-y-8"
+      >
         <div>
           <h1 className="text-2xl font-bold font-display">AI Tutor</h1>
           <p className="text-muted-foreground mt-1">Luyện hội thoại với trợ lý AI</p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-card border border">
+        <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
           <h2 className="font-semibold mb-4">Chọn ngôn ngữ</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            {languageOptions.map((lang) => (
-              <button
+            {languageOptions.map((lang, index) => (
+              <motion.button
                 key={lang.code}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: Math.min(index * 0.04, 0.4) }}
                 onClick={() => setSelectedLang(lang.code)}
-                className={`p-4 rounded-xl border-2 text-center transition-all ${
+                className={`p-4 rounded-xl border-2 text-center transition-all hover:shadow-md hover:shadow-purple-500/5 ${
                   selectedLang === lang.code
                     ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary-200'
+                    : 'border-border hover:border-primary/20'
                 }`}
               >
                 <div className="text-2xl mb-1">{lang.flag}</div>
                 <p className="text-sm font-medium">{lang.name}</p>
-              </button>
+              </motion.button>
             ))}
           </div>
 
           <h2 className="font-semibold mb-4">Chọn tình huống</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            {roles.map((role) => (
-              <button
+            {roles.map((role, index) => (
+              <motion.button
                 key={role.id}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: Math.min((index + 4) * 0.04, 0.4) }}
                 onClick={() => setSelectedRole(role.id)}
-                className={`p-4 rounded-xl border-2 text-center transition-all ${
+                className={`p-4 rounded-xl border-2 text-center transition-all hover:shadow-md hover:shadow-purple-500/5 ${
                   selectedRole === role.id
                     ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary-200'
+                    : 'border-border hover:border-primary/20'
                 }`}
               >
                 <div className="flex justify-center mb-1">
@@ -134,7 +146,7 @@ export default function AITutorPage() {
                 </div>
                 <p className="text-sm font-medium">{role.label}</p>
                 <p className="text-xs text-muted-foreground">{role.desc}</p>
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -142,12 +154,17 @@ export default function AITutorPage() {
             Bắt đầu hội thoại
           </Button>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col h-[calc(100vh-8rem)]">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto flex flex-col h-[calc(100vh-8rem)]"
+    >
       <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-xl font-bold font-display">AI Tutor</h1>
@@ -160,27 +177,35 @@ export default function AITutorPage() {
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-4 p-4 rounded-2xl bg-card border border">
-        {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] p-4 rounded-2xl ${
-              msg.role === 'user'
-                ? 'bg-primary text-white rounded-br-md'
-                : 'bg-gray-100 dark:bg-gray-700 rounded-bl-md'
-            }`}>
-              <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-              {msg.corrections && msg.corrections.length > 0 && (
-                <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-600">
-                  <p className="text-xs font-medium text-orange-600 dark:text-orange-400">Corrections:</p>
-                  {msg.corrections.map((c, j) => <p key={j} className="text-xs mt-1">{c}</p>)}
-                </div>
-              )}
-              {msg.suggestion && (
-                <p className="text-xs mt-2 opacity-75 italic">{msg.suggestion}</p>
-              )}
-            </div>
-          </div>
-        ))}
+      <div className="flex-1 overflow-y-auto space-y-4 p-4 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
+        <AnimatePresence>
+          {messages.map((msg, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div className={`max-w-[80%] p-4 rounded-2xl ${
+                msg.role === 'user'
+                  ? 'bg-primary text-white rounded-br-md'
+                  : 'bg-gray-100 dark:bg-gray-700 rounded-bl-md'
+              }`}>
+                <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                {msg.corrections && msg.corrections.length > 0 && (
+                  <div className="mt-2 pt-2 border-t border-gray-200 dark:border-gray-600">
+                    <p className="text-xs font-medium text-orange-600 dark:text-orange-400">Corrections:</p>
+                    {msg.corrections.map((c, j) => <p key={j} className="text-xs mt-1">{c}</p>)}
+                  </div>
+                )}
+                {msg.suggestion && (
+                  <p className="text-xs mt-2 opacity-75 italic">{msg.suggestion}</p>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
         {loading && (
           <div className="flex justify-start">
             <div className="p-4 rounded-2xl bg-gray-100 dark:bg-gray-700 rounded-bl-md">
@@ -202,14 +227,14 @@ export default function AITutorPage() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
           placeholder="Nhập tin nhắn..."
-          className="flex-1 px-4 py-3 rounded-xl border border-border bg-card focus:ring-2 focus:ring-primary-500 outline-none"
+          className="flex-1 px-4 py-3 rounded-xl border border-border/60 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 backdrop-blur-sm focus:ring-2 focus:ring-primary-500 outline-none"
           disabled={loading}
         />
         <Button onClick={sendMessage} disabled={!input.trim() || loading}>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

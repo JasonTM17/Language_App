@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface GrammarPoint {
   id: string;
@@ -196,7 +197,12 @@ export default function GrammarPage() {
   const points = grammarData[selectedLang] || [];
 
   return (
-    <div className="space-y-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Ngữ pháp</h1>
         <p className="text-muted-foreground mt-1">Các điểm ngữ pháp quan trọng</p>
@@ -221,42 +227,67 @@ export default function GrammarPage() {
       </div>
 
       {/* Grammar points */}
-      <div className="space-y-4">
-        {points.map((point) => (
-          <div key={point.id} className="rounded-2xl bg-card border border overflow-hidden">
-            <button
-              onClick={() => setExpandedId(expandedId === point.id ? null : point.id)}
-              className="w-full p-5 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedLang}
+          initial={{ opacity: 0, x: -12 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 12 }}
+          transition={{ duration: 0.3 }}
+          className="space-y-4"
+        >
+          {points.map((point, index) => (
+            <motion.div
+              key={point.id}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: Math.min(index * 0.04, 0.4) }}
+              className="rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20 transition-all overflow-hidden"
             >
-              <div>
-                <h3 className="font-semibold text-lg">{point.title}</h3>
-                <p className="text-sm text-primary dark:text-primary-400">{point.titleVi}</p>
-              </div>
-              <svg className={`w-5 h-5 text-muted-foreground transition-transform ${expandedId === point.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+              <button
+                onClick={() => setExpandedId(expandedId === point.id ? null : point.id)}
+                className="w-full p-5 text-left flex items-center justify-between hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors"
+              >
+                <div>
+                  <h3 className="font-semibold text-lg">{point.title}</h3>
+                  <p className="text-sm text-primary dark:text-primary-400">{point.titleVi}</p>
+                </div>
+                <svg className={`w-5 h-5 text-muted-foreground transition-transform ${expandedId === point.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
 
-            {expandedId === point.id && (
-              <div className="px-5 pb-5 space-y-4 border-t border pt-4">
-                <div className="p-3 rounded-xl bg-primary/5 border border-primary-100 dark:border-primary-800">
-                  <p className="text-sm font-mono font-bold text-primary-700 dark:text-primary-300">{point.pattern}</p>
-                </div>
-                <p className="text-sm text-gray-700 dark:text-gray-300">{point.explanation}</p>
-                <div className="space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground uppercase">Ví dụ:</p>
-                  {point.examples.map((ex, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-muted/50">
-                      <p className="font-medium text-sm">{ex.sentence}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{ex.translation}</p>
+              <AnimatePresence>
+                {expandedId === point.id && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-5 pb-5 space-y-4 border-t border-border/60 pt-4">
+                      <div className="p-3 rounded-xl bg-primary/5 border border-primary-100 dark:border-primary-800">
+                        <p className="text-sm font-mono font-bold text-primary-700 dark:text-primary-300">{point.pattern}</p>
+                      </div>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">{point.explanation}</p>
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-muted-foreground uppercase">Ví dụ:</p>
+                        {point.examples.map((ex, i) => (
+                          <div key={i} className="p-3 rounded-lg bg-muted/50">
+                            <p className="font-medium text-sm">{ex.sentence}</p>
+                            <p className="text-xs text-muted-foreground mt-1">{ex.translation}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
   );
 }

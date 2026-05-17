@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 interface Skill {
   id: string;
@@ -161,7 +162,12 @@ export default function SkillTreePage() {
   const paths = skillPaths[selectedLang] || [];
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-3xl mx-auto space-y-6"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Cây kỹ năng</h1>
         <p className="text-muted-foreground mt-1">Hoàn thành từng kỹ năng để mở khóa kỹ năng tiếp theo</p>
@@ -206,16 +212,19 @@ export default function SkillTreePage() {
                 const isCompleted = skill.lessonsCompleted >= skill.lessonsTotal;
 
                 return (
-                  <button
+                  <motion.button
                     key={skill.id}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: Math.min(idx * 0.04, 0.4) }}
                     disabled={skill.locked}
                     onClick={() => !skill.locked && router.push(`/lessons?lang=${selectedLang}`)}
                     className={`relative p-4 rounded-2xl border-2 transition-all text-center ${
                       skill.locked
                         ? 'border-border bg-muted/50 opacity-60 cursor-not-allowed'
                         : isCompleted
-                          ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/10 hover:scale-105'
-                          : 'border-primary/20 bg-card hover:scale-105 hover:border-primary-400'
+                          ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/10 hover:scale-105 hover:shadow-md hover:shadow-purple-500/5'
+                          : 'border-primary/20 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 backdrop-blur-sm hover:scale-105 hover:border-primary/20 hover:shadow-md hover:shadow-purple-500/5'
                     }`}
                   >
                     {skill.locked && (
@@ -241,7 +250,7 @@ export default function SkillTreePage() {
                         <CrownIcon level={skill.level} maxLevel={skill.maxLevel} />
                       </>
                     )}
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
@@ -250,14 +259,19 @@ export default function SkillTreePage() {
       ))}
 
       {/* Legend */}
-      <div className="p-4 rounded-xl bg-muted/50 border border">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.4 }}
+        className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+      >
         <p className="text-xs font-medium text-muted-foreground mb-2">Chú thích:</p>
         <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded border-2 border-primary-300 bg-white"></span> Đang học</span>
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded border-2 border-yellow-400 bg-yellow-50"></span> Hoàn thành</span>
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded border-2 border-gray-200 bg-gray-50 opacity-60"></span> Khóa</span>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

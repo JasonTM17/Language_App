@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/lib/store';
 import { api } from '@/services/api';
@@ -34,7 +35,12 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <div className="w-full max-w-md">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold">L</div>
@@ -44,7 +50,7 @@ export default function RegisterPage() {
           <p className="text-muted-foreground">Start learning a new language today</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-xl border border">
+        <form onSubmit={handleSubmit} className="bg-white/70 dark:bg-gray-900/70 rounded-2xl p-8 shadow-xl border border-border/60 backdrop-blur-sm">
           {error && (
             <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
               {error}
@@ -103,7 +109,7 @@ export default function RegisterPage() {
             Log in
           </Link>
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }

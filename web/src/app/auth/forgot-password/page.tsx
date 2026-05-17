@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
 
@@ -15,7 +16,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
@@ -27,7 +28,12 @@ export default function ForgotPasswordPage() {
         </div>
 
         {sent ? (
-          <div className="bg-card rounded-2xl p-8 shadow-xl border border text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 rounded-2xl p-8 text-center"
+          >
             <div className="flex justify-center mb-4">
               <Mail className="w-12 h-12 text-primary" />
             </div>
@@ -38,9 +44,15 @@ export default function ForgotPasswordPage() {
             <Link href="/auth/login">
               <Button variant="outline" className="w-full">Back to Login</Button>
             </Link>
-          </div>
+          </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-xl border border">
+          <motion.form
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            onSubmit={handleSubmit}
+            className="bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 rounded-2xl p-8"
+          >
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <input
@@ -55,7 +67,7 @@ export default function ForgotPasswordPage() {
             <Button type="submit" className="w-full mt-6" size="lg">
               Send Reset Link
             </Button>
-          </form>
+          </motion.form>
         )}
 
         <p className="text-center mt-6 text-sm text-muted-foreground">
@@ -65,6 +77,6 @@ export default function ForgotPasswordPage() {
           </Link>
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }

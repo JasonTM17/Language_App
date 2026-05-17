@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PenLine, PartyPopper } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface GrammarCorrectionExercise {
   id: string;
@@ -142,7 +143,7 @@ export default function GrammarCorrectionPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div className="max-w-2xl mx-auto space-y-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Sửa lỗi ngữ pháp</h1>
         <p className="text-muted-foreground mt-1">Tìm và sửa lỗi sai trong câu</p>
@@ -176,7 +177,7 @@ export default function GrammarCorrectionPage() {
       </div>
 
       {/* Sentence with error */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <p className="text-xs text-red-500 font-medium mb-2">Câu có lỗi sai:</p>
         <p className="text-xl font-medium text-red-700 dark:text-red-300">{currentExercise.sentence}</p>
       </div>
@@ -224,6 +225,6 @@ export default function GrammarCorrectionPage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

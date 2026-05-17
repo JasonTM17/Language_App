@@ -28,7 +28,7 @@ export function LoadingState({ message, size = 'md' }: LoadingStateProps) {
 }
 
 interface EmptyStateProps {
-  icon?: string;
+  icon?: React.ReactNode;
   title: string;
   description?: string;
   action?: {

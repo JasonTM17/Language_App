@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { AudioPlayer } from '@/components/ui/audio-player';
 import { Layers, PartyPopper } from 'lucide-react';
@@ -107,40 +108,65 @@ export default function FlashcardsPage() {
 
   if (cards.length === 0) {
     return (
-      <div className="text-center py-16">
-        <div className="flex justify-center mb-4">
-          <Layers className="w-12 h-12 text-primary" />
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="text-center py-16"
+      >
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center mx-auto mb-4">
+          <Layers className="w-8 h-8 text-purple-500" />
         </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có flashcard</h3>
         <p className="text-muted-foreground">Hoàn thành bài học để mở khóa flashcard từ vựng.</p>
-      </div>
+      </motion.div>
     );
   }
 
   if (currentIndex >= cards.length) {
     return (
-      <div className="max-w-md mx-auto text-center py-16">
-        <div className="flex justify-center mb-4">
-          <PartyPopper className="w-12 h-12 text-green-500" />
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-md mx-auto text-center py-16"
+      >
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+          <PartyPopper className="w-8 h-8 text-green-500" />
         </div>
         <h2 className="text-2xl font-bold mb-4">Hoàn thành phiên ôn tập!</h2>
         <div className="flex justify-center gap-8 mb-8">
-          <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-center"
+          >
             <p className="text-3xl font-bold text-green-600">{stats.known}</p>
             <p className="text-sm text-muted-foreground">Đã thuộc</p>
-          </div>
-          <div className="text-center">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-center"
+          >
             <p className="text-3xl font-bold text-red-500">{stats.unknown}</p>
             <p className="text-sm text-muted-foreground">Cần ôn lại</p>
-          </div>
+          </motion.div>
         </div>
         <Button onClick={resetDeck}>Ôn tập lại</Button>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8"
+    >
       {showXp && <XpPopup amount={xpAmount} onComplete={() => setShowXp(false)} />}
 
       <div className="flex items-center justify-between">
@@ -153,7 +179,12 @@ export default function FlashcardsPage() {
 
       {/* Progress bar */}
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all duration-300" style={{ width: `${((currentIndex) / cards.length) * 100}%` }} />
+        <motion.div
+          className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full"
+          initial={{ width: 0 }}
+          animate={{ width: `${((currentIndex) / cards.length) * 100}%` }}
+          transition={{ duration: 0.3 }}
+        />
       </div>
 
       {/* Card */}
@@ -164,7 +195,7 @@ export default function FlashcardsPage() {
         >
           <div className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${flipped ? '[transform:rotateY(180deg)]' : ''}`}>
             {/* Front */}
-            <div className="absolute inset-0 backface-hidden rounded-3xl bg-card border-2 shadow-xl flex flex-col items-center justify-center p-8">
+            <div className="absolute inset-0 backface-hidden rounded-3xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border-2 border-border/60 backdrop-blur-sm shadow-xl shadow-purple-500/5 flex flex-col items-center justify-center p-8">
               <p className="text-4xl font-bold mb-3">{currentCard.word}</p>
               {currentCard.reading && <p className="text-lg text-muted-foreground">{currentCard.reading}</p>}
               <div className="mt-4" onClick={(e) => e.stopPropagation()}>
@@ -173,7 +204,7 @@ export default function FlashcardsPage() {
               <p className="text-xs text-muted-foreground mt-3">Nhấn để xem nghĩa</p>
             </div>
             {/* Back */}
-            <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)] rounded-3xl bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/20 shadow-xl flex flex-col items-center justify-center p-8">
+            <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)] rounded-3xl bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/20 backdrop-blur-sm shadow-xl shadow-purple-500/5 flex flex-col items-center justify-center p-8">
               <p className="text-2xl font-bold text-primary mb-3">{currentCard.meaning}</p>
               {currentCard.example && (
                 <div className="mt-4 text-center">
@@ -187,20 +218,25 @@ export default function FlashcardsPage() {
       </div>
 
       {/* Actions */}
-      <div className="flex justify-center gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="flex justify-center gap-4"
+      >
         <Button variant="outline" size="lg" onClick={() => handleReview(false)} className="border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20">
           ✗ Chưa thuộc
         </Button>
         <Button size="lg" onClick={() => handleReview(true)} className="bg-green-600 hover:bg-green-700 text-white">
           ✓ Đã thuộc
         </Button>
-      </div>
+      </motion.div>
 
       {/* Keyboard hints */}
       <p className="text-center text-xs text-muted-foreground">
         Phím tắt: Space để lật • ← chưa thuộc • → đã thuộc
       </p>
-    </div>
+    </motion.div>
   );
 }
 

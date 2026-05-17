@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Blocks, PartyPopper } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface SentenceExercise {
   id: string;
@@ -168,7 +169,7 @@ export default function SentenceBuilderPage() {
   const isCorrect = selectedWords.join(' ') === currentExercise.correctOrder.join(' ');
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div className="max-w-2xl mx-auto space-y-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Xây dựng câu</h1>
         <p className="text-muted-foreground mt-1">Sắp xếp từ thành câu hoàn chỉnh</p>
@@ -202,7 +203,7 @@ export default function SentenceBuilderPage() {
       </div>
 
       {/* Translation hint */}
-      <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30">
+      <div className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <p className="text-sm text-blue-700 dark:text-blue-300">
           <span className="font-medium">Dịch:</span> {currentExercise.translation}
         </p>
@@ -266,6 +267,6 @@ export default function SentenceBuilderPage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

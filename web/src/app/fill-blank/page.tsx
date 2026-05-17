@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PartyPopper } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface FillExercise {
   id: string;
@@ -125,7 +126,7 @@ export default function FillBlankPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div className="max-w-2xl mx-auto space-y-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Điền từ</h1>
         <p className="text-muted-foreground mt-1">Chọn từ đúng để hoàn thành câu</p>
@@ -159,7 +160,7 @@ export default function FillBlankPage() {
       </div>
 
       {/* Sentence with blank */}
-      <div className="p-6 rounded-2xl bg-card border border text-center">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
         <p className="text-xl font-medium leading-relaxed">
           {currentExercise.sentence.split('___').map((part, i, arr) => (
             <span key={i}>
@@ -184,7 +185,7 @@ export default function FillBlankPage() {
 
       {/* Options */}
       <div className="grid grid-cols-2 gap-3">
-        {currentExercise.options.map((option) => {
+        {currentExercise.options.map((option, index) => {
           let styles = 'border-border hover:border-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20';
           if (showResult) {
             if (option === currentExercise.blank) {
@@ -197,14 +198,17 @@ export default function FillBlankPage() {
           }
 
           return (
-            <button
+            <motion.button
               key={option}
               onClick={() => checkAnswer(option)}
               disabled={showResult}
               className={`p-4 rounded-xl border-2 text-center font-medium transition-all ${styles}`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, delay: Math.min(index * 0.05, 0.3) }}
             >
               {option}
-            </button>
+            </motion.button>
           );
         })}
       </div>
@@ -220,6 +224,6 @@ export default function FillBlankPage() {
           </Button>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

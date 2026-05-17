@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Globe, PartyPopper } from 'lucide-react';
 
@@ -116,20 +117,30 @@ export default function TranslationPage() {
 
   if (!currentExercise) {
     return (
-      <div className="text-center py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="text-center py-16"
+      >
         <div className="flex justify-center mb-4">
           <Globe className="w-12 h-12 text-primary" />
         </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài dịch</h3>
         <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu.</p>
-      </div>
+      </motion.div>
     );
   }
 
   if (currentIndex >= currentExercises.length) {
     const pct = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
     return (
-      <div className="max-w-2xl mx-auto text-center py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-16"
+      >
         <div className="flex justify-center mb-4">
           <PartyPopper className="w-12 h-12 text-green-500" />
         </div>
@@ -145,12 +156,17 @@ export default function TranslationPage() {
           </div>
         </div>
         <Button onClick={resetAll}>Làm lại</Button>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Dịch câu</h1>
         <p className="text-muted-foreground mt-1">Dịch câu sang ngôn ngữ đích</p>
@@ -158,9 +174,12 @@ export default function TranslationPage() {
 
       {/* Language selector */}
       <div className="flex gap-2 flex-wrap">
-        {languages.map((lang) => (
-          <button
+        {languages.map((lang, index) => (
+          <motion.button
             key={lang.code}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
             onClick={() => { setSelectedLang(lang.code); resetAll(); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
@@ -170,7 +189,7 @@ export default function TranslationPage() {
           >
             <span>{lang.flag}</span>
             <span className="text-sm font-medium">{lang.name}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
 
@@ -184,7 +203,7 @@ export default function TranslationPage() {
       </div>
 
       {/* Source sentence */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium">
             {currentExercise.direction === 'to-foreign' ? 'Việt → Ngoại ngữ' : 'Ngoại ngữ → Việt'}
@@ -217,11 +236,16 @@ export default function TranslationPage() {
 
       {/* Result */}
       {showResult && (
-        <div className={`p-4 rounded-xl ${
-          normalize(userInput) === normalize(currentExercise.targetText)
-            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-            : 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800'
-        }`}>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className={`p-4 rounded-xl ${
+            normalize(userInput) === normalize(currentExercise.targetText)
+              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+              : 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800'
+          }`}
+        >
           <p className={`font-medium ${
             normalize(userInput) === normalize(currentExercise.targetText)
               ? 'text-green-700 dark:text-green-300'
@@ -234,7 +258,7 @@ export default function TranslationPage() {
           <p className="text-sm text-muted-foreground mt-1">
             <span className="font-medium">Đáp án:</span> {currentExercise.targetText}
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* Actions */}
@@ -249,6 +273,6 @@ export default function TranslationPage() {
           </Button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

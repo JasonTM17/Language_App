@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { AudioPlayer } from '@/components/ui/audio-player';
 import { Celebration } from '@/components/ui/celebration';
 import { XpPopup } from '@/components/ui/xp-popup';
+import { Headphones } from 'lucide-react';
 import type { SupportedLanguage } from '@/services/audio';
 
 interface ListeningExercise {
@@ -139,13 +141,18 @@ export default function ListeningPage() {
   if (isCompleted) {
     const percentage = Math.round((score.correct / score.total) * 100);
     return (
-      <div className="max-w-2xl mx-auto text-center py-16 space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-16 space-y-6"
+      >
         {percentage >= 80 && <Celebration type="stars" duration={3000} />}
-        <div className="text-6xl mb-2">
-          {percentage >= 90 ? '🏆' : percentage >= 70 ? '🎉' : '💪'}
+        <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg shadow-orange-500/20">
+          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" /></svg>
         </div>
         <h2 className="text-2xl font-bold">Hoàn thành!</h2>
-        <div className="inline-flex items-center gap-6 p-6 rounded-2xl bg-card border">
+        <div className="inline-flex items-center gap-6 p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
           <div className="text-center">
             <div className="text-3xl font-bold text-primary">{score.correct}/{score.total}</div>
             <div className="text-xs text-muted-foreground">Câu đúng</div>
@@ -162,22 +169,34 @@ export default function ListeningPage() {
            'Hãy nghe lại nhiều lần để cải thiện!'}
         </p>
         <Button onClick={resetExercises} size="lg">Làm lại</Button>
-      </div>
+      </motion.div>
     );
   }
 
   if (!currentExercise) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-16">
-        <div className="text-6xl mb-4">🎧</div>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-16"
+      >
+        <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20 mb-4">
+          <Headphones className="w-8 h-8 text-white" />
+        </div>
         <h3 className="text-lg font-semibold mb-2">Chưa có bài nghe</h3>
         <p className="text-muted-foreground">Chọn ngôn ngữ để bắt đầu luyện nghe.</p>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6 pb-8"
+    >
       {showCelebration && <Celebration type="sparkles" onComplete={() => setShowCelebration(false)} />}
       {showXp && <XpPopup amount={xpAmount} onComplete={() => setShowXp(false)} />}
 
@@ -228,7 +247,12 @@ export default function ListeningPage() {
       </div>
 
       {/* Audio player card */}
-      <div className="p-8 rounded-2xl bg-card border shadow-sm text-center space-y-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+        className="p-8 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center space-y-4"
+      >
         <p className="text-sm text-muted-foreground">{currentExercise.translation}</p>
 
         <div className="flex justify-center">
@@ -249,7 +273,7 @@ export default function ListeningPage() {
             {currentExercise.difficulty === 'hard' ? 'Khó' : currentExercise.difficulty === 'medium' ? 'Trung bình' : 'Dễ'}
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Options */}
       <div className="space-y-3">
@@ -310,6 +334,6 @@ export default function ListeningPage() {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

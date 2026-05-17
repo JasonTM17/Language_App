@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { EmptyState } from '@/components/ui/states';
+import { Bell, BellOff } from 'lucide-react';
 
 interface Notification {
   id: string;
@@ -26,11 +27,11 @@ const mockNotifications: Notification[] = [
 ];
 
 const typeColors = {
-  achievement: 'bg-yellow-50 dark:bg-yellow-900/10 border-yellow-100',
-  streak: 'bg-orange-50 dark:bg-orange-900/10 border-orange-100',
-  friend: 'bg-blue-50 dark:bg-blue-900/10 border-blue-100',
-  system: 'bg-purple-50 dark:bg-purple-900/10 border-purple-100',
-  reminder: 'bg-green-50 dark:bg-green-900/10 border-green-100',
+  achievement: 'bg-yellow-50/80 dark:bg-yellow-900/10 border-yellow-200/60 dark:border-yellow-700/40',
+  streak: 'bg-orange-50/80 dark:bg-orange-900/10 border-orange-200/60 dark:border-orange-700/40',
+  friend: 'bg-blue-50/80 dark:bg-blue-900/10 border-blue-200/60 dark:border-blue-700/40',
+  system: 'bg-purple-50/80 dark:bg-purple-900/10 border-purple-200/60 dark:border-purple-700/40',
+  reminder: 'bg-green-50/80 dark:bg-green-900/10 border-green-200/60 dark:border-green-700/40',
 };
 
 export default function NotificationsPage() {
@@ -49,7 +50,12 @@ export default function NotificationsPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6"
+    >
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold font-display">Thông báo</h1>
@@ -65,7 +71,12 @@ export default function NotificationsPage() {
       </div>
 
       {/* Filter */}
-      <div className="flex gap-2">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+        className="flex gap-2"
+      >
         <button
           onClick={() => setFilter('all')}
           className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
@@ -87,44 +98,59 @@ export default function NotificationsPage() {
             </span>
           )}
         </button>
-      </div>
+      </motion.div>
 
       {/* Notification list */}
       <div className="space-y-2">
-        {filtered.length === 0 ? (
-          <EmptyState
-            icon="🔔"
-            title="Không có thông báo nào"
-            description="Bạn đã đọc hết tất cả thông báo rồi!"
-          />
-        ) : (
-          filtered.map((notif) => (
-            <button
-              key={notif.id}
-              onClick={() => markRead(notif.id)}
-              className={`w-full text-left p-4 rounded-xl border transition-all ${
-                notif.read
-                  ? 'bg-card border'
-                  : `${typeColors[notif.type]} dark:border-gray-700`
-              }`}
+        <AnimatePresence mode="wait">
+          {filtered.length === 0 ? (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="flex flex-col items-center justify-center py-16 px-4"
             >
-              <div className="flex items-start gap-3">
-                <div className="text-2xl">{notif.icon}</div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className={`text-sm font-medium ${!notif.read ? '' : 'text-muted-foreground'}`}>
-                      {notif.title}
-                    </p>
-                    {!notif.read && <span className="w-2 h-2 rounded-full bg-primary" />}
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-0.5">{notif.message}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{notif.time}</p>
-                </div>
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center mb-4">
+                <BellOff className="w-8 h-8 text-purple-500" />
               </div>
-            </button>
-          ))
-        )}
+              <h3 className="text-lg font-semibold mb-1">Không có thông báo nào</h3>
+              <p className="text-sm text-muted-foreground">Bạn đã đọc hết tất cả thông báo rồi!</p>
+            </motion.div>
+          ) : (
+            <motion.div key="list" className="space-y-2">
+              {filtered.map((notif, index) => (
+                <motion.button
+                  key={notif.id}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: Math.min(index * 0.04, 0.4) }}
+                  onClick={() => markRead(notif.id)}
+                  className={`w-full text-left p-4 rounded-xl border transition-all hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20 ${
+                    notif.read
+                      ? 'bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5'
+                      : `${typeColors[notif.type]} backdrop-blur-sm`
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="text-2xl">{notif.icon}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <p className={`text-sm font-medium ${!notif.read ? '' : 'text-muted-foreground'}`}>
+                          {notif.title}
+                        </p>
+                        {!notif.read && <span className="w-2 h-2 rounded-full bg-primary" />}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">{notif.message}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{notif.time}</p>
+                    </div>
+                  </div>
+                </motion.button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 }

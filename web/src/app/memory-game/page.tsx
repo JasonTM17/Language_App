@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { PartyPopper } from 'lucide-react';
 
@@ -160,7 +161,12 @@ export default function MemoryGamePage() {
   if (gameComplete) {
     const stars = moves <= totalPairs + 2 ? 3 : moves <= totalPairs + 5 ? 2 : 1;
     return (
-      <div className="max-w-2xl mx-auto text-center py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto text-center py-16"
+      >
         <div className="flex justify-center mb-4">
           <PartyPopper className="w-12 h-12 text-green-500" />
         </div>
@@ -176,12 +182,17 @@ export default function MemoryGamePage() {
           <span>✅ {totalPairs} cặp</span>
         </div>
         <Button onClick={initGame}>Chơi lại</Button>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Trò chơi ghi nhớ</h1>
         <p className="text-muted-foreground mt-1">Lật thẻ và nối từ với nghĩa</p>
@@ -189,9 +200,12 @@ export default function MemoryGamePage() {
 
       {/* Language selector */}
       <div className="flex gap-2 flex-wrap">
-        {languages.map((lang) => (
-          <button
+        {languages.map((lang, index) => (
+          <motion.button
             key={lang.code}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: Math.min(index * 0.05, 0.3) }}
             onClick={() => setSelectedLang(lang.code)}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 transition-all ${
               selectedLang === lang.code
@@ -201,7 +215,7 @@ export default function MemoryGamePage() {
           >
             <span>{lang.flag}</span>
             <span className="text-sm font-medium">{lang.name}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
 
@@ -214,9 +228,12 @@ export default function MemoryGamePage() {
 
       {/* Card grid */}
       <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
-        {cards.map((card) => (
-          <button
+        {cards.map((card, index) => (
+          <motion.button
             key={card.id}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: Math.min(index * 0.03, 0.3) }}
             onClick={() => handleCardClick(card.id)}
             disabled={card.flipped || card.matched}
             className={`aspect-square rounded-xl border-2 flex items-center justify-center p-2 text-center transition-all ${
@@ -224,7 +241,7 @@ export default function MemoryGamePage() {
                 ? 'border-green-300 bg-green-50 dark:bg-green-900/10'
                 : card.flipped
                   ? 'border-primary-400 bg-primary/5'
-                  : 'border-border bg-card hover:border-primary-200 hover:scale-105'
+                  : 'border-border bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 backdrop-blur-sm hover:border-primary-200 hover:scale-105'
             }`}
           >
             {card.flipped || card.matched ? (
@@ -234,13 +251,13 @@ export default function MemoryGamePage() {
             ) : (
               <span className="text-2xl text-gray-300">?</span>
             )}
-          </button>
+          </motion.button>
         ))}
       </div>
 
       <div className="text-center">
         <Button variant="outline" size="sm" onClick={initGame}>Chơi lại</Button>
       </div>
-    </div>
+    </motion.div>
   );
 }

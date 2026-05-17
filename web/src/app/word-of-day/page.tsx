@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
 interface WordOfDay {
@@ -130,14 +131,24 @@ export default function WordOfDayPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 pb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl mx-auto space-y-6 pb-8"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Từ mỗi ngày</h1>
         <p className="text-muted-foreground text-sm mt-0.5">Mỗi ngày một từ mới, mở rộng vốn từ</p>
       </div>
 
       {/* Word card */}
-      <div className="p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/20">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.1 }}
+        className="p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 border-2 border-primary/20"
+      >
         <div className="flex items-center justify-between mb-4">
           <span className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{word.flag}</span>
@@ -163,10 +174,15 @@ export default function WordOfDayPage() {
           </button>
           <p className="text-xl text-primary font-medium mt-4">{word.meaning}</p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Example */}
-      <div className="p-5 rounded-xl bg-card border">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="p-5 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+      >
         <p className="text-xs text-muted-foreground font-medium mb-2">Ví dụ:</p>
         <p className="text-lg font-medium">{word.example}</p>
         <p className="text-sm text-muted-foreground mt-1">{word.exampleMeaning}</p>
@@ -176,13 +192,18 @@ export default function WordOfDayPage() {
         >
           🔊 Nghe ví dụ
         </button>
-      </div>
+      </motion.div>
 
       {/* Fun fact */}
-      <div className="p-4 rounded-xl bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="p-4 rounded-xl bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30"
+      >
         <p className="text-xs font-medium text-yellow-700 dark:text-yellow-400 mb-1">💡 Bạn có biết?</p>
         <p className="text-sm text-foreground/80">{word.funFact}</p>
-      </div>
+      </motion.div>
 
       {/* Navigation */}
       <div className="flex items-center justify-between">
@@ -215,6 +236,6 @@ export default function WordOfDayPage() {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

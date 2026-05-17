@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CultureNote {
   id: string;
@@ -193,7 +194,7 @@ export default function CulturePage() {
   const notes = cultureNotes[selectedLang] || [];
 
   return (
-    <div className="space-y-8">
+    <motion.div className="space-y-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Văn hóa & Phong tục</h1>
         <p className="text-muted-foreground mt-1">Hiểu văn hóa để giao tiếp tự nhiên hơn</p>
@@ -217,8 +218,8 @@ export default function CulturePage() {
       </div>
 
       <div className="space-y-4">
-        {notes.map((note) => (
-          <div key={note.id} className="rounded-2xl bg-card border border overflow-hidden">
+        {notes.map((note, index) => (
+          <motion.div key={note.id} className="rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 overflow-hidden" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}>
             <button
               onClick={() => setExpandedId(expandedId === note.id ? null : note.id)}
               className="w-full p-5 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
@@ -275,9 +276,9 @@ export default function CulturePage() {
                 )}
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }

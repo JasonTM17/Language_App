@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { api } from '@/services/api';
 
 interface ForecastData {
@@ -41,7 +42,7 @@ export default function ReviewPage() {
   const maxCards = Math.max(...Object.values(forecast), 1);
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-display">Ôn tập</h1>
         <p className="text-muted-foreground mt-1">Lịch ôn tập theo thuật toán lặp lại ngắt quãng</p>
@@ -64,7 +65,7 @@ export default function ReviewPage() {
       </div>
 
       {/* Progress bar */}
-      <div className="p-4 rounded-xl bg-card border border">
+      <div className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <div className="flex justify-between text-sm mb-2">
           <span className="text-muted-foreground">Tiến độ ghi nhớ</span>
           <span className="font-medium">{data?.totalCards ? Math.round((data.masteredCards / data.totalCards) * 100) : 0}%</span>
@@ -78,7 +79,7 @@ export default function ReviewPage() {
       </div>
 
       {/* 7-day forecast */}
-      <div className="p-5 rounded-2xl bg-card border border">
+      <div className="p-5 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         <h2 className="font-semibold mb-4">Dự báo 7 ngày tới</h2>
         <div className="flex items-end justify-between gap-2 h-40">
           {Object.entries(forecast).map(([date, count]) => {
@@ -117,7 +118,7 @@ export default function ReviewPage() {
           <li>• Kết hợp ôn tập với việc sử dụng từ trong câu thực tế</li>
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

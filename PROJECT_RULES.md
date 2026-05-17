@@ -5,7 +5,7 @@
 
 ## 1. Git & Contributor
 
-- Author: `Nguyễn Sơn <sonnguyenhoang17@gmail.com>` — KHÔNG ngoại lệ
+- Author: `Nguyễn Sơn <jasonbmt06@gmail.com>` — KHÔNG ngoại lệ
 - KHÔNG Co-Authored-By, KHÔNG AI attribution, KHÔNG "LinguaFlow Team"
 - Commit convention: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`, `perf:`
 - Commit message: tiếng Anh, ngắn gọn, mô tả WHY
@@ -259,36 +259,65 @@ docs/
 5. **GIF**: max 15 giây, loop, chất lượng tốt (không blur)
 6. **Screenshots**: có data thật, KHÔNG trống, KHÔNG placeholder
 7. **Playwright script** để tự động chụp (consistent mỗi lần update)
+8. **KHÔNG ĐƯỢC chụp trang loading** — phải đợi content render xong
+9. **KHÔNG ĐƯỢC chụp trang 404/error** — nếu gặp phải tự fix route/data trước khi chụp
+10. **Tự kiểm tra**: Sau khi chụp, verify ảnh có data thật (không skeleton, không spinner, không blank)
 
 #### Playwright screenshot script mẫu:
 ```typescript
 // e2e/screenshots.spec.ts
-import { test } from '@playwright/test';
+import { test, Page } from '@playwright/test';
 
 const pages = [
-  { path: '/', name: 'dashboard', title: 'Dashboard' },
-  { path: '/vocabulary', name: 'vocabulary', title: 'Vocabulary' },
-  { path: '/quiz', name: 'quiz', title: 'Quiz' },
+  { path: '/', name: 'dashboard', title: 'Dashboard', selector: 'h1' },
+  { path: '/vocabulary', name: 'vocabulary', title: 'Vocabulary', selector: 'h1' },
+  { path: '/quiz', name: 'quiz', title: 'Quiz', selector: 'h1' },
 ];
 
+async function waitForContent(page: Page) {
+  await page.waitForLoadState('domcontentloaded');
+  // Wait for loading skeletons to disappear
+  await page.waitForFunction(() => {
+    const skeletons = document.querySelectorAll('[class*="animate-pulse"]');
+    return skeletons.length === 0;
+  }, { timeout: 10000 }).catch(() => {});
+  await page.waitForTimeout(500);
+}
+
 test.describe('Screenshots', () => {
-  for (const page of pages) {
-    test(`capture ${page.title} - desktop`, async ({ page: p }) => {
-      await p.setViewportSize({ width: 1280, height: 720 });
-      await p.goto(page.path);
-      await p.waitForLoadState('networkidle');
-      await p.screenshot({ 
-        path: `docs/screenshots/desktop-${page.name}.png`,
+  for (const p of pages) {
+    test(`capture ${p.title} - desktop`, async ({ page: pg }) => {
+      await pg.setViewportSize({ width: 1280, height: 720 });
+      const response = await pg.goto(p.path, { waitUntil: 'domcontentloaded' });
+      // Skip if 404/error
+      if (response && response.status() >= 400) {
+        test.skip(true, `${p.path} returned ${response.status()}`);
+        return;
+      }
+      await waitForContent(pg);
+      // Verify no 404 content
+      const is404 = await pg.locator('text=404').count();
+      if (is404 > 0) { test.skip(true, '404 page'); return; }
+      await pg.locator(p.selector).first().waitFor({ state: 'visible', timeout: 8000 }).catch(() => {});
+      await pg.screenshot({ 
+        path: `docs/screenshots/desktop-${p.name}.png`,
         fullPage: false 
       });
     });
 
-    test(`capture ${page.title} - mobile`, async ({ page: p }) => {
-      await p.setViewportSize({ width: 390, height: 844 });
-      await p.goto(page.path);
-      await p.waitForLoadState('networkidle');
-      await p.screenshot({ 
-        path: `docs/screenshots/mobile-${page.name}.png`,
+    test(`capture ${p.title} - mobile`, async ({ page: pg }) => {
+      await pg.setViewportSize({ width: 390, height: 844 });
+      const response = await pg.goto(p.path, { waitUntil: 'domcontentloaded' });
+      if (response && response.status() >= 400) {
+        test.skip(true, `${p.path} returned ${response.status()}`);
+        return;
+      }
+      await waitForContent(pg);
+      const is404 = await pg.locator('text=404').count();
+      if (is404 > 0) { test.skip(true, '404 page'); return; }
+      await pg.locator(p.selector).first().waitFor({ state: 'visible', timeout: 8000 }).catch(() => {});
+      await pg.screenshot({ 
+        path: `docs/screenshots/mobile-${p.name}.png`,
         fullPage: false 
       });
     });
@@ -811,7 +840,7 @@ web/e2e/
   "version": "1.0.0",
   "private": true,
   "description": "One-line description",
-  "author": "Nguyễn Sơn <sonnguyenhoang17@gmail.com>",
+  "author": "Nguyễn Sơn <jasonbmt06@gmail.com>",
   "license": "MIT",
   "repository": { "type": "git", "url": "https://github.com/JasonTM17/..." },
   "engines": { "node": ">=20.0.0", "npm": ">=10.0.0" },
@@ -956,3 +985,322 @@ web/e2e/
 □ No TypeScript errors
 □ Prettier formatted
 ```
+
+---
+
+## 17. Docker BẮT BUỘC cho mọi dự án
+
+> **Mọi dự án PHẢI sử dụng Docker** để đảm bảo tính chuyên nghiệp, reproducibility, và deployment consistency.
+> Docker không phải optional — đây là yêu cầu cơ bản.
+
+### Mức độ containerization:
+
+| Level | Yêu cầu | Khi nào |
+|-------|----------|---------|
+| **Basic** (BẮT BUỘC) | Dockerfile cho mỗi service + docker-compose.yml | Mọi dự án |
+| **Intermediate** | Multi-stage builds, health checks, volumes, networks | Dự án có 2+ services |
+| **Advanced** | Kubernetes (K8s), Helm charts, service mesh | Production scale, high availability |
+| **Enterprise** | K8s + Istio/Linkerd + ArgoCD + Prometheus/Grafana | Large-scale, multi-team |
+
+### Basic (BẮT BUỘC cho TẤT CẢ dự án):
+- `api/Dockerfile` — Multi-stage build, production-optimized
+- `web/Dockerfile` — Multi-stage build, standalone output
+- `docker-compose.yml` — Orchestrate toàn bộ stack
+- `.dockerignore` — Exclude node_modules, .git, .env
+- Docker Hub images pushed cho mọi service
+
+### Intermediate (khuyến khích):
+- `docker-compose.dev.yml` — Dev overrides (hot reload, debug ports)
+- Health checks cho mọi service
+- Named volumes cho persistent data
+- Custom networks cho service isolation
+- Build caching optimization
+
+### Advanced (khi yêu cầu cao hơn):
+- **Kubernetes**: Deployment, Service, Ingress manifests
+- **Helm Charts**: Parameterized deployments
+- **CI/CD**: Auto-build + push images on tag
+- **Registry**: Docker Hub hoặc GitHub Container Registry (ghcr.io)
+
+### Enterprise (production-grade):
+- **Orchestration**: Kubernetes (EKS/GKE/AKS)
+- **Service Mesh**: Istio hoặc Linkerd (mTLS, traffic management)
+- **GitOps**: ArgoCD hoặc Flux (declarative deployments)
+- **Monitoring**: Prometheus + Grafana + Loki
+- **Secrets**: HashiCorp Vault hoặc K8s Secrets (encrypted)
+- **Scaling**: HPA (Horizontal Pod Autoscaler)
+- **Ingress**: Nginx Ingress Controller hoặc Traefik
+
+### Kubernetes manifest mẫu (khi cần):
+```yaml
+# k8s/api-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app: linguaflow-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: linguaflow-api
+  template:
+    metadata:
+      labels:
+        app: linguaflow-api
+    spec:
+      containers:
+        - name: api
+          image: nguyenson1710/linguaflow-api:latest
+          ports:
+            - containerPort: 3001
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: database-url
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3001
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  selector:
+    app: linguaflow-api
+  ports:
+    - port: 80
+      targetPort: 3001
+  type: ClusterIP
+```
+
+### Quy tắc Docker:
+1. **Mọi dự án PHẢI có Docker** — không ngoại lệ, kể cả dự án nhỏ
+2. **Multi-stage builds** — giảm image size, tách build/runtime
+3. **Alpine base** — `node:20-alpine` (không dùng full image)
+4. **Non-root user** — security best practice
+5. **.dockerignore** — exclude node_modules, .git, .env, coverage, logs
+6. **Docker Hub push** — mọi service phải có image trên Docker Hub
+7. **Version tags** — `v1.0.0` + `latest`
+8. **K8s khi cần scale** — 3+ replicas, auto-scaling, zero-downtime deploy
+
+---
+
+## 18. UI/UX Testing BẮT BUỘC cho mọi trang
+
+> **Mọi trang trong dự án PHẢI được test đầy đủ UI/UX** trước khi ship.
+> Không có trang nào được bỏ qua — kể cả trang admin, settings, hay trang phụ.
+
+### Checklist test cho TỪNG trang:
+
+| Hạng mục | Yêu cầu | Tool/Cách test |
+|----------|----------|----------------|
+| **Responsive** | Mobile (390px), Tablet (768px), Desktop (1280px) | Chrome DevTools, Playwright viewports |
+| **Content** | Không trống, có data thật hoặc fallback | Visual check + E2E assertions |
+| **Dark mode** | Tất cả elements hiển thị đúng cả light/dark | Toggle theme, check contrast |
+| **Animations** | Smooth, không giật, không flash | 60fps check, reduce-motion support |
+| **Interactions** | Buttons, links, forms hoạt động đúng | Click test, form submit |
+| **Loading states** | Skeleton/spinner khi fetch data | Throttle network, check UX |
+| **Error states** | Hiển thị thông báo lỗi hợp lý | Mock API errors |
+| **Empty states** | Có illustration + message khi không có data | Clear data, check UI |
+| **Accessibility** | ARIA labels, keyboard nav, focus visible | axe-core, tab navigation |
+| **Typography** | Font size readable, line-height thoải mái | Visual check mobile/desktop |
+| **Spacing** | Consistent padding/margin, không bị overlap | Visual check all breakpoints |
+| **Images/Icons** | Load đúng, có alt text, không bị vỡ | Network tab, accessibility audit |
+
+### Quy trình test:
+1. **Dùng Claude Team** (parallel agents) để test nhiều trang cùng lúc
+2. Mỗi agent test 5-10 trang, report issues
+3. Fix issues → re-test → confirm pass
+4. Chỉ ship khi 100% trang pass checklist
+
+### Playwright E2E test mẫu cho responsive:
+```typescript
+const viewports = [
+  { name: 'mobile', width: 390, height: 844 },
+  { name: 'tablet', width: 768, height: 1024 },
+  { name: 'desktop', width: 1280, height: 720 },
+];
+
+for (const vp of viewports) {
+  test(`${pageName} - ${vp.name} responsive`, async ({ page }) => {
+    await page.setViewportSize({ width: vp.width, height: vp.height });
+    await page.goto(path);
+    // No horizontal overflow
+    const bodyWidth = await page.evaluate(() => document.body.scrollWidth);
+    expect(bodyWidth).toBeLessThanOrEqual(vp.width);
+    // Content visible
+    await expect(page.locator('h1').first()).toBeVisible();
+    // No broken images
+    const images = await page.locator('img').all();
+    for (const img of images) {
+      const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
+      expect(naturalWidth).toBeGreaterThan(0);
+    }
+  });
+}
+```
+
+### Quy tắc:
+1. **KHÔNG ship trang chưa test** — mọi page phải pass responsive + content + dark mode
+2. **Test trên 3 breakpoints** — mobile, tablet, desktop (BẮT BUỘC)
+3. **Test cả light và dark mode** — không được bỏ qua
+4. **Dùng Claude Team** để test song song cho nhanh
+5. **Mỗi trang phải có fallback data** — không được trống khi API down
+6. **Screenshot sau khi test pass** — lưu vào docs/screenshots/
+7. **Re-test sau mỗi lần sửa** — không assume fix đúng mà không verify
+
+---
+
+## 19. API & Backend Testing BẮT BUỘC
+
+> **Toàn bộ API endpoints PHẢI được test đầy đủ** — unit test, integration test, load test, và security test.
+> Không có endpoint nào được bỏ qua.
+
+### Test coverage yêu cầu:
+
+| Loại test | Coverage | Tool | Khi nào chạy |
+|-----------|----------|------|--------------|
+| **Unit test** | 80%+ functions | Vitest | Mỗi commit |
+| **Integration test** | 100% endpoints | Supertest + Vitest | Mỗi PR |
+| **Load test** | Rate limit + throughput | Artillery/k6 | Trước release |
+| **Security test** | OWASP Top 10 | Manual + automated | Trước release |
+
+### Checklist test cho TỪNG endpoint:
+
+| Hạng mục | Test cases |
+|----------|-----------|
+| **Happy path** | Request hợp lệ → response đúng format + status code |
+| **Validation** | Request thiếu field, sai type → 400 + error message |
+| **Authentication** | Không có token → 401, token hết hạn → 401 |
+| **Authorization** | User access resource của người khác → 403 |
+| **Rate limiting** | Vượt limit → 429 + retry-after header |
+| **Error handling** | Server error → 500 + generic message (không leak stack trace) |
+| **Pagination** | page/limit params, response có totalPages, hasNext |
+| **Edge cases** | Empty results, max values, special characters, SQL injection attempts |
+
+### Rate limiting test:
+```typescript
+describe('Rate Limiting', () => {
+  it('should return 429 after exceeding limit', async () => {
+    const requests = Array.from({ length: 101 }, () =>
+      request(app).get('/api/vocabulary')
+        .set('Authorization', `Bearer ${token}`)
+    );
+    const responses = await Promise.all(requests);
+    const tooMany = responses.filter(r => r.status === 429);
+    expect(tooMany.length).toBeGreaterThan(0);
+  });
+
+  it('should have stricter limit on auth endpoints', async () => {
+    const requests = Array.from({ length: 11 }, () =>
+      request(app).post('/api/auth/login')
+        .send({ email: 'test@test.com', password: 'wrong' })
+    );
+    const responses = await Promise.all(requests);
+    const tooMany = responses.filter(r => r.status === 429);
+    expect(tooMany.length).toBeGreaterThan(0);
+  });
+});
+```
+
+### Load test config (Artillery):
+```yaml
+# artillery.yml
+config:
+  target: "http://localhost:3001"
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      name: "Warm up"
+    - duration: 60
+      arrivalRate: 50
+      name: "Sustained load"
+    - duration: 30
+      arrivalRate: 100
+      name: "Peak load"
+  defaults:
+    headers:
+      Authorization: "Bearer {{token}}"
+
+scenarios:
+  - name: "Browse vocabulary"
+    flow:
+      - get:
+          url: "/api/vocabulary?page=1&limit=20"
+      - think: 2
+      - get:
+          url: "/api/vocabulary?page=2&limit=20"
+  - name: "Quiz flow"
+    flow:
+      - get:
+          url: "/api/quiz/start?language=en&level=beginner"
+      - think: 5
+      - post:
+          url: "/api/quiz/submit"
+          json:
+            answers: [1, 2, 3, 4, 5]
+```
+
+### Nghiệp vụ (Business Logic) test:
+```typescript
+describe('Spaced Repetition Logic', () => {
+  it('should increase interval on correct answer', async () => {
+    // First review
+    const res1 = await request(app)
+      .post('/api/vocabulary/vocab-1/review')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ quality: 4 });
+    expect(res1.body.interval).toBe(1);
+
+    // Second review
+    const res2 = await request(app)
+      .post('/api/vocabulary/vocab-1/review')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ quality: 4 });
+    expect(res2.body.interval).toBe(6);
+  });
+
+  it('should reset interval on incorrect answer', async () => {
+    const res = await request(app)
+      .post('/api/vocabulary/vocab-1/review')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ quality: 1 });
+    expect(res.body.interval).toBe(1);
+  });
+});
+
+describe('Gamification Logic', () => {
+  it('should award XP on lesson completion', async () => {});
+  it('should increment streak on daily activity', async () => {});
+  it('should break streak after 24h inactivity', async () => {});
+  it('should award bonus XP for perfect quiz', async () => {});
+  it('should update leaderboard rankings', async () => {});
+});
+```
+
+### Quy tắc:
+1. **100% endpoints có integration test** — không ngoại lệ
+2. **Mọi validation rule phải có test case** — positive + negative
+3. **Rate limiting PHẢI test** — verify 429 response
+4. **Business logic test riêng** — spaced repetition, XP, streak, leaderboard
+5. **Load test trước release** — verify app chịu được 100 concurrent users
+6. **Security test** — SQL injection, XSS, auth bypass, IDOR
+7. **Test data isolation** — mỗi test suite dùng DB riêng hoặc transaction rollback
+8. **CI chạy tests** — PR không merge nếu test fail
+9. **Response time** — p95 < 500ms cho mọi endpoint
+10. **Error messages** — không leak internal info (stack trace, DB schema)

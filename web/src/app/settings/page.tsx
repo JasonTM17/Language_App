@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { useAuthStore } from '@/lib/store';
 
@@ -18,15 +19,27 @@ export default function SettingsPage() {
     setTimeout(() => setSaved(false), 2000);
   };
 
+  const sectionClass = "p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 hover:shadow-md hover:shadow-purple-500/5 hover:border-primary/20 transition-all";
+
   return (
-    <div className="space-y-8 max-w-2xl">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="space-y-8 max-w-2xl"
+    >
       <div>
         <h1 className="text-2xl font-bold font-display">Cài đặt</h1>
         <p className="text-muted-foreground mt-1">Tùy chỉnh trải nghiệm học tập của bạn</p>
       </div>
 
       {/* Appearance */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <motion.div
+        initial={{ opacity: 0, x: -12 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.04 }}
+        className={sectionClass}
+      >
         <h2 className="font-semibold text-lg mb-4">Giao diện</h2>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -46,10 +59,15 @@ export default function SettingsPage() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Study Settings */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <motion.div
+        initial={{ opacity: 0, x: -12 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.08 }}
+        className={sectionClass}
+      >
         <h2 className="font-semibold text-lg mb-4">Học tập</h2>
         <div className="space-y-6">
           <div>
@@ -89,10 +107,15 @@ export default function SettingsPage() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Notifications */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <motion.div
+        initial={{ opacity: 0, x: -12 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.12 }}
+        className={sectionClass}
+      >
         <h2 className="font-semibold text-lg mb-4">Thông báo</h2>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -113,21 +136,30 @@ export default function SettingsPage() {
           </div>
 
           {notifications && (
-            <div>
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+            >
               <p className="font-medium text-sm mb-2">Giờ nhắc nhở</p>
               <input
                 type="time"
                 value={reminderTime}
                 onChange={(e) => setReminderTime(e.target.value)}
-                className="px-4 py-2 rounded-xl border border-border bg-card text-sm"
+                className="px-4 py-2 rounded-xl border border-border/60 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 backdrop-blur-sm text-sm"
               />
-            </div>
+            </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {/* Account */}
-      <div className="p-6 rounded-2xl bg-card border border">
+      <motion.div
+        initial={{ opacity: 0, x: -12 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.16 }}
+        className={sectionClass}
+      >
         <h2 className="font-semibold text-lg mb-4">Tài khoản</h2>
         <div className="space-y-3">
           <div className="flex justify-between items-center py-2">
@@ -143,15 +175,19 @@ export default function SettingsPage() {
             <span className="text-sm font-medium">Level {user?.level || 1}</span>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Save button */}
-      <button
+      <motion.button
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        whileTap={{ scale: 0.98 }}
         onClick={handleSave}
         className="w-full py-3 rounded-xl bg-primary hover:bg-primary-600 text-white font-medium transition-colors"
       >
         {saved ? '✓ Đã lưu!' : 'Lưu cài đặt'}
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 }

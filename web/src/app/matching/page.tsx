@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link2, PartyPopper } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface MatchPair {
   word: string;
@@ -346,7 +347,7 @@ export default function MatchingPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <motion.div className="max-w-2xl mx-auto space-y-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
         <h1 className="text-2xl font-bold font-display">Ghép từ</h1>
         <p className="text-muted-foreground mt-1">Ghép từ với nghĩa tương ứng</p>
@@ -380,7 +381,7 @@ export default function MatchingPage() {
       </div>
 
       {/* Matching grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">
         {/* Words column */}
         <div className="space-y-2">
           <p className="text-xs font-medium text-muted-foreground uppercase mb-2">Từ vựng</p>
@@ -443,6 +444,6 @@ export default function MatchingPage() {
       <p className="text-center text-xs text-muted-foreground">
         Chọn một từ bên trái, sau đó chọn nghĩa tương ứng bên phải
       </p>
-    </div>
+    </motion.div>
   );
 }
