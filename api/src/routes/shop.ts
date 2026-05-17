@@ -129,7 +129,7 @@ router.post('/purchase', authenticate, async (req: AuthRequest, res: Response) =
       });
     }
 
-    let updateData: Record<string, any> = { gems: user.gems - totalCost };
+    const updateData: Record<string, any> = { gems: user.gems - totalCost };
 
     switch (item.effect) {
       case 'refill_hearts':

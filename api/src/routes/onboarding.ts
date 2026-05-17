@@ -61,8 +61,8 @@ const PLACEMENT_TESTS: Record<string, PlacementQuestion[]> = {
 
 function determinePlacementLevel(language: string, answers: { questionId: string; answer: string }[]): string {
   const questions = PLACEMENT_TESTS[language] || [];
-  let correctByLevel: Record<string, number> = { beginner: 0, elementary: 0, intermediate: 0, advanced: 0 };
-  let totalByLevel: Record<string, number> = { beginner: 0, elementary: 0, intermediate: 0, advanced: 0 };
+  const correctByLevel: Record<string, number> = { beginner: 0, elementary: 0, intermediate: 0, advanced: 0 };
+  const totalByLevel: Record<string, number> = { beginner: 0, elementary: 0, intermediate: 0, advanced: 0 };
 
   for (const ans of answers) {
     const q = questions.find(qq => qq.id === ans.questionId);
