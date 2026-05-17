@@ -19,6 +19,10 @@
 </p>
 
 <p align="center">
+  <a href="docs/README.en.md">English</a> | Tiếng Việt
+</p>
+
+<p align="center">
   <a href="https://github.com/JasonTM17/Language_App/actions/workflows/ci.yml"><img src="https://github.com/JasonTM17/Language_App/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://github.com/JasonTM17/Language_App/actions/workflows/codeql.yml"><img src="https://github.com/JasonTM17/Language_App/actions/workflows/codeql.yml/badge.svg" alt="CodeQL" /></a>
   <img src="https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white" alt="Node.js" />

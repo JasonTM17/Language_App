@@ -1,0 +1,33 @@
+# Build artifacts
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+
+# Generated files
+*.tsbuildinfo
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Database
+*.db
+prisma/migrations/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+.video-tmp/
+
+# Static assets (don't format binary or generated SVG)
+docs/screenshots/
+docs/gifs/
+web/public/*.svg
