@@ -67,7 +67,6 @@ router.get('/today', authenticate, async (req, res) => {
         case 'vocabulary': current = vocabReviewed; break;
         case 'quiz': case 'perfect_quiz': current = quizzesCompleted; break;
         case 'streak': current = (user?.streak || 0) > 0 ? 1 : 0; break;
-        default: current = 0;
       }
 
       return {

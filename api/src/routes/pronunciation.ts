@@ -116,7 +116,7 @@ function analyzePhonemes(exercise: PronunciationExercise, lang: string, clientPh
   if (clientPhonemes && clientPhonemes.length > 0) {
     return clientPhonemes.map(p => {
       const mistakeInfo = vietnameseLearnerMistakes[lang]?.find(m => p.phoneme.includes(m.pattern));
-      let feedback = '';
+      let feedback: string;
       if (p.score >= 90) feedback = 'Xuất sắc!';
       else if (p.score >= 70) feedback = 'Khá tốt.';
       else if (p.score >= 50) feedback = mistakeInfo?.tip || 'Cần luyện thêm.';
