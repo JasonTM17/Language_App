@@ -12,7 +12,11 @@ export const metadata: Metadata = {
   title: 'LinguaFlow - Learn Languages Naturally',
   description: 'Modern language learning platform for Vietnamese students. Learn English, Japanese, Chinese, and Korean with AI-powered tutoring.',
   keywords: ['language learning', 'English', 'Japanese', 'Chinese', 'Korean', 'AI tutor', 'Vietnamese students'],
-  metadataBase: new URL('https://linguaflow.app'),
+  metadataBase: new URL('https://web-vert-phi-72.vercel.app'),
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/icon-192.svg',
+  },
   openGraph: {
     title: 'LinguaFlow - Learn Languages Naturally',
     description: 'Learn English, Japanese, Chinese, and Korean with AI-powered tutoring and smart flashcards.',
