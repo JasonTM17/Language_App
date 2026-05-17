@@ -140,8 +140,8 @@ export default function PronunciationPage() {
   return (
     <motion.div className="max-w-2xl mx-auto space-y-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       <div>
-        <h1 className="text-2xl font-bold font-display">Pronunciation Practice</h1>
-        <p className="text-muted-foreground mt-1">Improve your speaking skills with real-time feedback</p>
+        <h1 className="text-2xl font-bold font-display">Luyện phát âm</h1>
+        <p className="text-muted-foreground mt-1">Cải thiện kỹ năng nói với phản hồi thời gian thực</p>
       </div>
 
       <div className="p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5">

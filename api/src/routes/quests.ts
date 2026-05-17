@@ -36,7 +36,7 @@ function getDailyQuests(userId: string, date: Date): typeof QUEST_TEMPLATES {
 
 router.get('/today', authenticate, async (req, res) => {
   try {
-    const userId = (req as any).user.id;
+    const userId = (req as any).userId;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -58,13 +58,15 @@ router.get('/today', authenticate, async (req, res) => {
       }),
     ]);
 
+    const user = await prisma.user.findUnique({ where: { id: userId }, select: { streak: true } });
+
     const questsWithProgress = quests.map((quest) => {
       let current = 0;
       switch (quest.type) {
         case 'lessons': current = lessonsCompleted; break;
         case 'vocabulary': current = vocabReviewed; break;
         case 'quiz': case 'perfect_quiz': current = quizzesCompleted; break;
-        case 'streak': current = (req as any).user.streak > 0 ? 1 : 0; break;
+        case 'streak': current = (user?.streak || 0) > 0 ? 1 : 0; break;
         default: current = 0;
       }
 
