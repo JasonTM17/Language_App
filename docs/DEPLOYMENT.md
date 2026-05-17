@@ -6,8 +6,10 @@ Tài liệu hướng dẫn triển khai LinguaFlow lên các môi trường:
 |------------|----------|--------------|
 | Web (production) | Vercel | https://web-vert-phi-72.vercel.app |
 | API (production) | Render Node.js | https://linguaflow-api-ujjo.onrender.com |
-| Container | Docker Hub | `nguyenson1710/linguaflow-api`, `nguyenson1710/linguaflow-web` |
+| Container | Docker Hub + GHCR | `nguyenson1710/linguaflow-{api,web}`, `ghcr.io/jasontm17/linguaflow-{api,web}` |
 | CI/CD | GitHub Actions | [.github/workflows](../.github/workflows) |
+
+> **Khuyến nghị từ v1.1.0+**: Ưu tiên deploy **Vercel cho cả frontend và backend (Vercel Functions/Edge)** vì Render free tier cold-start chậm 30-60s và occasional timeout. Render chỉ phù hợp khi cần persistent disk cho SQLite. Production thực sự nên dùng PostgreSQL managed + Vercel/Railway/Fly.io thay vì Render free tier.
 
 ---
 

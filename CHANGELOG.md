@@ -6,7 +6,65 @@ Tài liệu này ghi lại mọi thay đổi đáng chú ý của LinguaFlow.
 
 ## [Unreleased]
 
-Chưa có thay đổi chờ phát hành.
+### Added
+| Hạng mục | Mô tả |
+|----------|-------|
+| Logo system | 5 SVG mới (favicon, icon-192, icon-512, logo-mark, logo-wordmark) với speech bubble + L-wave + 4 language badges (A/あ/中/한) |
+| GIF demos | 4 demo GIFs trong `docs/gifs/` (full-flow, quiz-interaction, dark-toggle, vocabulary-flashcard) record bằng Playwright + ffmpeg |
+| EmptyState component | Reusable `web/src/components/ui/empty-state.tsx` với CTA buttons cho vocabulary/weak-words/flashcards/bookmarks |
+| Auth-guard hydration fix | `hasHydrated` flag trong Zustand persist + onRehydrateStorage callback |
+| UI audit script | `web/scripts/audit-ui.ts` quét 50 pages × 2 viewports với severity P0/P1/P2 |
+| Screenshots script | `web/scripts/take-screenshots.ts` với addInitScript inject auth state |
+| GIF recording script | `web/scripts/record-gifs.ts` với palettegen 2-pass cho chất lượng cao |
+| docs/REVIEW_EVIDENCE.md | Reviewer evidence pack (251 dòng) — verifiable links cho mọi production claim |
+| docs/HONEST_SCOPE.md | Đây là gì / không phải gì, trade-offs, limitations (162 dòng) |
+| docs/container-images.md | Docker images, tags, env vars, healthchecks, security verify (297 dòng) |
+| docs/ARCHITECTURE.md | System architecture với mermaid diagrams (320 dòng) |
+| docs/UI_GUIDELINES.md | Design tokens, components, dark mode, a11y, responsive (303 dòng) |
+| docs/DEPLOYMENT.md | Vercel + Render + Docker + CI/CD setup (322 dòng) |
+| docs/TESTING.md | Test strategy, 16 test suites, Vitest + Playwright (257 dòng) |
+| docs/RELEASE_NOTES_v1.1.0.md | Public-facing release notes (158 dòng) |
+| docs/UI_AUDIT_REPORT.md | UI audit report — P0=0, P1=0, P2=0 |
+| docs/README.en.md | English README với bilingual switcher |
+| GHCR registry | Push images lên `ghcr.io/jasontm17/linguaflow-{api,web}` (public) qua workflow CD |
+| OCI labels | Docker images có `org.opencontainers.image.source/description/licenses` |
+| .prettierignore | Bỏ qua node_modules, screenshots, gifs, SVGs khỏi format |
+
+### Changed
+| Hạng mục | Mô tả |
+|----------|-------|
+| Sidebar | Group 47 nav items thành 5 sections (Tổng quan, Học tập, Luyện tập, Gamification, Xã hội) với overflow-y-auto, mobile drawer auto-close |
+| Activity chart | Empty days hiển thị soft gray bars thay vì để trống |
+| Docker Hub namespace | Đổi từ `jasontm17/...` → `nguyenson1710/linguaflow-{api,web}` (đúng namespace) |
+| package.json version | Sync root từ 1.0.0 → 1.1.0 (đồng bộ với api/web) |
+| GitHub About | Tiếng Việt CÓ DẤU đầy đủ (trước là "Nen tang hoc ngon ngu" không dấu) |
+| README | Thêm reviewer brief table, demo GIFs section, doc index, bilingual switcher EN/VI, logo-mark.svg |
+| Vitest | Upgrade lên latest (4.x) — fix 4 moderate CVEs từ vite-node transitive |
+| vitest.config.ts | Include `src/**/*.test.ts` only, exclude `dist/**` (vitest 4 auto-discovers built tests) |
+| release.yml CI | Test job thêm DB setup + env vars (DATABASE_URL, JWT_SECRET, NODE_ENV, PORT) |
+
+### Fixed
+| Hạng mục | Mô tả |
+|----------|-------|
+| Dashboard NaN% bug | Daily goal progress hiển thị "NaN%" khi target=0 — thêm `safeRatio` guard |
+| Activity chart empty days | Render đủ 7 days với value=0 thay vì gap |
+| 30+ division/percentage NaN renders | 25 files với pattern `den > 0 ? Math.min((num/den)*100, 100) : 0` |
+| /vocabulary syntax error | Fix regex Unicode codepoint với explicit comments |
+| /achievements undefined.map crash | `Array.isArray(data?.achievements) ? data.achievements : []` guard |
+| /streak-calendar hydration mismatch | useState(null) + useEffect cho `Math.random()` và `new Date()` |
+| Auth-guard race condition | `hasHydrated` flag — fix 16 P1 auth-redirect flashes trên 8 protected pages |
+| Token rotation | Verified API service đúng (no refresh-token endpoint, current behavior correct) |
+| Git history | Drop stash chứa 5 dangling commits "LinguaFlow Team" + GC để clean |
+
+### Security
+| Hạng mục | Mô tả |
+|----------|-------|
+| API CVEs | 0 (was 4 moderate trong vitest dev-deps) |
+| Web CVEs | postcss transitive trong Next.js 14 — documented trong SECURITY.md, sẽ fix khi upgrade Next.js 16 (v2.0.0) |
+| MCP GitHub server | Setup với PAT scopes `project, repo, workflow, write:packages` cho automated GHCR/issues/releases management |
+| GitHub Actions secrets | DOCKERHUB_USERNAME + DOCKERHUB_TOKEN configured |
+| Live deploy headers | Web có HSTS, X-Frame DENY, X-Content-Type, Referrer, Permissions-Policy; API có HSTS + X-Frame + X-Content-Type |
+| 7-step security audit | All passed: secrets clean (0 findings), git history clean, .env protected, deps OK, headers configured, CORS whitelist, no hardcoded tokens |
 
 ## [1.1.0] - 2026-05-17
 
