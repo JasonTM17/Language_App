@@ -1128,8 +1128,8 @@ spec:
 | **Images/Icons** | Load đúng, có alt text, không bị vỡ | Network tab, accessibility audit |
 
 ### Quy trình test:
-1. **Dùng Claude Team** (parallel agents) để test nhiều trang cùng lúc
-2. Mỗi agent test 5-10 trang, report issues
+1. **Dùng parallel testing** để test nhiều trang cùng lúc
+2. Mỗi batch test 5-10 trang, report issues
 3. Fix issues → re-test → confirm pass
 4. Chỉ ship khi 100% trang pass checklist
 
@@ -1164,7 +1164,7 @@ for (const vp of viewports) {
 1. **KHÔNG ship trang chưa test** — mọi page phải pass responsive + content + dark mode
 2. **Test trên 3 breakpoints** — mobile, tablet, desktop (BẮT BUỘC)
 3. **Test cả light và dark mode** — không được bỏ qua
-4. **Dùng Claude Team** để test song song cho nhanh
+4. **Dùng parallel testing** để test song song cho nhanh
 5. **Mỗi trang phải có fallback data** — không được trống khi API down
 6. **Screenshot sau khi test pass** — lưu vào docs/screenshots/
 7. **Re-test sau mỗi lần sửa** — không assume fix đúng mà không verify
