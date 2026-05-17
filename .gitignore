@@ -28,3 +28,4 @@ web/test-results/
 web/blob-report/
 
 api/data/
+web/tsc-out.txt

@@ -1,10 +1,95 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4F46E5"/>
-      <stop offset="100%" style="stop-color:#7C3AED"/>
+    <linearGradient id="lf512Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
     </linearGradient>
+    <linearGradient id="lf512Wave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="lf512Glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lf512Shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="6" result="off"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.28"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="80" fill="url(#bg)"/>
-  <text x="256" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="200" font-weight="700" fill="white" text-anchor="middle">LF</text>
+
+  <!-- Rounded gradient backdrop -->
+  <rect width="512" height="512" rx="100" fill="url(#lf512Bg)"/>
+  <rect width="512" height="512" rx="100" fill="url(#lf512Glow)"/>
+
+  <!-- Faint concentric ring pattern (signal/voice waves) -->
+  <g fill="none" stroke="white" stroke-opacity="0.07">
+    <circle cx="256" cy="244" r="180"/>
+    <circle cx="256" cy="244" r="220"/>
+    <circle cx="256" cy="244" r="260"/>
+  </g>
+
+  <!-- Language badges around bubble -->
+  <g font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="700" text-anchor="middle">
+    <!-- A — English -->
+    <g>
+      <circle cx="80" cy="120" r="28" fill="white" opacity="0.95"/>
+      <text x="80" y="130" font-size="28" fill="url(#lf512Wave)">A</text>
+    </g>
+    <!-- あ — Japanese -->
+    <g>
+      <circle cx="432" cy="120" r="28" fill="white" opacity="0.95"/>
+      <text x="432" y="131" font-size="28" fill="url(#lf512Wave)">&#12354;</text>
+    </g>
+    <!-- 中 — Chinese -->
+    <g>
+      <circle cx="80" cy="392" r="28" fill="white" opacity="0.95"/>
+      <text x="80" y="402" font-size="28" fill="url(#lf512Wave)">&#20013;</text>
+    </g>
+    <!-- 한 — Korean -->
+    <g>
+      <circle cx="432" cy="392" r="28" fill="white" opacity="0.95"/>
+      <text x="432" y="402" font-size="28" fill="url(#lf512Wave)">&#54620;</text>
+    </g>
+  </g>
+
+  <!-- Connecting flow lines from badges toward bubble (subtle) -->
+  <g stroke="white" stroke-opacity="0.22" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M104 138 Q150 170 178 188"/>
+    <path d="M408 138 Q360 170 332 188"/>
+    <path d="M104 374 Q150 340 180 320"/>
+    <path d="M408 374 Q360 340 330 320"/>
+  </g>
+
+  <!-- Speech bubble -->
+  <g filter="url(#lf512Shadow)">
+    <path d="M120 168
+             C120 144 140 124 164 124
+             H348
+             C372 124 392 144 392 168
+             V296
+             C392 320 372 340 348 340
+             H244
+             L184 392
+             V340
+             H164
+             C140 340 120 320 120 296
+             Z"
+          fill="white"/>
+  </g>
+
+  <!-- Flowing L-wave inside bubble -->
+  <path d="M180 188 V272 C180 285 190 295 203 295 H336"
+        stroke="url(#lf512Wave)" stroke-width="34"
+        stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Top wave: dual-language stream above L tail -->
+  <path d="M222 220 Q248 204 274 220 T326 220"
+        stroke="url(#lf512Wave)" stroke-width="9"
+        stroke-linecap="round" fill="none" opacity="0.55"/>
+
+  <!-- Accent dot (voice / period / sound) -->
+  <circle cx="336" cy="190" r="20" fill="url(#lf512Wave)"/>
 </svg>

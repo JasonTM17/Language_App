@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="web/public/favicon.svg" width="80" alt="LinguaFlow Logo" />
+  <img src="web/public/logo-mark.svg" width="120" alt="LinguaFlow Logo" />
 </p>
 
 <h1 align="center">LinguaFlow</h1>
@@ -101,6 +101,16 @@
 </table>
 
 </details>
+
+---
+
+## Demo
+
+| GIF | Mô tả | Thời lượng |
+|-----|--------|-----------|
+| ![Full Flow](docs/gifs/demo-full-flow.gif) | **Luồng chính** &mdash; Landing &rarr; Start Free &rarr; Login &rarr; Dashboard &rarr; Quiz &rarr; Result | ~15s |
+| ![Quiz Interaction](docs/gifs/demo-quiz-interaction.gif) | **Quiz tương tác** &mdash; Chọn đáp án, animation feedback đúng/sai, chuyển câu | ~8s |
+| ![Dark Mode](docs/gifs/demo-dark-mode-toggle.gif) | **Dark Mode Toggle** &mdash; Chuyển light/dark mượt mà | ~10s |
 
 ---
 
@@ -462,7 +472,10 @@ git push origin feature/ten-feature
 | [API Reference](docs/api.md) | Tài liệu đầy đủ 38 endpoints với request/response examples |
 | [UI Guidelines](docs/UI_GUIDELINES.md) | Design tokens, components, dark mode, accessibility, responsive |
 | [Deployment](docs/DEPLOYMENT.md) | Hướng dẫn deploy Vercel, Render, Docker, CI/CD |
+| [Container Images](docs/container-images.md) | Docker images, tags, env vars, healthchecks, security verify |
 | [Testing](docs/TESTING.md) | Test strategy, 16 test suites, Vitest patterns, Playwright E2E |
+| [Review Evidence](docs/REVIEW_EVIDENCE.md) | Reviewer evidence pack — link verifiable cho mọi production claim |
+| [Honest Scope](docs/HONEST_SCOPE.md) | Đây là gì / không phải gì, trade-offs, limitations |
 | [Release Notes v1.1.0](docs/RELEASE_NOTES_v1.1.0.md) | Public-facing release notes |
 | [UI Audit Report](docs/UI_AUDIT_REPORT.md) | Báo cáo audit UI/UX (P0/P1/P2) |
 | [Contributing](CONTRIBUTING.md) | Workflow đóng góp, commit convention |

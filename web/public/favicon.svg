@@ -1,10 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4F46E5"/>
-      <stop offset="100%" style="stop-color:#7C3AED"/>
+    <linearGradient id="lfFavBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
     </linearGradient>
   </defs>
-  <rect width="32" height="32" rx="6" fill="url(#bg)"/>
-  <text x="16" y="22" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="white" text-anchor="middle">LF</text>
+  <rect width="32" height="32" rx="7" fill="url(#lfFavBg)"/>
+  <!-- Speech bubble outline forming an L wave -->
+  <path d="M8 9 C8 7.5 9.2 6.5 10.7 6.5 H21.3 C22.8 6.5 24 7.5 24 9 V18 C24 19.5 22.8 20.5 21.3 20.5 H14 L10 24.5 V20.5 C9 20.5 8 19.5 8 18 Z"
+        fill="white" opacity="0.95"/>
+  <!-- Flowing L-wave inside bubble -->
+  <path d="M11.5 11 V15.5 C11.5 16.3 12.2 17 13 17 H20.5"
+        stroke="url(#lfFavBg)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Tiny dot representing the second language stream -->
+  <circle cx="20.5" cy="11.5" r="1.3" fill="url(#lfFavBg)"/>
 </svg>

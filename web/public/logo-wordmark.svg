@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160">
+  <defs>
+    <linearGradient id="lfWmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="lfWmWave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="lfWmText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Mark: rounded gradient tile -->
+  <rect x="16" y="16" width="128" height="128" rx="28" fill="url(#lfWmBg)"/>
+
+  <!-- Speech bubble inside mark -->
+  <path d="M44 50
+           C44 44 49 39 55 39
+           H105
+           C111 39 116 44 116 50
+           V88
+           C116 94 111 99 105 99
+           H75
+           L60 114
+           V99
+           H55
+           C49 99 44 94 44 88
+           Z"
+        fill="white"/>
+
+  <!-- L-wave -->
+  <path d="M58 56 V82 C58 85 60 87 63 87 H101"
+        stroke="url(#lfWmWave)" stroke-width="9"
+        stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Dot accent -->
+  <circle cx="101" cy="58" r="5" fill="url(#lfWmWave)"/>
+
+  <!-- Wordmark -->
+  <text x="172" y="100"
+        font-family="'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif"
+        font-size="64" font-weight="700"
+        fill="url(#lfWmText)"
+        letter-spacing="-1.5">
+    Lingua<tspan font-weight="800">Flow</tspan>
+  </text>
+
+  <!-- Subtle underline wave under wordmark -->
+  <path d="M176 118 Q220 108 264 118 T352 118 T440 118 T528 118"
+        stroke="url(#lfWmWave)" stroke-width="2.5"
+        stroke-linecap="round" fill="none" opacity="0.45"/>
+</svg>

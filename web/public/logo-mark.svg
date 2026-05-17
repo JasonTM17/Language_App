@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="lfMarkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="lfMarkWave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="lfMarkShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+      <feOffset dx="0" dy="4" result="off"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Rounded gradient tile -->
+  <rect width="512" height="512" rx="112" fill="url(#lfMarkBg)"/>
+
+  <!-- Speech bubble -->
+  <g filter="url(#lfMarkShadow)">
+    <path d="M104 148
+             C104 122 125 100 152 100
+             H360
+             C387 100 408 122 408 148
+             V304
+             C408 330 387 352 360 352
+             H236
+             L168 412
+             V352
+             H152
+             C125 352 104 330 104 304
+             Z"
+          fill="white"/>
+  </g>
+
+  <!-- L-wave inside bubble -->
+  <path d="M168 172 V282 C168 296 179 308 193 308 H348"
+        stroke="url(#lfMarkWave)" stroke-width="38"
+        stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Dual flow above L -->
+  <path d="M214 208 Q244 188 274 208 T334 208"
+        stroke="url(#lfMarkWave)" stroke-width="10"
+        stroke-linecap="round" fill="none" opacity="0.55"/>
+
+  <!-- Voice dot accent -->
+  <circle cx="348" cy="174" r="22" fill="url(#lfMarkWave)"/>
+</svg>
