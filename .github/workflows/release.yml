@@ -12,6 +12,11 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "file:./test.db"
+      JWT_SECRET: "ci-test-secret-key-do-not-use-in-production"
+      NODE_ENV: test
+      PORT: 3001
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,9 +25,14 @@ jobs:
           cache: npm
           cache-dependency-path: api/package-lock.json
       - run: cd api && npm ci
-      - run: cd api && npx prisma generate
-      - run: cd api && npm test
+      - name: Setup database
+        run: |
+          cd api
+          npx prisma generate
+          npx prisma db push --force-reset --accept-data-loss
+          npx tsx src/database/seeds/index.ts
       - run: cd api && npx tsc --noEmit
+      - run: cd api && npx vitest run
       - run: cd web && npm ci
       - run: cd web && npx tsc --noEmit
 
