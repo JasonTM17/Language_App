@@ -314,7 +314,7 @@ export default function MatchingPage() {
   }
 
   if (completed) {
-    const accuracy = Math.round((currentSet.pairs.length / attempts) * 100);
+    const accuracy = attempts > 0 ? Math.round((currentSet.pairs.length / attempts) * 100) : 0;
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
         <div className="flex justify-center mb-4">
@@ -377,7 +377,7 @@ export default function MatchingPage() {
         <span className="font-medium">{matched.size} / {currentSet.pairs.length} cặp</span>
       </div>
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${(matched.size / currentSet.pairs.length) * 100}%` }} />
+        <div className="h-full bg-green-500 rounded-full transition-all" style={{ width: `${currentSet.pairs.length > 0 ? Math.min((matched.size / currentSet.pairs.length) * 100, 100) : 0}%` }} />
       </div>
 
       {/* Matching grid */}

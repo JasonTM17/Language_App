@@ -21,70 +21,101 @@ interface NavItem {
   icon: LucideIcon;
 }
 
-const navItems: NavItem[] = [
-  { href: '/dashboard', label: 'Dashboard', icon: Home },
-  { href: '/languages', label: 'Languages', icon: Globe },
-  { href: '/lessons', label: 'Lessons', icon: BookOpen },
-  { href: '/vocabulary', label: 'Vocabulary', icon: FileText },
-  { href: '/grammar', label: 'Grammar', icon: Ruler },
-  { href: '/grammar-tips', label: 'Grammar Tips', icon: Lightbulb },
-  { href: '/flashcards', label: 'Flashcards', icon: Layers },
-  { href: '/review', label: 'Review', icon: RefreshCw },
-  { href: '/weak-words', label: 'Weak Words', icon: Brain },
-  { href: '/quiz', label: 'Quiz', icon: HelpCircle },
-  { href: '/timed-challenge', label: 'Speed Quiz', icon: Zap },
-  { href: '/ai-tutor', label: 'AI Tutor', icon: Bot },
-  { href: '/speaking', label: 'Speaking', icon: Mic },
-  { href: '/listening', label: 'Listening', icon: Headphones },
-  { href: '/dictation', label: 'Dictation', icon: PenTool },
-  { href: '/pronunciation', label: 'Pronunciation', icon: AudioLines },
-  { href: '/writing', label: 'Writing', icon: Edit3 },
-  { href: '/conversation', label: 'Conversation', icon: MessageCircle },
-  { href: '/translation', label: 'Translation', icon: Languages },
-  { href: '/sentence', label: 'Sentences', icon: Puzzle },
-  { href: '/sentence-builder', label: 'Build', icon: Blocks },
-  { href: '/fill-blank', label: 'Fill Blank', icon: ClipboardList },
-  { href: '/matching', label: 'Matching', icon: Link2 },
-  { href: '/characters', label: 'Characters', icon: Type },
-  { href: '/stories', label: 'Stories', icon: Library },
-  { href: '/reading', label: 'Reading', icon: BookOpenText },
-  { href: '/culture', label: 'Culture', icon: Landmark },
-  { href: '/idioms', label: 'Idioms', icon: Quote },
-  { href: '/achievements', label: 'Achievements', icon: Trophy },
-  { href: '/skill-tree', label: 'Skill Tree', icon: GitBranch },
-  { href: '/word-scramble', label: 'Word Scramble', icon: Shuffle },
-  { href: '/grammar-correction', label: 'Grammar Fix', icon: Wrench },
-  { href: '/streak-calendar', label: 'Streak', icon: Flame },
-  { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
-  { href: '/leaderboard', label: 'Leaderboard', icon: Medal },
-  { href: '/friends', label: 'Friends', icon: Users },
-  { href: '/study-plan', label: 'Study Plan', icon: CalendarDays },
-  { href: '/quests', label: 'Quests', icon: Swords },
-  { href: '/daily-goals', label: 'Daily Goals', icon: Target },
-  { href: '/daily-challenge', label: 'Challenge', icon: Zap },
-  { href: '/shop', label: 'Shop', icon: Gem },
-  { href: '/typing-practice', label: 'Typing', icon: Keyboard },
-  { href: '/games', label: 'Games', icon: Gamepad2 },
-  { href: '/memory-game', label: 'Memory', icon: LayoutGrid },
-  { href: '/progress', label: 'Progress', icon: BarChart3 },
-  { href: '/analytics', label: 'Analytics', icon: TrendingUp },
-  { href: '/word-of-day', label: 'Word of Day', icon: Sparkles },
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
+
+const navSections: NavSection[] = [
+  {
+    title: 'Tổng quan',
+    items: [
+      { href: '/dashboard', label: 'Dashboard', icon: Home },
+      { href: '/languages', label: 'Languages', icon: Globe },
+      { href: '/progress', label: 'Progress', icon: BarChart3 },
+      { href: '/analytics', label: 'Analytics', icon: TrendingUp },
+    ],
+  },
+  {
+    title: 'Học tập',
+    items: [
+      { href: '/lessons', label: 'Lessons', icon: BookOpen },
+      { href: '/vocabulary', label: 'Vocabulary', icon: FileText },
+      { href: '/grammar', label: 'Grammar', icon: Ruler },
+      { href: '/grammar-tips', label: 'Grammar Tips', icon: Lightbulb },
+      { href: '/stories', label: 'Stories', icon: Library },
+      { href: '/reading', label: 'Reading', icon: BookOpenText },
+      { href: '/culture', label: 'Culture', icon: Landmark },
+      { href: '/idioms', label: 'Idioms', icon: Quote },
+      { href: '/characters', label: 'Characters', icon: Type },
+      { href: '/word-of-day', label: 'Word of Day', icon: Sparkles },
+    ],
+  },
+  {
+    title: 'Luyện tập',
+    items: [
+      { href: '/flashcards', label: 'Flashcards', icon: Layers },
+      { href: '/review', label: 'Review', icon: RefreshCw },
+      { href: '/weak-words', label: 'Weak Words', icon: Brain },
+      { href: '/quiz', label: 'Quiz', icon: HelpCircle },
+      { href: '/timed-challenge', label: 'Speed Quiz', icon: Zap },
+      { href: '/speaking', label: 'Speaking', icon: Mic },
+      { href: '/listening', label: 'Listening', icon: Headphones },
+      { href: '/dictation', label: 'Dictation', icon: PenTool },
+      { href: '/pronunciation', label: 'Pronunciation', icon: AudioLines },
+      { href: '/writing', label: 'Writing', icon: Edit3 },
+      { href: '/conversation', label: 'Conversation', icon: MessageCircle },
+      { href: '/translation', label: 'Translation', icon: Languages },
+      { href: '/sentence', label: 'Sentences', icon: Puzzle },
+      { href: '/sentence-builder', label: 'Build', icon: Blocks },
+      { href: '/fill-blank', label: 'Fill Blank', icon: ClipboardList },
+      { href: '/matching', label: 'Matching', icon: Link2 },
+      { href: '/grammar-correction', label: 'Grammar Fix', icon: Wrench },
+      { href: '/word-scramble', label: 'Word Scramble', icon: Shuffle },
+      { href: '/typing-practice', label: 'Typing', icon: Keyboard },
+      { href: '/ai-tutor', label: 'AI Tutor', icon: Bot },
+    ],
+  },
+  {
+    title: 'Gamification',
+    items: [
+      { href: '/achievements', label: 'Achievements', icon: Trophy },
+      { href: '/skill-tree', label: 'Skill Tree', icon: GitBranch },
+      { href: '/quests', label: 'Quests', icon: Swords },
+      { href: '/daily-goals', label: 'Daily Goals', icon: Target },
+      { href: '/daily-challenge', label: 'Challenge', icon: Zap },
+      { href: '/streak-calendar', label: 'Streak', icon: Flame },
+      { href: '/study-plan', label: 'Study Plan', icon: CalendarDays },
+      { href: '/shop', label: 'Shop', icon: Gem },
+      { href: '/games', label: 'Games', icon: Gamepad2 },
+      { href: '/memory-game', label: 'Memory', icon: LayoutGrid },
+    ],
+  },
+  {
+    title: 'Xã hội',
+    items: [
+      { href: '/leaderboard', label: 'Leaderboard', icon: Medal },
+      { href: '/friends', label: 'Friends', icon: Users },
+      { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
+    ],
+  },
 ];
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, isAuthenticated, hasHydrated, logout } = useAuthStore();
   const { sidebarOpen, toggleSidebar } = useAppStore();
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
+    if (!hasHydrated) return;
     if (!isAuthenticated) {
       router.push('/auth/login');
     }
-  }, [isAuthenticated, router]);
+  }, [hasHydrated, isAuthenticated, router]);
 
-  if (!isAuthenticated) return null;
+  if (!hasHydrated || !isAuthenticated) return null;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -151,24 +182,32 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
       {/* Sidebar */}
       <aside className={`fixed top-16 left-0 bottom-0 z-30 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
-        <nav className="p-4 space-y-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                  isActive
-                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 border border-primary-100 dark:border-primary-800'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                }`}
-              >
-                <item.icon className="w-5 h-5 shrink-0" />
-                {item.label}
-              </Link>
-            );
-          })}
+        <nav className="h-full overflow-y-auto overscroll-contain p-3 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent">
+          {navSections.map((section) => (
+            <div key={section.title} className="space-y-1">
+              <h3 className="px-3 pt-1 pb-1 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                {section.title}
+              </h3>
+              {section.items.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => { if (sidebarOpen) toggleSidebar(); }}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                      isActive
+                        ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 border border-primary-100 dark:border-primary-800'
+                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    }`}
+                  >
+                    <item.icon className="w-5 h-5 shrink-0" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
         </nav>
       </aside>
 

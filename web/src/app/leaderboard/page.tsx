@@ -143,7 +143,7 @@ export default function LeaderboardPage() {
               <p className="text-xs text-muted-foreground">Level {entry.level}</p>
             </div>
             <div className="text-right">
-              <p className="font-semibold text-primary">{entry.xp.toLocaleString()} XP</p>
+              <p className="font-semibold text-primary">{(Number(entry.xp) || 0).toLocaleString()} XP</p>
               <p className="text-xs text-muted-foreground">{entry.streak} ngày</p>
             </div>
           </motion.div>

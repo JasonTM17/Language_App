@@ -95,7 +95,7 @@ export default function TranslationPage() {
     target.forEach(word => {
       if (input.includes(word)) matches++;
     });
-    return Math.round((matches / target.length) * 100);
+    return target.length > 0 ? Math.round((matches / target.length) * 100) : 0;
   };
 
   const nextExercise = () => {
@@ -199,7 +199,7 @@ export default function TranslationPage() {
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${currentExercises.length > 0 ? Math.min((currentIndex / currentExercises.length) * 100, 100) : 0}%` }} />
       </div>
 
       {/* Source sentence */}

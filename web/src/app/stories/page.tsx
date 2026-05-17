@@ -545,7 +545,7 @@ export default function StoriesPage() {
 
       {/* Progress bar */}
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all" style={{ width: `${((currentSegment + 1) / selectedStory.segments.length) * 100}%` }} />
+        <div className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all" style={{ width: `${selectedStory.segments.length > 0 ? Math.min(((currentSegment + 1) / selectedStory.segments.length) * 100, 100) : 0}%` }} />
       </div>
 
       {/* Story title */}

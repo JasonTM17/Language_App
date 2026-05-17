@@ -1,24 +1,30 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store';
 import { DashboardSkeleton } from '@/components/ui/skeleton';
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { token, user } = useAuthStore();
+  const { token, user, hasHydrated } = useAuthStore();
   const router = useRouter();
-  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
+    if (!hasHydrated) return;
     if (!token && !user) {
       router.replace('/auth/login');
-    } else {
-      setChecked(true);
     }
-  }, [token, user, router]);
+  }, [hasHydrated, token, user, router]);
 
-  if (!checked) {
+  if (!hasHydrated) {
+    return (
+      <div className="p-6">
+        <DashboardSkeleton />
+      </div>
+    );
+  }
+
+  if (!token && !user) {
     return (
       <div className="p-6">
         <DashboardSkeleton />

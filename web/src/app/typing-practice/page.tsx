@@ -117,11 +117,11 @@ export default function TypingPracticePage() {
     setCharStates(states);
 
     if (value === target) {
-      const timeMs = Date.now() - startTime;
-      const words = target.split(' ').length;
+      const timeMs = Math.max(Date.now() - startTime, 1);
+      const words = target.split(' ').filter(Boolean).length;
       const wpm = Math.round((words / (timeMs / 1000)) * 60);
       const correctChars = value.split('').filter((c, i) => c === target[i]).length;
-      const accuracy = Math.round((correctChars / target.length) * 100);
+      const accuracy = target.length > 0 ? Math.round((correctChars / target.length) * 100) : 0;
 
       const result = { wpm, accuracy, time: timeMs / 1000 };
       const newResults = [...results, result];
@@ -288,7 +288,7 @@ export default function TypingPracticePage() {
       <div className="h-2 bg-muted rounded-full overflow-hidden">
         <div
           className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full transition-all"
-          style={{ width: `${((currentIndex) / currentExercises.length) * 100}%` }}
+          style={{ width: `${currentExercises.length > 0 ? Math.min((currentIndex / currentExercises.length) * 100, 100) : 0}%` }}
         />
       </div>
 

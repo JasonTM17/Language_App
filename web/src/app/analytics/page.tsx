@@ -39,26 +39,33 @@ const languageProgress: LanguageProgress[] = [
 ];
 
 function BarChart({ data, maxValue }: { data: WeeklyData[]; maxValue: number }) {
+  const safeMax = Number.isFinite(maxValue) && maxValue > 0 ? maxValue : 1;
   return (
     <div className="flex items-end justify-between gap-2 h-32">
-      {data.map((d, i) => (
-        <div key={i} className="flex flex-col items-center gap-1 flex-1">
-          <span className="text-xs text-muted-foreground">{d.xp}</span>
-          <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-t-md relative" style={{ height: '100%' }}>
-            <div
-              className="absolute bottom-0 w-full bg-primary rounded-t-md transition-all"
-              style={{ height: `${(d.xp / maxValue) * 100}%` }}
-            />
+      {data.map((d, i) => {
+        const xp = Number(d.xp) || 0;
+        const heightPct = Math.min((xp / safeMax) * 100, 100);
+        return (
+          <div key={i} className="flex flex-col items-center gap-1 flex-1">
+            <span className="text-xs text-muted-foreground">{xp}</span>
+            <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-t-md relative" style={{ height: '100%' }}>
+              <div
+                className="absolute bottom-0 w-full bg-primary rounded-t-md transition-all"
+                style={{ height: `${heightPct}%` }}
+              />
+            </div>
+            <span className="text-xs text-muted-foreground">{d.day}</span>
           </div>
-          <span className="text-xs text-muted-foreground">{d.day}</span>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
 function CircularProgress({ value, max, size = 80, label }: { value: number; max: number; size?: number; label: string }) {
-  const pct = Math.round((value / max) * 100);
+  const safeMax = Number.isFinite(max) && max > 0 ? max : 1;
+  const safeValue = Number.isFinite(value) ? value : 0;
+  const pct = Math.min(Math.max(Math.round((safeValue / safeMax) * 100), 0), 100);
   const radius = (size - 8) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (pct / 100) * circumference;
@@ -158,7 +165,7 @@ export default function AnalyticsPage() {
                   <span>{lang.wordsLearned}/{lang.totalWords}</span>
                 </div>
                 <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-500 rounded-full" style={{ width: `${(lang.wordsLearned / lang.totalWords) * 100}%` }} />
+                  <div className="h-full bg-green-500 rounded-full" style={{ width: `${lang.totalWords > 0 ? Math.min((lang.wordsLearned / lang.totalWords) * 100, 100) : 0}%` }} />
                 </div>
               </div>
               <div>
@@ -167,7 +174,7 @@ export default function AnalyticsPage() {
                   <span>{lang.lessonsCompleted}/{lang.totalLessons}</span>
                 </div>
                 <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 rounded-full" style={{ width: `${(lang.lessonsCompleted / lang.totalLessons) * 100}%` }} />
+                  <div className="h-full bg-blue-500 rounded-full" style={{ width: `${lang.totalLessons > 0 ? Math.min((lang.lessonsCompleted / lang.totalLessons) * 100, 100) : 0}%` }} />
                 </div>
               </div>
               <div>
@@ -176,7 +183,7 @@ export default function AnalyticsPage() {
                   <span>{lang.accuracy}%</span>
                 </div>
                 <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full bg-purple-500 rounded-full" style={{ width: `${lang.accuracy}%` }} />
+                  <div className="h-full bg-purple-500 rounded-full" style={{ width: `${Math.min(Math.max(Number(lang.accuracy) || 0, 0), 100)}%` }} />
                 </div>
               </div>
             </div>

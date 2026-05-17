@@ -199,7 +199,7 @@ export default function SentenceBuilderPage() {
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${currentExercises.length > 0 ? Math.min((currentIndex / currentExercises.length) * 100, 100) : 0}%` }} />
       </div>
 
       {/* Translation hint */}

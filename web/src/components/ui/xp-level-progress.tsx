@@ -48,7 +48,7 @@ export function XpLevelProgress({ currentXp, level, streak }: XpLevelProgressPro
           </div>
           <div>
             <p className="font-semibold text-foreground">{levelTitle}</p>
-            <p className="text-xs text-muted-foreground">{currentXp.toLocaleString()} XP tổng cộng</p>
+            <p className="text-xs text-muted-foreground">{(Number(currentXp) || 0).toLocaleString()} XP tổng cộng</p>
           </div>
         </div>
         {streak > 0 && (
@@ -86,7 +86,7 @@ export function XpLevelProgress({ currentXp, level, streak }: XpLevelProgressPro
           <p className="text-[10px] text-muted-foreground">Level</p>
         </div>
         <div className="text-center">
-          <p className="text-sm font-bold text-foreground">{currentXp.toLocaleString()}</p>
+          <p className="text-sm font-bold text-foreground">{(Number(currentXp) || 0).toLocaleString()}</p>
           <p className="text-[10px] text-muted-foreground">Tổng XP</p>
         </div>
         <div className="text-center">

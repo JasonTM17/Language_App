@@ -120,7 +120,7 @@ export function VoiceRecorder({ onRecordingComplete, maxDuration = 30, className
         <div className="w-full max-w-[200px] h-1.5 bg-muted rounded-full overflow-hidden">
           <div
             className="h-full bg-red-500 rounded-full transition-all duration-1000"
-            style={{ width: `${(duration / maxDuration) * 100}%` }}
+            style={{ width: `${maxDuration > 0 ? Math.min((duration / maxDuration) * 100, 100) : 0}%` }}
           />
         </div>
       )}

@@ -31,7 +31,8 @@ export default function ProgressPage() {
   const stats = data?.stats || { xp: user?.xp || 0, level: user?.level || 1, streak: user?.streak || 0, completedLessons: 0, quizAccuracy: 0 };
 
   const weekDays = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-  const activityData = data?.weeklyActivity?.map((d: any) => d.activities) || weekDays.map(() => Math.floor(Math.random() * 5));
+  const rawActivity = data?.weeklyActivity?.map((d: any) => Number(d?.activities) || 0) || weekDays.map(() => Math.floor(Math.random() * 5));
+  const activityData: number[] = weekDays.map((_, i) => Number(rawActivity[i]) || 0);
   const maxActivity = Math.max(...activityData, 1);
 
   return (
@@ -99,20 +100,24 @@ export default function ProgressPage() {
       >
         <h2 className="font-semibold text-lg mb-6">Hoạt động tuần này</h2>
         <div className="flex items-end justify-between gap-2 h-40">
-          {weekDays.map((day, i) => (
-            <div key={day} className="flex-1 flex flex-col items-center gap-2">
-              <div className="w-full flex flex-col justify-end h-28">
-                <motion.div
-                  className="w-full rounded-lg bg-gradient-to-t from-primary to-primary/50"
-                  initial={{ height: 0 }}
-                  animate={{ height: `${(activityData[i] / maxActivity) * 100}%` }}
-                  transition={{ duration: 0.5, delay: 0.4 + i * 0.05 }}
-                  style={{ minHeight: activityData[i] > 0 ? '8px' : '0' }}
-                />
+          {weekDays.map((day, i) => {
+            const value = activityData[i] || 0;
+            const heightPct = maxActivity > 0 ? Math.min((value / maxActivity) * 100, 100) : 0;
+            return (
+              <div key={day} className="flex-1 flex flex-col items-center gap-2">
+                <div className="w-full flex flex-col justify-end h-28">
+                  <motion.div
+                    className="w-full rounded-lg bg-gradient-to-t from-primary to-primary/50"
+                    initial={{ height: 0 }}
+                    animate={{ height: `${heightPct}%` }}
+                    transition={{ duration: 0.5, delay: 0.4 + i * 0.05 }}
+                    style={{ minHeight: value > 0 ? '8px' : '2px' }}
+                  />
+                </div>
+                <span className="text-xs text-muted-foreground">{day}</span>
               </div>
-              <span className="text-xs text-muted-foreground">{day}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </motion.div>
 
@@ -132,7 +137,9 @@ export default function ProgressPage() {
             { target: 1000, current: stats.xp, label: 'Đạt 1,000 XP' },
             { target: 5000, current: stats.xp, label: 'Đạt 5,000 XP' },
           ].map((milestone, i) => {
-            const pct = Math.min((milestone.current / milestone.target) * 100, 100);
+            const safeCurrent = Number(milestone.current) || 0;
+            const safeTarget = Number(milestone.target) || 0;
+            const pct = safeTarget > 0 ? Math.min((safeCurrent / safeTarget) * 100, 100) : 0;
             const done = pct >= 100;
             return (
               <div key={i} className="flex items-center gap-3">

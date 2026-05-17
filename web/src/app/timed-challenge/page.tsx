@@ -250,7 +250,7 @@ export default function TimedChallengePage() {
     return null;
   }
 
-  const timePercent = (timeLeft / TOTAL_TIME) * 100;
+  const timePercent = TOTAL_TIME > 0 ? Math.max(Math.min((timeLeft / TOTAL_TIME) * 100, 100), 0) : 0;
   const timeColor = timeLeft > 20 ? 'bg-green-500' : timeLeft > 10 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (

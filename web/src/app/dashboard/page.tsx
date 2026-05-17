@@ -85,12 +85,25 @@ export default function DashboardPage() {
     );
   }
 
-  const stats = data?.stats || { xp: 0, level: 1, streak: 0, completedLessons: 0, quizAccuracy: 0 };
+  const stats = {
+    xp: Number(data?.stats?.xp) || 0,
+    level: Number(data?.stats?.level) || 1,
+    streak: Number(data?.stats?.streak) || 0,
+    completedLessons: Number(data?.stats?.completedLessons) || 0,
+    quizAccuracy: Number(data?.stats?.quizAccuracy) || 0,
+  };
+  const safeRatio = (a?: number, b?: number) => {
+    const num = Number(a) || 0;
+    const den = Number(b) || 0;
+    if (den <= 0) return 0;
+    const v = num / den;
+    return Number.isFinite(v) ? v : 0;
+  };
   const goalProgress = goal
-    ? Math.round(((goal.lessonsCompleted / goal.lessonsTarget + goal.cardsReviewed / goal.cardsTarget + goal.minutesStudied / goal.targetMinutes) / 3) * 100)
+    ? Math.round(((safeRatio(goal.lessonsCompleted, goal.lessonsTarget) + safeRatio(goal.cardsReviewed, goal.cardsTarget) + safeRatio(goal.minutesStudied, goal.targetMinutes)) / 3) * 100)
     : 0;
   const xpForNextLevel = 100;
-  const xpProgress = stats.xp % xpForNextLevel;
+  const xpProgress = ((stats.xp % xpForNextLevel) + xpForNextLevel) % xpForNextLevel;
 
   return (
     <motion.div
@@ -165,7 +178,7 @@ export default function DashboardPage() {
             <span className="text-2xl">⭐</span>
             <div>
               <p className="text-xs text-muted-foreground">Tổng XP</p>
-              <p className="text-xl font-bold">{stats.xp.toLocaleString()}</p>
+              <p className="text-xl font-bold">{(Number(stats.xp) || 0).toLocaleString()}</p>
             </div>
           </div>
           <div>
@@ -176,7 +189,7 @@ export default function DashboardPage() {
             <div className="h-2.5 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full transition-all duration-700"
-                style={{ width: `${(xpProgress / xpForNextLevel) * 100}%` }}
+                style={{ width: `${xpForNextLevel > 0 ? Math.min((xpProgress / xpForNextLevel) * 100, 100) : 0}%` }}
               />
             </div>
           </div>
@@ -220,21 +233,24 @@ export default function DashboardPage() {
           <Link href="/analytics" className="text-xs text-primary hover:underline">Xem chi tiết</Link>
         </div>
         <div className="grid grid-cols-7 gap-2">
-          {weekDays.map((day, i) => (
-            <div key={day} className="flex flex-col items-center gap-1.5">
-              <div className={`w-full aspect-square rounded-lg transition-all duration-300 hover:scale-110 ${
-                weeklyActivity[i] === 0 ? 'bg-muted/50' :
-                weeklyActivity[i] === 1 ? 'bg-green-200 dark:bg-green-900/30 shadow-sm shadow-green-200/50' :
-                weeklyActivity[i] === 2 ? 'bg-green-400 dark:bg-green-700/50 shadow-sm shadow-green-400/30' :
-                'bg-green-600 dark:bg-green-500 shadow-md shadow-green-600/30'
-              }`} />
-              <span className="text-[10px] text-muted-foreground">{day}</span>
-            </div>
-          ))}
+          {weekDays.map((day, i) => {
+            const lvl = Number(weeklyActivity[i]) || 0;
+            return (
+              <div key={day} className="flex flex-col items-center gap-1.5">
+                <div className={`w-full aspect-square rounded-lg transition-all duration-300 hover:scale-110 ${
+                  lvl === 0 ? 'bg-gray-200/70 dark:bg-gray-800/60 border border-dashed border-gray-300/70 dark:border-gray-700/60' :
+                  lvl === 1 ? 'bg-green-200 dark:bg-green-900/30 shadow-sm shadow-green-200/50' :
+                  lvl === 2 ? 'bg-green-400 dark:bg-green-700/50 shadow-sm shadow-green-400/30' :
+                  'bg-green-600 dark:bg-green-500 shadow-md shadow-green-600/30'
+                }`} />
+                <span className="text-[10px] text-muted-foreground">{day}</span>
+              </div>
+            );
+          })}
         </div>
         <div className="flex items-center gap-2 mt-3 justify-end">
           <span className="text-[10px] text-muted-foreground">Ít</span>
-          <div className="w-3 h-3 rounded bg-muted/50" />
+          <div className="w-3 h-3 rounded bg-gray-200/70 dark:bg-gray-800/60 border border-dashed border-gray-300/70 dark:border-gray-700/60" />
           <div className="w-3 h-3 rounded bg-green-200 dark:bg-green-900/30" />
           <div className="w-3 h-3 rounded bg-green-400 dark:bg-green-700/50" />
           <div className="w-3 h-3 rounded bg-green-600 dark:bg-green-500" />
@@ -323,14 +339,16 @@ export default function DashboardPage() {
 }
 
 function GoalItem({ icon, label, current, target, color, suffix }: { icon: string; label: string; current: number; target: number; color: string; suffix?: string }) {
-  const pct = Math.min((current / target) * 100, 100);
+  const safeCurrent = Number.isFinite(current) ? current : 0;
+  const safeTarget = Number.isFinite(target) && target > 0 ? target : 0;
+  const pct = safeTarget > 0 ? Math.min((safeCurrent / safeTarget) * 100, 100) : 0;
   return (
     <div className="flex items-center gap-3">
       <span className="text-lg">{icon}</span>
       <div className="flex-1">
         <div className="flex justify-between items-center mb-1">
           <span className="text-xs font-medium">{label}</span>
-          <span className="text-xs text-muted-foreground">{current}/{target}{suffix ? ` ${suffix}` : ''}</span>
+          <span className="text-xs text-muted-foreground">{safeCurrent}/{safeTarget}{suffix ? ` ${suffix}` : ''}</span>
         </div>
         <div className="h-2 bg-muted rounded-full overflow-hidden">
           <div className={`h-full ${color} rounded-full transition-all duration-500`} style={{ width: `${pct}%` }} />

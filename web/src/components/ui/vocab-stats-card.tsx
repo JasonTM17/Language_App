@@ -21,8 +21,10 @@ interface VocabStatsCardProps {
 
 export function VocabStatsCard({ stats, language, languageFlag }: VocabStatsCardProps) {
   const masteryPercent = useMemo(() => {
-    if (stats.totalWords === 0) return 0;
-    return Math.round((stats.mastered / stats.totalWords) * 100);
+    const total = Number(stats.totalWords) || 0;
+    const mastered = Number(stats.mastered) || 0;
+    if (total <= 0) return 0;
+    return Math.round((mastered / total) * 100);
   }, [stats.mastered, stats.totalWords]);
 
   const strengthLabel = useMemo(() => {
@@ -82,19 +84,19 @@ export function VocabStatsCard({ stats, language, languageFlag }: VocabStatsCard
       {/* Stats grid */}
       <div className="grid grid-cols-2 gap-3">
         <div className="p-3 rounded-lg bg-orange-50 dark:bg-orange-900/10">
-          <p className="text-lg font-bold text-orange-600">{stats.dueToday}</p>
+          <p className="text-lg font-bold text-orange-600">{Number(stats.dueToday) || 0}</p>
           <p className="text-xs text-muted-foreground">Cần ôn hôm nay</p>
         </div>
         <div className="p-3 rounded-lg bg-green-50 dark:bg-green-900/10">
-          <p className="text-lg font-bold text-green-600">{stats.accuracy7Days}%</p>
+          <p className="text-lg font-bold text-green-600">{Number(stats.accuracy7Days) || 0}%</p>
           <p className="text-xs text-muted-foreground">Chính xác 7 ngày</p>
         </div>
         <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/10">
-          <p className="text-lg font-bold text-blue-600">{stats.reviewsToday}</p>
+          <p className="text-lg font-bold text-blue-600">{Number(stats.reviewsToday) || 0}</p>
           <p className="text-xs text-muted-foreground">Đã ôn hôm nay</p>
         </div>
         <div className="p-3 rounded-lg bg-purple-50 dark:bg-purple-900/10">
-          <p className="text-lg font-bold text-purple-600">{stats.averageEaseFactor.toFixed(1)}</p>
+          <p className="text-lg font-bold text-purple-600">{Number.isFinite(stats.averageEaseFactor) ? stats.averageEaseFactor.toFixed(1) : '0.0'}</p>
           <p className="text-xs text-muted-foreground">Ease Factor TB</p>
         </div>
       </div>

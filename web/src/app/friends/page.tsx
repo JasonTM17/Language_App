@@ -159,7 +159,7 @@ export default function FriendsPage() {
                     </div>
 
                     <div className="text-right">
-                      <p className="text-sm font-medium text-primary">{friend.xp.toLocaleString()} XP</p>
+                      <p className="text-sm font-medium text-primary">{(Number(friend.xp) || 0).toLocaleString()} XP</p>
                     </div>
                   </motion.div>
                 ))}

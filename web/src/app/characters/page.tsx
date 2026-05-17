@@ -113,7 +113,7 @@ export default function CharactersPage() {
           <span className="text-sm text-muted-foreground">{quizIndex + 1}/{currentChars.length}</span>
         </div>
         <div className="h-2 bg-muted rounded-full overflow-hidden">
-          <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${((quizIndex + 1) / currentChars.length) * 100}%` }} />
+          <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${currentChars.length > 0 ? Math.min(((quizIndex + 1) / currentChars.length) * 100, 100) : 0}%` }} />
         </div>
         <div className="p-8 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900/80 dark:to-gray-800/50 border border-border/60 backdrop-blur-sm shadow-lg shadow-purple-500/5 text-center">
           <p className="text-8xl font-bold mb-4">{char.character}</p>

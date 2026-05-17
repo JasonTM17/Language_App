@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { api } from '@/services/api';
-import { EmptyState } from '@/components/ui/states';
+import { EmptyState } from '@/components/ui/empty-state';
+import { Calendar, Bookmark } from 'lucide-react';
 
 interface BookmarkedWord {
   id: string;
@@ -128,15 +129,11 @@ export default function BookmarksPage() {
           >
             {wordsOfDay.length === 0 ? (
               <EmptyState
-                icon={
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                }
+                icon={Calendar}
                 title="Chưa có từ vựng hôm nay"
-                description="Đăng ký học ngôn ngữ để nhận từ vựng hàng ngày"
+                description="Đăng ký học ngôn ngữ để nhận từ vựng hàng ngày."
+                actionLabel="Chọn ngôn ngữ"
+                actionHref="/languages"
               />
             ) : (
               wordsOfDay.map((word, index) => (
@@ -158,15 +155,11 @@ export default function BookmarksPage() {
           >
             {bookmarks.length === 0 ? (
               <EmptyState
-                icon={
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                    </svg>
-                  </div>
-                }
+                icon={Bookmark}
                 title="Chưa có từ vựng nào được lưu"
-                description="Nhấn biểu tượng bookmark khi học để lưu từ"
+                description="Nhấn biểu tượng bookmark khi học để lưu từ vào danh sách."
+                actionLabel="Khám phá bài học"
+                actionHref="/lessons"
               />
             ) : (
               bookmarks.map((word, index) => (

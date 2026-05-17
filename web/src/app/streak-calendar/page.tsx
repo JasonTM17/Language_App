@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface DayData {
@@ -10,15 +10,19 @@ interface DayData {
 }
 
 export default function StreakCalendarPage() {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState<Date | null>(null);
+  const [monthData, setMonthData] = useState<DayData[]>([]);
 
-  const today = new Date();
-  const year = currentMonth.getFullYear();
-  const month = currentMonth.getMonth();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfWeek = new Date(year, month, 1).getDay();
+  useEffect(() => {
+    setCurrentMonth(new Date());
+  }, []);
 
-  const generateMockData = (): DayData[] => {
+  useEffect(() => {
+    if (!currentMonth) return;
+    const today = new Date();
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
     const data: DayData[] = [];
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(year, month, i);
@@ -30,10 +34,27 @@ export default function StreakCalendarPage() {
         xp: completed ? Math.floor(Math.random() * 50) + 10 : 0,
       });
     }
-    return data;
-  };
+    setMonthData(data);
+  }, [currentMonth]);
 
-  const [monthData] = useState<DayData[]>(generateMockData);
+  if (!currentMonth) {
+    return (
+      <div className="space-y-6 animate-pulse">
+        <div className="h-8 w-48 bg-muted rounded-lg" />
+        <div className="grid grid-cols-7 gap-2">
+          {Array.from({ length: 35 }).map((_, i) => (
+            <div key={i} className="aspect-square bg-muted rounded-lg" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const today = new Date();
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
 
   const streakDays = monthData.filter(d => d.completed).length;
   const totalXp = monthData.reduce((sum, d) => sum + d.xp, 0);

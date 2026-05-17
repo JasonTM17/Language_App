@@ -139,7 +139,7 @@ export default function ListeningPage() {
   };
 
   if (isCompleted) {
-    const percentage = Math.round((score.correct / score.total) * 100);
+    const percentage = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -237,7 +237,7 @@ export default function ListeningPage() {
         <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-500"
-            style={{ width: `${((currentIndex + 1) / currentExercises.length) * 100}%` }}
+            style={{ width: `${currentExercises.length > 0 ? Math.min(((currentIndex + 1) / currentExercises.length) * 100, 100) : 0}%` }}
           />
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">

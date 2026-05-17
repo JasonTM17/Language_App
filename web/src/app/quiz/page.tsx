@@ -130,7 +130,7 @@ export default function QuizPage() {
   }
 
   if (finished) {
-    const percentage = Math.round((score / questions.length) * 100);
+    const percentage = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -253,7 +253,7 @@ export default function QuizPage() {
           aria-label={`Câu hỏi ${currentIndex + 1} trên ${questions.length}`}
           className="h-full bg-gradient-to-r from-primary to-purple-500 rounded-full"
           initial={{ width: 0 }}
-          animate={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+          animate={{ width: `${questions.length > 0 ? Math.min(((currentIndex + 1) / questions.length) * 100, 100) : 0}%` }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         />
       </div>

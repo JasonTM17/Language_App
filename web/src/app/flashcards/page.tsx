@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { AudioPlayer } from '@/components/ui/audio-player';
+import { EmptyState } from '@/components/ui/empty-state';
 import { Layers, PartyPopper } from 'lucide-react';
 import { XpPopup } from '@/components/ui/xp-popup';
 import { api } from '@/services/api';
@@ -112,13 +113,14 @@ export default function FlashcardsPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="text-center py-16"
       >
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center mx-auto mb-4">
-          <Layers className="w-8 h-8 text-purple-500" />
-        </div>
-        <h3 className="text-lg font-semibold mb-2">Chưa có flashcard</h3>
-        <p className="text-muted-foreground">Hoàn thành bài học để mở khóa flashcard từ vựng.</p>
+        <EmptyState
+          icon={Layers}
+          title="Chưa có flashcard"
+          description="Hoàn thành bài học để mở khóa flashcard từ vựng."
+          actionLabel="Đi tới bài học"
+          actionHref="/lessons"
+        />
       </motion.div>
     );
   }

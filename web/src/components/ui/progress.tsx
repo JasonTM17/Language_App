@@ -9,7 +9,9 @@ interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
   ({ className, value = 0, max = 100, variant = 'default', ...props }, ref) => {
-    const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
+    const safeMax = Number.isFinite(max) && max > 0 ? max : 100;
+    const safeValue = Number.isFinite(value) ? value : 0;
+    const percentage = Math.min(Math.max((safeValue / safeMax) * 100, 0), 100);
 
     const variantClasses = {
       default: 'bg-primary-500',

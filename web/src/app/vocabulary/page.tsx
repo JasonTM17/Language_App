@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AudioPlayer } from '@/components/ui/audio-player';
+import { EmptyState } from '@/components/ui/empty-state';
 import { api } from '@/services/api';
 import type { SupportedLanguage } from '@/services/audio';
+import { BookOpen, Search } from 'lucide-react';
 
 interface VocabWord {
   id: string;
@@ -17,8 +19,11 @@ interface VocabWord {
 }
 
 function detectLang(word: string): SupportedLanguage {
+  // Hiragana U+3040-U+309F or Katakana U+30A0-U+30FF
   if (/[぀-ゟ゠-ヿ]/.test(word)) return 'ja';
+  // CJK Unified Ideographs U+4E00-U+9FFF (without hiragana)
   if (/[一-鿿]/.test(word) && !/[぀-ゟ]/.test(word)) return 'zh';
+  // Hangul Syllables U+AC00-U+D7AF
   if (/[가-힯]/.test(word)) return 'ko';
   return 'en';
 }
@@ -179,19 +184,18 @@ export default function VocabularyPage() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center py-16"
         >
-          <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-purple-500/10 flex items-center justify-center">
-            <svg className="w-10 h-10 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-          </div>
-          <h3 className="text-lg font-semibold mb-2">
-            {search ? 'Không tìm thấy từ nào' : 'Chưa có từ vựng'}
-          </h3>
-          <p className="text-muted-foreground">
-            {search ? 'Thử tìm kiếm với từ khóa khác.' : 'Hoàn thành bài học để mở khóa từ vựng.'}
-          </p>
+          <EmptyState
+            icon={search ? Search : BookOpen}
+            title={search ? 'Không tìm thấy từ nào' : 'Chưa có từ vựng'}
+            description={
+              search
+                ? 'Thử tìm kiếm với từ khóa khác.'
+                : 'Hoàn thành bài học để mở khóa từ vựng mới.'
+            }
+            actionLabel={search ? undefined : 'Đi tới bài học'}
+            actionHref={search ? undefined : '/lessons'}
+          />
         </motion.div>
       )}
     </motion.div>

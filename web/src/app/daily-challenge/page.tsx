@@ -330,7 +330,7 @@ export default function DailyChallengePage() {
       <div className="h-2 bg-muted rounded-full overflow-hidden">
         <motion.div
           className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full"
-          animate={{ width: `${((currentQuestion + 1) / challengeQuestions.length) * 100}%` }}
+          animate={{ width: `${challengeQuestions.length > 0 ? Math.min(((currentQuestion + 1) / challengeQuestions.length) * 100, 100) : 0}%` }}
           transition={{ duration: 0.3 }}
         />
       </div>

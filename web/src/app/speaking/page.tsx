@@ -227,7 +227,7 @@ export default function SpeakingPage() {
           <motion.div
             className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full"
             initial={{ width: 0 }}
-            animate={{ width: `${((currentPromptIndex + 1) / filteredPrompts.length) * 100}%` }}
+            animate={{ width: `${filteredPrompts.length > 0 ? Math.min(((currentPromptIndex + 1) / filteredPrompts.length) * 100, 100) : 0}%` }}
             transition={{ duration: 0.5 }}
           />
         </div>

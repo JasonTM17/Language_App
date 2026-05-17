@@ -26,7 +26,7 @@ export default function AchievementsPage() {
 
   useEffect(() => {
     api.achievements.list()
-      .then((data) => setAchievements(data.achievements))
+      .then((data) => setAchievements(Array.isArray(data?.achievements) ? data.achievements : []))
       .catch(() => setAchievements([]))
       .finally(() => setLoading(false));
   }, []);
@@ -75,7 +75,7 @@ export default function AchievementsPage() {
       >
         <div
           className="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all"
-          style={{ width: `${achievements.length > 0 ? (unlockedCount / achievements.length) * 100 : 0}%` }}
+          style={{ width: `${achievements.length > 0 ? Math.min((unlockedCount / achievements.length) * 100, 100) : 0}%` }}
         />
       </motion.div>
 

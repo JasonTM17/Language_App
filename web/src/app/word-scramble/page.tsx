@@ -248,7 +248,7 @@ export default function WordScramblePage() {
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentWords.length) * 100}%` }} />
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${currentWords.length > 0 ? Math.min((currentIndex / currentWords.length) * 100, 100) : 0}%` }} />
       </div>
 
       {/* Scrambled word */}

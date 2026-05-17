@@ -59,8 +59,9 @@ export default function QuestsPage() {
     );
   }
 
-  const completedCount = data?.quests.filter(q => q.completed).length || 0;
-  const totalQuests = data?.quests.length || 3;
+  const completedCount = data?.quests?.filter(q => q.completed).length || 0;
+  const totalQuests = data?.quests?.length || 3;
+  const headerProgress = totalQuests > 0 ? Math.min((completedCount / totalQuests) * 100, 100) : 0;
 
   return (
     <motion.div
@@ -95,7 +96,7 @@ export default function QuestsPage() {
           <motion.div
             className="h-full bg-white rounded-full"
             initial={{ width: 0 }}
-            animate={{ width: `${(completedCount / totalQuests) * 100}%` }}
+            animate={{ width: `${headerProgress}%` }}
             transition={{ duration: 0.8, delay: 0.3 }}
           />
         </div>
@@ -109,7 +110,11 @@ export default function QuestsPage() {
 
       {/* Quest list */}
       <div className="space-y-3">
-        {data?.quests.map((quest, i) => (
+        {data?.quests?.map((quest, i) => {
+          const qTarget = Number(quest.target) || 0;
+          const qCurrent = Number(quest.current) || 0;
+          const qPct = qTarget > 0 ? Math.min((qCurrent / qTarget) * 100, 100) : 0;
+          return (
           <motion.div
             key={i}
             initial={{ opacity: 0, x: -12 }}
@@ -138,21 +143,22 @@ export default function QuestsPage() {
                     <motion.div
                       className={`h-full rounded-full ${quest.completed ? 'bg-green-500' : 'bg-primary'}`}
                       initial={{ width: 0 }}
-                      animate={{ width: `${(quest.current / quest.target) * 100}%` }}
+                      animate={{ width: `${qPct}%` }}
                       transition={{ duration: 0.5, delay: 0.3 + i * 0.05 }}
                     />
                   </div>
-                  <span className="text-xs text-muted-foreground">{quest.current}/{quest.target}</span>
+                  <span className="text-xs text-muted-foreground">{qCurrent}/{qTarget}</span>
                 </div>
               </div>
               <div className="text-right">
                 <span className={`text-sm font-bold ${quest.completed ? 'text-green-600' : 'text-primary'}`}>
-                  +{quest.xpReward} XP
+                  +{Number(quest.xpReward) || 0} XP
                 </span>
               </div>
             </div>
           </motion.div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Info */}

@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { PartyPopper } from 'lucide-react';
+import { EmptyState } from '@/components/ui/empty-state';
+import { Brain, PartyPopper } from 'lucide-react';
 
 interface WeakWord {
   id: string;
@@ -113,7 +114,7 @@ export default function WeakWordsPage() {
           <span className="text-green-600 font-medium">{reviewed.size} đã nhớ</span>
         </div>
         <div className="h-2 bg-muted rounded-full overflow-hidden">
-          <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${((currentCard + 1) / sortedWords.length) * 100}%` }} />
+          <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${sortedWords.length > 0 ? Math.min(((currentCard + 1) / sortedWords.length) * 100, 100) : 0}%` }} />
         </div>
 
         <motion.div
@@ -224,6 +225,15 @@ export default function WeakWordsPage() {
       </div>
 
       {/* Word list */}
+      {sortedWords.length === 0 ? (
+        <EmptyState
+          icon={Brain}
+          title="Chưa có từ yếu nào"
+          description="Tiếp tục học và làm bài kiểm tra để hệ thống xác định từ cần ôn tập."
+          actionLabel="Đi tới Skill Tree"
+          actionHref="/skill-tree"
+        />
+      ) : (
       <div className="space-y-2">
         {sortedWords.map((word, index) => (
           <motion.div
@@ -249,6 +259,7 @@ export default function WeakWordsPage() {
           </motion.div>
         ))}
       </div>
+      )}
     </motion.div>
   );
 }

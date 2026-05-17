@@ -37,7 +37,7 @@ export default function DailyGoalsPage() {
 
   const dailyGoalXP = 100;
   const currentXP = 65;
-  const goalProgress = Math.min((currentXP / dailyGoalXP) * 100, 100);
+  const goalProgress = dailyGoalXP > 0 ? Math.min((currentXP / dailyGoalXP) * 100, 100) : 0;
 
   return (
     <motion.div
@@ -111,7 +111,9 @@ export default function DailyGoalsPage() {
 
       <div className="space-y-3">
         {filteredQuests.map((quest, index) => {
-          const progress = Math.min((quest.progress / quest.target) * 100, 100);
+          const safeTarget = Number(quest.target) || 0;
+          const safeProgress = Number(quest.progress) || 0;
+          const progress = safeTarget > 0 ? Math.min((safeProgress / safeTarget) * 100, 100) : 0;
           return (
             <motion.div
               key={quest.id}

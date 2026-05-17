@@ -125,13 +125,13 @@ export default function DictationPage() {
   const getAccuracy = () => {
     if (!currentExercise) return 0;
     const normalize = (s: string) => s.toLowerCase().replace(/[.,!?;:'"]/g, '').trim();
-    const target = normalize(currentExercise.sentence).split(' ');
+    const target = normalize(currentExercise.sentence).split(' ').filter(Boolean);
     const input = normalize(userInput).split(' ');
     let matches = 0;
     target.forEach((word, i) => {
       if (input[i] === word) matches++;
     });
-    return Math.round((matches / target.length) * 100);
+    return target.length > 0 ? Math.round((matches / target.length) * 100) : 0;
   };
 
   const nextExercise = () => {
@@ -166,7 +166,7 @@ export default function DictationPage() {
   }
 
   if (currentIndex >= currentExercises.length) {
-    const pct = Math.round((score.correct / score.total) * 100);
+    const pct = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -232,7 +232,7 @@ export default function DictationPage() {
         <span className="font-medium text-green-600">{score.correct} đúng</span>
       </div>
       <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${(currentIndex / currentExercises.length) * 100}%` }} />
+        <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${currentExercises.length > 0 ? Math.min((currentIndex / currentExercises.length) * 100, 100) : 0}%` }} />
       </div>
 
       {/* Audio controls */}
