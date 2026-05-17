@@ -454,6 +454,24 @@ git push origin feature/ten-feature
 
 ---
 
+## Tài liệu chi tiết
+
+| Tài liệu | Mô tả |
+|----------|--------|
+| [Architecture](docs/ARCHITECTURE.md) | Kiến trúc hệ thống, data flow, thuật toán SM-2, gamification, AI provider chain |
+| [API Reference](docs/api.md) | Tài liệu đầy đủ 38 endpoints với request/response examples |
+| [UI Guidelines](docs/UI_GUIDELINES.md) | Design tokens, components, dark mode, accessibility, responsive |
+| [Deployment](docs/DEPLOYMENT.md) | Hướng dẫn deploy Vercel, Render, Docker, CI/CD |
+| [Testing](docs/TESTING.md) | Test strategy, 16 test suites, Vitest patterns, Playwright E2E |
+| [Release Notes v1.1.0](docs/RELEASE_NOTES_v1.1.0.md) | Public-facing release notes |
+| [UI Audit Report](docs/UI_AUDIT_REPORT.md) | Báo cáo audit UI/UX (P0/P1/P2) |
+| [Contributing](CONTRIBUTING.md) | Workflow đóng góp, commit convention |
+| [Security](SECURITY.md) | Báo cáo lỗ hổng, supported versions |
+| [Code of Conduct](CODE_OF_CONDUCT.md) | Quy tắc ứng xử (Contributor Covenant 2.1) |
+| [Changelog](CHANGELOG.md) | Lịch sử thay đổi (Keep a Changelog format) |
+
+---
+
 ## Phạm vi dự án
 
 Đây là dự án portfolio cá nhân, thể hiện kỹ năng phát triển phần mềm full-stack.
