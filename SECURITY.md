@@ -99,7 +99,18 @@ Người báo cáo có thiện chí sẽ được ghi nhận trong release notes
 
 ---
 
-## 6. Tài liệu liên quan
+## 6. Known issues và acceptable risks
+
+| CVE / Issue | Severity | Path | Status | Lý do |
+|-------------|----------|------|--------|-------|
+| GHSA-qx2v-qp2m-jg93 (postcss XSS) | Moderate | `next/node_modules/postcss` | Acknowledged | Transitive dep của Next.js 14. Chỉ ảnh hưởng dev build pipeline (không expose runtime). Fix yêu cầu upgrade Next.js 16 (breaking). Sẽ fix trong v2.0.0. |
+| Vitest dev deps | Moderate | `web/node_modules/vitest` | Acknowledged | Dev-only, không deploy production. Re-evaluate khi upgrade Next.js. |
+
+API: 0 CVEs (đã upgrade vitest lên latest).
+
+---
+
+## 7. Tài liệu liên quan
 
 - [CONTRIBUTING.md](CONTRIBUTING.md) - quy trình đóng góp và yêu cầu test
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - chuẩn mực ứng xử
